@@ -11,6 +11,25 @@ void zapisz(string path,vector<float>,float a, float b,float krok);
 float znajdz(string path,vector<float> wsp,float a, float b,float eps);
 int main()
 {
+/*
+	int stopien;
+	cout<<"Podaj stopien wielomianu: ";
+	cin>>stopien;
+	vector<float> wsp;
+	if(stopien>20)
+	{
+		cout<<"Za duzo"<<endl;
+		return 1;
+	};
+	int x=0;
+	for(x=0;x<stopien;x++)
+	{
+		cout<<"Podaj wspolczynnik "<<(char)('a'+x)<<": ";
+		float tmp;
+		cin>>tmp;
+		wsp.push_back(tmp);
+	};
+*/
 	int stopien=5;
 	vector<float> wsp;
 	wsp.push_back(1);

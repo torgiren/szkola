@@ -4,11 +4,12 @@ using namespace std;
 float f1(float x);
 float f2(float x);
 float f3(float x);
+float g(float x);
 float (*f)(float x);
 int main()
 {
-	int n=7;
-	f=f1;
+	int n=3;
+	f=g;
 	float** tab=new float*[n];
 	int i;
 	int j;
@@ -18,16 +19,24 @@ int main()
 	};
 	float a=0;
 	float b=1;
-	tab[0][0]=f(b)/2+f(a)/2;
+	float h=(b-a)/pow(2,0);
+	cout<<"h0="<<h<<endl;
+	cout<<"R(0,0)=("<<f(a)<<"+"<<f(a+h)<<")/2"<<endl;
+	tab[0][0]=(f(a)+f(a+0.25))/2;
 	for(i=1;i<n;i++)
 	{ 
+		cout<<"@"<<endl;
 		tab[i][0]=tab[i-1][0]/2;
 		float tmp=0;
 		float max=pow(2,i-1);
 		float h=(b-a)/(max*2);
-		for(j=1;j<=max;j++)
+		cout<<"h= "<<h<<endl;
+		for(j=1;j<max;j++)
 		{
+			cout<<"*";
+			cout<<"f("<<a<<"+2*"<<j<<"-1)*"<<h<<")"<<endl;
 			tmp+=f(a+(2*j-1)*h);
+			cout<<"$"<<endl;
 		};
 		tmp*=h;
 		tab[i][0]+=h;
@@ -61,5 +70,15 @@ float f3(float x)
 {
 	if(x==0) x=0.0000001;	
 	return 1/(x*exp(x));
+};
+float g(float x)
+{
+	if(x==0) return 1;
+	if(x==0.25) return 2;
+	if(x==0.5) return 2;
+	if(x==0.75) return 0;
+	if(x==1) return 1;
+	cout<<"Bladi! x="<<x<<endl;
+	return 0;
 };
 

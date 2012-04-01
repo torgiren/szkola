@@ -71,6 +71,36 @@ int main()
 	};
 	printf("3)\n");
 
+	float e=10;
+	float **r1=matrix(1,2,1,2);
+	float **r2=matrix(1,2,1,2);
+	r1[1][1]=10;
+	r1[1][2]=0;
+	r1[2][1]=10;
+	r1[2][2]=0;
+	
+	float w=1;
+	int max_iter=100;
+	i=0;
+	do
+	{
+		i++;
+		r2=sub(r1,mul(A,grad(r1[1][1],r1[1][2])));
+		printf("%.2f\t%.2f\n%.2f\t%.2f\n",r2[1][1],r2[2][1],r2[1][2],r2[2][2]);
+		float** tmp=sub(r2,r1);
+		printf("%.2f\t%.2f\n%.2f\t%.2f\n",tmp[1][1],tmp[2][1],tmp[1][2],tmp[2][2]);
+		e=dl(tmp);
+		printf("%f\n",e);
+		free_matrix(tmp,1,2,1,2);
+		printf("*");
+		r1=r2;
+		if(i>max_iter) break;
+	}while(e>0.000006);
+	printf("\n");
+//	float **
+
+
+
 	free_matrix(r,1,2,1,2);
 	free_matrix(b,1,2,1,2);
 	free_matrix(A,1,2,1,2);

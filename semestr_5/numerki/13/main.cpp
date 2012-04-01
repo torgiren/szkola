@@ -19,7 +19,7 @@ float** Minus(float** A, float** B, int n);
 using namespace std;
 int main()
 {
-	int n=7;
+	int n=178;
 	float **A=matrix(1,n,1,n);
 	float **W=matrix(1,n,1,n);
 	float *d=vector(1,n);
@@ -54,7 +54,8 @@ int main()
 	int k;
 	for(k=1;k<=n;k++)
 	{
-		cout<<"K: "<<k<<endl;
+		printf("K: %d\n",k);
+//		cout<<"K: "<<k<<endl;
 		for(i=1;i<=n;i++)
 			x[i]=1;
 		for(i=0;i<8;i++)
@@ -69,7 +70,8 @@ int main()
 //			cout<<"d"<<endl;
 			Copy(x1,x,n);
 //			cout<<"e"<<endl;
-			cout<<"iter "<<i<<": l="<<l<<endl;
+			printf("iter %d: l=%f\n",i,l);
+//			cout<<"iter "<<i<<": l="<<l<<endl;
 		};
 //		cout<<l<<" ";
 //		float** W_tmp=Mnoz2(x,x,n);
@@ -77,6 +79,7 @@ int main()
 		Copy(Minus(W,Mnoz(Mnoz2(x,x,n),l,n),n),W,n);
 	}
 	cout<<endl;
+
 };
 
 void Print(float** A, int n)

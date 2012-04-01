@@ -1,7 +1,7 @@
 #!/usr/bin/gnuplot
-set term postscript color enhanced eps
+set term jpeg
 set size square
-set out "f.eps"
+set out "f.jpg"
 set xlabel "x"
 set ylabel "f(x)"
 set grid

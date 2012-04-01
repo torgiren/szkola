@@ -3,7 +3,7 @@ set term jpeg
 set size square
 set out "f.jpg"
 set xlabel "x"
-set ylabel "g(x,y)"
+set ylabel "f(x,y)"
 set grid
 set contour
 set cntrparam levels 200

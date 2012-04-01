@@ -1,4 +1,4 @@
-CXXFLAGS=-Wall 
+CXXFLAGS=-Wall -I/home/labs/komputerowe_symulacje_numeryczne/numerical_recipes.c -g
 main: main.o
 	g++ main.o -o main ${CXXFLAGS}
 main.o: main.cpp

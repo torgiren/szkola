@@ -16,8 +16,8 @@ int main()
 
 	float a=2; //Bok obszaru V;
 	float V=a*a*a;
-	int N=N_MAX;
-//	for(N=N_MIN;N<N_MAX;N+=100)
+	int N;
+	for(N=N_MIN;N<N_MAX;N+=1000)
 	{
 			int i;
 			float I=0;
@@ -27,7 +27,7 @@ int main()
 			{
 				float x=los(a)-a/2;
 				float y=los(a)-a/2;
-				float z=los(a/2)-a/4;
+				float z=los(a/2)-a/2;
 		//		cout<<"Sprawdzam punkt "<<x<<","<<y<<","<<z<<", i stwierdzam ze thera wynosi: "<<theta(x,y,z)<<endl;
 				if(theta(x,y,z))
 				{
@@ -37,10 +37,6 @@ int main()
 					sum1+=tmp*tmp;
 					sum2+=tmp;
 				};
-				if(!(i%100))
-				{
-					cout<<i<<" "<<I*V/i<<" "<<sqrt(((sum1-(sum2*sum2)/i)/(i-1)/i))<<endl;
-				};
 			};
 			I*=V;
 			I/=N;
@@ -49,7 +45,7 @@ int main()
 			s2/=(N-1);
 			float s=sqrt(s2/N);
 		//	cout<<"Blad s^2="<<s2<<"\ts="<<s<<endl;
-//			cout<<N<<" "<<I<<" "<<s<<endl;
+			cout<<N<<" "<<I<<" "<<s<<endl;
 	};
 /*
 	
