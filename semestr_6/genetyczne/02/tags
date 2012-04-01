@@ -1,0 +1,39 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CXXLFAGS	Makefile	/^CXXLFAGS=-Wall$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS=$/;"	m
+Osobnik	main.cpp	/^	Osobnik(int dlugosc=6)$/;"	f	class:Osobnik	access:public	signature:(int dlugosc=6)
+Osobnik	main.cpp	/^class Osobnik$/;"	c	file:
+Osobnik::Osobnik	main.cpp	/^	Osobnik(int dlugosc=6)$/;"	f	class:Osobnik	access:public	signature:(int dlugosc=6)
+Osobnik::RetDlugosc	main.cpp	/^	int RetDlugosc() {return itsDlugosc;};$/;"	f	class:Osobnik	access:public	signature:()
+Osobnik::RetValues	main.cpp	/^	const vector<unsigned int>& RetValues() {cout<<"Wartosci[0]="<<itsWartosci[0]<<endl;return itsWartosci;};$/;"	f	class:Osobnik	access:public	signature:()
+Osobnik::SetValues	main.cpp	/^	void SetValues(vector<unsigned int>& val)$/;"	f	class:Osobnik	access:public	signature:(vector<unsigned int>& val)
+Osobnik::itsDlugosc	main.cpp	/^	int itsDlugosc;$/;"	m	class:Osobnik	file:	access:private
+Osobnik::itsWartosci	main.cpp	/^	vector<unsigned int> itsWartosci;$/;"	m	class:Osobnik	file:	access:private
+Osobnik::operator <<	main.cpp	/^	friend ostream& operator<<(ostream& out,Osobnik& osob);$/;"	p	class:Osobnik	file:	access:friend	signature:(ostream& out,Osobnik& osob)
+RetDlugosc	main.cpp	/^	int RetDlugosc() {return itsDlugosc;};$/;"	f	class:Osobnik	access:public	signature:()
+RetValues	main.cpp	/^	const vector<unsigned int>& RetValues() {cout<<"Wartosci[0]="<<itsWartosci[0]<<endl;return itsWartosci;};$/;"	f	class:Osobnik	access:public	signature:()
+Schemat	main.cpp	/^	Schemat(vector<unsigned int> values)$/;"	f	class:Schemat	access:public	signature:(vector<unsigned int> values)
+Schemat	main.cpp	/^class Schemat$/;"	c	file:
+Schemat::Schemat	main.cpp	/^	Schemat(vector<unsigned int> values)$/;"	f	class:Schemat	access:public	signature:(vector<unsigned int> values)
+Schemat::itsDlugosc	main.cpp	/^	int itsDlugosc;$/;"	m	class:Schemat	file:	access:private
+Schemat::itsWartosci	main.cpp	/^	vector<unsigned int> itsWartosci;$/;"	m	class:Schemat	file:	access:private
+Schemat::operator <	main.cpp	/^	bool operator<(const Schemat & schema) const$/;"	f	class:Schemat	access:public	signature:(const Schemat & schema) const
+Schemat::operator <<	main.cpp	/^	friend ostream& operator<<(ostream& out,const Schemat& schema);$/;"	p	class:Schemat	file:	access:friend	signature:(ostream& out,const Schemat& schema)
+SetValues	main.cpp	/^	void SetValues(vector<unsigned int>& val)$/;"	f	class:Osobnik	access:public	signature:(vector<unsigned int>& val)
+WyznaczSchematy	main.cpp	/^set<Schemat> WyznaczSchematy(Osobnik& osob)$/;"	f	signature:(Osobnik& osob)
+inc	main.cpp	/^void inc(vector<unsigned int>& tab,set<Schemat>& schema,int start=0)$/;"	f	signature:(vector<unsigned int>& tab,set<Schemat>& schema,int start=0)
+itsDlugosc	main.cpp	/^	int itsDlugosc;$/;"	m	class:Osobnik	file:	access:private
+itsDlugosc	main.cpp	/^	int itsDlugosc;$/;"	m	class:Schemat	file:	access:private
+itsWartosci	main.cpp	/^	vector<unsigned int> itsWartosci;$/;"	m	class:Osobnik	file:	access:private
+itsWartosci	main.cpp	/^	vector<unsigned int> itsWartosci;$/;"	m	class:Schemat	file:	access:private
+main	main.cpp	/^int main()$/;"	f	signature:()
+operator <	main.cpp	/^	bool operator<(const Schemat & schema) const$/;"	f	class:Schemat	access:public	signature:(const Schemat & schema) const
+operator <<	main.cpp	/^	friend ostream& operator<<(ostream& out,Osobnik& osob);$/;"	p	class:Osobnik	file:	access:friend	signature:(ostream& out,Osobnik& osob)
+operator <<	main.cpp	/^	friend ostream& operator<<(ostream& out,const Schemat& schema);$/;"	p	class:Schemat	file:	access:friend	signature:(ostream& out,const Schemat& schema)
+operator <<	main.cpp	/^ostream& operator<<(ostream& out,Osobnik& osob)$/;"	f	signature:(ostream& out,Osobnik& osob)
+operator <<	main.cpp	/^ostream& operator<<(ostream& out,const Schemat& schema)$/;"	f	signature:(ostream& out,const Schemat& schema)

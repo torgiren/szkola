@@ -1,0 +1,95 @@
+\hypertarget{classStrzelnica}{
+\section{Strzelnica Class Reference}
+\label{classStrzelnica}\index{Strzelnica@{Strzelnica}}
+}
+
+
+{\ttfamily \#include $<$strzelnica.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classStrzelnica_a302cebea01b16fab0af5d3f59cac9711}{Nowy} ()
+\item 
+void \hyperlink{classStrzelnica_ad79a2e13f258397bec5a1a4f9957950a}{Zamknij} ()
+\item 
+pthread\_\-t \hyperlink{classStrzelnica_a87418d047f58586ba4b597a976a0dd3f}{RetMainLoopThread} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classStrzelnica}{Strzelnica} $\ast$ \hyperlink{classStrzelnica_a29520cd8701e353e057114b9c00910ca}{GetInstance} ()
+\item 
+static void $\ast$ \hyperlink{classStrzelnica_a607aab055cd7b761fe5221d25f910c03}{MainLoop} (void $\ast$ptr)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Klasa zajmujaca sie obsluga strzelnicy \begin{DoxyAuthor}{Author}
+Marcin Fabrykowski 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classStrzelnica_a29520cd8701e353e057114b9c00910ca}{
+\index{Strzelnica@{Strzelnica}!GetInstance@{GetInstance}}
+\index{GetInstance@{GetInstance}!Strzelnica@{Strzelnica}}
+\subsubsection[{GetInstance}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf Strzelnica}$\ast$ Strzelnica::GetInstance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}
+\label{classStrzelnica_a29520cd8701e353e057114b9c00910ca}
+Zwraca wskaznik na instancje singletona \begin{DoxyReturn}{Returns}
+Wskaznik na instancje Strzelnicy 
+\end{DoxyReturn}
+\hypertarget{classStrzelnica_a607aab055cd7b761fe5221d25f910c03}{
+\index{Strzelnica@{Strzelnica}!MainLoop@{MainLoop}}
+\index{MainLoop@{MainLoop}!Strzelnica@{Strzelnica}}
+\subsubsection[{MainLoop}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ Strzelnica::MainLoop (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classStrzelnica_a607aab055cd7b761fe5221d25f910c03}
+Glowna petla pobierajaca klientow z kolejki i umieszczajaca ich na odpowiednich torach 
+\begin{DoxyParams}{Parameters}
+{\em ptr} & nieuzywane \\
+\hline
+\end{DoxyParams}
+\hypertarget{classStrzelnica_a302cebea01b16fab0af5d3f59cac9711}{
+\index{Strzelnica@{Strzelnica}!Nowy@{Nowy}}
+\index{Nowy@{Nowy}!Strzelnica@{Strzelnica}}
+\subsubsection[{Nowy}]{\setlength{\rightskip}{0pt plus 5cm}void Strzelnica::Nowy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classStrzelnica_a302cebea01b16fab0af5d3f59cac9711}
+Symuluje nowego interesanta \hypertarget{classStrzelnica_a87418d047f58586ba4b597a976a0dd3f}{
+\index{Strzelnica@{Strzelnica}!RetMainLoopThread@{RetMainLoopThread}}
+\index{RetMainLoopThread@{RetMainLoopThread}!Strzelnica@{Strzelnica}}
+\subsubsection[{RetMainLoopThread}]{\setlength{\rightskip}{0pt plus 5cm}pthread\_\-t Strzelnica::RetMainLoopThread (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classStrzelnica_a87418d047f58586ba4b597a976a0dd3f}
+Zwraca id watku glowej petli strzelnicy \begin{DoxyReturn}{Returns}
+id watku MainLoop 
+\end{DoxyReturn}
+\hypertarget{classStrzelnica_ad79a2e13f258397bec5a1a4f9957950a}{
+\index{Strzelnica@{Strzelnica}!Zamknij@{Zamknij}}
+\index{Zamknij@{Zamknij}!Strzelnica@{Strzelnica}}
+\subsubsection[{Zamknij}]{\setlength{\rightskip}{0pt plus 5cm}void Strzelnica::Zamknij (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classStrzelnica_ad79a2e13f258397bec5a1a4f9957950a}
+Zamyka strzelnice. Oczekuje do skonczenia strzelania klientow w strzelnicy 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+strzelnica.h\item 
+strzelnica.cpp\end{DoxyCompactItemize}

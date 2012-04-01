@@ -1,0 +1,24 @@
+This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdfetex 2011.8.30)  21 OCT 2011 02:12
+entering extended mode
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**./plot.eps
+(./plot.eps
+./plot.eps:37: Missing $ inserted.
+<inserted text> 
+                $
+<to be read again> 
+                   _
+l.37 /hpt_
+           31.5 def
+? 
+./plot.eps:37: Emergency stop.
+<inserted text> 
+                $
+<to be read again> 
+                   _
+l.37 /hpt_
+           31.5 def
+End of file on the terminal!
+
+./plot.eps:37:  ==> Fatal error occurred, no output PDF file produced!

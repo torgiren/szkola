@@ -1,0 +1,53 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{graphicx} 
+\oddsidemargin 0cm
+\marginparwidth 0cm
+\hoffset 0cm
+\usepackage{polski}
+\begin{document} 
+\large
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multicolumn{4}{|l|}{Temat:}\\
+\multicolumn{4}{|c|}{Wyznaczanie wartości i~wektorów własnych macierzy symetrycznej}\\
+\multicolumn{4}{|c|}{metodą potęgową z~redukcją Hotellinga}\\
+\hline
+\multicolumn{1}{|l}{Wykonał:}&\multicolumn{1}{|l}{Wydział:}&\multicolumn{1}{|c}{Kierunek}&\multicolumn{1}{|l|}{Grupa:}\\
+Marcin Fabrykowski&FiIS&Inf. Stos.&grupa 3\\
+\hline
+\end{tabular}
+\normalsize
+\vspace{2cm}
+\begin{enumerate}
+\item Wstęp\\
+Metoda potęgową z~wykorzystaniem redukcji Hotellinga jest skuteczna tylko dla macierzy symetrycznych.
+Aby wyznaczyć wartości własne należy wykorzystać następujący algorytm:
+\begin{enumerate}
+\item Ustalamy numer poszukiwanej wartości własnej $k=1,2,\dots,n$
+\item Ustalamy wektor startowy $x_0=[1,2,\dots,n]$
+\item Następnie iteracyjnie wykonujemy kolejne przybliżenia $\lambda$:
+\begin{enumerate}
+\item $x_{i+1}=W_kx_i$
+\item $\lambda_i=\dfrac{x_{i+1}^T}{x_i^Tx_i}$
+\item $x_{i+1}=\dfrac{x_{i+1}}{\|x_{i+1}\|_2}$
+\item $x_i=x_{i+1}$
+\end{enumerate}
+po wykonaniu powyższego, wykonujemy redukcję macierzy W: $W_{k+1}=W_k-\lambda_kx_kx_k^T$
+\end{enumerate}
+Wartość $\lambda_k$ reprezentuje $k$-tą wartość własną macierzy.
+\item Wykonanie\\
+Wyznaczamy wektory własne macierzy A, gdzie $A_{ij}=A_{ji}=\sqrt{i+j}$ przy użycia biblioteki Numerical Reciples, a~następnie porównujemy je z~wartościami otrzymanymi metodą Hotellinga.\\
+Zadanie to realizuje poniższy program:
+\lstinputlisting[language=C++,caption=main.cpp,breakatwhitespace=true,basicstyle=\footnotesize,breaklines=true]{main.cpp}
+Czego wynikiem jest:\\
+\footnotesize
+\verbatiminput{date.txt}
+\normalsize
+\item Wnioski\\
+Metoda potęgowa jest nieco wolniejsza niż ta z~Numerical Reciples, jednakże ta druga nie radzi sobie z~większymi macierzami. Przestaje działać przy $n>=180$. Natomiast metoda potęgowa daje sobie radę nawet z~rozmiarami $n=500$, co czyni ją bardzo przydatną przy większych macierzach.
+\end{enumerate}
+\end{document}

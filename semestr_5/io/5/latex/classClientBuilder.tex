@@ -1,0 +1,85 @@
+\hypertarget{classClientBuilder}{
+\section{ClientBuilder Class Reference}
+\label{classClientBuilder}\index{ClientBuilder@{ClientBuilder}}
+}
+
+
+{\ttfamily \#include $<$client.h$>$}
+
+Inheritance diagram for ClientBuilder:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classClientBuilder}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classClientBuilder_a1a8a43d20d6452aa8f7e55ff7464d4d9}{CreateClient} ()
+\item 
+\hyperlink{classClient}{Client} $\ast$ \hyperlink{classClientBuilder_a810820bea069cb0612b6a788f290ae11}{RetClient} ()
+\item 
+virtual void \hyperlink{classClientBuilder_a7c6225251cb997b4cb9d68c77cb67330}{SetBron} ()=0
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classClient}{Client} $\ast$ \hyperlink{classClientBuilder_a18ca0906572c5a1a86000c7a51175c23}{itsClient}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Builder klas Klientow \begin{DoxyAuthor}{Author}
+Marcin Fabrykowski 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classClientBuilder_a1a8a43d20d6452aa8f7e55ff7464d4d9}{
+\index{ClientBuilder@{ClientBuilder}!CreateClient@{CreateClient}}
+\index{CreateClient@{CreateClient}!ClientBuilder@{ClientBuilder}}
+\subsubsection[{CreateClient}]{\setlength{\rightskip}{0pt plus 5cm}void ClientBuilder::CreateClient (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classClientBuilder_a1a8a43d20d6452aa8f7e55ff7464d4d9}
+Tworzenie klienta \hypertarget{classClientBuilder_a810820bea069cb0612b6a788f290ae11}{
+\index{ClientBuilder@{ClientBuilder}!RetClient@{RetClient}}
+\index{RetClient@{RetClient}!ClientBuilder@{ClientBuilder}}
+\subsubsection[{RetClient}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Client}$\ast$ ClientBuilder::RetClient (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classClientBuilder_a810820bea069cb0612b6a788f290ae11}
+Zwraca stworzonego klienta \begin{DoxyReturn}{Returns}
+Wskaznik do utworzonego klienta 
+\end{DoxyReturn}
+\hypertarget{classClientBuilder_a7c6225251cb997b4cb9d68c77cb67330}{
+\index{ClientBuilder@{ClientBuilder}!SetBron@{SetBron}}
+\index{SetBron@{SetBron}!ClientBuilder@{ClientBuilder}}
+\subsubsection[{SetBron}]{\setlength{\rightskip}{0pt plus 5cm}virtual void ClientBuilder::SetBron (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}
+\label{classClientBuilder_a7c6225251cb997b4cb9d68c77cb67330}
+Wirtualna funkcja ustawiania broni 
+
+Implemented in \hyperlink{classPistolClientBuilder_a74f10c9d757f56e3cc1ae6257a09fea6}{PistolClientBuilder}, \hyperlink{classCrossbowClientBuilder_a1ed4ca8da04961a163aca90d4f7978ee}{CrossbowClientBuilder}, and \hyperlink{classRifleClientBuilder_a65d74c8413cd74184e974b3457d7aaea}{RifleClientBuilder}.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classClientBuilder_a18ca0906572c5a1a86000c7a51175c23}{
+\index{ClientBuilder@{ClientBuilder}!itsClient@{itsClient}}
+\index{itsClient@{itsClient}!ClientBuilder@{ClientBuilder}}
+\subsubsection[{itsClient}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Client}$\ast$ {\bf ClientBuilder::itsClient}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classClientBuilder_a18ca0906572c5a1a86000c7a51175c23}
+Wstaznik na utworzonego klienta 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+client.h\item 
+client.cpp\end{DoxyCompactItemize}

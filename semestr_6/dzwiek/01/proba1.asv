@@ -1,0 +1,7 @@
+clear
+L=1000;
+fp=48000;
+
+t=(0:L-1)/fp;
+y=sin(2*pi*L*t);
+plot(y);

@@ -1,0 +1,86 @@
+\hypertarget{classLogger}{
+\section{Logger Class Reference}
+\label{classLogger}\index{Logger@{Logger}}
+}
+
+
+{\ttfamily \#include $<$logger.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classLogger_a82870c41423ead8d99e43ad7f65801c9}{SetPath} (std::string path)
+\item 
+void \hyperlink{classLogger_a3d5ca95baed18bb70cac5810dd75b078}{StartTimer} ()
+\item 
+void \hyperlink{classLogger_a1072e97828310d0ea96359b1f2860344}{Log} (std::string data)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classLogger}{Logger} $\ast$ \hyperlink{classLogger_ab01142bf10138e73356980ad146e95ba}{GetInstance} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Klasa logujaca wydarzenia w strzelnicy \begin{DoxyAuthor}{Author}
+Marcin Fabrykowski 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classLogger_ab01142bf10138e73356980ad146e95ba}{
+\index{Logger@{Logger}!GetInstance@{GetInstance}}
+\index{GetInstance@{GetInstance}!Logger@{Logger}}
+\subsubsection[{GetInstance}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf Logger}$\ast$ Logger::GetInstance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}
+\label{classLogger_ab01142bf10138e73356980ad146e95ba}
+Zwraca instancje singletona \begin{DoxyReturn}{Returns}
+Wskaznik na jedyna instancje 
+\end{DoxyReturn}
+\hypertarget{classLogger_a1072e97828310d0ea96359b1f2860344}{
+\index{Logger@{Logger}!Log@{Log}}
+\index{Log@{Log}!Logger@{Logger}}
+\subsubsection[{Log}]{\setlength{\rightskip}{0pt plus 5cm}void Logger::Log (
+\begin{DoxyParamCaption}
+\item[{std::string}]{data}
+\end{DoxyParamCaption}
+)}}
+\label{classLogger_a1072e97828310d0ea96359b1f2860344}
+Loguje zadany ciag znakow. Automatycznie dodaje znak konca lini 
+\begin{DoxyParams}{Parameters}
+{\em data} & Dane do zalogowania \\
+\hline
+\end{DoxyParams}
+\hypertarget{classLogger_a82870c41423ead8d99e43ad7f65801c9}{
+\index{Logger@{Logger}!SetPath@{SetPath}}
+\index{SetPath@{SetPath}!Logger@{Logger}}
+\subsubsection[{SetPath}]{\setlength{\rightskip}{0pt plus 5cm}void Logger::SetPath (
+\begin{DoxyParamCaption}
+\item[{std::string}]{path}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classLogger_a82870c41423ead8d99e43ad7f65801c9}
+Ustawia sciezke do pliku logow. Jesli plik istnieje, zostanie nadpisany 
+\begin{DoxyParams}{Parameters}
+{\em path} & sciezka do pliku \\
+\hline
+\end{DoxyParams}
+\hypertarget{classLogger_a3d5ca95baed18bb70cac5810dd75b078}{
+\index{Logger@{Logger}!StartTimer@{StartTimer}}
+\index{StartTimer@{StartTimer}!Logger@{Logger}}
+\subsubsection[{StartTimer}]{\setlength{\rightskip}{0pt plus 5cm}void Logger::StartTimer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classLogger_a3d5ca95baed18bb70cac5810dd75b078}
+Ustawia moemnt od ktorego bedzie liczony czas w logach 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+logger.h\item 
+logger.cpp\end{DoxyCompactItemize}

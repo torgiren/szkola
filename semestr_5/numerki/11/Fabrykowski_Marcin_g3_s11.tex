@@ -1,0 +1,53 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{graphicx} 
+\oddsidemargin 0cm
+\marginparwidth 0cm
+\hoffset 0cm
+\usepackage{polski}
+\begin{document} 
+\large
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multicolumn{4}{|l|}{Temat:}\\
+\multicolumn{4}{|c|}{Metoda Monte Carlo}\\
+\hline
+\multicolumn{1}{|l}{Wykonał:}&\multicolumn{1}{|l}{Wydział:}&\multicolumn{1}{|c}{Kierunek}&\multicolumn{1}{|l|}{Grupa:}\\
+Marcin Fabrykowski&FiIS&Inf. Stos.&grupa 3\\
+\hline
+\end{tabular}
+\normalsize
+\vspace{2cm}
+\begin{enumerate}
+\item Wstęp\\
+Metoda Monte Carlo pozwala uprościć obliczenia matematyczne gdy są one skomplikowane, bądź niemożliwe do obliczenia w~skończonym czasie, kosztem dokładności obliczeń. Polega ona na losowaniu próbek i~sprawdzaniu tych próbek ze znanymi zależnościami. Przykładem mogą być symulacje zderzeń cząstek, gdzie losowane są parametry zderzenia, prędkość, kąt a~następnie ze znanych zależności, obliczany jest wynik takiego zderzenia. Zakładając losowość generatora pseudolosowego można powiedzieć ze otrzymane wyniki są prawdopodobne. Innym przykładem może być obliczanie momentu bezwładności bryły. Tutaj również posługujemy się losowymi próbkami punktów w~danym obszarze.\\
+Wyniki otrzymywane tą metodą są szybkie ale cechują się pewnym błędem wynikającym z~losowości próbek
+\item Wykonanie ćwiczenia\\
+Celem naszego ćwiczenia będzie obliczenie metodą Monte Carlo momentu bezwładności sześciany w~dwóch przypadkach. Gdy oś obrotu przechodzi przez:
+\begin{enumerate}
+\item Przekątną bryły
+\item Jedną z~krawędzi
+\end{enumerate}
+Moment bezwładności obliczamy ze wzoru: $I=\int\limits_Mr^2dm$. Zakładamy jednorodność bryły: $dm=\sigma dV$ co daje:
+$$I=\sigma \int\limits_\Omega r^2d\Omega$$
+Do metody Monte Carlo, będziemy potrzebowali wzoru który będzie uwzględniał trafienie próbki w~badany obszar.
+$$I=\dfrac{V\sigma}{N}\sum\limits_{n=1}^Nr_i^2\Theta_i$$
+gdzie $N$ to liczba próbek, $V$ objętość obszaru w~którym będziemy losować próbki, $\Theta$ jest boolowską funkcją sprawdzającą czy dana próbka znajduję się w~obszarze $\Omega$ będącym obszarem badanej przez nas bryły.\\
+Dodatkowa wiedza która będzie nam potrzebna, to jak policzyć odległość punktu od prostej.\\
+$r_i=\sqrt{\dfrac{ {|R_1-R_i|}^2{|R_2-R_1|}^2-{[(R_1-R_i)(R_2-R_1)]}^2}{|R_2-R_1|^2}}$\\
+W~naszym ćwiczeniu założymy gęstość $\sigma=1$ oraz liczbę próbek $N=10^6$, obszar $V$ przyjmujemy jako sześcian o~boku $a=4$ natomiast obszar $\Omega$ jako sześcian o~boku $b=2$. Oba sześciany są jednokładne i~maja środku w~punkcie $(0,0,0)$.\\
+Program realizujący powyższe zadanie dla przekątnej bryły:
+\lstinputlisting[language=C++,caption=main.cpp,breakatwhitespace=true,basicstyle=\footnotesize,breaklines=true,tabsize=4]{main.cpp}
+Natomiast, aby obliczyć dla osi położonej na krawędzi (bądź dowolnego innego), należy odpowiednio zdefiniować wektor osi w~linijkach 88 i~89.\\
+Po otrzymaniu wyniku obliczamy wariancję oszacowania. Korzystamy ze wzoru:
+$$s^2(N)=\dfrac{1}{N-1}\left[\sum\limits_{i=1}^N(V\cdot\sigma\cdot r_i^2\cdot\Theta_i)^2-\dfrac{1}{N}\left(\sum\limits_{i=1}^2V\cdot\sigma\cdot r_i^2\cdot\Theta_i\right)^2\right]$$
+Natomiast odchylenie standardowe:
+$$s(I)=\sqrt{\dfrac{s^2}{N}}$$
+\item Wnioski\\
+Metoda Monte Carlo cechuje się znacznym przyśpieszenie obliczeń względem obliczania dokładnego trudnych obliczeń. W~przypadku obliczeń inżynierskich, gdzie dokładne wyniki nie są wymagane (zbyt dokładne) a~ważna jest szybkość ich otrzymania jest ważniejsza, metoda ta doskonale spełnia te wymagania.
+
+\end{enumerate}
+\end{document}
