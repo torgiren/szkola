@@ -1,0 +1,10 @@
+select empno,ename from emp where sal=(select max(sal) from emp where emp.job<>'PRESIDENT');
+select ename from emp where job=(select job from emp where empno=7369) and sal>(select sal from emp where empno=7876);
+select dname from dept join emp on dept.deptno=emp.deptno group by dname; 
+select dept.deptno,dept.dname,emp.ename from emp inner join dept on emp.sal=(select max(emp.sal) from emp where emp.deptno=dept.deptno);
+select deptno,dname from dept group by deptno having (select count(emp.empno) from emp where emp.deptno=dept.deptno)=0;
+select emp.ename,dept.dname from emp left join dept on emp.deptno=dept.deptno;
+select dept.dname, sum(emp.sal) from dept left join emp on dept.deptno=emp.deptno group by dept.dname;
+select emp.ename, dept.dname from emp full join dept on emp.deptno=dept.deptno;
+select prac.empno as id,prac.ename,kiero.ename, salgrade.grade as grad from emp as prac,salgrade,emp as kiero where prac.sal between salgrade.losal and salgrade.hisal and salgrade.grade=(select salgrade.grade from emp,salgrade where emp.sal between salgrade.losal and salgrade.hisal and emp.empno=prac.mgr) and prac.mgr=kiero.empno;
+

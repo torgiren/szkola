@@ -1,0 +1,12 @@
+dF1/dU1= 1 - dt* a11*df(U1)
+dF1/dU2= 	-dt* a12*df(U2)
+
+dF2/dU1= 1	-dt* a21*df(U1)
+dF2/dU2= 	-dt* a22*df(U2)
+
+
+f=u(u-1)(u-2)
+f=(u^2-u)(u-2)
+f=(u^3-2u-u^2+2u)
+f=u^3-2u^2
+df=3u^2-4u;

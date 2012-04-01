@@ -1,0 +1,16 @@
+ drop table emp;
+ create table emp(empno numeric(4,0) PRIMARY KEY, ename varchar(10) NOT NULL, job varchar(10), comm numeric(7,2), mgr varchar(10), sal numeric(7,2), deptno numeric );
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7369,'SMITH','CLERK',7902,800.0,NULL,20);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7499,'ALLEN','SALESMAN',7698,1600.00,300,30);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7521,'WARD','SALESMAN',7698,1250,500,30);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7566,'JONES','MANAGER',7839,2975,NULL,20);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7664,'MARTIN','SALESMAN', 7698,1250,1400,30);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7698,'BLAKE','MAGANER',7839,2850,NULL,30);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7782,'CLARK','MANAGER',7839,2450,NULL,10);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7788,'SCOTT','ANALYSK',7566,3000,NULL,20);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7939,'KING','PRESIDENT',NULL,5000,NULL,10);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7844,'TURNER','SALESMAN',7698,1500,0,30);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7876,'ADAMS','CLERK',7788,1100,NULL,20);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7900,'JAMES','CLERK',7698,950,NULL,30);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7902,'FORD','ANALYST',7566,3000,NULL,20);
+ insert into emp(empno,ename, job, mgr, sal, comm, deptno) values(7934,'MILLER','CLERK',7782,1300,NULL,10);

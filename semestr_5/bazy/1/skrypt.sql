@@ -1,0 +1,10 @@
+select deptno,ename,empno,mgr from emp;
+select ename,((sal+250)*12) as roczna_po_podwyzszce from emp;
+select deptno from emp group by deptno;
+select * from emp where job='CLERK';
+select * from emp where comm>sal;
+select * from emp where sal between 1000 and 2000;
+select * from emp where ename like 'S%';
+select * from emp where ename like '____';
+select * from emp where mgr is NULL;
+select * from emp where ename not like 'M%';

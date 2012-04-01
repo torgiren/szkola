@@ -1,0 +1,5 @@
+printf("Znaleziono: %s", yytext);
+_Counter := 1;
+valueMax := 3.4;
+f_32 := 3.4e-5;
+

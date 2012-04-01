@@ -1,0 +1,8 @@
+ls
+cd java/
+ls
+cd 2/
+make run
+history 
+cat /home/stud9/i9fabryk/.bash_history
+exit

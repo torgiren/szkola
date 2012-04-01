@@ -1,0 +1,64 @@
+public class main
+{
+	public static void main(String[] args)
+	{
+		System.out.println(args[0]);
+		int watki=(int)Double.parseDouble(args[0]);
+		//Watek wat[Double.parseDouble(args[0])];
+//		Watek wat[Double.parseDouble(args[0])];
+		Watek wat[]=new Watek[watki];
+		int x=0;
+		int y=0;
+		for(y=0;y<watki;y++)
+		{
+			wat[y]=new Watek();
+			wat[y].SetStart(x++);
+			wat[y].start();
+		};
+		boolean quit=false;
+		while(!quit)
+		{
+			for(y=0;y<watki;y++)
+			{
+				if(x>100)
+				{
+					quit=true;
+					break;
+				}
+				if(!wat[y].isAlive())
+				{
+					wat[y]=new Watek();
+					wat[y].SetStart(x++);
+					wat[y].start();
+				};
+			};
+		};
+		System.out.println("Wynik to: "+Watek.suma+"\n");
+		double xx=2;
+		System.out.println(xx/5);
+	};
+};
+class Watek extends Thread
+{
+	public static void Watek()
+	{
+	};
+	public void SetStart(int x)
+	{
+		itsX=x;
+	};
+	public void run()
+	{
+		System.out.println("dzialam: "+itsX+"\n");
+		double x=0;
+		double sum=0;
+		for(x=0;x<5;x++)
+		{
+			sum+=(1/x)*(((itsX+x/5)*(itsX+x/5)*(itsX+5/x)-10*((itsX+x/5)*(itsX+5/x))+2)/((itsX+x/5)*(itsX+5/x)+1));
+//			sum+=((itsX*itsX*itsX)-10*(itsX*itsX)+2)/((itsX)*(itsX)+1);
+		};
+		suma+=sum;
+	};
+	private int itsX;
+	static double suma=0;
+};

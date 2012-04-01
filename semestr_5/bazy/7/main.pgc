@@ -1,0 +1,86 @@
+#include <stdio.h>
+EXEC SQL INCLUDE sqlca;
+EXEC SQL whenever sqlwarning sqlprint;
+int main(int argc, char* argv[])
+{
+	EXEC SQL CONNECT TO i9fabryk@fourier:5432 AS coon USER i9fabryk USING Marcin;
+	EXEC SQL BEGIN;
+	EXEC SQL BEGIN declare section;
+    	int count;
+		int id;
+		char tmp [255][30][8];
+		char stmp1[255];
+	EXEC SQL END declare section;
+	EXEC SQL SELECT empno FROM emp;
+	int x=sqlca.sqlerrd[2];
+	printf("Wierszy: %d\n\n\n",x);
+	EXEC SQL SELECT * into :tmp[0], :tmp[1], :tmp[2], :tmp[3], :tmp[4], :tmp[5], :tmp[6], :tmp[7] FROM emp limit 1;
+//	printf("%d\n",slqca.sqlerrd[2]);
+
+	int j=0;
+	int i=0;
+	for(j=0;j<8;j++)
+	{
+		printf("%s ",tmp[j]);
+	};
+	printf("\n\n\n");
+//	EXEC SQL FETCH INTO :id;
+
+
+
+
+	{
+		int tmp=argc-1;
+		int i;
+		int first=-1;
+		int last=-1;
+		EXEC SQL BEGIN DECLARE SECTION;
+		char* desc=0;
+			char tmp2 [255][30][8];
+
+		EXEC SQL END DECLARE SECTION;
+		for(i=1;i<argc;i+=2)
+		{
+//			printf("przetwarzam: %s\n",argv[i]);
+			if(!strcmp(argv[i],"n"))
+				first=atoi(argv[i+1]);
+			if(!strcmp(argv[i],"m"))
+				last=atoi(argv[i+1]);
+			if(!strcmp(argv[i],"d"))
+				desc=argv[i+1];
+		};
+		printf("%d %d %s\n",first,last,desc);
+
+		strcpy(stmp1,"select * from emp");
+		if(desc)
+			strcat(stmp1," where job=?");
+		EXEC SQL PREPARE mystmp1 FROM :stmp1;
+		
+		EXEC SQL DECLARE mycursor CURSOR FOR mystmp1;
+
+		if(desc)
+			EXEC SQL OPEN mycursor USING :desc;
+		else
+			EXEC SQL OPEN mycursor;
+
+		while(sqlca.sqlcode==0)
+		{
+			EXEC SQL FETCH FROM mycursor INTO :tmp2[0], :tmp2[1], :tmp2[2], :tmp2[3], :tmp2[4], :tmp2[5], :tmp2[6], :tmp2[7];
+			if(sqlca.sqlcode==0)
+			{
+				int i;
+				for(i=0;i<8;i++)
+				{
+					printf("%s ",tmp2[i]);
+				};
+				printf("\n");
+			};
+		};
+			
+		
+	};
+
+	EXEC SQL COMMIT;
+	EXEC SQL DISCONNECT ALL;
+	printf("%d\n",count);
+};
