@@ -14,6 +14,8 @@ void SGA_Facade::Print_Parameters(ostream& out)
 	out << endl;
 }
 
+extern float E1,E2,B,T;
+
 void SGA_Facade::Print_Statistics(ostream& out, int mode)
 {
 	if (mode & 1)
@@ -43,11 +45,23 @@ void SGA_Facade::Print_Statistics(ostream& out, int mode)
 			w+=Individual_Value(best_index,i)*products[i].W;
 		}
 		out << "---------------"<<endl;
-		out << "\tMasa        =" << m << " g" << endl;
-		out << "\tBialko      =" << b << " g" << endl;
-		out << "\tTlusz       =" << t << " g" << endl;
-		out << "\tWeglowodany =" << w << " g" << endl;
-		out << "\tEnergia     =" << E << " kcal" << endl;
+		out << "\tMasa        =" << m << " g "<<endl;
+		out << "\tWeglowodany =" << w << " g "<<endl;
+		out << "\tBialko      =" << b << " g ";
+		if(b>B)
+			cout<<"\tV"<<endl;
+		else
+			cout<<"\tX"<<endl;
+		out << "\tTlusz       =" << t << " g ";
+		if(t<T)
+			cout<<"\tV"<<endl;
+		else
+			cout<<"\tX"<<endl;
+		out << "\tEnergia     =" << E << " kcal";
+		if(E1<E && E2>E)
+			cout<<"\tV"<<endl;
+		else
+			cout<<"\tX"<<endl;
 	}
 }
 
