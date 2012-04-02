@@ -33,13 +33,20 @@ void SGA_Facade::Print_Statistics(ostream& out, int mode)
 		out << "\tmaslo       =" << Individual_Value(best_index,3) << " g" << endl;
 		out << "\tchleb       =" << Individual_Value(best_index,4) << " g" << endl;
 		out << "\tbrzoskwinie =" << Individual_Value(best_index,5) << " g" << endl;
-		float m=0, E=0;
+		float m=0, E=0, b=0, t=0, w=0;
 		for (int i=0; i<6; i++)
 		{
 			m+=Individual_Value(best_index,i);
 			E+=Individual_Value(best_index,i)*products[i].E;
+			b+=Individual_Value(best_index,i)*products[i].B;
+			t+=Individual_Value(best_index,i)*products[i].T;
+			w+=Individual_Value(best_index,i)*products[i].W;
 		}
+		out << "---------------"<<endl;
 		out << "\tMasa        =" << m << " g" << endl;
+		out << "\tBialko      =" << b << " g" << endl;
+		out << "\tTlusz       =" << t << " g" << endl;
+		out << "\tWeglowodany =" << w << " g" << endl;
 		out << "\tEnergia     =" << E << " kcal" << endl;
 	}
 }

@@ -29,6 +29,7 @@ class genotype
  void random_init();
  int  mutation(float p_mut);
  double fitness_function();
+ float RetValue(int j);
 };
 
 /******************************************************************************/

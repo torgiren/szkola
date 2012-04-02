@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 
 	// Ponizej inicjalizujemy parametry modelu:
 	SGA->Phenotype_Number(1);	// tym sie na razie nie przejmujemy
-	SGA->P_Mutation(0.6);		// prawdopodobienstwo mutacji
+	SGA->P_Mutation(0.3);		// prawdopodobienstwo mutacji
 	SGA->P_Crossover(0.9);		// prawdopodobienstwo krzyzowania
 	
 	SGA->Init_Population(100);	// Inicjalizujemy populacje bazowa

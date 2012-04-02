@@ -56,7 +56,7 @@ float My_SGA::Individual_Fitness(int i)
 
 float My_SGA::Individual_Value(int i, int j)
 {
-	return pop.main_pop[i].p.x;
+	return pop.main_pop[i].g.RetValue(j);
 }
 
 int My_SGA::Next_Generation()
@@ -275,30 +275,38 @@ int genotype::mutation(float p_mut)
 	};
 	return 0;
 }
-double mnozenie(double first, double second)
-{
-	return first*second;
-};
-double  dodawanie(double first, double second)
-{
-	return first+second;
-};
 double genotype::fitness_function()
 {
-	int i;
-	double (*func1)(double,double);
-	double (*func2)(double,double);
-	func2=mnozenie;
-	func1=dodawanie;
-	double pula1=1;
-	double pula2=1;
-	for(i=1;i<=30;i++)
-	{
-		chromosome[i-1]?(pula1=func1(pula1,(double)(i))):(pula2=func1(pula2,(double)(i)));
-//		cout<<pula1<<" "<<pula2<<endl;
-	};
-	return func2(pula1,pula2);
 
+	int i;
+	float wartosc=0;
+	float masa=0;
+	float tlusz=0;
+	float bialko=0;
+	for(i=0;i<6;i++)
+	{
+		wartosc+=RetValue(i)*products[i].E;
+		tlusz+=RetValue(i)*products[i].T;
+		bialko+=RetValue(i)*products[i].B;
+		masa+=RetValue(i);
+	};
+//	return func2(pula1,pula2);
+	if(wartosc<300) wartosc*=0.7f;
+	if(wartosc>350) wartosc*=0.7f;
+	if(tlusz>25) wartosc*=0.7f;
+	if(bialko<11) wartosc*=0.7f;
+	return wartosc;
+
+};
+float genotype::RetValue(int j)
+{
+	int x;
+	float wartosc=0;
+	for(x=0;x<5;x++)
+	{
+		wartosc+=chromosome[j*5+x]*pow(2,x);
+	};
+	return wartosc;
 };
 
 /******************************************************************************/
