@@ -5,7 +5,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
-float E1,E2,B,T;
+float E1,E2,B,T,K;
 #include "SGA_Facade.h"
 #include "mysga.h" // Tu nalezy dolaczyc plik z wlasnym kodem
                           // zmieniajac nazwe pliku na zawierajaca nazwisko
@@ -23,15 +23,16 @@ fstream conv_file,log_file;	// Pliki do zapisu zbieznosci oraz logow
 /******************************************************************************/
 int main(int argc, char* argv[])
 {
-	if(argc<5)
+	if(argc<6)
 	{
-		cerr<<"Usage: "<<argv[0]<<" "<<"E_min E_max bialko_min tluszcz_max"<<endl;
+		cerr<<"Usage: "<<argv[0]<<" "<<"E_min E_max bialko_min tluszcz_max Wsp_Kary"<<endl;
 		return -1;
 	};
 	E1=atof(argv[1]);
 	E2=atof(argv[2]);
 	B=atof(argv[3]);
 	T=atof(argv[4]);
+	K=atof(argv[5]);
 	rnd_init(0);
 //  Jesli chcemy startowac generator zawsze w ten sam sposob, odkomentowujemy
 //  linijke ponizej komentarza, w przeciwnym wypadku generator inicjalizuje sie 
