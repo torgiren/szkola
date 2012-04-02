@@ -1,0 +1,7 @@
+Zauwazamy ze dla mniejszych wartosci mutacji otrzymujemy lepsze wyniki, lecz istnieje mozliwosc pozostawania populacji w zlej konfiguracji przez dluzszy czas, az do wystapienia mutacji.
+Mozna zauwazyc ze, optymalna wartoscia mutacji jest jest 0.001,
+natomias wspolczynnik krzyzowania ma mniejszy wplyw, ale mozna zauwazyc ze oscylujac w granicach 0.7 do 0.9 otrzymujemy lepsze wartosci niz przy nizszych wartosciach.
+Na podstawie tych wartosci wybralbym wartosci:
+mutacja 0.001
+crossowanie 0.9
+gdyz w badanych przypadkach dal lepsze wartosci

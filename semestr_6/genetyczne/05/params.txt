@@ -1,0 +1,2 @@
+m=0.001, cross=0.7 bardzo dobrze
+m=0.001, cross=0.99
