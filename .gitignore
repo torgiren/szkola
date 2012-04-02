@@ -1,3 +1,6 @@
 non_git
 *.o
 main
+RND_Init.dat
+convergence.txt
+log.txt
