@@ -275,6 +275,8 @@ int genotype::mutation(float p_mut)
 	};
 	return 0;
 }
+extern float E1,E2,B,T,K;
+
 double genotype::fitness_function()
 {
 
@@ -291,10 +293,10 @@ double genotype::fitness_function()
 		masa+=RetValue(i);
 	};
 //	return func2(pula1,pula2);
-	if(wartosc<300) wartosc*=0.7f;
-	if(wartosc>350) wartosc*=0.7f;
-	if(tlusz>25) wartosc*=0.7f;
-	if(bialko<11) wartosc*=0.7f;
+	if(wartosc<E1) wartosc*=K;
+	if(wartosc>E2) wartosc*=K;
+	if(tlusz>T) wartosc*=K;
+	if(bialko<B) wartosc*=K;
 	return wartosc;
 
 };
