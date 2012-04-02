@@ -1,0 +1,225 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Any_Rapport	SGA_Facade.h	/^	virtual void  Any_Rapport(ostream& out) {};$/;"	f	class:SGA_Facade	access:public	signature:(ostream& out)
+Any_Rapport	mysga.cpp	/^void My_SGA::Any_Rapport(ostream& out)$/;"	f	class:My_SGA	signature:(ostream& out)
+Any_Rapport	mysga.h	/^		void  Any_Rapport(ostream& out);$/;"	p	class:My_SGA	access:public	signature:(ostream& out)
+Authors_Names	SGA_Facade.h	/^	virtual char* Authors_Names() {return "no authors yet";};$/;"	f	class:SGA_Facade	access:public	signature:()
+Authors_Names	mysga.cpp	/^char* My_SGA::Authors_Names() {return NAME;};$/;"	f	class:My_SGA	signature:()
+Authors_Names	mysga.h	/^		char* Authors_Names();$/;"	p	class:My_SGA	access:public	signature:()
+Average_Fit	SGA_Facade.h	/^	float Average_Fit() {return average_fit;};$/;"	f	class:SGA_Facade	access:public	signature:()
+B	SGA_Facade.h	/^ float E,B,W,T; \/\/energia, bialko, weglowodany, tluszcze$/;"	m	struct:product	access:public
+Best_Fit	SGA_Facade.h	/^	float Best_Fit() {return best_fit;};$/;"	f	class:SGA_Facade	access:public	signature:()
+Calc_Statistics	SGA_Facade.cpp	/^void SGA_Facade::Calc_Statistics()$/;"	f	class:SGA_Facade	signature:()
+Calc_Statistics	SGA_Facade.h	/^	void Calc_Statistics();$/;"	p	class:SGA_Facade	access:public	signature:()
+E	SGA_Facade.h	/^ float E,B,W,T; \/\/energia, bialko, weglowodany, tluszcze$/;"	m	struct:product	access:public
+Final_Generation	SGA_01.cpp	/^int Final_Generation=100;	\/\/ Liczba pokolen po ktorej algorytm zatrzyma sie$/;"	v
+GN	SGA_01.cpp	/^int GN=0;			\/\/ Generation Number - numer pokolenia$/;"	v
+Gen_Num	mysga.h	/^	int     Gen_Num() {return pop.gen_num;};$/;"	f	class:My_SGA	access:private	signature:()
+Individual_Fitness	SGA_Facade.h	/^	virtual float Individual_Fitness(int i) {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:(int i)
+Individual_Fitness	mysga.cpp	/^float My_SGA::Individual_Fitness(int i)$/;"	f	class:My_SGA	signature:(int i)
+Individual_Fitness	mysga.h	/^		float Individual_Fitness(int i);$/;"	p	class:My_SGA	access:public	signature:(int i)
+Individual_Value	SGA_Facade.h	/^	virtual float Individual_Value(int i, int j) {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:(int i, int j)
+Individual_Value	mysga.cpp	/^float My_SGA::Individual_Value(int i, int j)$/;"	f	class:My_SGA	signature:(int i, int j)
+Individual_Value	mysga.h	/^		float Individual_Value(int i, int j);$/;"	p	class:My_SGA	access:public	signature:(int i, int j)
+Init_Population	SGA_Facade.h	/^	virtual void  Init_Population(int n) {};$/;"	f	class:SGA_Facade	access:public	signature:(int n)
+Init_Population	mysga.cpp	/^void My_SGA::Init_Population(int n)$/;"	f	class:My_SGA	signature:(int n)
+Init_Population	mysga.h	/^		void Init_Population(int n);$/;"	p	class:My_SGA	access:public	signature:(int n)
+M	random.cpp	/^unsigned long int M;$/;"	v
+My_SGA	mysga.h	/^class My_SGA : public SGA_Facade$/;"	c	inherits:SGA_Facade
+My_SGA::Any_Rapport	mysga.cpp	/^void My_SGA::Any_Rapport(ostream& out)$/;"	f	class:My_SGA	signature:(ostream& out)
+My_SGA::Any_Rapport	mysga.h	/^		void  Any_Rapport(ostream& out);$/;"	p	class:My_SGA	access:public	signature:(ostream& out)
+My_SGA::Authors_Names	mysga.cpp	/^char* My_SGA::Authors_Names() {return NAME;};$/;"	f	class:My_SGA	signature:()
+My_SGA::Authors_Names	mysga.h	/^		char* Authors_Names();$/;"	p	class:My_SGA	access:public	signature:()
+My_SGA::Gen_Num	mysga.h	/^	int     Gen_Num() {return pop.gen_num;};$/;"	f	class:My_SGA	access:private	signature:()
+My_SGA::Individual_Fitness	mysga.cpp	/^float My_SGA::Individual_Fitness(int i)$/;"	f	class:My_SGA	signature:(int i)
+My_SGA::Individual_Fitness	mysga.h	/^		float Individual_Fitness(int i);$/;"	p	class:My_SGA	access:public	signature:(int i)
+My_SGA::Individual_Value	mysga.cpp	/^float My_SGA::Individual_Value(int i, int j)$/;"	f	class:My_SGA	signature:(int i, int j)
+My_SGA::Individual_Value	mysga.h	/^		float Individual_Value(int i, int j);$/;"	p	class:My_SGA	access:public	signature:(int i, int j)
+My_SGA::Init_Population	mysga.cpp	/^void My_SGA::Init_Population(int n)$/;"	f	class:My_SGA	signature:(int n)
+My_SGA::Init_Population	mysga.h	/^		void Init_Population(int n);$/;"	p	class:My_SGA	access:public	signature:(int n)
+My_SGA::Next_Generation	mysga.cpp	/^int My_SGA::Next_Generation()$/;"	f	class:My_SGA	signature:()
+My_SGA::Next_Generation	mysga.h	/^		int  Next_Generation();$/;"	p	class:My_SGA	access:public	signature:()
+My_SGA::P_Crossover	mysga.h	/^		float P_Crossover() {return pop.p_cross;};$/;"	f	class:My_SGA	access:public	signature:()
+My_SGA::P_Crossover	mysga.h	/^		void  P_Crossover(float p) {pop.p_cross=p;};$/;"	f	class:My_SGA	access:public	signature:(float p)
+My_SGA::P_Mutation	mysga.h	/^		float P_Mutation() {return pop.p_mutation;};$/;"	f	class:My_SGA	access:public	signature:()
+My_SGA::P_Mutation	mysga.h	/^		void  P_Mutation(float p) {pop.p_mutation=p;}; $/;"	f	class:My_SGA	access:public	signature:(float p)
+My_SGA::Phenotype_Number	mysga.h	/^		int   Phenotype_Number() {return phenotype_number;};$/;"	f	class:My_SGA	access:public	signature:()
+My_SGA::Phenotype_Number	mysga.h	/^		void  Phenotype_Number(int k) {phenotype_number=k;};$/;"	f	class:My_SGA	access:public	signature:(int k)
+My_SGA::Pop_Size	mysga.h	/^		int	  Pop_Size() {return pop.pop_size;};$/;"	f	class:My_SGA	access:public	signature:()
+My_SGA::Version	mysga.cpp	/^char* My_SGA::Version() {return VERSION;};$/;"	f	class:My_SGA	signature:()
+My_SGA::Version	mysga.h	/^		char* Version();$/;"	p	class:My_SGA	access:public	signature:()
+My_SGA::phenotype_number	mysga.h	/^	int		phenotype_number;$/;"	m	class:My_SGA	access:private
+My_SGA::pop	mysga.h	/^	population pop;$/;"	m	class:My_SGA	access:private
+NAME	mysga.cpp	8;"	d	file:
+Next_Generation	SGA_Facade.h	/^	virtual int   Next_Generation() {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:()
+Next_Generation	mysga.cpp	/^int My_SGA::Next_Generation()$/;"	f	class:My_SGA	signature:()
+Next_Generation	mysga.h	/^		int  Next_Generation();$/;"	p	class:My_SGA	access:public	signature:()
+P_Crossover	SGA_Facade.h	/^	virtual float P_Crossover() {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:()
+P_Crossover	SGA_Facade.h	/^	virtual void  P_Crossover(float p) {};$/;"	f	class:SGA_Facade	access:public	signature:(float p)
+P_Crossover	mysga.h	/^		float P_Crossover() {return pop.p_cross;};$/;"	f	class:My_SGA	access:public	signature:()
+P_Crossover	mysga.h	/^		void  P_Crossover(float p) {pop.p_cross=p;};$/;"	f	class:My_SGA	access:public	signature:(float p)
+P_Mutation	SGA_Facade.h	/^	virtual float P_Mutation() {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:()
+P_Mutation	SGA_Facade.h	/^	virtual void  P_Mutation(float p) {};$/;"	f	class:SGA_Facade	access:public	signature:(float p)
+P_Mutation	mysga.h	/^		float P_Mutation() {return pop.p_mutation;};$/;"	f	class:My_SGA	access:public	signature:()
+P_Mutation	mysga.h	/^		void  P_Mutation(float p) {pop.p_mutation=p;}; $/;"	f	class:My_SGA	access:public	signature:(float p)
+Phenotype_Number	SGA_Facade.h	/^	virtual int   Phenotype_Number() {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:()
+Phenotype_Number	SGA_Facade.h	/^	virtual void  Phenotype_Number(int k) {};$/;"	f	class:SGA_Facade	access:public	signature:(int k)
+Phenotype_Number	mysga.h	/^		int   Phenotype_Number() {return phenotype_number;};$/;"	f	class:My_SGA	access:public	signature:()
+Phenotype_Number	mysga.h	/^		void  Phenotype_Number(int k) {phenotype_number=k;};$/;"	f	class:My_SGA	access:public	signature:(int k)
+Pop_Size	SGA_Facade.h	/^	virtual	int   Pop_Size() {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:()
+Pop_Size	mysga.h	/^		int	  Pop_Size() {return pop.pop_size;};$/;"	f	class:My_SGA	access:public	signature:()
+Print_Parameters	SGA_Facade.cpp	/^void SGA_Facade::Print_Parameters(ostream& out)$/;"	f	class:SGA_Facade	signature:(ostream& out)
+Print_Parameters	SGA_Facade.h	/^	void Print_Parameters(ostream& out);$/;"	p	class:SGA_Facade	access:public	signature:(ostream& out)
+Print_Statistics	SGA_Facade.cpp	/^void SGA_Facade::Print_Statistics(ostream& out, int mode)$/;"	f	class:SGA_Facade	signature:(ostream& out, int mode)
+Print_Statistics	SGA_Facade.h	/^	void Print_Statistics(ostream& out, int mode);$/;"	p	class:SGA_Facade	access:public	signature:(ostream& out, int mode)
+RND_H	random.h	10;"	d
+SGA_Facade	SGA_Facade.h	/^class SGA_Facade$/;"	c
+SGA_Facade::Any_Rapport	SGA_Facade.h	/^	virtual void  Any_Rapport(ostream& out) {};$/;"	f	class:SGA_Facade	access:public	signature:(ostream& out)
+SGA_Facade::Authors_Names	SGA_Facade.h	/^	virtual char* Authors_Names() {return "no authors yet";};$/;"	f	class:SGA_Facade	access:public	signature:()
+SGA_Facade::Average_Fit	SGA_Facade.h	/^	float Average_Fit() {return average_fit;};$/;"	f	class:SGA_Facade	access:public	signature:()
+SGA_Facade::Best_Fit	SGA_Facade.h	/^	float Best_Fit() {return best_fit;};$/;"	f	class:SGA_Facade	access:public	signature:()
+SGA_Facade::Calc_Statistics	SGA_Facade.cpp	/^void SGA_Facade::Calc_Statistics()$/;"	f	class:SGA_Facade	signature:()
+SGA_Facade::Calc_Statistics	SGA_Facade.h	/^	void Calc_Statistics();$/;"	p	class:SGA_Facade	access:public	signature:()
+SGA_Facade::Individual_Fitness	SGA_Facade.h	/^	virtual float Individual_Fitness(int i) {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:(int i)
+SGA_Facade::Individual_Value	SGA_Facade.h	/^	virtual float Individual_Value(int i, int j) {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:(int i, int j)
+SGA_Facade::Init_Population	SGA_Facade.h	/^	virtual void  Init_Population(int n) {};$/;"	f	class:SGA_Facade	access:public	signature:(int n)
+SGA_Facade::Next_Generation	SGA_Facade.h	/^	virtual int   Next_Generation() {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:()
+SGA_Facade::P_Crossover	SGA_Facade.h	/^	virtual float P_Crossover() {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:()
+SGA_Facade::P_Crossover	SGA_Facade.h	/^	virtual void  P_Crossover(float p) {};$/;"	f	class:SGA_Facade	access:public	signature:(float p)
+SGA_Facade::P_Mutation	SGA_Facade.h	/^	virtual float P_Mutation() {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:()
+SGA_Facade::P_Mutation	SGA_Facade.h	/^	virtual void  P_Mutation(float p) {};$/;"	f	class:SGA_Facade	access:public	signature:(float p)
+SGA_Facade::Phenotype_Number	SGA_Facade.h	/^	virtual int   Phenotype_Number() {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:()
+SGA_Facade::Phenotype_Number	SGA_Facade.h	/^	virtual void  Phenotype_Number(int k) {};$/;"	f	class:SGA_Facade	access:public	signature:(int k)
+SGA_Facade::Pop_Size	SGA_Facade.h	/^	virtual	int   Pop_Size() {return 0;};$/;"	f	class:SGA_Facade	access:public	signature:()
+SGA_Facade::Print_Parameters	SGA_Facade.cpp	/^void SGA_Facade::Print_Parameters(ostream& out)$/;"	f	class:SGA_Facade	signature:(ostream& out)
+SGA_Facade::Print_Parameters	SGA_Facade.h	/^	void Print_Parameters(ostream& out);$/;"	p	class:SGA_Facade	access:public	signature:(ostream& out)
+SGA_Facade::Print_Statistics	SGA_Facade.cpp	/^void SGA_Facade::Print_Statistics(ostream& out, int mode)$/;"	f	class:SGA_Facade	signature:(ostream& out, int mode)
+SGA_Facade::Print_Statistics	SGA_Facade.h	/^	void Print_Statistics(ostream& out, int mode);$/;"	p	class:SGA_Facade	access:public	signature:(ostream& out, int mode)
+SGA_Facade::Version	SGA_Facade.h	/^	virtual char* Version() {return "0.0";};$/;"	f	class:SGA_Facade	access:public	signature:()
+SGA_Facade::Worst_Fit	SGA_Facade.h	/^	float Worst_Fit() {return worst_fit;};$/;"	f	class:SGA_Facade	access:public	signature:()
+SGA_Facade::average_fit	SGA_Facade.h	/^	float	best_fit, worst_fit, average_fit;$/;"	m	class:SGA_Facade	access:protected
+SGA_Facade::best_fit	SGA_Facade.h	/^	float	best_fit, worst_fit, average_fit;$/;"	m	class:SGA_Facade	access:protected
+SGA_Facade::best_index	SGA_Facade.h	/^	int		best_index, worst_index;$/;"	m	class:SGA_Facade	access:protected
+SGA_Facade::worst_fit	SGA_Facade.h	/^	float	best_fit, worst_fit, average_fit;$/;"	m	class:SGA_Facade	access:protected
+SGA_Facade::worst_index	SGA_Facade.h	/^	int		best_index, worst_index;$/;"	m	class:SGA_Facade	access:protected
+SGA_TARASIUK_H	mysga.h	7;"	d
+SGH_FACADE_H	SGA_Facade.h	6;"	d
+T	SGA_Facade.h	/^ float E,B,W,T; \/\/energia, bialko, weglowodany, tluszcze$/;"	m	struct:product	access:public
+VERSION	mysga.cpp	9;"	d	file:
+Version	SGA_Facade.h	/^	virtual char* Version() {return "0.0";};$/;"	f	class:SGA_Facade	access:public	signature:()
+Version	mysga.cpp	/^char* My_SGA::Version() {return VERSION;};$/;"	f	class:My_SGA	signature:()
+Version	mysga.h	/^		char* Version();$/;"	p	class:My_SGA	access:public	signature:()
+W	SGA_Facade.h	/^ float E,B,W,T; \/\/energia, bialko, weglowodany, tluszcze$/;"	m	struct:product	access:public
+Worst_Fit	SGA_Facade.h	/^	float Worst_Fit() {return worst_fit;};$/;"	f	class:SGA_Facade	access:public	signature:()
+average_fit	SGA_Facade.h	/^	float	best_fit, worst_fit, average_fit;$/;"	m	class:SGA_Facade	access:protected
+best_fit	SGA_Facade.h	/^	float	best_fit, worst_fit, average_fit;$/;"	m	class:SGA_Facade	access:protected
+best_index	SGA_Facade.h	/^	int		best_index, worst_index;$/;"	m	class:SGA_Facade	access:protected
+calculate_fitness	mysga.cpp	/^void individual::calculate_fitness()$/;"	f	class:individual	signature:()
+calculate_fitness	mysga.h	/^ void calculate_fitness();$/;"	p	class:individual	access:public	signature:()
+chromosome	mysga.h	/^ bool chromosome[max_chrom_size];	\/\/ zakodowana postac rozwiazania$/;"	m	class:genotype	access:public
+conv_file	SGA_01.cpp	/^fstream conv_file,log_file;	\/\/ Pliki do zapisu zbieznosci oraz logow$/;"	v
+cross_over	mysga.cpp	/^bool individual::cross_over(individual &ind, float p_cross)$/;"	f	class:individual	signature:(individual &ind, float p_cross)
+cross_over	mysga.h	/^ bool cross_over(individual &ind, float p_cross);$/;"	p	class:individual	access:public	signature:(individual &ind, float p_cross)
+decode	mysga.cpp	/^void phenotype::decode(genotype g)$/;"	f	class:phenotype	signature:(genotype g)
+decode	mysga.h	/^ void  decode(genotype g);$/;"	p	class:phenotype	access:public	signature:(genotype g)
+dodawanie	mysga.cpp	/^double  dodawanie(double first, double second)$/;"	f	signature:(double first, double second)
+fitness	mysga.h	/^ double     fitness;$/;"	m	class:individual	access:public
+fitness_function	mysga.cpp	/^double genotype::fitness_function()$/;"	f	class:genotype	signature:()
+fitness_function	mysga.h	/^ double fitness_function();$/;"	p	class:genotype	access:public	signature:()
+g	mysga.h	/^ genotype  g;$/;"	m	class:individual	access:public
+g	random.cpp	/^unsigned long int g;$/;"	v
+gen_num	mysga.h	/^       gen_num;     \/\/ numeruje kolejne pokolenia                              $/;"	m	class:population	access:private
+genotype	mysga.h	/^class genotype$/;"	c
+genotype::chromosome	mysga.h	/^ bool chromosome[max_chrom_size];	\/\/ zakodowana postac rozwiazania$/;"	m	class:genotype	access:public
+genotype::fitness_function	mysga.cpp	/^double genotype::fitness_function()$/;"	f	class:genotype	signature:()
+genotype::fitness_function	mysga.h	/^ double fitness_function();$/;"	p	class:genotype	access:public	signature:()
+genotype::mutation	mysga.cpp	/^int genotype::mutation(float p_mut)$/;"	f	class:genotype	signature:(float p_mut)
+genotype::mutation	mysga.h	/^ int  mutation(float p_mut);$/;"	p	class:genotype	access:public	signature:(float p_mut)
+genotype::random_init	mysga.cpp	/^void genotype::random_init()$/;"	f	class:genotype	signature:()
+genotype::random_init	mysga.h	/^ void random_init();$/;"	p	class:genotype	access:public	signature:()
+individual	mysga.h	/^class individual$/;"	c
+individual::calculate_fitness	mysga.cpp	/^void individual::calculate_fitness()$/;"	f	class:individual	signature:()
+individual::calculate_fitness	mysga.h	/^ void calculate_fitness();$/;"	p	class:individual	access:public	signature:()
+individual::cross_over	mysga.cpp	/^bool individual::cross_over(individual &ind, float p_cross)$/;"	f	class:individual	signature:(individual &ind, float p_cross)
+individual::cross_over	mysga.h	/^ bool cross_over(individual &ind, float p_cross);$/;"	p	class:individual	access:public	signature:(individual &ind, float p_cross)
+individual::fitness	mysga.h	/^ double     fitness;$/;"	m	class:individual	access:public
+individual::g	mysga.h	/^ genotype  g;$/;"	m	class:individual	access:public
+individual::init	mysga.cpp	/^void individual::init()$/;"	f	class:individual	signature:()
+individual::init	mysga.h	/^ void init();$/;"	p	class:individual	access:public	signature:()
+individual::mutation	mysga.h	/^ int  mutation(float p_mut) {return g.mutation(p_mut);};$/;"	f	class:individual	access:public	signature:(float p_mut)
+individual::p	mysga.h	/^ phenotype p;$/;"	m	class:individual	access:public
+init	mysga.cpp	/^void individual::init()$/;"	f	class:individual	signature:()
+init	mysga.h	/^ void init();$/;"	p	class:individual	access:public	signature:()
+init_generation	mysga.cpp	/^void population::init_generation()$/;"	f	class:population	signature:()
+init_generation	mysga.h	/^	void init_generation();	\/\/ inicjalizacja populacji bazowej$/;"	p	class:population	access:public	signature:()
+lastrand	random.cpp	/^unsigned long int lastrand=335544;$/;"	v
+log_file	SGA_01.cpp	/^fstream conv_file,log_file;	\/\/ Pliki do zapisu zbieznosci oraz logow$/;"	v
+main	SGA_01.cpp	/^int main(int argc, char* argv[])$/;"	f	signature:(int argc, char* argv[])
+main_pop	mysga.h	/^	individual main_pop[max_pop_size];$/;"	m	class:population	access:private
+max_chrom_size	mysga.h	/^const int max_chrom_size=30;$/;"	v
+max_pop_size	mysga.h	/^const int max_pop_size=100;$/;"	v
+mnozenie	mysga.cpp	/^double mnozenie(double first, double second)$/;"	f	signature:(double first, double second)
+mutation	mysga.cpp	/^int genotype::mutation(float p_mut)$/;"	f	class:genotype	signature:(float p_mut)
+mutation	mysga.h	/^ int  mutation(float p_mut) {return g.mutation(p_mut);};$/;"	f	class:individual	access:public	signature:(float p_mut)
+mutation	mysga.h	/^ int  mutation(float p_mut);$/;"	p	class:genotype	access:public	signature:(float p_mut)
+n_cross	mysga.h	/^       n_cross;     \/\/ liczba krzyzowan w ostatnim pokoleniu                  $/;"	m	class:population	access:private
+n_mutation	mysga.h	/^ int   n_mutation,  \/\/ liczba mutacji w ostatnim pokoleniu                    $/;"	m	class:population	access:private
+next_generation	mysga.cpp	/^int population::next_generation()$/;"	f	class:population	signature:()
+next_generation	mysga.h	/^	int  next_generation();	\/\/ tworzenie nowego pokolenia$/;"	p	class:population	access:public	signature:()
+operator <<	mysga.cpp	/^ostream& operator<<(ostream& out, genotype g)$/;"	f	signature:(ostream& out, genotype g)
+operator <<	mysga.cpp	/^ostream& operator<<(ostream& out, phenotype p)$/;"	f	signature:(ostream& out, phenotype p)
+p	mysga.h	/^ phenotype p;$/;"	m	class:individual	access:public
+p_cross	mysga.h	/^ float p_cross,     \/\/ prawdopodobienstwo krzyzowania                          $/;"	m	class:population	access:private
+p_mutation	mysga.h	/^       p_mutation;  \/\/ prawdopodobienstwo mutacji                              $/;"	m	class:population	access:private
+phenotype	mysga.h	/^class phenotype$/;"	c
+phenotype::decode	mysga.cpp	/^void phenotype::decode(genotype g)$/;"	f	class:phenotype	signature:(genotype g)
+phenotype::decode	mysga.h	/^ void  decode(genotype g);$/;"	p	class:phenotype	access:public	signature:(genotype g)
+phenotype::x	mysga.h	/^ float x;							\/\/ niezakodowana postac rozwiazania$/;"	m	class:phenotype	access:public
+phenotype_number	mysga.h	/^	int		phenotype_number;$/;"	m	class:My_SGA	access:private
+pop	mysga.h	/^	population pop;$/;"	m	class:My_SGA	access:private
+pop_size	mysga.h	/^ int   pop_size,    \/\/ aktualna wielkosc populacji$/;"	m	class:population	access:private
+population	mysga.h	/^class population$/;"	c
+population::gen_num	mysga.h	/^       gen_num;     \/\/ numeruje kolejne pokolenia                              $/;"	m	class:population	access:private
+population::init_generation	mysga.cpp	/^void population::init_generation()$/;"	f	class:population	signature:()
+population::init_generation	mysga.h	/^	void init_generation();	\/\/ inicjalizacja populacji bazowej$/;"	p	class:population	access:public	signature:()
+population::main_pop	mysga.h	/^	individual main_pop[max_pop_size];$/;"	m	class:population	access:private
+population::n_cross	mysga.h	/^       n_cross;     \/\/ liczba krzyzowan w ostatnim pokoleniu                  $/;"	m	class:population	access:private
+population::n_mutation	mysga.h	/^ int   n_mutation,  \/\/ liczba mutacji w ostatnim pokoleniu                    $/;"	m	class:population	access:private
+population::next_generation	mysga.cpp	/^int population::next_generation()$/;"	f	class:population	signature:()
+population::next_generation	mysga.h	/^	int  next_generation();	\/\/ tworzenie nowego pokolenia$/;"	p	class:population	access:public	signature:()
+population::p_cross	mysga.h	/^ float p_cross,     \/\/ prawdopodobienstwo krzyzowania                          $/;"	m	class:population	access:private
+population::p_mutation	mysga.h	/^       p_mutation;  \/\/ prawdopodobienstwo mutacji                              $/;"	m	class:population	access:private
+population::pop_size	mysga.h	/^ int   pop_size,    \/\/ aktualna wielkosc populacji$/;"	m	class:population	access:private
+population::select	mysga.cpp	/^individual population::select()$/;"	f	class:population	signature:()
+population::select	mysga.h	/^	individual select();	\/\/ selekcja$/;"	p	class:population	access:public	signature:()
+population::sum_fitness	mysga.h	/^ float sum_fitness; \/\/ suma funkcji dostosowania wszystkich osobnikow$/;"	m	class:population	access:private
+population::temp_pop	mysga.h	/^	individual temp_pop[max_pop_size];$/;"	m	class:population	access:private
+product	SGA_Facade.h	/^struct product$/;"	s
+product::B	SGA_Facade.h	/^ float E,B,W,T; \/\/energia, bialko, weglowodany, tluszcze$/;"	m	struct:product	access:public
+product::E	SGA_Facade.h	/^ float E,B,W,T; \/\/energia, bialko, weglowodany, tluszcze$/;"	m	struct:product	access:public
+product::T	SGA_Facade.h	/^ float E,B,W,T; \/\/energia, bialko, weglowodany, tluszcze$/;"	m	struct:product	access:public
+product::W	SGA_Facade.h	/^ float E,B,W,T; \/\/energia, bialko, weglowodany, tluszcze$/;"	m	struct:product	access:public
+products	SGA_Facade.cpp	/^product products[6] = $/;"	v
+random_init	mysga.cpp	/^void genotype::random_init()$/;"	f	class:genotype	signature:()
+random_init	mysga.h	/^ void random_init();$/;"	p	class:genotype	access:public	signature:()
+rnd_bool	random.cpp	/^bool rnd_bool(float p)$/;"	f	signature:(float p)
+rnd_bool	random.h	/^bool rnd_bool(float p);$/;"	p	signature:(float p)
+rnd_float	random.cpp	/^double rnd_float(){$/;"	f	signature:()
+rnd_float	random.h	/^double rnd_float();$/;"	p	signature:()
+rnd_init	random.cpp	/^void rnd_init(unsigned int seed){$/;"	f	signature:(unsigned int seed)
+rnd_init	random.h	/^void rnd_init(unsigned int seed=0);$/;"	p	signature:(unsigned int seed=0)
+rnd_int	random.cpp	/^int rnd_int(int max, int min){$/;"	f	signature:(int max, int min)
+rnd_int	random.h	/^int rnd_int(int max, int min=0);$/;"	p	signature:(int max, int min=0)
+rnd_save	random.cpp	/^void rnd_save(){$/;"	f	signature:()
+rnd_save	random.h	/^void rnd_save();$/;"	p	signature:()
+select	mysga.cpp	/^individual population::select()$/;"	f	class:population	signature:()
+select	mysga.h	/^	individual select();	\/\/ selekcja$/;"	p	class:population	access:public	signature:()
+sum_fitness	mysga.h	/^ float sum_fitness; \/\/ suma funkcji dostosowania wszystkich osobnikow$/;"	m	class:population	access:private
+temp_pop	mysga.h	/^	individual temp_pop[max_pop_size];$/;"	m	class:population	access:private
+worst_fit	SGA_Facade.h	/^	float	best_fit, worst_fit, average_fit;$/;"	m	class:SGA_Facade	access:protected
+worst_index	SGA_Facade.h	/^	int		best_index, worst_index;$/;"	m	class:SGA_Facade	access:protected
+x	mysga.h	/^ float x;							\/\/ niezakodowana postac rozwiazania$/;"	m	class:phenotype	access:public
