@@ -1,4 +1,4 @@
-cscope 15 $HOME/szkola/semestr_6/genetyczne/05               0000312992
+cscope 15 $HOME/szkola/semestr_6/genetyczne/05               0000314333
 	@SGA_01.cpp
 
 5 
@@ -6,22 +6,38 @@ cscope 15 $HOME/szkola/semestr_6/genetyczne/05               0000312992
 >
 
 6 
-	~<f°ªam
+	~<c°dlib
 >
 
 7 
+	~<f°ªam
+>
+
+8 
+	gE1
+,
+	gE2
+,
+	gB
+,
+	gT
+,
+	gK
+;
+
+9 
 	~"SGA_Faˇde.h
 "
 
-8 
+10 
 	~"mysga.h
 "
 
-10 
+12 
 	~"øndom.h
 "
 
-12 
+14 
 usög
  
 «me•a˚
@@ -29,21 +45,21 @@ usög
 	g°d
 ;
 
-14 
+16 
 SGA_Faˇde
  *
 	gSGA
 ;
 
-15 
+17 
 	gGN
 =0;
 
-16 
+18 
 	gFöÆ_Gíî©i⁄
 =100;
 
-17 
+19 
 f°ªam
  
 	gc⁄v_fûe
@@ -51,7 +67,7 @@ f°ªam
 	glog_fûe
 ;
 
-22 
+24 
 	$maö
 (
 ¨gc
@@ -59,11 +75,63 @@ f°ªam
 ¨gv
 [])
 
-24 
+26 if(
+¨gc
+<6)
+
+28 
+˚º
+<<"Ußge: "<<
+¨gv
+[0]<<" "<<"E_mö E_max bülko_möÅluszcz_max W•_K¨y"<<
+ídl
+;
+
+31 
+E1
+=
+	`©of
+(
+¨gv
+[1]);
+
+32 
+E2
+=
+	`©of
+(
+¨gv
+[2]);
+
+33 
+B
+=
+	`©of
+(
+¨gv
+[3]);
+
+34 
+T
+=
+	`©of
+(
+¨gv
+[4]);
+
+35 
+K
+=
+	`©of
+(
+¨gv
+[5]);
+
+36 
 	`∫d_öô
 (0);
 
-31 
+43 
 c⁄v_fûe
 .
 	`›í
@@ -73,7 +141,7 @@ ios
 out
 );
 
-32 
+44 
 log_fûe
 .
 	`›í
@@ -83,7 +151,7 @@ ios
 out
 );
 
-35 
+47 
 SGA
 =
 	`√w
@@ -91,7 +159,7 @@ SGA
 My_SGA
 );
 
-37 
+49 
 cout
  << "Progømmed by: " << 
 SGA
@@ -101,7 +169,7 @@ SGA
 ídl
 ;
 
-38 
+50 
 cout
  << "Vîsi⁄: " << 
 SGA
@@ -111,31 +179,31 @@ SGA
 ídl
  <<Éndl;
 
-41 
+53 
 SGA
 ->
 	`PhíŸy≥_Numbî
 (1);
 
-42 
+54 
 SGA
 ->
 	`P_Muèti⁄
-(0.6);
+(0.1);
 
-43 
+55 
 SGA
 ->
 	`P_Crossovî
 (0.9);
 
-45 
+57 
 SGA
 ->
 	`Inô_P›uœti⁄
 (100);
 
-48 
+60 
 SGA
 ->
 	`Pröt_P¨amëîs
@@ -143,25 +211,25 @@ SGA
 cout
 );
 
-54 
+66 
 i
 =0; i<
 FöÆ_Gíî©i⁄
 ; i++)
 
-56 
+68 
 cout
  << 
 GN
  << " ";
 
-57 
+69 
 SGA
 ->
 	`CÆc_Sèti°ics
 ();
 
-58 
+70 
 SGA
 ->
 	`Pröt_Sèti°ics
@@ -169,7 +237,7 @@ SGA
 cout
 ,1);
 
-59 
+71 
 c⁄v_fûe
  << 
 GN
@@ -179,7 +247,7 @@ SGA
 	`Avîage_Fô
 () << "\t";
 
-60 
+72 
 c⁄v_fûe
  << 
 SGA
@@ -189,7 +257,7 @@ SGA
 ídl
 ;
 
-61 
+73 
 GN
 =
 SGA
@@ -197,7 +265,7 @@ SGA
 	`Next_Gíî©i⁄
 ();
 
-62 
+74 
 SGA
 ->
 	`Any_R≠p‹t
@@ -205,13 +273,13 @@ SGA
 log_fûe
 );
 
-67 
+79 
 SGA
 ->
 	`CÆc_Sèti°ics
 ();
 
-68 
+80 
 SGA
 ->
 	`Pröt_Sèti°ics
@@ -219,29 +287,29 @@ SGA
 cout
 ,3);
 
-71 
+83 
 	`∫d_ßve
 ();
 
-72 
+84 
 dñëe
  
 SGA
 ;
 
-73 
+85 
 log_fûe
 .
 	`˛o£
 ();
 
-74 
+86 
 c⁄v_fûe
 .
 	`˛o£
 ();
 
-78 
+90 
 	}
 }
 
@@ -309,7 +377,17 @@ out
 	}
 }
 
-17 
+17 
+E1
+,
+E2
+,
+B
+,
+T
+;
+
+19 
 	gSGA_Faˇde
 ::
 	$Pröt_Sèti°ics
@@ -321,11 +399,11 @@ out
 mode
 )
 
-19 i‡(
+21 i‡(
 mode
  & 1)
 
-21 
+23 
 out
 .
 	`£tf
@@ -337,25 +415,25 @@ fixed
 Êﬂtfõld
 );
 
-22 
+24 
 out
 .
 	`¥ecisi⁄
 (6);
 
-23 
+25 
 out
  << "FV_A=" << 
 avîage_fô
 ;
 
-24 
+26 
 out
  << "\tFV_B=" << 
 be°_fô
 ;
 
-25 
+27 
 out
  << "\tFV_W=" << 
 w‹°_fô
@@ -363,75 +441,299 @@ w‹°_fô
 ídl
 ;
 
-27 i‡(
+29 i‡(
 mode
  & 2)
 
-29 
+31 
 out
- << "\tBI=" << 
+ << 
+ídl
+ << "Posilek:" <<Éndl;
+
+32 
+out
+ << "\tmÀkÿ =" << 
 	`IndividuÆ_VÆue
 (
 be°_ödex
-,0);
-
-30 
-out
- << "\tWI=" << 
-	`IndividuÆ_VÆue
-(
-w‹°_ödex
-,0Ë<< 
+,0Ë<< " g" << 
 ídl
 ;
 
-32 
+33 
+out
+ << "\t£∏ =" << 
+	`IndividuÆ_VÆue
+(
+be°_ödex
+,1Ë<< " g" << 
+ídl
+;
+
+34 
+out
+ << "\tszynk® =" << 
+	`IndividuÆ_VÆue
+(
+be°_ödex
+,2Ë<< " g" << 
+ídl
+;
+
+35 
+out
+ << "\tma¶ÿ =" << 
+	`IndividuÆ_VÆue
+(
+be°_ödex
+,3Ë<< " g" << 
+ídl
+;
+
+36 
+out
+ << "\tchÀb =" << 
+	`IndividuÆ_VÆue
+(
+be°_ödex
+,4Ë<< " g" << 
+ídl
+;
+
+37 
+out
+ << "\tbrzoskwöõ =" << 
+	`IndividuÆ_VÆue
+(
+be°_ödex
+,5Ë<< " g" << 
+ídl
+;
+
+38 
+m
+=0, 
+E
+=0, 
+b
+=0, 
+t
+=0, 
+w
+=0;
+
+39 
+i
+=0; i<6; i++)
+
+41 
+m
++=
+	`IndividuÆ_VÆue
+(
+be°_ödex
+,
+i
+);
+
+42 
+E
++=
+	`IndividuÆ_VÆue
+(
+be°_ödex
+,
+i
+)*
+¥odu˘s
+[i].E;
+
+43 
+b
++=
+	`IndividuÆ_VÆue
+(
+be°_ödex
+,
+i
+)*
+¥odu˘s
+[i].
+B
+;
+
+44 
+t
++=
+	`IndividuÆ_VÆue
+(
+be°_ödex
+,
+i
+)*
+¥odu˘s
+[i].
+T
+;
+
+45 
+w
++=
+	`IndividuÆ_VÆue
+(
+be°_ödex
+,
+i
+)*
+¥odu˘s
+[i].
+W
+;
+
+47 
+out
+ << "---------------"<<
+ídl
+;
+
+48 
+out
+ << "\tMaß =" << 
+m
+ << " g "<<
+ídl
+;
+
+49 
+out
+ << "\tWeglowod™y =" << 
+w
+ << " g "<<
+ídl
+;
+
+50 
+out
+ << "\tBülkÿ =" << 
+b
+ << " g ";
+
+51 if(
+b
+>
+B
+)
+
+52 
+cout
+<<"\tV"<<
+ídl
+;
+
+54 
+cout
+<<"\tX"<<
+ídl
+;
+
+55 
+out
+ << "\tTlusz =" << 
+t
+ << " g ";
+
+56 if(
+t
+<
+T
+)
+
+57 
+cout
+<<"\tV"<<
+ídl
+;
+
+59 
+cout
+<<"\tX"<<
+ídl
+;
+
+60 
+out
+ << "\tE√rgü =" << 
+E
+ << " kcal";
+
+61 if(
+E1
+<
+E
+ && 
+E2
+>E)
+
+62 
+cout
+<<"\tV"<<
+ídl
+;
+
+64 
+cout
+<<"\tX"<<
+ídl
+;
+
+66 
 	}
 }
 
-34 
+68 
 	gSGA_Faˇde
 ::
 	$CÆc_Sèti°ics
 ()
 
-36 
+70 
 sum
 =
 	`IndividuÆ_Fô√ss
 (0);
 
-37 
+71 
 be°_fô
 =
 sum
 ;
 
-38 
+72 
 w‹°_fô
 =
 sum
 ;
 
-39 
+73 
 be°_ödex
 =0;
 
-40 
+74 
 w‹°_ödex
 =0;
 
-41 
+75 
 avîage_fô
 =0;
 
-42 
+76 
 i
 =1; i<
 	`P›_Size
 (); i++)
 
-44 
+78 
 f
 =
 	`IndividuÆ_Fô√ss
@@ -439,13 +741,13 @@ f
 i
 );
 
-45 
+79 
 sum
 +=
 f
 ;
 
-46 i‡(
+80 i‡(
 f
 >
 be°_fô
@@ -455,7 +757,7 @@ be°_ödex
 i
 ;};
 
-47 i‡(
+81 i‡(
 f
 <
 w‹°_fô
@@ -465,7 +767,7 @@ w‹°_ödex
 i
 ;};
 
-49 
+83 
 avîage_fô
  = 
 sum
@@ -473,9 +775,15 @@ sum
 	`P›_Size
 ();
 
-50 
+84 
 	}
 }
+
+86 
+¥odu˘
+ 
+	g¥odu˘s
+[6] =
 
 	@SGA_Facade.h
 
@@ -896,10 +1204,12 @@ maö_p›
 [
 i
 ].
-p
+g
 .
-x
-;
+	`RëVÆue
+(
+j
+);
 
 60 
 	}
@@ -1447,109 +1757,177 @@ x
 	}
 }
 
-278 
-	$mnozíõ
-(
-fú°
-, 
-£c⁄d
-)
-
-280  
-fú°
-*
-£c⁄d
+278 
+E1
+,
+E2
+,
+B
+,
+T
+,
+K
 ;
 
-281 
-	}
-};
-
-282 
-	$dodaw™õ
-(
-fú°
-, 
-£c⁄d
-)
-
-284  
-fú°
-+
-£c⁄d
-;
-
-285 
-	}
-};
-
-286 
+280 
 	ggíŸy≥
 ::
 	$fô√ss_fun˘i⁄
 ()
 
-288 
+283 
 i
 ;
 
-289 (*
-func1
-)(,);
+284 
+w¨tosc
+=0;
 
-290 (*
-func2
-)(,);
+285 
+maß
+=0;
+
+286 
+éusz
+=0;
+
+287 
+bülko
+=0;
+
+288 
+i
+=0;i<6;i++)
+
+290 
+w¨tosc
++=
+	`RëVÆue
+(
+i
+)*
+¥odu˘s
+[i].
+E
+;
 
 291 
-func2
-=
-mnozíõ
+éusz
++=
+	`RëVÆue
+(
+i
+)*
+¥odu˘s
+[i].
+T
 ;
 
 292 
-func1
-=
-dodaw™õ
+bülko
++=
+	`RëVÆue
+(
+i
+)*
+¥odu˘s
+[i].
+B
 ;
 
-293 
-puœ1
-=1;
-
-294 
-puœ2
-=1;
-
-295 
+293 
+maß
++=
+	`RëVÆue
+(
 i
-=1;i<=30;i++)
+);
 
-297 
-chromosome
-[
-i
--1]?(
-puœ1
-=
-	`func1
-’uœ1,()(i))):(
-puœ2
-=func1(pula2,()(i)));
+296 if(
+w¨tosc
+<
+E1
+Ëw¨tosc*=
+K
+;
+
+297 if(
+w¨tosc
+>
+E2
+Ëw¨tosc*=
+K
+;
+
+298 if(
+éusz
+>
+T
+Ë
+w¨tosc
+*=
+K
+;
+
+299 if(
+bülko
+<
+B
+Ë
+w¨tosc
+*=
+K
+;
 
 300  
-	`func2
-(
-puœ1
-,
-puœ2
-);
+w¨tosc
+;
 
 302 
 	}
 };
 
-311 
+303 
+	ggíŸy≥
+::
+	$RëVÆue
+(
+j
+)
+
+305 
+x
+;
+
+306 
+w¨tosc
+=0;
+
+307 
+x
+=0;x<5;x++)
+
+309 
+w¨tosc
++=
+chromosome
+[
+j
+*5+
+x
+]*
+	`pow
+(2,x);
+
+311  
+w¨tosc
+;
+
+312 
+	}
+};
+
+321 
 	gphíŸy≥
 ::
 	$decode
@@ -1559,27 +1937,27 @@ gíŸy≥
 g
 )
 
-313 
+323 
 i
 ;
 
-314 
+324 
 powî_of_2
 ;
 
-315 
+325 
 x
 =0; 
 powî_of_2
 =1;
 
-316 
+326 
 i
 =0; i<
 max_chrom_size
 ; i++)
 
-318 i‡(
+328 i‡(
 g
 .
 chromosome
@@ -1591,11 +1969,11 @@ x
 powî_of_2
 ;
 
-319 
+329 
 powî_of_2
 *=2;
 
-321 
+331 
 	}
 }
 
@@ -1653,19 +2031,25 @@ p_mut
 fô√ss_fun˘i⁄
 ();
 
-37 ˛as†
+32 
+RëVÆue
+(
+j
+);
+
+38 ˛as†
 	cphíŸy≥
 
 
-39 
+40 
 	mpublic
 :
 
-40 
+41 
 x
 ;
 
-41 
+42 
 decode
 (
 gíŸy≥
@@ -1673,35 +2057,35 @@ gíŸy≥
 g
 );
 
-47 ˛as†
+48 ˛as†
 	cödividuÆ
 
 
-49 
+50 
 	mpublic
 :
 
-50 
+51 
 gíŸy≥
  
 g
 ;
 
-51 
+52 
 phíŸy≥
  
 	mp
 ;
 
-52 
+53 
 	mfô√ss
 ;
 
-53 
+54 
 öô
 ();
 
-54 
+55 
 boﬁ
  
 ¸oss_ovî
@@ -1713,7 +2097,7 @@ boﬁ
 p_¸oss
 );
 
-55 
+56 
 	$muèti⁄
 (
 p_mut
@@ -1723,23 +2107,23 @@ g
 	`muèti⁄
 (p_mut);};
 
-56 
+57 
 	`ˇlcuœã_fô√ss
 ();
 
-57 
+58 
 	}
 };
 
-62 ˛as†
+63 ˛as†
 	cp›uœti⁄
 
 
-64 
+65 
 	m¥iv©e
 :
 
-67 
+68 
 ödividuÆ
  
 maö_p›
@@ -1747,7 +2131,7 @@ maö_p›
 max_p›_size
 ];
 
-70 
+71 
 ödividuÆ
  
 	mãmp_p›
@@ -1755,35 +2139,35 @@ max_p›_size
 max_p›_size
 ];
 
-71 
+72 
 	mp›_size
 ,
 
-72 
+73 
 	mgí_num
 ;
 
-73 
+74 
 	mp_¸oss
 ,
 
-74 
+75 
 	mp_muèti⁄
 ;
 
-75 
+76 
 	msum_fô√ss
 ;
 
-79 
+80 
 	mn_muèti⁄
 ,
 
-80 
+81 
 	mn_¸oss
 ;
 
-84 
+85 
 ‰õnd
  
 ˛ass
@@ -1791,25 +2175,25 @@ max_p›_size
 	mMy_SGA
 ;
 
-86 
+87 
 	mpublic
 :
 
-87 
+88 
 ödividuÆ
  
 £À˘
 ();
 
-88 
+89 
 öô_gíî©i⁄
 ();
 
-89 
+90 
 √xt_gíî©i⁄
 ();
 
-96 ˛as†
+97 ˛as†
 	cMy_SGA
  : 
 public
@@ -1817,21 +2201,21 @@ public
 SGA_Faˇde
 
 
-98 
+99 
 ¥iv©e
 :
 
-99 
+100 
 p›uœti⁄
  
 p›
 ;
 
-100 
+101 
 	mphíŸy≥_numbî
 ;
 
-101 
+102 
 	$Gí_Num
 (Ë{ 
 p›
@@ -1839,19 +2223,19 @@ p›
 gí_num
 ;};
 
-102 
+103 
 public
 :
 
-103 * 
+104 * 
 	`Auth‹s_Names
 ();
 
-104 * 
+105 * 
 	`Vîsi⁄
 ();
 
-105 
+106 
 	`Any_R≠p‹t
 (
 o°ªam
@@ -1859,23 +2243,23 @@ o°ªam
 out
 );
 
-107 
+108 
 	`Inô_P›uœti⁄
 (
 n
 );
 
-108 
+109 
 	`Next_Gíî©i⁄
 ();
 
-110 
+111 
 	`IndividuÆ_Fô√ss
 (
 i
 );
 
-111 
+112 
 	`IndividuÆ_VÆue
 (
 i
@@ -1883,7 +2267,7 @@ i
 j
 );
 
-113 
+114 
 	$PhíŸy≥_Numbî
 (
 k
@@ -1893,7 +2277,7 @@ phíŸy≥_numbî
 	}
 };
 
-114 
+115 
 	$PhíŸy≥_Numbî
 (Ë{ 
 phíŸy≥_numbî
@@ -1901,7 +2285,7 @@ phíŸy≥_numbî
 	}
 };
 
-115 
+116 
 	$P_Muèti⁄
 (
 p
@@ -1913,7 +2297,7 @@ p_muèti⁄
 	}
 };
 
-116 
+117 
 	$P_Muèti⁄
 (Ë{ 
 p›
@@ -1923,7 +2307,7 @@ p_muèti⁄
 	}
 };
 
-117 
+118 
 	$P_Crossovî
 (
 p
@@ -1935,7 +2319,7 @@ p_¸oss
 	}
 };
 
-118 
+119 
 	$P_Crossovî
 (Ë{ 
 p›
@@ -1945,7 +2329,7 @@ p_¸oss
 	}
 };
 
-120 
+121 
 	$P›_Size
 (Ë{ 
 p›
@@ -42077,112 +42461,6 @@ _LIBC
 
 	)
 
-	@/usr/include/gnu/stubs-64.h
-
-6 #ifde‡
-_LIBC
-
-
-7 #îr‹ 
-Aµliˇti⁄s
- 
-may
- 
-nŸ
- 
-deföe
- 
-the
- 
-ma¸o
- 
-_LIBC
-
-
-10 
-	#__°ub_bdÊush
-
-
-	)
-
-11 
-	#__°ub_chÊags
-
-
-	)
-
-12 
-	#__°ub_Áâach
-
-
-	)
-
-13 
-	#__°ub_fchÊags
-
-
-	)
-
-14 
-	#__°ub_fdëach
-
-
-	)
-
-15 
-	#__°ub_gëmsg
-
-
-	)
-
-16 
-	#__°ub_gây
-
-
-	)
-
-17 
-	#__°ub_lchmod
-
-
-	)
-
-18 
-	#__°ub_putmsg
-
-
-	)
-
-19 
-	#__°ub_ªvoke
-
-
-	)
-
-20 
-	#__°ub_£éogö
-
-
-	)
-
-21 
-	#__°ub_sigªtu∫
-
-
-	)
-
-22 
-	#__°ub_s°k
-
-
-	)
-
-23 
-	#__°ub_°ty
-
-
-	)
-
 	@/usr/include/wchar.h
 
 24 #i‚de‡
@@ -55614,8 +55892,8 @@ __END_DECLS
 .
 1
 /usr/include
-69
-1713
+68
+1685
 SGA_01.cpp
 SGA_Facade.cpp
 SGA_Facade.h
@@ -55675,7 +55953,6 @@ random.h
 /usr/include/bits/time.h
 /usr/include/gconv.h
 /usr/include/gnu/stubs-32.h
-/usr/include/gnu/stubs-64.h
 /usr/include/wchar.h
 /usr/include/bits/wchar-ldbl.h
 /usr/include/bits/wchar.h

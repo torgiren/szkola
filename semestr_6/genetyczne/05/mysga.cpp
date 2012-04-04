@@ -275,7 +275,7 @@ int genotype::mutation(float p_mut)
 	};
 	return 0;
 }
-extern float E1,E2,B,T,K;
+extern float E1,E2,B,T;
 
 double genotype::fitness_function()
 {
@@ -293,21 +293,68 @@ double genotype::fitness_function()
 		masa+=RetValue(i);
 	};
 //	return func2(pula1,pula2);
-	if(wartosc<E1) wartosc*=K;
-	if(wartosc>E2) wartosc*=K;
-	if(tlusz>T) wartosc*=K;
-	if(bialko<B) wartosc*=K;
+//	wartosc=1000;
+	if(wartosc<E1) wartosc-=fabs(wartosc-E1)*5;
+	if(wartosc>E2) wartosc-=fabs(wartosc-E2)*5;
+	if(tlusz>T) wartosc-=fabs(tlusz-T)*10;
+	if(bialko<B) wartosc-=fabs(bialko-B)*5;
+	if(wartosc<0) wartosc=0;
 	return wartosc;
 
 };
 float genotype::RetValue(int j)
 {
+	float wartosc=0;
+	int x;
+	int start;
+	switch(j)
+	{
+		case 0:
+			start=0;
+			for(x=0;x<4;x++)
+			{
+				wartosc+=chromosome[start+x]*pow(2,x);
+			};
+			wartosc*=20;
+			break;
+		case 1:
+			start=4;
+			for(x=0;x<6;x++)
+				wartosc+=chromosome[start+x]*pow(2,x);
+			wartosc*=5;
+			break;
+		case 2:
+			start=10;
+			for(x=0;x<6;x++)
+				wartosc+=chromosome[start+x]*pow(2,x);
+			wartosc*=5;
+			break;
+		case 3:
+			start=16;
+			for(x=0;x<8;x++)
+				wartosc+=chromosome[start+x]*pow(2,x);	
+			wartosc*=0.1;
+			break;
+		case 4:
+			start=24;
+			for(x=0;x<4;x++)
+				wartosc+=chromosome[start+x]*pow(2,x);
+			wartosc*=10;
+			break;
+		case 5:
+			start=28;
+			for(x=0;x<2;x++)
+				wartosc+=chromosome[start+x]*pow(2,x);
+			wartosc*=50;
+	};
+/*
 	int x;
 	float wartosc=0;
 	for(x=0;x<5;x++)
 	{
 		wartosc+=chromosome[j*5+x]*pow(2,x);
 	};
+*/
 	return wartosc;
 };
 

@@ -1,7 +1,8 @@
-Zauwazamy ze dla mniejszych wartosci mutacji otrzymujemy lepsze wyniki, lecz istnieje mozliwosc pozostawania populacji w zlej konfiguracji przez dluzszy czas, az do wystapienia mutacji.
-Mozna zauwazyc ze, optymalna wartoscia mutacji jest jest 0.001,
-natomias wspolczynnik krzyzowania ma mniejszy wplyw, ale mozna zauwazyc ze oscylujac w granicach 0.7 do 0.9 otrzymujemy lepsze wartosci niz przy nizszych wartosciach.
-Na podstawie tych wartosci wybralbym wartosci:
-mutacja 0.001
-crossowanie 0.9
-gdyz w badanych przypadkach dal lepsze wartosci
+Doświadczalne badania pokazały, że najlepsze wyniki osiągamy przy parametrach:
+mutacja=0.00001
+crossover=0.3
+czyli dokładnie takie same jak w poprzednim zadaniu
+Można zauważyć, że średnia wartość dopasowania populacji rośnie szybko przez
+pierwsze pokolenia, a następnie utrzymuje wysoki poziom
+Zauważamy również, że wartość średnia zbliża się do wartości najlepszej co
+pokazuje zalety korzystania z metody Kar

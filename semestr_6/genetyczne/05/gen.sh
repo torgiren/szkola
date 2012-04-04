@@ -1,6 +1,6 @@
-for x in `seq 0 9`
+for x in `seq -w 1 20`
 do
-	./main
+	./main 800 1200 55 70
 	./plot.sh
-	cp plot.jpg plot_$1_$x.jpg
+	cp plot.jpg plot_$x.jpg
 done
