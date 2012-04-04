@@ -1,5 +1,6 @@
 #!/usr/bin/gnuplot
 set term jpeg
+set title "metoda wstecz"
 set size square
 set out "plot_2.jpg
 set xlabel "t"

@@ -1,6 +1,7 @@
 #!/usr/bin/gnuplot
 set term jpeg
 set size square
+set title "wprzod d=0.1"
 set out "plot_3_2.jpg
 set xlabel "t"
 set ylabel "wartosc"

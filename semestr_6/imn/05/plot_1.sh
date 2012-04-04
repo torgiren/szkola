@@ -1,5 +1,6 @@
 #!/usr/bin/gnuplot
 set term jpeg
+set title "metoda relaksacji"
 set size square
 set out "plot_1.jpg
 set xlabel "t"

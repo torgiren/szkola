@@ -1,5 +1,6 @@
 #!/usr/bin/gnuplot
 set term jpeg
+set title "metoda numerowa dr=0.01"
 set size square
 set out "plot_4_3.jpg
 set xlabel "t"
