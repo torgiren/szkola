@@ -163,6 +163,24 @@ def zad4_3():
 	for i in range(0,2001):
 		plik.write(str(i*dr)+" "+str(f[i])+" "+str((f[i]-fanal(i*dr)))+" "+str(fanal(i*dr))+"\n");
 	plik.close();
+def func1(t,u1,u2):
+	return 0;
+def func2(t,u1,u2):
+	return 0;
+def U4(f1,f2,y1,y2,t,dt):
+	k11=f1(t,y1,y2);
+	k21=f2(t,y1,y2);
+	k12=f1(t,y1+dt/2*k11,y2+dt/2*k21);
+	k22=f2(t,y1+dt/2*k11,y2+dt/2*k21);
+	k13=f1(t,y1+dt/2*k12,y2+dt/2*k22);
+	k23=f2(t,y1+dt/2*k12,y2+dt/2*k22);
+	k14=f1(t,y1+dt*k13,y2+dt*k23);
+	k24=f2(t,y1+dt*k13,y2+dt*k23);
+	return y1+dt/6*(k11+2*k12+2*k13+k14),y2+dt/6*(k21+2*k22+2*k23+k24);
+def RK(n,t,E,y1_0,y2_0,dt,S):
+	
+def zad5():
+	return 1,2;	
 zad1();
 zad2();
 zad3_1();
@@ -170,3 +188,4 @@ zad3_2();
 zad4_1();
 zad4_2();
 zad4_3();
+U4(func1,func2,0,0,0,0.1);
