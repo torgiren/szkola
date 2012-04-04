@@ -1,0 +1,8 @@
+Doświadczalne badania pokazały, że najlepsze wyniki osiągamy przy parametrach:
+mutacja=0.00001
+crossover=0.3
+czyli dokładnie takie same jak w poprzednim zadaniu
+Można zauważyć, że średnia wartość dopasowania populacji rośnie szybko przez
+pierwsze pokolenia, a następnie utrzymuje wysoki poziom
+Zauważamy również, że wartość średnia zbliża się do wartości najlepszej co
+pokazuje zalety korzystania z metody Kar
