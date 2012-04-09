@@ -1,0 +1,3 @@
+Mrowisko-miasto.o: miasto.cpp miasto.h
+
+miasto.h:

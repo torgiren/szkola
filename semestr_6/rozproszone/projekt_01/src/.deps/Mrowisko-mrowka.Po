@@ -1,0 +1,3 @@
+Mrowisko-mrowka.o: mrowka.cpp mrowka.h
+
+mrowka.h:
