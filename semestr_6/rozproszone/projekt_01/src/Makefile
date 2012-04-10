@@ -46,7 +46,8 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_Mrowisko_OBJECTS = Mrowisko-main.$(OBJEXT) \
-	Mrowisko-mrowka.$(OBJEXT) Mrowisko-miasto.$(OBJEXT)
+	Mrowisko-mrowka.$(OBJEXT) Mrowisko-miasto.$(OBJEXT) \
+	Mrowisko-droga.$(OBJEXT)
 Mrowisko_OBJECTS = $(am_Mrowisko_OBJECTS)
 Mrowisko_LDADD = $(LDADD)
 Mrowisko_LINK = $(CXXLD) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) \
@@ -86,7 +87,7 @@ ECHO_C =
 ECHO_N = -n
 ECHO_T = 
 EXEEXT = 
-INSTALL = /usr/bin/install -c
+INSTALL = /usr/bin/ginstall -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
@@ -96,7 +97,7 @@ LIBOBJS =
 LIBS = 
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/torgiren/szkola/semestr_6/rozproszone/projekt_01/missing --run makeinfo
-MKDIR_P = /bin/mkdir -p
+MKDIR_P = /usr/bin/mkdir -p
 OBJEXT = o
 PACKAGE = mrowisko
 PACKAGE_BUGREPORT = torgiren@gmail.com
@@ -138,7 +139,7 @@ libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
 mandir = ${datarootdir}/man
-mkdir_p = /bin/mkdir -p
+mkdir_p = /usr/bin/mkdir -p
 oldincludedir = /usr/include
 pdfdir = ${docdir}
 prefix = /usr/local
@@ -154,7 +155,8 @@ top_builddir = ..
 top_srcdir = ..
 Mrowisko_SOURCES = main.cpp\
 				   mrowka.h mrowka.cpp\
-				   miasto.h miasto.cpp
+				   miasto.h miasto.cpp\
+				   droga.h droga.cpp
 
 Mrowisko_CXXFLAGS = -Wall
 all: all-am
@@ -238,6 +240,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/Mrowisko-droga.Po
 include ./$(DEPDIR)/Mrowisko-main.Po
 include ./$(DEPDIR)/Mrowisko-miasto.Po
 include ./$(DEPDIR)/Mrowisko-mrowka.Po
@@ -297,6 +300,20 @@ Mrowisko-miasto.obj: miasto.cpp
 #	source='miasto.cpp' object='Mrowisko-miasto.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-miasto.obj `if test -f 'miasto.cpp'; then $(CYGPATH_W) 'miasto.cpp'; else $(CYGPATH_W) '$(srcdir)/miasto.cpp'; fi`
+
+Mrowisko-droga.o: droga.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-droga.o -MD -MP -MF $(DEPDIR)/Mrowisko-droga.Tpo -c -o Mrowisko-droga.o `test -f 'droga.cpp' || echo '$(srcdir)/'`droga.cpp
+	$(am__mv) $(DEPDIR)/Mrowisko-droga.Tpo $(DEPDIR)/Mrowisko-droga.Po
+#	source='droga.cpp' object='Mrowisko-droga.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-droga.o `test -f 'droga.cpp' || echo '$(srcdir)/'`droga.cpp
+
+Mrowisko-droga.obj: droga.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-droga.obj -MD -MP -MF $(DEPDIR)/Mrowisko-droga.Tpo -c -o Mrowisko-droga.obj `if test -f 'droga.cpp'; then $(CYGPATH_W) 'droga.cpp'; else $(CYGPATH_W) '$(srcdir)/droga.cpp'; fi`
+	$(am__mv) $(DEPDIR)/Mrowisko-droga.Tpo $(DEPDIR)/Mrowisko-droga.Po
+#	source='droga.cpp' object='Mrowisko-droga.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-droga.obj `if test -f 'droga.cpp'; then $(CYGPATH_W) 'droga.cpp'; else $(CYGPATH_W) '$(srcdir)/droga.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

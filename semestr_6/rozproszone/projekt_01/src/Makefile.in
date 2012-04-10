@@ -46,7 +46,8 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_Mrowisko_OBJECTS = Mrowisko-main.$(OBJEXT) \
-	Mrowisko-mrowka.$(OBJEXT) Mrowisko-miasto.$(OBJEXT)
+	Mrowisko-mrowka.$(OBJEXT) Mrowisko-miasto.$(OBJEXT) \
+	Mrowisko-droga.$(OBJEXT)
 Mrowisko_OBJECTS = $(am_Mrowisko_OBJECTS)
 Mrowisko_LDADD = $(LDADD)
 Mrowisko_LINK = $(CXXLD) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) \
@@ -154,7 +155,8 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 Mrowisko_SOURCES = main.cpp\
 				   mrowka.h mrowka.cpp\
-				   miasto.h miasto.cpp
+				   miasto.h miasto.cpp\
+				   droga.h droga.cpp
 
 Mrowisko_CXXFLAGS = -Wall
 all: all-am
@@ -238,6 +240,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-droga.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-miasto.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-mrowka.Po@am__quote@
@@ -297,6 +300,20 @@ Mrowisko-miasto.obj: miasto.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='miasto.cpp' object='Mrowisko-miasto.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-miasto.obj `if test -f 'miasto.cpp'; then $(CYGPATH_W) 'miasto.cpp'; else $(CYGPATH_W) '$(srcdir)/miasto.cpp'; fi`
+
+Mrowisko-droga.o: droga.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-droga.o -MD -MP -MF $(DEPDIR)/Mrowisko-droga.Tpo -c -o Mrowisko-droga.o `test -f 'droga.cpp' || echo '$(srcdir)/'`droga.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/Mrowisko-droga.Tpo $(DEPDIR)/Mrowisko-droga.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='droga.cpp' object='Mrowisko-droga.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-droga.o `test -f 'droga.cpp' || echo '$(srcdir)/'`droga.cpp
+
+Mrowisko-droga.obj: droga.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-droga.obj -MD -MP -MF $(DEPDIR)/Mrowisko-droga.Tpo -c -o Mrowisko-droga.obj `if test -f 'droga.cpp'; then $(CYGPATH_W) 'droga.cpp'; else $(CYGPATH_W) '$(srcdir)/droga.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/Mrowisko-droga.Tpo $(DEPDIR)/Mrowisko-droga.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='droga.cpp' object='Mrowisko-droga.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-droga.obj `if test -f 'droga.cpp'; then $(CYGPATH_W) 'droga.cpp'; else $(CYGPATH_W) '$(srcdir)/droga.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
