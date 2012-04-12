@@ -1,0 +1,2 @@
+mpicc.mpich -o sprng_mpi sprng_mpi.c -I/usr/local/soft/sprng2.0/include -I/usr/local/soft/sprng2.0/EXAMPLES -L/usr/local/soft/sprng2.0/lib -lsprng
+mpirun.mpich -np 3 -machinefile machines ./sprng_mpi
