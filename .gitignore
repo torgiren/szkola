@@ -4,3 +4,4 @@ main
 RND_Init.dat
 convergence.txt
 log.txt
+*.swp
