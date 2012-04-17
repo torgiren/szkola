@@ -1,4 +1,4 @@
-Mrowisko-mrowka.o: mrowka.cpp mrowka.h \
+Mrowisko-kontener.o: kontener.cpp kontener.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/vector \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_algobase.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/c++config.h \
@@ -32,9 +32,9 @@ Mrowisko-mrowka.o: mrowka.cpp mrowka.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_bvector.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/range_access.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/vector.tcc \
- droga.h
+ miasto.h kierunek.h droga.h
 
-mrowka.h:
+kontener.h:
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/vector:
 
@@ -105,5 +105,9 @@ mrowka.h:
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/range_access.h:
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/vector.tcc:
+
+miasto.h:
+
+kierunek.h:
 
 droga.h:

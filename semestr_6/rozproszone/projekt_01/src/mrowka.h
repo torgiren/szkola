@@ -6,6 +6,6 @@ class Mrowka
 {
 	public:
 	private:
-		std:;vector<Droga*> itsSlad;
+		std::vector<Droga*> itsSlad;
 };
 #endif

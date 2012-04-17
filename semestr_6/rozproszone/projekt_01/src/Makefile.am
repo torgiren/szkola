@@ -3,5 +3,6 @@ Mrowisko_SOURCES = main.cpp\
 				   mrowka.h mrowka.cpp\
 				   miasto.h miasto.cpp\
 				   droga.h droga.cpp\
-				   kierunek.h kierunek.cpp
+				   kierunek.h kierunek.cpp\
+				   kontener.h kontener.cpp
 Mrowisko_CXXFLAGS= -Wall

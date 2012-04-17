@@ -3,6 +3,7 @@
 class Droga
 {
 	public:
+		void DodajFeromony();
 	private:
 		int itsDl;
 		int itsFeromony;

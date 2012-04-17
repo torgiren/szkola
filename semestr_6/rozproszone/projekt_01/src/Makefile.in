@@ -47,7 +47,8 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_Mrowisko_OBJECTS = Mrowisko-main.$(OBJEXT) \
 	Mrowisko-mrowka.$(OBJEXT) Mrowisko-miasto.$(OBJEXT) \
-	Mrowisko-droga.$(OBJEXT)
+	Mrowisko-droga.$(OBJEXT) Mrowisko-kierunek.$(OBJEXT) \
+	Mrowisko-kontener.$(OBJEXT)
 Mrowisko_OBJECTS = $(am_Mrowisko_OBJECTS)
 Mrowisko_LDADD = $(LDADD)
 Mrowisko_LINK = $(CXXLD) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) \
@@ -156,7 +157,9 @@ top_srcdir = @top_srcdir@
 Mrowisko_SOURCES = main.cpp\
 				   mrowka.h mrowka.cpp\
 				   miasto.h miasto.cpp\
-				   droga.h droga.cpp
+				   droga.h droga.cpp\
+				   kierunek.h kierunek.cpp\
+				   kontener.h kontener.cpp
 
 Mrowisko_CXXFLAGS = -Wall
 all: all-am
@@ -241,6 +244,8 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-droga.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-kierunek.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-kontener.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-miasto.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-mrowka.Po@am__quote@
@@ -314,6 +319,34 @@ Mrowisko-droga.obj: droga.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='droga.cpp' object='Mrowisko-droga.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-droga.obj `if test -f 'droga.cpp'; then $(CYGPATH_W) 'droga.cpp'; else $(CYGPATH_W) '$(srcdir)/droga.cpp'; fi`
+
+Mrowisko-kierunek.o: kierunek.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-kierunek.o -MD -MP -MF $(DEPDIR)/Mrowisko-kierunek.Tpo -c -o Mrowisko-kierunek.o `test -f 'kierunek.cpp' || echo '$(srcdir)/'`kierunek.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/Mrowisko-kierunek.Tpo $(DEPDIR)/Mrowisko-kierunek.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='kierunek.cpp' object='Mrowisko-kierunek.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-kierunek.o `test -f 'kierunek.cpp' || echo '$(srcdir)/'`kierunek.cpp
+
+Mrowisko-kierunek.obj: kierunek.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-kierunek.obj -MD -MP -MF $(DEPDIR)/Mrowisko-kierunek.Tpo -c -o Mrowisko-kierunek.obj `if test -f 'kierunek.cpp'; then $(CYGPATH_W) 'kierunek.cpp'; else $(CYGPATH_W) '$(srcdir)/kierunek.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/Mrowisko-kierunek.Tpo $(DEPDIR)/Mrowisko-kierunek.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='kierunek.cpp' object='Mrowisko-kierunek.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-kierunek.obj `if test -f 'kierunek.cpp'; then $(CYGPATH_W) 'kierunek.cpp'; else $(CYGPATH_W) '$(srcdir)/kierunek.cpp'; fi`
+
+Mrowisko-kontener.o: kontener.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-kontener.o -MD -MP -MF $(DEPDIR)/Mrowisko-kontener.Tpo -c -o Mrowisko-kontener.o `test -f 'kontener.cpp' || echo '$(srcdir)/'`kontener.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/Mrowisko-kontener.Tpo $(DEPDIR)/Mrowisko-kontener.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='kontener.cpp' object='Mrowisko-kontener.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-kontener.o `test -f 'kontener.cpp' || echo '$(srcdir)/'`kontener.cpp
+
+Mrowisko-kontener.obj: kontener.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-kontener.obj -MD -MP -MF $(DEPDIR)/Mrowisko-kontener.Tpo -c -o Mrowisko-kontener.obj `if test -f 'kontener.cpp'; then $(CYGPATH_W) 'kontener.cpp'; else $(CYGPATH_W) '$(srcdir)/kontener.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/Mrowisko-kontener.Tpo $(DEPDIR)/Mrowisko-kontener.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='kontener.cpp' object='Mrowisko-kontener.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-kontener.obj `if test -f 'kontener.cpp'; then $(CYGPATH_W) 'kontener.cpp'; else $(CYGPATH_W) '$(srcdir)/kontener.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
