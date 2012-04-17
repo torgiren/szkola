@@ -48,7 +48,7 @@ PROGRAMS = $(bin_PROGRAMS)
 am_Mrowisko_OBJECTS = Mrowisko-main.$(OBJEXT) \
 	Mrowisko-mrowka.$(OBJEXT) Mrowisko-miasto.$(OBJEXT) \
 	Mrowisko-droga.$(OBJEXT) Mrowisko-kierunek.$(OBJEXT) \
-	Mrowisko-kontener.$(OBJEXT)
+	Mrowisko-kontener.$(OBJEXT) Mrowisko-reader.$(OBJEXT)
 Mrowisko_OBJECTS = $(am_Mrowisko_OBJECTS)
 Mrowisko_LDADD = $(LDADD)
 Mrowisko_LINK = $(CXXLD) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) \
@@ -159,7 +159,9 @@ Mrowisko_SOURCES = main.cpp\
 				   miasto.h miasto.cpp\
 				   droga.h droga.cpp\
 				   kierunek.h kierunek.cpp\
-				   kontener.h kontener.cpp
+				   kontener.h kontener.cpp\
+				   reader.h reader.cpp\
+				   exceptions.h
 
 Mrowisko_CXXFLAGS = -Wall
 all: all-am
@@ -249,6 +251,7 @@ include ./$(DEPDIR)/Mrowisko-kontener.Po
 include ./$(DEPDIR)/Mrowisko-main.Po
 include ./$(DEPDIR)/Mrowisko-miasto.Po
 include ./$(DEPDIR)/Mrowisko-mrowka.Po
+include ./$(DEPDIR)/Mrowisko-reader.Po
 
 .cpp.o:
 	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -347,6 +350,20 @@ Mrowisko-kontener.obj: kontener.cpp
 #	source='kontener.cpp' object='Mrowisko-kontener.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-kontener.obj `if test -f 'kontener.cpp'; then $(CYGPATH_W) 'kontener.cpp'; else $(CYGPATH_W) '$(srcdir)/kontener.cpp'; fi`
+
+Mrowisko-reader.o: reader.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-reader.o -MD -MP -MF $(DEPDIR)/Mrowisko-reader.Tpo -c -o Mrowisko-reader.o `test -f 'reader.cpp' || echo '$(srcdir)/'`reader.cpp
+	$(am__mv) $(DEPDIR)/Mrowisko-reader.Tpo $(DEPDIR)/Mrowisko-reader.Po
+#	source='reader.cpp' object='Mrowisko-reader.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-reader.o `test -f 'reader.cpp' || echo '$(srcdir)/'`reader.cpp
+
+Mrowisko-reader.obj: reader.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-reader.obj -MD -MP -MF $(DEPDIR)/Mrowisko-reader.Tpo -c -o Mrowisko-reader.obj `if test -f 'reader.cpp'; then $(CYGPATH_W) 'reader.cpp'; else $(CYGPATH_W) '$(srcdir)/reader.cpp'; fi`
+	$(am__mv) $(DEPDIR)/Mrowisko-reader.Tpo $(DEPDIR)/Mrowisko-reader.Po
+#	source='reader.cpp' object='Mrowisko-reader.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-reader.obj `if test -f 'reader.cpp'; then $(CYGPATH_W) 'reader.cpp'; else $(CYGPATH_W) '$(srcdir)/reader.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

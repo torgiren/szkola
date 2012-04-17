@@ -1,24 +1,12 @@
-Mrowisko-main.o: main.cpp \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/iostream \
+Mrowisko-reader.o: reader.cpp reader.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/string \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/c++config.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/os_defines.h \
  /usr/include/features.h /usr/include/sys/cdefs.h \
  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
  /usr/include/gnu/stubs-32.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/cpu_defines.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ostream \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ios \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/iosfwd \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stringfwd.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/postypes.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/cwchar \
- /usr/include/wchar.h /usr/include/stdio.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/include/stdarg.h \
- /usr/include/bits/wchar.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/include/stddef.h \
- /usr/include/xlocale.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/exception \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/atomic_lockfree_defines.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/char_traits.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_algobase.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/functexcept.h \
@@ -33,15 +21,34 @@ Mrowisko-main.o: main.cpp \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_iterator_base_funcs.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_iterator.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/debug/debug.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/postypes.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/cwchar \
+ /usr/include/wchar.h /usr/include/stdio.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/include/stdarg.h \
+ /usr/include/bits/wchar.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/include/stddef.h \
+ /usr/include/xlocale.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/allocator.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/c++allocator.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ext/new_allocator.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/new \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/exception \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/atomic_lockfree_defines.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/localefwd.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/c++locale.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/clocale \
  /usr/include/locale.h /usr/include/bits/locale.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/iosfwd \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/cctype \
  /usr/include/ctype.h /usr/include/bits/types.h \
  /usr/include/bits/typesizes.h /usr/include/endian.h \
  /usr/include/bits/endian.h /usr/include/bits/byteswap.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/ios_base.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/ostream_insert.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/cxxabi_forced.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_function.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/backward/binders.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/range_access.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/basic_string.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ext/atomicity.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/gthr.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/gthr-default.h \
@@ -50,19 +57,21 @@ Mrowisko-main.o: main.cpp \
  /usr/include/bits/timex.h /usr/include/bits/pthreadtypes.h \
  /usr/include/bits/setjmp.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/atomic_word.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/locale_classes.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/string \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/allocator.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/c++allocator.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ext/new_allocator.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/new \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/ostream_insert.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/cxxabi_forced.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_function.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/backward/binders.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/range_access.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/basic_string.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/basic_string.tcc \
+ kontener.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/vector \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_construct.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ext/alloc_traits.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_uninitialized.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_vector.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_bvector.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/vector.tcc \
+ miasto.h kierunek.h droga.h exceptions.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/fstream \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/istream \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ios \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/ios_base.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/locale_classes.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/locale_classes.tcc \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/streambuf \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/streambuf.tcc \
@@ -75,20 +84,22 @@ Mrowisko-main.o: main.cpp \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/ctype_inline.h \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/locale_facets.tcc \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/basic_ios.tcc \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ostream \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/ostream.tcc \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/istream \
  /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/istream.tcc \
- reader.h kontener.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/vector \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_construct.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ext/alloc_traits.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_uninitialized.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_vector.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_bvector.h \
- /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/vector.tcc \
- miasto.h kierunek.h droga.h exceptions.h
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/codecvt.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/cstdio \
+ /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+ /usr/include/bits/stdio.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/basic_file.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/c++io.h \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/fstream.tcc \
+ /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/iostream
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/iostream:
+reader.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/string:
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/c++config.h:
 
@@ -106,33 +117,7 @@ Mrowisko-main.o: main.cpp \
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/cpu_defines.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ostream:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ios:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/iosfwd:
-
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stringfwd.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/postypes.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/cwchar:
-
-/usr/include/wchar.h:
-
-/usr/include/stdio.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/include/stdarg.h:
-
-/usr/include/bits/wchar.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/include/stddef.h:
-
-/usr/include/xlocale.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/exception:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/atomic_lockfree_defines.h:
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/char_traits.h:
 
@@ -162,6 +147,34 @@ Mrowisko-main.o: main.cpp \
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/debug/debug.h:
 
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/postypes.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/cwchar:
+
+/usr/include/wchar.h:
+
+/usr/include/stdio.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/include/stdarg.h:
+
+/usr/include/bits/wchar.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/include/stddef.h:
+
+/usr/include/xlocale.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/allocator.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/c++allocator.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ext/new_allocator.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/new:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/exception:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/atomic_lockfree_defines.h:
+
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/localefwd.h:
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/c++locale.h:
@@ -171,6 +184,8 @@ Mrowisko-main.o: main.cpp \
 /usr/include/locale.h:
 
 /usr/include/bits/locale.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/iosfwd:
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/cctype:
 
@@ -186,7 +201,17 @@ Mrowisko-main.o: main.cpp \
 
 /usr/include/bits/byteswap.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/ios_base.h:
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/ostream_insert.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/cxxabi_forced.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_function.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/backward/binders.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/range_access.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/basic_string.h:
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ext/atomicity.h:
 
@@ -212,31 +237,41 @@ Mrowisko-main.o: main.cpp \
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/atomic_word.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/locale_classes.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/string:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/allocator.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/c++allocator.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ext/new_allocator.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/new:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/ostream_insert.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/cxxabi_forced.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_function.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/backward/binders.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/range_access.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/basic_string.h:
-
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/basic_string.tcc:
+
+kontener.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/vector:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_construct.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ext/alloc_traits.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_uninitialized.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_vector.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_bvector.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/vector.tcc:
+
+miasto.h:
+
+kierunek.h:
+
+droga.h:
+
+exceptions.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/fstream:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/istream:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ios:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/ios_base.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/locale_classes.h:
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/locale_classes.tcc:
 
@@ -262,34 +297,30 @@ Mrowisko-main.o: main.cpp \
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/basic_ios.tcc:
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/ostream.tcc:
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ostream:
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/istream:
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/ostream.tcc:
 
 /usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/istream.tcc:
 
-reader.h:
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/codecvt.h:
 
-kontener.h:
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/cstdio:
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/vector:
+/usr/include/libio.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_construct.h:
+/usr/include/_G_config.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/ext/alloc_traits.h:
+/usr/include/bits/stdio_lim.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_uninitialized.h:
+/usr/include/bits/sys_errlist.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_vector.h:
+/usr/include/bits/stdio.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/stl_bvector.h:
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/basic_file.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/vector.tcc:
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/i486-slackware-linux/bits/c++io.h:
 
-miasto.h:
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/bits/fstream.tcc:
 
-kierunek.h:
-
-droga.h:
-
-exceptions.h:
+/usr/lib/gcc/i486-slackware-linux/4.7.0/../../../../include/c++/4.7.0/iostream:
