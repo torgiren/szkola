@@ -2,7 +2,6 @@
 #define __DROGA_H
 class Droga
 {
-	friend class Kontener;
 	public:
 		Droga(int src, int dst, int len);
 		void DodajFeromony();

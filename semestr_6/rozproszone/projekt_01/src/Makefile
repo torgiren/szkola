@@ -163,7 +163,7 @@ Mrowisko_SOURCES = main.cpp\
 				   reader.h reader.cpp\
 				   engine.h engine.cpp
 
-Mrowisko_CXXFLAGS = -Wall
+Mrowisko_CXXFLAGS = -Wall -g
 all: all-am
 
 .SUFFIXES:

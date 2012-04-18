@@ -7,4 +7,4 @@ Mrowisko_SOURCES = main.cpp\
 				   kontener.h kontener.cpp\
 				   reader.h reader.cpp\
 				   engine.h engine.cpp
-Mrowisko_CXXFLAGS= -Wall
+Mrowisko_CXXFLAGS= -Wall -g

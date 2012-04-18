@@ -12,5 +12,9 @@ int main()
 	eng.Step();
 	eng.Step();
 	eng.Step();
+	eng.Step();
+	eng.Step();
+	eng.Step();
+	eng.Step();
 	return 0;
 };
