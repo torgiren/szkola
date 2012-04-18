@@ -1,3 +1,0 @@
-Mrowisko-droga.o: droga.cpp droga.h
-
-droga.h:
