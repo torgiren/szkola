@@ -1,0 +1,3 @@
+Mrowisko-kierunek.o: kierunek.cpp kierunek.h
+
+kierunek.h:
