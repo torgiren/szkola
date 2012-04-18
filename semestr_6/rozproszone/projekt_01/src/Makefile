@@ -47,8 +47,8 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_Mrowisko_OBJECTS = Mrowisko-main.$(OBJEXT) \
 	Mrowisko-mrowka.$(OBJEXT) Mrowisko-miasto.$(OBJEXT) \
-	Mrowisko-droga.$(OBJEXT) Mrowisko-kierunek.$(OBJEXT) \
-	Mrowisko-kontener.$(OBJEXT) Mrowisko-reader.$(OBJEXT)
+	Mrowisko-droga.$(OBJEXT) Mrowisko-kontener.$(OBJEXT) \
+	Mrowisko-reader.$(OBJEXT) Mrowisko-engine.$(OBJEXT)
 Mrowisko_OBJECTS = $(am_Mrowisko_OBJECTS)
 Mrowisko_LDADD = $(LDADD)
 Mrowisko_LINK = $(CXXLD) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) \
@@ -88,7 +88,7 @@ ECHO_C =
 ECHO_N = -n
 ECHO_T = 
 EXEEXT = 
-INSTALL = /usr/bin/ginstall -c
+INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
@@ -98,7 +98,7 @@ LIBOBJS =
 LIBS = 
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/torgiren/szkola/semestr_6/rozproszone/projekt_01/missing --run makeinfo
-MKDIR_P = /usr/bin/mkdir -p
+MKDIR_P = /bin/mkdir -p
 OBJEXT = o
 PACKAGE = mrowisko
 PACKAGE_BUGREPORT = torgiren@gmail.com
@@ -140,7 +140,7 @@ libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
 mandir = ${datarootdir}/man
-mkdir_p = /usr/bin/mkdir -p
+mkdir_p = /bin/mkdir -p
 oldincludedir = /usr/include
 pdfdir = ${docdir}
 prefix = /usr/local
@@ -155,13 +155,13 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 Mrowisko_SOURCES = main.cpp\
+				   exceptions.h\
 				   mrowka.h mrowka.cpp\
 				   miasto.h miasto.cpp\
 				   droga.h droga.cpp\
-				   kierunek.h kierunek.cpp\
 				   kontener.h kontener.cpp\
 				   reader.h reader.cpp\
-				   exceptions.h
+				   engine.h engine.cpp
 
 Mrowisko_CXXFLAGS = -Wall
 all: all-am
@@ -246,7 +246,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/Mrowisko-droga.Po
-include ./$(DEPDIR)/Mrowisko-kierunek.Po
+include ./$(DEPDIR)/Mrowisko-engine.Po
 include ./$(DEPDIR)/Mrowisko-kontener.Po
 include ./$(DEPDIR)/Mrowisko-main.Po
 include ./$(DEPDIR)/Mrowisko-miasto.Po
@@ -323,20 +323,6 @@ Mrowisko-droga.obj: droga.cpp
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-droga.obj `if test -f 'droga.cpp'; then $(CYGPATH_W) 'droga.cpp'; else $(CYGPATH_W) '$(srcdir)/droga.cpp'; fi`
 
-Mrowisko-kierunek.o: kierunek.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-kierunek.o -MD -MP -MF $(DEPDIR)/Mrowisko-kierunek.Tpo -c -o Mrowisko-kierunek.o `test -f 'kierunek.cpp' || echo '$(srcdir)/'`kierunek.cpp
-	$(am__mv) $(DEPDIR)/Mrowisko-kierunek.Tpo $(DEPDIR)/Mrowisko-kierunek.Po
-#	source='kierunek.cpp' object='Mrowisko-kierunek.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-kierunek.o `test -f 'kierunek.cpp' || echo '$(srcdir)/'`kierunek.cpp
-
-Mrowisko-kierunek.obj: kierunek.cpp
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-kierunek.obj -MD -MP -MF $(DEPDIR)/Mrowisko-kierunek.Tpo -c -o Mrowisko-kierunek.obj `if test -f 'kierunek.cpp'; then $(CYGPATH_W) 'kierunek.cpp'; else $(CYGPATH_W) '$(srcdir)/kierunek.cpp'; fi`
-	$(am__mv) $(DEPDIR)/Mrowisko-kierunek.Tpo $(DEPDIR)/Mrowisko-kierunek.Po
-#	source='kierunek.cpp' object='Mrowisko-kierunek.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-kierunek.obj `if test -f 'kierunek.cpp'; then $(CYGPATH_W) 'kierunek.cpp'; else $(CYGPATH_W) '$(srcdir)/kierunek.cpp'; fi`
-
 Mrowisko-kontener.o: kontener.cpp
 	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-kontener.o -MD -MP -MF $(DEPDIR)/Mrowisko-kontener.Tpo -c -o Mrowisko-kontener.o `test -f 'kontener.cpp' || echo '$(srcdir)/'`kontener.cpp
 	$(am__mv) $(DEPDIR)/Mrowisko-kontener.Tpo $(DEPDIR)/Mrowisko-kontener.Po
@@ -364,6 +350,20 @@ Mrowisko-reader.obj: reader.cpp
 #	source='reader.cpp' object='Mrowisko-reader.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-reader.obj `if test -f 'reader.cpp'; then $(CYGPATH_W) 'reader.cpp'; else $(CYGPATH_W) '$(srcdir)/reader.cpp'; fi`
+
+Mrowisko-engine.o: engine.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-engine.o -MD -MP -MF $(DEPDIR)/Mrowisko-engine.Tpo -c -o Mrowisko-engine.o `test -f 'engine.cpp' || echo '$(srcdir)/'`engine.cpp
+	$(am__mv) $(DEPDIR)/Mrowisko-engine.Tpo $(DEPDIR)/Mrowisko-engine.Po
+#	source='engine.cpp' object='Mrowisko-engine.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-engine.o `test -f 'engine.cpp' || echo '$(srcdir)/'`engine.cpp
+
+Mrowisko-engine.obj: engine.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-engine.obj -MD -MP -MF $(DEPDIR)/Mrowisko-engine.Tpo -c -o Mrowisko-engine.obj `if test -f 'engine.cpp'; then $(CYGPATH_W) 'engine.cpp'; else $(CYGPATH_W) '$(srcdir)/engine.cpp'; fi`
+	$(am__mv) $(DEPDIR)/Mrowisko-engine.Tpo $(DEPDIR)/Mrowisko-engine.Po
+#	source='engine.cpp' object='Mrowisko-engine.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-engine.obj `if test -f 'engine.cpp'; then $(CYGPATH_W) 'engine.cpp'; else $(CYGPATH_W) '$(srcdir)/engine.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

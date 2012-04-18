@@ -1,15 +1,16 @@
 #include <iostream>
+#include <cstdlib>
+#include "kontener.h"
 #include "reader.h"
+#include "engine.h"
 int main()
 {
+	srand(time(NULL));
 	std::cout<<"Hello world"<<std::endl;
-	try
-	{
-		Reader::ReadMap("map.ini");
-	}
-	catch(FileOpenError e)
-	{
-		std::cerr<<"Blad otwarcia pliku: "<<e.itsPath<<std::endl;
-	};
+	Engine eng;
+	eng.Step();
+	eng.Step();
+	eng.Step();
+	eng.Step();
 	return 0;
 };

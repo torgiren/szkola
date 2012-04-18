@@ -1,0 +1,193 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ACLOCAL	Makefile	/^ACLOCAL = ${SHELL} \/home\/torgiren\/szkola\/semestr_6\/rozproszone\/projekt_01\/missing --run aclocal-1.11$/;"	m
+ACLOCAL_M4	Makefile	/^ACLOCAL_M4 = $(top_srcdir)\/aclocal.m4$/;"	m
+AMTAR	Makefile	/^AMTAR = ${SHELL} \/home\/torgiren\/szkola\/semestr_6\/rozproszone\/projekt_01\/missing --run tar$/;"	m
+AUTOCONF	Makefile	/^AUTOCONF = ${SHELL} \/home\/torgiren\/szkola\/semestr_6\/rozproszone\/projekt_01\/missing --run autoconf$/;"	m
+AUTOHEADER	Makefile	/^AUTOHEADER = ${SHELL} \/home\/torgiren\/szkola\/semestr_6\/rozproszone\/projekt_01\/missing --run autoheader$/;"	m
+AUTOMAKE	Makefile	/^AUTOMAKE = ${SHELL} \/home\/torgiren\/szkola\/semestr_6\/rozproszone\/projekt_01\/missing --run automake-1.11$/;"	m
+AWK	Makefile	/^AWK = gawk$/;"	m
+AddRoad	kontener.cpp	/^void Kontener::AddRoad(Droga* road)$/;"	f	class:Kontener	signature:(Droga* road)
+AddRoad	kontener.h	/^		void AddRoad(Droga* road);		$/;"	p	class:Kontener	access:public	signature:(Droga* road)
+BuildMap	kontener.h	/^		void BuildMap();$/;"	p	class:Kontener	access:public	signature:()
+CCLD	Makefile	/^CCLD = $(CC)$/;"	m
+COMPILE	Makefile	/^COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\$/;"	m
+CONFIG_CLEAN_FILES	Makefile	/^CONFIG_CLEAN_FILES =$/;"	m
+CONFIG_CLEAN_VPATH_FILES	Makefile	/^CONFIG_CLEAN_VPATH_FILES =$/;"	m
+CONFIG_HEADER	Makefile	/^CONFIG_HEADER = $(top_builddir)\/config.h$/;"	m
+CPPFLAGS	Makefile	/^CPPFLAGS = $/;"	m
+CTAGS	Makefile	/^CTAGS = ctags$/;"	m
+CXX	Makefile	/^CXX = mpiCC$/;"	m
+CXXCOMPILE	Makefile	/^CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \\$/;"	m
+CXXDEPMODE	Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
+CXXFLAGS	Makefile	/^CXXFLAGS = -g -O2$/;"	m
+CXXLD	Makefile	/^CXXLD = $(CXX)$/;"	m
+CXXLINK	Makefile	/^CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \\$/;"	m
+CYGPATH_W	Makefile	/^CYGPATH_W = echo$/;"	m
+DEFAULT_INCLUDES	Makefile	/^DEFAULT_INCLUDES = -I. -I$(top_builddir)$/;"	m
+DEFS	Makefile	/^DEFS = -DHAVE_CONFIG_H$/;"	m
+DEPDIR	Makefile	/^DEPDIR = .deps$/;"	m
+DISTFILES	Makefile	/^DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)$/;"	m
+DIST_COMMON	Makefile	/^DIST_COMMON = $(srcdir)\/Makefile.am $(srcdir)\/Makefile.in$/;"	m
+DIST_SOURCES	Makefile	/^DIST_SOURCES = $(Mrowisko_SOURCES)$/;"	m
+DodajFeromony	droga.h	/^		void DodajFeromony();$/;"	p	class:Droga	access:public	signature:()
+Droga	droga.cpp	/^Droga::Droga(int src,int dst, int len):$/;"	f	class:Droga	signature:(int src,int dst, int len)
+Droga	droga.h	/^		Droga(int src, int dst, int len);$/;"	p	class:Droga	access:public	signature:(int src, int dst, int len)
+Droga	droga.h	/^class Droga$/;"	c
+Droga::DodajFeromony	droga.h	/^		void DodajFeromony();$/;"	p	class:Droga	access:public	signature:()
+Droga::Droga	droga.cpp	/^Droga::Droga(int src,int dst, int len):$/;"	f	class:Droga	signature:(int src,int dst, int len)
+Droga::Droga	droga.h	/^		Droga(int src, int dst, int len);$/;"	p	class:Droga	access:public	signature:(int src, int dst, int len)
+Droga::itsDl	droga.h	/^		int itsDl;$/;"	m	class:Droga	access:private
+Droga::itsFeromony	droga.h	/^		int itsFeromony;$/;"	m	class:Droga	access:private
+Droga::itsMiasta	droga.h	/^		int itsMiasta[2];$/;"	m	class:Droga	access:private
+ECHO_C	Makefile	/^ECHO_C = $/;"	m
+ECHO_N	Makefile	/^ECHO_N = -n$/;"	m
+ECHO_T	Makefile	/^ECHO_T = $/;"	m
+ETAGS	Makefile	/^ETAGS = etags$/;"	m
+EXEEXT	Makefile	/^EXEEXT = $/;"	m
+FileOpenError	exceptions.h	/^		FileOpenError(std::string path):$/;"	f	class:FileOpenError	access:public	signature:(std::string path)
+FileOpenError	exceptions.h	/^class FileOpenError$/;"	c
+FileOpenError::FileOpenError	exceptions.h	/^		FileOpenError(std::string path):$/;"	f	class:FileOpenError	access:public	signature:(std::string path)
+FileOpenError::itsPath	exceptions.h	/^		std::string itsPath;$/;"	m	class:FileOpenError	access:public
+INSTALL	Makefile	/^INSTALL = \/usr\/bin\/ginstall -c$/;"	m
+INSTALL_DATA	Makefile	/^INSTALL_DATA = ${INSTALL} -m 644$/;"	m
+INSTALL_HEADER	Makefile	/^INSTALL_HEADER = $(INSTALL_DATA)$/;"	m
+INSTALL_PROGRAM	Makefile	/^INSTALL_PROGRAM = ${INSTALL}$/;"	m
+INSTALL_SCRIPT	Makefile	/^INSTALL_SCRIPT = ${INSTALL}$/;"	m
+INSTALL_STRIP_PROGRAM	Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
+Kontener	kontener.cpp	/^Kontener::Kontener(int cities)$/;"	f	class:Kontener	signature:(int cities)
+Kontener	kontener.h	/^		Kontener(int cities);$/;"	p	class:Kontener	access:public	signature:(int cities)
+Kontener	kontener.h	/^class Kontener$/;"	c
+Kontener::AddRoad	kontener.cpp	/^void Kontener::AddRoad(Droga* road)$/;"	f	class:Kontener	signature:(Droga* road)
+Kontener::AddRoad	kontener.h	/^		void AddRoad(Droga* road);		$/;"	p	class:Kontener	access:public	signature:(Droga* road)
+Kontener::BuildMap	kontener.h	/^		void BuildMap();$/;"	p	class:Kontener	access:public	signature:()
+Kontener::Kontener	kontener.cpp	/^Kontener::Kontener(int cities)$/;"	f	class:Kontener	signature:(int cities)
+Kontener::Kontener	kontener.h	/^		Kontener(int cities);$/;"	p	class:Kontener	access:public	signature:(int cities)
+Kontener::itsDrogi	kontener.h	/^		std::vector<Droga*> itsDrogi;$/;"	m	class:Kontener	access:private
+Kontener::itsMiasta	kontener.h	/^		std::vector<Miasto*> itsMiasta;$/;"	m	class:Kontener	access:private
+LDFLAGS	Makefile	/^LDFLAGS = $/;"	m
+LIBOBJS	Makefile	/^LIBOBJS = $/;"	m
+LIBS	Makefile	/^LIBS = $/;"	m
+LINK	Makefile	/^LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@$/;"	m
+LTLIBOBJS	Makefile	/^LTLIBOBJS = $/;"	m
+MAKEINFO	Makefile	/^MAKEINFO = ${SHELL} \/home\/torgiren\/szkola\/semestr_6\/rozproszone\/projekt_01\/missing --run makeinfo$/;"	m
+MKDIR_P	Makefile	/^MKDIR_P = \/usr\/bin\/mkdir -p$/;"	m
+MapSyntaxError	exceptions.h	/^		MapSyntaxError(std::string desc="no description")$/;"	f	class:MapSyntaxError	access:public	signature:(std::string desc=Ó)
+MapSyntaxError	exceptions.h	/^class MapSyntaxError$/;"	c
+MapSyntaxError::MapSyntaxError	exceptions.h	/^		MapSyntaxError(std::string desc="no description")$/;"	f	class:MapSyntaxError	access:public	signature:(std::string desc=Ó)
+MapSyntaxError::itsDesc	exceptions.h	/^		std::string itsDesc;$/;"	m	class:MapSyntaxError	access:public
+Miasto	miasto.h	/^class Miasto$/;"	c
+Miasto::itsDrogi	miasto.h	/^		std::vector<int> itsDrogi;$/;"	m	class:Miasto	access:private
+Mrowisko_CXXFLAGS	Makefile	/^Mrowisko_CXXFLAGS = -Wall$/;"	m
+Mrowisko_LDADD	Makefile	/^Mrowisko_LDADD = $(LDADD)$/;"	m
+Mrowisko_LINK	Makefile	/^Mrowisko_LINK = $(CXXLD) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) \\$/;"	m
+Mrowisko_OBJECTS	Makefile	/^Mrowisko_OBJECTS = $(am_Mrowisko_OBJECTS)$/;"	m
+Mrowisko_SOURCES	Makefile	/^Mrowisko_SOURCES = main.cpp\\$/;"	m
+Mrowka	mrowka.h	/^class Mrowka$/;"	c
+Mrowka::itsDroga	mrowka.h	/^		std::vector<int> itsDroga;$/;"	m	class:Mrowka	access:private
+NORMAL_INSTALL	Makefile	/^NORMAL_INSTALL = :$/;"	m
+NORMAL_UNINSTALL	Makefile	/^NORMAL_UNINSTALL = :$/;"	m
+OBJEXT	Makefile	/^OBJEXT = o$/;"	m
+PACKAGE	Makefile	/^PACKAGE = mrowisko$/;"	m
+PACKAGE_BUGREPORT	Makefile	/^PACKAGE_BUGREPORT = torgiren@gmail.com$/;"	m
+PACKAGE_NAME	Makefile	/^PACKAGE_NAME = Mrowisko$/;"	m
+PACKAGE_STRING	Makefile	/^PACKAGE_STRING = Mrowisko 0.1$/;"	m
+PACKAGE_TARNAME	Makefile	/^PACKAGE_TARNAME = mrowisko$/;"	m
+PACKAGE_URL	Makefile	/^PACKAGE_URL = $/;"	m
+PACKAGE_VERSION	Makefile	/^PACKAGE_VERSION = 0.1$/;"	m
+PATH_SEPARATOR	Makefile	/^PATH_SEPARATOR = :$/;"	m
+POST_INSTALL	Makefile	/^POST_INSTALL = :$/;"	m
+POST_UNINSTALL	Makefile	/^POST_UNINSTALL = :$/;"	m
+PRE_INSTALL	Makefile	/^PRE_INSTALL = :$/;"	m
+PRE_UNINSTALL	Makefile	/^PRE_UNINSTALL = :$/;"	m
+PROGRAMS	Makefile	/^PROGRAMS = $(bin_PROGRAMS)$/;"	m
+ReadMap	reader.cpp	/^Kontener* Reader::ReadMap(std::string path)$/;"	f	class:Reader	signature:(std::string path)
+ReadMap	reader.h	/^	Kontener* ReadMap(std::string path);$/;"	p	namespace:Reader	signature:(std::string path)
+Reader	reader.h	/^namespace Reader$/;"	n
+Reader::ReadMap	reader.cpp	/^Kontener* Reader::ReadMap(std::string path)$/;"	f	class:Reader	signature:(std::string path)
+Reader::ReadMap	reader.h	/^	Kontener* ReadMap(std::string path);$/;"	p	namespace:Reader	signature:(std::string path)
+SET_MAKE	Makefile	/^SET_MAKE = $/;"	m
+SHELL	Makefile	/^SHELL = \/bin\/sh$/;"	m
+SOURCES	Makefile	/^SOURCES = $(Mrowisko_SOURCES)$/;"	m
+STRIP	Makefile	/^STRIP = $/;"	m
+VERSION	Makefile	/^VERSION = 0.1$/;"	m
+__DROGA_H	droga.h	2;"	d
+__KONTERNE_H	kontener.h	2;"	d
+__MIASTO_H	miasto.h	2;"	d
+__MROWKA_H	mrowka.h	2;"	d
+__READER_H	reader.h	2;"	d
+abs_builddir	Makefile	/^abs_builddir = \/home\/torgiren\/szkola\/semestr_6\/rozproszone\/projekt_01\/src$/;"	m
+abs_srcdir	Makefile	/^abs_srcdir = \/home\/torgiren\/szkola\/semestr_6\/rozproszone\/projekt_01\/src$/;"	m
+abs_top_builddir	Makefile	/^abs_top_builddir = \/home\/torgiren\/szkola\/semestr_6\/rozproszone\/projekt_01$/;"	m
+abs_top_srcdir	Makefile	/^abs_top_srcdir = \/home\/torgiren\/szkola\/semestr_6\/rozproszone\/projekt_01$/;"	m
+ac_ct_CXX	Makefile	/^ac_ct_CXX = mpiCC$/;"	m
+am_Mrowisko_OBJECTS	Makefile	/^am_Mrowisko_OBJECTS = Mrowisko-main.$(OBJEXT) \\$/;"	m
+am__aclocal_m4_deps	Makefile	/^am__aclocal_m4_deps = $(top_srcdir)\/configure.ac$/;"	m
+am__cd	Makefile	/^am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd$/;"	m
+am__configure_deps	Makefile	/^am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \\$/;"	m
+am__depfiles_maybe	Makefile	/^am__depfiles_maybe = depfiles$/;"	m
+am__include	Makefile	/^am__include = include$/;"	m
+am__installdirs	Makefile	/^am__installdirs = "$(DESTDIR)$(bindir)"$/;"	m
+am__leading_dot	Makefile	/^am__leading_dot = .$/;"	m
+am__mv	Makefile	/^am__mv = mv -f$/;"	m
+am__quote	Makefile	/^am__quote = $/;"	m
+am__tar	Makefile	/^am__tar = ${AMTAR} chof - "$$tardir"$/;"	m
+am__untar	Makefile	/^am__untar = ${AMTAR} xf -$/;"	m
+bin_PROGRAMS	Makefile	/^bin_PROGRAMS = Mrowisko$(EXEEXT)$/;"	m
+bindir	Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
+build_alias	Makefile	/^build_alias = $/;"	m
+builddir	Makefile	/^builddir = .$/;"	m
+datadir	Makefile	/^datadir = ${datarootdir}$/;"	m
+datarootdir	Makefile	/^datarootdir = ${prefix}\/share$/;"	m
+depcomp	Makefile	/^depcomp = $(SHELL) $(top_srcdir)\/depcomp$/;"	m
+docdir	Makefile	/^docdir = ${datarootdir}\/doc\/${PACKAGE_TARNAME}$/;"	m
+dvidir	Makefile	/^dvidir = ${docdir}$/;"	m
+exec_prefix	Makefile	/^exec_prefix = ${prefix}$/;"	m
+host_alias	Makefile	/^host_alias = $/;"	m
+htmldir	Makefile	/^htmldir = ${docdir}$/;"	m
+includedir	Makefile	/^includedir = ${prefix}\/include$/;"	m
+infodir	Makefile	/^infodir = ${datarootdir}\/info$/;"	m
+install_sh	Makefile	/^install_sh = ${SHELL} \/home\/torgiren\/szkola\/semestr_6\/rozproszone\/projekt_01\/install-sh$/;"	m
+install_sh_DATA	Makefile	/^install_sh_DATA = $(install_sh) -c -m 644$/;"	m
+install_sh_PROGRAM	Makefile	/^install_sh_PROGRAM = $(install_sh) -c$/;"	m
+install_sh_SCRIPT	Makefile	/^install_sh_SCRIPT = $(install_sh) -c$/;"	m
+itsDesc	exceptions.h	/^		std::string itsDesc;$/;"	m	class:MapSyntaxError	access:public
+itsDl	droga.h	/^		int itsDl;$/;"	m	class:Droga	access:private
+itsDroga	mrowka.h	/^		std::vector<int> itsDroga;$/;"	m	class:Mrowka	access:private
+itsDrogi	kontener.h	/^		std::vector<Droga*> itsDrogi;$/;"	m	class:Kontener	access:private
+itsDrogi	miasto.h	/^		std::vector<int> itsDrogi;$/;"	m	class:Miasto	access:private
+itsFeromony	droga.h	/^		int itsFeromony;$/;"	m	class:Droga	access:private
+itsMiasta	droga.h	/^		int itsMiasta[2];$/;"	m	class:Droga	access:private
+itsMiasta	kontener.h	/^		std::vector<Miasto*> itsMiasta;$/;"	m	class:Kontener	access:private
+itsPath	exceptions.h	/^		std::string itsPath;$/;"	m	class:FileOpenError	access:public
+libdir	Makefile	/^libdir = ${exec_prefix}\/lib$/;"	m
+libexecdir	Makefile	/^libexecdir = ${exec_prefix}\/libexec$/;"	m
+localedir	Makefile	/^localedir = ${datarootdir}\/locale$/;"	m
+localstatedir	Makefile	/^localstatedir = ${prefix}\/var$/;"	m
+main	main.cpp	/^int main()$/;"	f	signature:()
+mandir	Makefile	/^mandir = ${datarootdir}\/man$/;"	m
+mkdir_p	Makefile	/^mkdir_p = \/usr\/bin\/mkdir -p$/;"	m
+mkinstalldirs	Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
+oldincludedir	Makefile	/^oldincludedir = \/usr\/include$/;"	m
+pdfdir	Makefile	/^pdfdir = ${docdir}$/;"	m
+pkgdatadir	Makefile	/^pkgdatadir = $(datadir)\/mrowisko$/;"	m
+pkgincludedir	Makefile	/^pkgincludedir = $(includedir)\/mrowisko$/;"	m
+pkglibdir	Makefile	/^pkglibdir = $(libdir)\/mrowisko$/;"	m
+pkglibexecdir	Makefile	/^pkglibexecdir = $(libexecdir)\/mrowisko$/;"	m
+prefix	Makefile	/^prefix = \/usr\/local$/;"	m
+program_transform_name	Makefile	/^program_transform_name = s,x,x,$/;"	m
+psdir	Makefile	/^psdir = ${docdir}$/;"	m
+sbindir	Makefile	/^sbindir = ${exec_prefix}\/sbin$/;"	m
+sharedstatedir	Makefile	/^sharedstatedir = ${prefix}\/com$/;"	m
+srcdir	Makefile	/^srcdir = .$/;"	m
+subdir	Makefile	/^subdir = src$/;"	m
+sysconfdir	Makefile	/^sysconfdir = ${prefix}\/etc$/;"	m
+target_alias	Makefile	/^target_alias = $/;"	m
+top_build_prefix	Makefile	/^top_build_prefix = ..\/$/;"	m
+top_builddir	Makefile	/^top_builddir = ..$/;"	m
+top_srcdir	Makefile	/^top_srcdir = ..$/;"	m
+transform	Makefile	/^transform = $(program_transform_name)$/;"	m

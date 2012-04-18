@@ -1,12 +1,12 @@
 #ifndef __MIASTO_H
 #define __MIASTO_H
 #include<vector>
-#include "kierunek.h"
 class Miasto
 {
 	public:
-		Kierunek* RetKierunek();
+		void AddRoad(int num);
+		std::vector<int>* RetDrogi();
 	private:
-		std::vector<Kierunek*> itsDrogi;
+		std::vector<int> itsDrogi;
 };
 #endif

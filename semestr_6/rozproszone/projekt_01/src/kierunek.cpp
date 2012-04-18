@@ -1,1 +1,0 @@
-#include "kierunek.h"
