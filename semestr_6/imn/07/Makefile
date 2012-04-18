@@ -1,4 +1,4 @@
-CXXFLAGS=-Wall -O3
+CXXFLAGS=-Wall -O3 -g
 main: main.o
 	g++ $^ -o $@ ${LDFLAGS}
 main.o: main.cpp

@@ -2,153 +2,235 @@
 #include <fstream>
 #include <map>
 #include <cmath>
+#include <cstdlib>
 using namespace std;
-typedef map<int,map<int,double> > siatka;
-void poczatkowy(siatka& tab)
+//typedef double[100][100] siatka;
+void poczatkowy(double*** tab)
 {
 	int i;
 	int j;
-	for(i=-50;i<=50;i++)
-		for(j=-50;j<=50;j++)
-			tab[i][i]=0.0f;
+	for(i=0;i<100;i++)
+		for(j=0;j<100;j++)
+			(*tab)[i][j]=0.0f;
 };
-void gestosc(siatka& tab)
+void gestosc(double*** tab)
 {
 	int i;
 	int j;
-	poczatkowy(tab);
-	for(i=-10;i<=10;i++)
-		for(j=-10;j<=10;j++)
-			tab[i][j]=1.0f;
+	for(i=0;i<100;i++)
+		for(j=0;j<100;j++)
+			(*tab)[i][j]=0.0f;
+	for(i=40;i<60;i++)
+		for(j=40;j<60;j++)
+			(*tab)[i][j]=1.0f;
 };
-void potencjal(siatka& potenc, siatka& pois, double w)
+void potencjal(double*** potenc, double ***pois, double w)
 {
 	int i;
 	int j;
-	for(i=-49;i<=49;i++)
-		for(j=-49;j<=49;j++)
-			potenc[i][j]=(1.0f-w)*potenc[i][j]+w*(potenc[i+1][j]+potenc[i-1][j]+potenc[i][j+1]+potenc[i][j-1]+pois[i][j])/4.0f;
+	for(i=1;i<99;i++)
+		for(j=1;j<99;j++)
+			(*potenc)[i][j]=(1.0f-w)*(*potenc)[i][j]+w*((*potenc)[i+1][j]+(*potenc)[i-1][j]+(*potenc)[i][j+1]+(*potenc)[i][j-1]+(*pois)[i][j])/4.0f;
 };
-void potencjal_zad3(siatka& potenc, siatka& pois, double w)
+void potencjal_zad3(double*** potenc, double*** pois, double w)
 {
 	int i;
 	int j;
-	siatka tmp=potenc;
-	for(i=-49;i<=49;i++)
-		for(j=-49;j<=49;j++)
-			tmp[i][j]=(1.0f-w)*potenc[i][j]+w*(potenc[i+1][j]+potenc[i-1][j]+potenc[i][j+1]+potenc[i][j-1]+pois[i][j])/4.0f;
-	for(i=-50;i<=50;i++)
-		for(j=-50;j<=50;j++)
-			potenc[i][j]=tmp[i][j];
+	double tmp[100][100];
+//	memcpy(tmp,potenc,100*100*sizeof(double));
+	for(i=0;i<100;i++)
+		for(j=0;j<100;j++)
+			tmp[i][j]=0;
+
+	for(i=1;i<99;i++)
+		for(j=1;j<99;j++)
+///			tmp[i][j]=(1.0f-w)*(*potenc)[i][j];
+			tmp[i][j]=(1.0f-w)*(*potenc)[i][j]+w*((*potenc)[i+1][j]+(*potenc)[i-1][j]+(*potenc)[i][j+1]+(*potenc)[i][j-1]+(*pois)[i][j])/4.0f;
+	for(i=0;i<100;i++)
+		for(j=0;j<100;j++)
+			(*potenc)[i][j]=tmp[i][j];
 };
-ostream& operator<<(ostream& out,siatka& potenc)
+ostream& print_potenc(ostream& out,double*** potenc)
 {
 	int i;
 	int j;
-	for(i=-50;i<=50;i++)
-		for(j=-50;j<=50;j++)
-			out<<i<<" "<<j<<" "<<potenc[i][j]<<endl;	
+	for(i=0;i<100;i++)
+		for(j=0;j<100;j++)
+			out<<i<<" "<<j<<" "<<(*potenc)[i][j]<<endl;	
 	return out;
 };
-double zbiez_funkc(siatka& potenc, siatka& pois)
+double zbiez_funkc(double*** potenc, double*** pois)
 {
 	int i;
 	int j;
 	double wynik=0;
-	for(i=-49;i<=49;i++)
-		for(j=-49;j<=49;j++)
+	for(i=1;i<99;i++)
+		for(j=1;j<99;j++)
 		{
 			double tmp;
-			tmp=pow((potenc[i+1][j]-potenc[i-1][j])/2.0f,2);
-			tmp+=pow((potenc[i][j+1]-potenc[i][j-1])/2.0f,2);
+			tmp=pow(((*potenc)[i+1][j]-(*potenc)[i-1][j])/2.0f,2);
+			tmp+=pow(((*potenc)[i][j+1]-(*potenc)[i][j-1])/2.0f,2);
 			tmp/=2.0f;
-			tmp-=pois[i][j]*potenc[i][j];
+			tmp-=(*pois)[i][j]*(*potenc)[i][j];
 			wynik+=tmp;
 		};
 	return wynik;
 };
 
-siatka zad1()
+void zad1()
 {
-	siatka potenc;
-	siatka pois;
-	gestosc(pois);
+//	double potenc[100][100];
+//	double pois[100][100];
+	double** pois=(double**)malloc(100*sizeof(double*));
+	double** potenc=(double**)malloc(100*sizeof(double*));
+	int i;
+	for(i=0;i<100;i++)
+	{
+		potenc[i]=(double*)malloc(100*sizeof(double));
+		pois[i]=(double*)malloc(100*sizeof(double));
+	};
+	cout<<"przed"<<endl;
+	gestosc((double***)&pois);
+	cout<<"po"<<endl;
+	cout<<pois<<endl;
 	double w;
 	ofstream plik("zad1_1.dat");
-	for(w=0.05f;w<2.0f;w+=0.05)
+	for(w=0.2f;w<2.0f;w+=0.02)
 	{
-		double zbiez=10;
+		double zbiez=1;
 		double zbiez_old;
-		poczatkowy(potenc);		
+		poczatkowy((double***)&potenc);		
 		int iter=0;
 		do
 		{
 			zbiez_old=zbiez;
-			potencjal(potenc,pois,w);
-			zbiez=zbiez_funkc(potenc,pois);
+			potencjal(&potenc,&pois,w);
+			zbiez=zbiez_funkc(&potenc,&pois);
 			++iter;
-		}while(fabs((zbiez-zbiez_old)/zbiez_old)>0.0001);
+//			cout<<"delta zbiez: "<<zbiez-zbiez_old<<endl;
+		}while(fabs((zbiez-zbiez_old)/zbiez_old)>0.000001);
 //		}while(fabs(zbiez-zbiez_old)>0.01);
 		cout<<w<<" "<<iter<<endl;
 		plik<<w<<" "<<iter<<endl;
 	};	
 	plik.close();
 	plik.open("zad1_2.dat");
-	plik<<potenc<<endl;
+	print_potenc(plik,&potenc);
 	plik.close();
-	return potenc;
 };
-void zad2()
+double** specific_zad1(double w)
 {
-	siatka gestosc;
-	poczatkowy(gestosc);
-	siatka potenc=zad1();
-	double w=1.8;
+//	double potenc[100][100];
+//	double pois[100][100];
+	double** pois=(double**)malloc(100*sizeof(double*));
+	double** potenc=(double**)malloc(100*sizeof(double*));
 	int i;
-	int j;
-	for(i=-49;i<=49;i++)
-		for(j=-49;j<=49;j++)
-		{
-			gestosc[i][j]=4.0f*(potenc[i][j]-(1-w)*potenc[i][j])-potenc[i+1][j]-potenc[i-1][j]-potenc[i][j+1]-potenc[i][j-1];
-		};
-	ofstream plik;
-	plik.open("zad2_1.dat");
-	plik<<gestosc<<endl;
-	plik.close();
-};
-void zad3()
-{
-	siatka potenc;
-	siatka pois;
-	gestosc(pois);
-	double w;
-	ofstream plik("zad3_1.dat");
-	for(w=0.05f;w<1.0f;w+=0.05)
+	for(i=0;i<100;i++)
 	{
-		double zbiez=1000;
+		potenc[i]=(double*)malloc(100*sizeof(double));
+		pois[i]=(double*)malloc(100*sizeof(double));
+	};
+	cout<<"przed"<<endl;
+	gestosc((double***)&pois);
+	cout<<"po"<<endl;
+	cout<<pois<<endl;
+//	for(w=0.2f;w<2.0f;w+=0.02)
+	{
+		double zbiez=1;
 		double zbiez_old;
-		poczatkowy(potenc);		
+		poczatkowy((double***)&potenc);		
 		int iter=0;
 		do
 		{
 			zbiez_old=zbiez;
-			potencjal_zad3(potenc,pois,w);
-			zbiez=zbiez_funkc(potenc,pois);
+			potencjal(&potenc,&pois,w);
+			zbiez=zbiez_funkc(&potenc,&pois);
 			++iter;
-		}while(fabs((zbiez-zbiez_old)/zbiez_old)>0.0001);
+//			cout<<"delta zbiez: "<<zbiez-zbiez_old<<endl;
+		}while(fabs((zbiez-zbiez_old)/zbiez_old)>0.000001);
+//		}while(fabs(zbiez-zbiez_old)>0.01);
+	};	
+	return potenc;
+};
+void zad2()
+{
+	double** gest=(double**)malloc(100*sizeof(double*));
+	double** potenc=specific_zad1(1.8);
+	int i;
+	for(i=0;i<100;i++)
+	{
+//		potenc[i]=(double*)malloc(100*sizeof(double));
+		gest[i]=(double*)malloc(100*sizeof(double));
+	};
+//	poczatkowy(gestosc);
+//	double potenc[100][100];//TODO Zrobic to
+	poczatkowy(&gest);
+	int j;
+	for(i=1;i<99;i++)
+		for(j=1;j<99;j++)
+			gest[i][j]=0;
+	for(i=1;i<99;i++)
+		for(j=1;j<99;j++)
+		{
+			gest[i][j]=potenc[i+1][j]-2*potenc[i][j]+potenc[i-1][j]+potenc[i][j+1]-2*potenc[i][j]+potenc[i][j-1];
+			gest[i][j]*=-1;
+//			gestosc[i][j]=4.0f*(potenc[i][j]-(1-w)*potenc[i][j])-potenc[i+1][j]-potenc[i-1][j]-potenc[i][j+1]-potenc[i][j-1];
+		};
+	ofstream plik;
+	plik.open("zad2_1.dat");
+	gestosc(&potenc);
+	for(i=0;i<100;i++)
+	{
+		plik<<i<<" "<<gest[50][i]<<" "<<potenc[50][i]<<endl;
+	};
+	plik.close();
+};
+void zad3()
+{
+	double** pois=(double**)malloc(100*sizeof(double*));
+	double** potenc=(double**)malloc(100*sizeof(double*));
+	int i;
+	for(i=0;i<100;i++)
+	{
+		potenc[i]=(double*)malloc(100*sizeof(double));
+		pois[i]=(double*)malloc(100*sizeof(double));
+	};
+//	double potenc[100][100];
+//	double pois[100][100];
+	gestosc(&pois);
+	double w;
+	ofstream plik("zad3_1.dat");
+	for(w=0.05f;w<1.2f;w+=0.05)
+	{
+		double zbiez=10;
+		double zbiez_old;
+		poczatkowy((double***)&potenc);		
+		int iter=0;
+		do
+		{
+			zbiez_old=zbiez;
+			potencjal_zad3(&potenc,&pois,w);
+			zbiez=zbiez_funkc(&potenc,&pois);
+			++iter;
+		}while(fabs((zbiez-zbiez_old)/zbiez_old)>0.0000001);
 		cout<<w<<" "<<iter<<endl;
 		plik<<w<<" "<<iter<<endl;
+		if(w==1.0f)
+		{
+			ofstream plik2;
+			plik2.open("zad3_2.dat");
+			print_potenc(plik2,&potenc);
+			plik2.close();
+
+		};
 	};	
-	plik.close();
-	plik.open("zad3_2.dat");
-	plik<<potenc<<endl;
 	plik.close();
 };
 int main()
 {
 //	zad1();
 	zad2();
-	zad3();
+//	zad3();
 	return 0;
 };
 
