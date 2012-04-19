@@ -6,3 +6,6 @@ convergence.txt
 log.txt
 *.swp
 *~
+.deps
+config.log
+config.status
