@@ -6,9 +6,12 @@ class Engine
 {
 	public:	
 		Engine();
-		void Step();
+		bool Step();
+		int RetBest();
+		void NewAnt();
 	private:
 		Kontener* itsKontener;
 		Mrowka* itsMrowka;
+		int itsBest;
 };
 #endif

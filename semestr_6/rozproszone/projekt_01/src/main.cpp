@@ -8,13 +8,12 @@ int main()
 	srand(time(NULL));
 	std::cout<<"Hello world"<<std::endl;
 	Engine eng;
-	eng.Step();
-	eng.Step();
-	eng.Step();
-	eng.Step();
-	eng.Step();
-	eng.Step();
-	eng.Step();
-	eng.Step();
+	int i;
+	for(i=0;i<30;i++)
+	{
+		eng.NewAnt();
+		while(eng.Step());
+		std::cout<<"Najlepsza droga: "<<eng.RetBest()<<std::endl;
+	}
 	return 0;
 };
