@@ -88,6 +88,8 @@ public:
 	individual select();	// selekcja
 	void init_generation();	// inicjalizacja populacji bazowej
 	int  next_generation();	// tworzenie nowego pokolenia
+private:
+	individual* ruletka();
 };
 
 
