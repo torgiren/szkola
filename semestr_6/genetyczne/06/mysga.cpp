@@ -133,11 +133,12 @@ individual population::select()
 		tab[i]=ruletka();
 	};
 	int j;
+
 	for(j=3;j>=0;j--)
 	{
 		for(i=0;i<j;i++)
 		{
-			tab[i]=tab[2*i]->fitness>tab[2*i+1]->fitness?tab[2*i]:tab[2*i+1];
+			tab[i]=(rand()%(int)(tab[2*i+1]->fitness+tab[2*i]->fitness)<tab[2*i]->fitness)?tab[2*i]:tab[2*i+1];
 		};
 	};
 
