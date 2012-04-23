@@ -1,5 +1,9 @@
+all: main main2
+	
 main: random.o SGA_01.o SGA_Facade.o mysga.o
 	g++ $^ -o $@ -O3
+main2: main2.cpp
+	g++ $^ -o $@ -Wall -Wextra -g
 random.o: random.cpp random.h
 	g++ -c random.cpp
 SGA_01.o: SGA_01.cpp
@@ -14,3 +18,4 @@ rozklad.o: rozklad.cpp
 	g++ -c $^ -Wall
 clean:
 	rm -f *.o main
+.PHONY: clean
