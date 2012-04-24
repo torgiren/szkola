@@ -58,8 +58,8 @@ int main()
 		B[i]=b;
 		++i;
 	};
-	int czest_glob[20][100];
-	memset(czest_glob,0,sizeof(int)*20*100);
+	float czest_glob[20][100];
+	memset(czest_glob,0,sizeof(float)*20*100);
 	int x;
 	for(x=0;x<100;x++)
 	{
@@ -67,24 +67,43 @@ int main()
 //		memset(czest,0,sizeof(int)*20);
 		for(i=0;i<500;i++)
 		{
-			C[i]=turniej(B);
+			C[i]=turniej(A);
 			czest_glob[A[C[i]]][x]++;
 		};
 	};
 	ofstream wynik("czest.dat");
+	float srednia[20];
+	memset(srednia,0,sizeof(float)*20);
 	for(i=0;i<20;i++)
 	{
 		int j;
 		int tmp=0;
 		for(j=0;j<100;j++)
 		{
-			tmp+=czest_glob[i][j];
+			srednia[i]+=czest_glob[i][j];
 		};
-		wynik<<i<<" "<<tmp<<endl;
+		srednia[i]/=100;
 
+	};
+	float odchylenie[20];
+	memset(odchylenie,0,sizeof(float)*20);
+	for(i=0;i<20;i++)
+	{
+		int j;
+		int tmp=0;
+		for(j=0;j<100;j++)
+		{
+			odchylenie[i]+=(srednia[i]-czest_glob[i][j])*(srednia[i]-czest_glob[i][j]);
+			odchylenie[i]/=100;
+		};
+	};
+	for(i=0;i<20;i++)
+	{
+		wynik<<i<<" "<<srednia[i]<<" "<<odchylenie[i]<<endl;
 	};
 	wynik.close();
 	delete A;
 	delete B;
+	delete C;
 	return 0;
 };
