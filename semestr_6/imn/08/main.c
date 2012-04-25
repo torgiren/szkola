@@ -70,25 +70,14 @@ void relaksacja(double **tab,int size,int k)
 			tab[i][j]=(tab[i-k][j]+tab[i][j-k]+tab[i+k][j]+tab[i][j+k])/4.0f;
 		};
 };
-void zad1()
+void usrednij(double **tab, int size, int k)
 {
-	int N=130;
-	int k=1;
-	double **tab=alloc(N);
-	poczatkowa(tab,N);
-	int i,j;
+};
+int licz(double** tab, int N, int k,double eps,char* path)
+{
 	FILE* plik;
-	plik=fopen("zad1_0.dat","w");
-	for(i=0;i<N;i++)
-	{
-		for(j=0;j<N;j++)
-		{
-			fprintf(plik,"%d %d %lf\n",i,j,tab[i][j]);
-		};
-	};
-	fclose(plik);
-	plik=fopen("zad1_1.dat","w");
-//	printf("%lf %lf %lf\n",tab[0][0],tab[0][1],tab[1][0]);
+	plik=fopen(path,"w");
+	int i=0;
 	double a_old,a;
 	a=ak(tab,N,k);
 //	int i=0;
@@ -99,10 +88,15 @@ void zad1()
 		a_old=a;
 		a=ak(tab,N,k);
 		fprintf(plik,"%d %lf\n",i,a);
-	}while(fabs(a-a_old)>0.0000001);
-//	int j;
+	}while(fabs(a-a_old)>eps);
 	fclose(plik);
-	plik=fopen("zad1_2.dat","w");
+	return i;
+};
+void zapisz_potenc(double **tab,int N,char* path)
+{
+	int i,j;
+	FILE* plik;
+	plik=fopen(path,"w");
 	for(i=0;i<N;i++)
 	{
 		for(j=0;j<N;j++)
@@ -112,6 +106,15 @@ void zad1()
 		fprintf(plik,"\n");
 	};
 	fclose(plik);
+};
+void zad1()
+{
+	int N=130;
+	int k=1;
+	double **tab=alloc(N);
+	poczatkowa(tab,N);
+	licz(tab,N,k,0.0000001,"zad1_1.dat");
+	zapisz_potenc(tab,N,"zad1_2.dat");
 };
 void zad2()
 {
