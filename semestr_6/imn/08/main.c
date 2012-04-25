@@ -60,9 +60,9 @@ double ak(double** tab,int size,int k)
 	int i;
 	int j;
 	double wynik=0;
-	for(i=0;i<size-k-1;i+=k)
+	for(i=0;i<size-k;i+=k)
 	{
-		for(j=0;j<size-k-1;j+=k)
+		for(j=0;j<size-k;j+=k)
 		{
 			wynik+=kwadrat(tab[i+k][j]+tab[i+k][j+k]-tab[i][j]-tab[i][j+k]);	
 			wynik+=kwadrat(tab[i][j+k]+tab[i+k][j+k]-tab[i][j]-tab[i+k][j]);
@@ -117,32 +117,28 @@ void zapisz_potenc(double **tab,int N,char* path)
 void usrednij(double **tab, int N, int k)
 {
 	int i,j;
-	for(i=1+k/2;i<N-k/2;i+=k)
+	for(i=0;i<N-k;i+=k)
 	{
-		for(j=1;j<N-k;j+=k)
+		for(j=0;j<N-k;j+=k)
 		{
-			tab[i][j]=(tab[i-k/2][j]+tab[i+k/2][j])/2.0;
+			tab[i+k/2][j+k/2]=(tab[i][j]+tab[i+k][j]+tab[i][j+k]+tab[i+k][j+k])/4.0;
 		};
 	};
-	for(i=1;i<N-k;i+=k)
+	for(i=0;i<N-k;i+=k)
 	{
-		for(j=1+k/2;j<N-k/2;j+=k)
+		for(j=0;j<N-k;j+=k)
 		{
-			tab[i][j]=(tab[i][j-k/2]+tab[i][j+k/2])/2.0;
+			if(j!=0)
+				tab[i+k/2][j]=(tab[i+k][j]+tab[i][j])/2.0;
+			if(i!=0)
+				tab[i][j+k/2]=(tab[i][j+k]+tab[i][j])/2.0;
 		};
 	};
-	for(i=1+k/2;i<N-k/2;i+=k)
-	{
-		for(j=1+k/2;j<N-k/2;j+=k)
-		{
-			tab[i][j]=(tab[i-k/2][j-k/2]+tab[i+k/2][j-k/2]+tab[i-k/2][j+k/2]+tab[i+k/2][j+k/2])/4.0f;
-		};
-	}
 };
 
 void zad1()
 {
-	int N=130;
+	int N=129;
 	int k=1;
 	double **tab=alloc(N);
 	poczatkowa(tab,N);
@@ -152,7 +148,7 @@ void zad1()
 };
 void zad2()
 {
-	int N=130;
+	int N=129;
 	double **tab=alloc(N);
 	poczatkowa(tab,N);
 	int k=16;
