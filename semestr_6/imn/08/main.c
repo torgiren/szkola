@@ -99,14 +99,14 @@ int licz(double** tab, int N, int k,double eps,char* path)
 	fclose(plik);
 	return i;
 };
-void zapisz_potenc(double **tab,int N,char* path)
+void zapisz_potenc(double **tab,int N,int k,char* path)
 {
 	int i,j;
 	FILE* plik;
 	plik=fopen(path,"w");
-	for(i=0;i<N;i++)
+	for(i=0;i<N;i+=k)
 	{
-		for(j=0;j<N;j++)
+		for(j=0;j<N;j+=k)
 		{
 			fprintf(plik,"%d %d %lf\n",i,j,tab[i][j]);
 		};
@@ -143,7 +143,7 @@ void zad1()
 	double **tab=alloc(N);
 	poczatkowa(tab,N);
 	licz(tab,N,k,0.0000001,"zad1_1.dat");
-	zapisz_potenc(tab,N,"zad1_2.dat");
+	zapisz_potenc(tab,N,k,"zad1_2.dat");
 	freetab(tab,N);
 };
 void zad2()
@@ -158,7 +158,7 @@ void zad2()
 		sprintf(path,"zad2_%d_1.dat",k);
 		licz(tab,N,k,0.0000001,path);
 		sprintf(path,"zad2_%d_2.dat",k);
-		zapisz_potenc(tab,N,path);
+		zapisz_potenc(tab,N,k,path);
 		usrednij(tab,N,k);
 	};
 	freetab(tab,N);
