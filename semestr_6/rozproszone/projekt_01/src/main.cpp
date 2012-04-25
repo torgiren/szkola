@@ -9,7 +9,7 @@ int main()
 	std::cout<<"Hello world"<<std::endl;
 	Engine eng;
 	int i;
-	for(i=0;i<30;i++)
+	for(i=0;i<5;i++)
 	{
 		eng.NewAnt();
 		while(eng.Step());

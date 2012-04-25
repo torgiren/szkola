@@ -74,6 +74,7 @@ bool Engine::Step()
 			{
 //				cout<<"droga="<<droga<<endl;
 				droga+=itsKontener->itsDrogi[itsMrowka->itsDroga[i]]->itsDl;
+				itsKontener->itsDrogi[itsMrowka->itsDroga[i]]->itsFeromony+=5;
 //				itsKontener->Print();
 			};
 //			cout<<"droga: "<<droga<<endl;
@@ -105,17 +106,18 @@ bool Engine::Step()
 //	cout<<"select: "<<select<<endl;
 	for(i=0;i<drogi.size();i++)
 	{
-//		cout<<drogi[i]->itsMiasta[0]+1<<" ";
-//		cout<<drogi[i]->itsMiasta[1]+1<<" ";
-//		cout<<drogi[i]->itsDl<<" ";
-//		cout<<(((float)suma-(float)drogi[i]->itsDl)/(suma_nowa)*100)<<"%"<<" ";
+		cout<<drogi[i]->itsMiasta[0]+1<<" ";
+		cout<<drogi[i]->itsMiasta[1]+1<<" ";
+		cout<<drogi[i]->itsDl<<" ";
+		cout<<drogi[i]->itsFeromony<<" ";
+		cout<<(((float)suma-(float)drogi[i]->itsDl)/(suma_nowa)*100)<<"%"<<" ";
 		if((select>=act_suma) && (select < act_suma+(suma-drogi[i]->itsDl)))
 		{
-//			cout<<"*";
+			cout<<"*";
 			selected=i;
 		};
 		act_suma+=(suma-drogi[i]->itsDl);
-//		cout<<endl;
+		cout<<endl;
 	};
 //	cout<<"size="<<drogi.size()<<endl;
 //	cout<<"selected: "<<selected<<endl;
@@ -127,7 +129,7 @@ bool Engine::Step()
 		drogi[selected]->itsMiasta[0];
 	itsMrowka->itsOdwiedzone.insert(nextCity);
 	itsMrowka->itsMiasto=nextCity;
-//	cout<<"---------------------------------"<<endl;
+	cout<<"---------------------------------"<<endl;
 	return true;
 };
 int Engine::RetBest()
