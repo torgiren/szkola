@@ -68,7 +68,7 @@ int main()
 		for(i=0;i<500;i++)
 		{
 			C[i]=turniej(B);
-			czest_glob[A[C[i]]][x]++;
+			czest_glob[B[C[i]]][x]++;
 		};
 	};
 	ofstream wynik("czest.dat");
