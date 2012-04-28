@@ -50,7 +50,7 @@ bool Engine::Step()
 		{
 //			cout<<"Wszystko odwiedzone :)"<<endl;
 			int droga=RetDlugosc();
-//			cout<<"droga: "<<droga<<endl;
+			cout<<"droga: "<<droga<<endl;
 			if(droga<itsBest)
 				itsBest=droga;
 			ZostawFeromony(droga);	
@@ -171,6 +171,6 @@ void Engine::Parowanie()
 	Drogi::iterator iter;
 	for(iter=itsKontener->itsDrogi.begin();iter!=itsKontener->itsDrogi.end();iter++)
 	{
-		(*iter)->itsFeromony*=0.7f;
+		(*iter)->itsFeromony*=0.5f;
 	};
 };
