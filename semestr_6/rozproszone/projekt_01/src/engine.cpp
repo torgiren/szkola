@@ -116,43 +116,25 @@ int Engine::RetDlugosc()
 };
 int Engine::PickRoad(Drogi drogi)
 {
-
-	unsigned int i;
-//	cout<<"Mozliwe drogi..."<<endl;
-	int suma=0;
-	for(i=0;i<drogi.size();i++)
+	Drogi::iterator iter;
+	double sum_dl=0;
+	int size=drogi.size();
+	double *tab=new double[size];
+	int i=0;
+	for(i=0,iter=drogi.begin();iter!=drogi.end();iter++,i++)
 	{
-		suma+=drogi[i]->itsDl;
+		sum_dl+=1.0f/(double((*iter)->itsDl));
+//		cout<<"sum: "<<sum_dl<<endl;
+		tab[i]=sum_dl;
 	};
-
-	int suma_nowa=suma;
-	if(drogi.size()!=1)
+	double los=(double)rand()/(double)(RAND_MAX)*tab[size-1];
+	int selected=0;
+	for(i=0;i<size;i++)
 	{
-		suma_nowa*=drogi.size()-1;
-	}
-	else
-		suma=2*drogi[0]->itsDl;
-			
-//	cout<<"suma: "<<suma<<endl;
-	int act_suma=0;
-	int select=rand()%suma_nowa;
-	int selected=-1;
-//	cout<<"select: "<<select<<endl;
-	for(i=0;i<drogi.size();i++)
-	{
-		cout<<drogi[i]->itsMiasta[0]+1<<" ";
-		cout<<drogi[i]->itsMiasta[1]+1<<" ";
-		cout<<drogi[i]->itsDl<<" ";
-		cout<<drogi[i]->itsFeromony<<" ";
-		cout<<(((float)suma-(float)drogi[i]->itsDl)/(suma_nowa)*100)<<"%"<<" ";
-		if((select>=act_suma) && (select < act_suma+(suma-drogi[i]->itsDl)))
-		{
-			cout<<"*";
-			selected=i;
-		};
-		act_suma+=(suma-drogi[i]->itsDl);
-		cout<<endl;
+//		cout<<los<<" - "<<tab[i]<<" - "<<tab[size-1]<<endl;
+		if(los<tab[i]) break;
 	};
-	return selected;
-//	return rand()%drogi.size();
+//	cout<<i<<endl;
+	std::cout<<"------------------"<<std::endl;
+	return i;
 };

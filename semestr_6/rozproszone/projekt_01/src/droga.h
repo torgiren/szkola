@@ -7,7 +7,7 @@ class Droga
 		void DodajFeromony();
 //	private:
 		int itsDl;
-		int itsFeromony;
+		double itsFeromony;
 		int itsMiasta[2];
 };
 #endif
