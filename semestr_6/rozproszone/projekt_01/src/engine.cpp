@@ -15,10 +15,12 @@ Engine::Engine()
 	catch(FileOpenError e)
 	{
 		std::cerr<<"Blad otwarcia pliku: "<<e.itsPath<<std::endl;
+		exit(1);
 	}
 	catch(FileSyntaxError e)
 	{
 		std::cerr<<"Blad składni pliku "<<e.itsPath<<": "<<e.itsLine<<"\n\t"<<e.itsDesc<<std::endl;
+		exit(2);
 	};
 	itsBest=99999999;
 
@@ -38,11 +40,47 @@ void Engine::NewAnt()
 bool Engine::Step()
 {
 //	int start=rand()%itsKontener->itsMiasta.size();
-	int start=itsMrowka->itsMiasto;
 //	cout<<"Startujemy z miasta "<<start+1<<endl;
-	std::vector<Droga*> drogi=itsKontener->RetDrogi(start);
+	std::vector<Droga*> drogi=RetDrogi();
+//	cout<<"size: "<<drogi.size()<<endl;
+	if(drogi.size()==0)
+	{
+//		cout<<"Brak mozliwosci..."<<endl;
+		if(itsMrowka->itsOdwiedzone.size()==itsKontener->itsMiasta.size())
+		{
+//			cout<<"Wszystko odwiedzone :)"<<endl;
+			int droga=RetDlugosc();
+//			cout<<"droga: "<<droga<<endl;
+			if(droga<itsBest)
+				itsBest=droga;
+		};
+		return false;
+	};
+	int selected=PickRoad(drogi);
+//	cout<<"size="<<drogi.size()<<endl;
+//	cout<<"selected: "<<selected<<endl;
+	itsMrowka->itsDroga.push_back(std::distance(itsKontener->itsDrogi.begin(),std::find(itsKontener->itsDrogi.begin(),itsKontener->itsDrogi.end(),drogi[selected])));
+	int nextCity=
+		(drogi[selected]->itsMiasta[0]
+		==itsMrowka->itsMiasto)?
+		drogi[selected]->itsMiasta[1]:
+		drogi[selected]->itsMiasta[0];
+	itsMrowka->itsOdwiedzone.insert(nextCity);
+	itsMrowka->itsMiasto=nextCity;
+	cout<<"---------------------------------"<<endl;
+	return true;
+};
+int Engine::RetBest() const
+{
+	return itsBest;
+};
+Drogi Engine::RetDrogi()
+{
+	int start=itsMrowka->itsMiasto;
+	Drogi drogi;
+	drogi=itsKontener->RetDrogi(start);
 //Usuwanie odwiedzony dróg
-	std::vector<Droga*>::iterator iter;
+	Drogi::iterator iter;
 	for(iter=drogi.begin();iter!=drogi.end();)
 	{
 		if(itsMrowka->itsOdwiedzone.find((*iter)->itsMiasta[0])!=itsMrowka->itsOdwiedzone.end()&&
@@ -61,28 +99,24 @@ bool Engine::Step()
 			++iter;
 		};
 	};
-//	cout<<"size: "<<drogi.size()<<endl;
-	if(drogi.size()==0)
+	return drogi;
+};
+int Engine::RetDlugosc()
+{
+	unsigned int i;
+	int droga=0;
+	for(i=0;i<itsMrowka->itsDroga.size();i++)
 	{
-//		cout<<"Brak mozliwosci..."<<endl;
-		if(itsMrowka->itsOdwiedzone.size()==itsKontener->itsMiasta.size())
-		{
-//			cout<<"Wszystko odwiedzone :)"<<endl;
-			unsigned int i;
-			int droga=0;
-			for(i=0;i<itsMrowka->itsDroga.size();i++)
-			{
 //				cout<<"droga="<<droga<<endl;
-				droga+=itsKontener->itsDrogi[itsMrowka->itsDroga[i]]->itsDl;
-				itsKontener->itsDrogi[itsMrowka->itsDroga[i]]->itsFeromony+=5;
+		droga+=itsKontener->itsDrogi[itsMrowka->itsDroga[i]]->itsDl;
+		itsKontener->itsDrogi[itsMrowka->itsDroga[i]]->itsFeromony+=5;
 //				itsKontener->Print();
-			};
-//			cout<<"droga: "<<droga<<endl;
-			if(droga<itsBest)
-				itsBest=droga;
-		};
-		return false;
 	};
+	return droga;
+};
+int Engine::PickRoad(Drogi drogi)
+{
+
 	unsigned int i;
 //	cout<<"Mozliwe drogi..."<<endl;
 	int suma=0;
@@ -119,20 +153,6 @@ bool Engine::Step()
 		act_suma+=(suma-drogi[i]->itsDl);
 		cout<<endl;
 	};
-//	cout<<"size="<<drogi.size()<<endl;
-//	cout<<"selected: "<<selected<<endl;
-	itsMrowka->itsDroga.push_back(std::distance(itsKontener->itsDrogi.begin(),std::find(itsKontener->itsDrogi.begin(),itsKontener->itsDrogi.end(),drogi[selected])));
-	int nextCity=
-		(drogi[selected]->itsMiasta[0]
-		==itsMrowka->itsMiasto)?
-		drogi[selected]->itsMiasta[1]:
-		drogi[selected]->itsMiasta[0];
-	itsMrowka->itsOdwiedzone.insert(nextCity);
-	itsMrowka->itsMiasto=nextCity;
-	cout<<"---------------------------------"<<endl;
-	return true;
-};
-int Engine::RetBest()
-{
-	return itsBest;
+	return selected;
+//	return rand()%drogi.size();
 };
