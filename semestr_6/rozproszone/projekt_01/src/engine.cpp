@@ -41,7 +41,7 @@ bool Engine::Step()
 {
 //	int start=rand()%itsKontener->itsMiasta.size();
 //	cout<<"Startujemy z miasta "<<start+1<<endl;
-	std::vector<Droga*> drogi=RetDrogi();
+	std::vector<Droga*> drogi=RetMozliweDrogi();
 //	cout<<"size: "<<drogi.size()<<endl;
 	if(drogi.size()==0)
 	{
@@ -53,6 +53,7 @@ bool Engine::Step()
 //			cout<<"droga: "<<droga<<endl;
 			if(droga<itsBest)
 				itsBest=droga;
+			ZostawFeromony(droga);	
 		};
 		return false;
 	};
@@ -67,14 +68,15 @@ bool Engine::Step()
 		drogi[selected]->itsMiasta[0];
 	itsMrowka->itsOdwiedzone.insert(nextCity);
 	itsMrowka->itsMiasto=nextCity;
-	cout<<"---------------------------------"<<endl;
+//	cout<<"---------------------------------"<<endl;
+	Parowanie();
 	return true;
 };
 int Engine::RetBest() const
 {
 	return itsBest;
 };
-Drogi Engine::RetDrogi()
+Drogi Engine::RetMozliweDrogi()
 {
 	int start=itsMrowka->itsMiasto;
 	Drogi drogi;
@@ -109,7 +111,7 @@ int Engine::RetDlugosc()
 	{
 //				cout<<"droga="<<droga<<endl;
 		droga+=itsKontener->itsDrogi[itsMrowka->itsDroga[i]]->itsDl;
-		itsKontener->itsDrogi[itsMrowka->itsDroga[i]]->itsFeromony+=5;
+//		itsKontener->itsDrogi[itsMrowka->itsDroga[i]]->itsFeromony+=5;
 //				itsKontener->Print();
 	};
 	return droga;
@@ -117,24 +119,58 @@ int Engine::RetDlugosc()
 int Engine::PickRoad(Drogi drogi)
 {
 	Drogi::iterator iter;
-	double sum_dl=0;
+	double sum=0;
 	int size=drogi.size();
 	double *tab=new double[size];
 	int i=0;
 	for(i=0,iter=drogi.begin();iter!=drogi.end();iter++,i++)
 	{
-		sum_dl+=1.0f/(double((*iter)->itsDl));
+		double tmp=1.0f/((double((*iter)->itsDl)*(*iter)->itsDl));
 //		cout<<"sum: "<<sum_dl<<endl;
-		tab[i]=sum_dl;
+//		cout<<i<<" "<<tmp<<" "<<(*iter)->itsFeromony<<" = "<<((*iter)->itsFeromony/tmp)<<endl;
+		sum+=tmp;
+		sum+=((*iter)->itsFeromony*tmp);
+		tab[i]=sum;
 	};
 	double los=(double)rand()/(double)(RAND_MAX)*tab[size-1];
-	int selected=0;
 	for(i=0;i<size;i++)
 	{
 //		cout<<los<<" - "<<tab[i]<<" - "<<tab[size-1]<<endl;
 		if(los<tab[i]) break;
 	};
 //	cout<<i<<endl;
-	std::cout<<"------------------"<<std::endl;
+//	std::cout<<"------------------"<<std::endl;
 	return i;
+};
+void Engine::ZostawFeromony(int droga)
+{
+	Drogi trasa=RetTrasa();
+	Drogi::iterator iter;
+//	cout<<"*"<<endl;
+
+	for(iter=trasa.begin();iter!=trasa.end();iter++)
+	{
+//		cout<<"&";
+		(*iter)->itsFeromony*=0.9f;
+//		(*iter)->itsFeromony=2;
+		(*iter)->itsFeromony+=(0.1f/((double)droga));
+	};
+};
+Drogi Engine::RetTrasa()
+{
+	Drogi wynik;	
+	std::vector<int>::iterator iter;
+	for(iter=itsMrowka->itsDroga.begin();iter!=itsMrowka->itsDroga.end();iter++)
+	{
+		wynik.push_back(itsKontener->RetDroga(*iter));
+	};
+	return wynik;
+};
+void Engine::Parowanie()
+{
+	Drogi::iterator iter;
+	for(iter=itsKontener->itsDrogi.begin();iter!=itsKontener->itsDrogi.end();iter++)
+	{
+		(*iter)->itsFeromony*=0.7f;
+	};
 };

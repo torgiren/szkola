@@ -49,3 +49,9 @@ std::vector<Droga*> Kontener::RetDrogi(int city)
 	};
 	return wynik;
 };
+Droga* Kontener::RetDroga(unsigned int id)
+{
+	if(id>=itsDrogi.size())
+		throw OutOfBound("Kontener::RetDroga: id="+id);
+	return itsDrogi[id];
+};

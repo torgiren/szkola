@@ -11,9 +11,12 @@ class Engine
 		int RetBest() const;
 		void NewAnt();
 	private:
-		Drogi RetDrogi();
+		Drogi RetMozliweDrogi();
+		Drogi RetTrasa();
 		int RetDlugosc();
 		int PickRoad(Drogi drogi);
+		void ZostawFeromony(int dlugosc);
+		void Parowanie();
 		Kontener* itsKontener;
 		Mrowka* itsMrowka;
 		int itsBest;

@@ -1,3 +1,5 @@
+#ifndef __EXCEPTIONS_H
+#define __EXCEPTIONS_H
 #include <string>
 class FileOpenError
 {
@@ -21,3 +23,13 @@ class FileSyntaxError
 		std::string itsLine;
 		std::string itsDesc;
 };
+class OutOfBound
+{
+	public:
+		OutOfBound(std::string desc)
+		{
+			itsDesc=desc;
+		};
+		std::string itsDesc;
+};
+#endif
