@@ -125,17 +125,17 @@ int Engine::PickRoad(Drogi drogi)
 	int i=0;
 	for(i=0,iter=drogi.begin();iter!=drogi.end();iter++,i++)
 	{
-		double tmp=1.0f/((double((*iter)->itsDl)*(*iter)->itsDl));
+		double tmp=1.0f/((double((*iter)->itsDl)*(double)(*iter)->itsDl));
 //		cout<<"sum: "<<sum_dl<<endl;
 //		cout<<i<<" "<<tmp<<" "<<(*iter)->itsFeromony<<" = "<<((*iter)->itsFeromony/tmp)<<endl;
-		sum+=tmp;
+//		sum+=tmp;
 		sum+=((*iter)->itsFeromony*tmp);
 		tab[i]=sum;
 	};
-	double los=(double)rand()/(double)(RAND_MAX)*tab[size-1];
+	double los=((double)rand()/(double)(RAND_MAX))*tab[size-1];
 	for(i=0;i<size;i++)
 	{
-//		cout<<los<<" - "<<tab[i]<<" - "<<tab[size-1]<<endl;
+//		cout<<los<<"\t"<<tab[i]<<"\t"<<tab[size-1]<<endl;
 		if(los<tab[i]) break;
 	};
 //	cout<<i<<endl;
@@ -153,7 +153,7 @@ void Engine::ZostawFeromony(int droga)
 //		cout<<"&";
 		(*iter)->itsFeromony*=0.9f;
 //		(*iter)->itsFeromony=2;
-		(*iter)->itsFeromony+=(0.1f/((double)droga));
+		(*iter)->itsFeromony+=(0.2f/((double)droga));
 	};
 };
 Drogi Engine::RetTrasa()
@@ -171,6 +171,6 @@ void Engine::Parowanie()
 	Drogi::iterator iter;
 	for(iter=itsKontener->itsDrogi.begin();iter!=itsKontener->itsDrogi.end();iter++)
 	{
-		(*iter)->itsFeromony*=0.5f;
+//		(*iter)->itsFeromony*=0.5f;
 	};
 };
