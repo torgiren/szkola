@@ -5,6 +5,8 @@ class Droga
 	public:
 		Droga(int src, int dst, int len);
 		void DodajFeromony();
+		bool operator==(const Droga& droga) const;
+		bool operator!=(const Droga& droga) const;
 //	private:
 		int itsDl;
 		double itsFeromony;

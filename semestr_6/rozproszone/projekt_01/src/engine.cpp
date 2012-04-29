@@ -21,20 +21,19 @@ void Engine::NewAnt()
 	itsMrowka=new Mrowka();
 	int start=rand()%itsKontener->itsMiasta.size();
 	itsMrowka->itsMiasto=start;
+	itsMrowka->itsStart=start;
 	itsMrowka->itsOdwiedzone.insert(start);
 };
 bool Engine::Step()
 {
-//	int start=rand()%itsKontener->itsMiasta.size();
-//	cout<<"Startujemy z miasta "<<start+1<<endl;
 	std::vector<Droga*> drogi=RetMozliweDrogi();
-//	cout<<"size: "<<drogi.size()<<endl;
 	if(drogi.size()==0)
 	{
-//		cout<<"Brak mozliwosci..."<<endl;
 		if(itsMrowka->itsOdwiedzone.size()==itsKontener->itsMiasta.size())
 		{
-//			cout<<"Wszystko odwiedzone :)"<<endl;
+			int domkniecie=itsKontener->FindRoadId(itsMrowka->itsStart,itsMrowka->itsMiasto);
+			cout<<"domkniecie: "<<domkniecie<<endl;
+			itsMrowka->itsDroga.push_back(domkniecie);
 			int droga=RetDlugosc();
 			cout<<"droga: "<<droga<<endl;
 			if(droga<itsBest)
@@ -44,9 +43,7 @@ bool Engine::Step()
 		return false;
 	};
 	int selected=PickRoad(drogi);
-//	cout<<"size="<<drogi.size()<<endl;
-//	cout<<"selected: "<<selected<<endl;
-	itsMrowka->itsDroga.push_back(std::distance(itsKontener->itsDrogi.begin(),std::find(itsKontener->itsDrogi.begin(),itsKontener->itsDrogi.end(),drogi[selected])));
+	itsMrowka->itsDroga.push_back(std::distance(itsKontener->itsDrogi.begin(),std::find(itsKontener->itsDrogi.begin(),itsKontener->itsDrogi.end(),*drogi[selected])));
 	int nextCity=
 		(drogi[selected]->itsMiasta[0]
 		==itsMrowka->itsMiasto)?
@@ -54,8 +51,6 @@ bool Engine::Step()
 		drogi[selected]->itsMiasta[0];
 	itsMrowka->itsOdwiedzone.insert(nextCity);
 	itsMrowka->itsMiasto=nextCity;
-//	cout<<"---------------------------------"<<endl;
-//	Parowanie();
 	return true;
 };
 int Engine::RetBest() const
@@ -75,12 +70,8 @@ Drogi Engine::RetMozliweDrogi()
 		itsMrowka->itsOdwiedzone.find((*iter)->itsMiasta[1])!=itsMrowka->itsOdwiedzone.end())
 		{
 
-//			cout<<"Usuwam... "<<(*iter)->itsMiasta[0]+1<<" "<<(*iter)->itsMiasta[1]+1<<" "<<(*iter)->itsDl<<endl;
-//			cout<<drogi.size()<<" -> ";
-//			cout.flush();
 			drogi.erase(iter);
 			iter=drogi.begin();
-//			cout<<drogi.size()<<endl;
 		}
 		else
 		{
@@ -95,10 +86,7 @@ int Engine::RetDlugosc()
 	int droga=0;
 	for(i=0;i<itsMrowka->itsDroga.size();i++)
 	{
-//				cout<<"droga="<<droga<<endl;
 		droga+=itsKontener->RetDroga(itsMrowka->itsDroga[i])->itsDl;
-//		itsKontener->itsDrogi[itsMrowka->itsDroga[i]]->itsFeromony+=5;
-//				itsKontener->Print();
 	};
 	return droga;
 };
@@ -112,34 +100,25 @@ int Engine::PickRoad(Drogi drogi)
 	for(i=0,iter=drogi.begin();iter!=drogi.end();iter++,i++)
 	{
 		double tmp=1.0f/((double((*iter)->itsDl)*(double)(*iter)->itsDl));
-//		cout<<"sum: "<<sum_dl<<endl;
-//		cout<<i<<" "<<tmp<<" "<<(*iter)->itsFeromony<<" = "<<((*iter)->itsFeromony/tmp)<<endl;
-//		sum+=tmp;
-		sum+=((*iter)->itsFeromony*tmp);
+		sum+=((*iter)->itsFeromony+tmp);
 		tab[i]=sum;
 	};
 	double los=((double)rand()/(double)(RAND_MAX))*tab[size-1];
 	for(i=0;i<size;i++)
 	{
-//		cout<<los<<"\t"<<tab[i]<<"\t"<<tab[size-1]<<endl;
 		if(los<tab[i]) break;
 	};
-//	cout<<i<<endl;
-//	std::cout<<"------------------"<<std::endl;
 	return i;
 };
 void Engine::ZostawFeromony(int droga)
 {
 	Drogi trasa=RetTrasa();
 	Drogi::iterator iter;
-//	cout<<"*"<<endl;
-
 	for(iter=trasa.begin();iter!=trasa.end();iter++)
 	{
-//		cout<<"&";
-		(*iter)->itsFeromony*=0.9f;
-//		(*iter)->itsFeromony=2;
-		(*iter)->itsFeromony+=(0.1f/((double)droga));
+//		(*iter)->itsFeromony*=0.9f;
+		(*iter)->itsFeromony+=2*itsBest*(2*itsBest/((double)droga));
+//		(*iter)->itsFeromony+=(0.5f);
 	};
 };
 Drogi Engine::RetTrasa()
@@ -154,10 +133,12 @@ Drogi Engine::RetTrasa()
 };
 void Engine::Parowanie()
 {
-	Drogi::iterator iter;
+	std::vector<Droga>::iterator iter;
 	for(iter=itsKontener->itsDrogi.begin();iter!=itsKontener->itsDrogi.end();iter++)
 	{
-		(*iter)->itsFeromony*=0.7f;
+		(*iter).itsFeromony*=0.5f;
+		if((*iter).itsFeromony<1)
+			(*iter).itsFeromony=1;
 	};
 };
 void Engine::LoadMap(std::string path)

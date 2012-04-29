@@ -16,6 +16,7 @@ class Engine
 		void CreateContainer(int cities);
 		int DumpContainer(char* data) {return itsKontener->Dump(data);};
 		void LoadContainer(char* data, int size);
+		void PrintKontener() {itsKontener->Print();};
 	private:
 		Drogi RetMozliweDrogi();
 		Drogi RetTrasa();

@@ -29,7 +29,7 @@ Kontener* Reader::ReadMap(std::string path)
 				throw FileSyntaxError(path,tmp,"Missing cities number definition");
 			int src,dst,len;
 			sscanf(tmp,"%c %d %d %d",&trash,&src,&dst,&len);
-			wynik->AddRoad(new Droga(src-1,dst-1,len));
+			wynik->AddRoad(Droga(src-1,dst-1,len));
 		};
 		std::cout<<tmp<<std::endl;
 	};

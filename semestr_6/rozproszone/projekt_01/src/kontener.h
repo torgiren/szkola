@@ -11,12 +11,15 @@ class Kontener
 	public:
 		Kontener(int cities);
 		~Kontener();
-		void AddRoad(Droga* road);		
+		void AddRoad(Droga road);		
 		void Print();
 		std::vector<Droga*> RetDrogi(int city);
 		Droga* RetDroga(unsigned int id);
+		int Dump(char* data);
+		void Load(char* data,int size);
+		int FindRoadId(int miasto0,int miasto1);
 	private:
-		std::vector<Droga*> itsDrogi;
+		std::vector<Droga> itsDrogi;
 		std::vector<Miasto*> itsMiasta;
 };
 #endif

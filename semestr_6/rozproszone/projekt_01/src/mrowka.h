@@ -10,5 +10,6 @@ class Mrowka
 		std::vector<int> itsDroga;
 		std::set<int> itsOdwiedzone;
 		int itsMiasto;
+		int itsStart;
 };
 #endif
