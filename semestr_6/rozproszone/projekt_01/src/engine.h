@@ -11,6 +11,11 @@ class Engine
 		int RetBest() const;
 		void NewAnt();
 		void Parowanie();
+		void LoadMap(std::string path);
+		int Cities();
+		void CreateContainer(int cities);
+		int DumpContainer(char* data) {return itsKontener->Dump(data);};
+		void LoadContainer(char* data, int size);
 	private:
 		Drogi RetMozliweDrogi();
 		Drogi RetTrasa();

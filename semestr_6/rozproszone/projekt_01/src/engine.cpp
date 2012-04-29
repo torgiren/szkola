@@ -8,20 +8,6 @@ Engine::Engine()
 {
 	itsKontener=NULL;
 	itsMrowka=NULL;
-	try
-	{
-		itsKontener=Reader::ReadMap("map.ini");
-	}
-	catch(FileOpenError e)
-	{
-		std::cerr<<"Blad otwarcia pliku: "<<e.itsPath<<std::endl;
-		exit(1);
-	}
-	catch(FileSyntaxError e)
-	{
-		std::cerr<<"Blad składni pliku "<<e.itsPath<<": "<<e.itsLine<<"\n\t"<<e.itsDesc<<std::endl;
-		exit(2);
-	};
 	itsBest=99999999;
 
 };
@@ -172,5 +158,34 @@ void Engine::Parowanie()
 	for(iter=itsKontener->itsDrogi.begin();iter!=itsKontener->itsDrogi.end();iter++)
 	{
 		(*iter)->itsFeromony*=0.7f;
+	};
+};
+void Engine::LoadMap(std::string path)
+{
+	try
+	{
+		itsKontener=Reader::ReadMap("map.ini");
+	}
+	catch(FileOpenError e)
+	{
+		std::cerr<<"Blad otwarcia pliku: "<<e.itsPath<<std::endl;
+		exit(1);
+	}
+	catch(FileSyntaxError e)
+	{
+		std::cerr<<"Blad składni pliku "<<e.itsPath<<": "<<e.itsLine<<"\n\t"<<e.itsDesc<<std::endl;
+		exit(2);
+	};
+};
+int Engine::Cities()
+{
+	return itsKontener->itsMiasta.size();
+};
+void Engine::CreateContainer(int cities)
+{
+	if(itsKontener)
+	{
+		delete itsKontener;
+		itsKontener=new Kontener(cities);
 	};
 };
