@@ -13,6 +13,7 @@ int main()
 	{
 		eng.NewAnt();
 		while(eng.Step());
+		eng.Parowanie();
 		std::cout<<"Najlepsza droga: "<<eng.RetBest()<<std::endl;
 	}
 	return 0;

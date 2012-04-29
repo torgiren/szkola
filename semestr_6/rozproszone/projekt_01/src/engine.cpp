@@ -69,7 +69,7 @@ bool Engine::Step()
 	itsMrowka->itsOdwiedzone.insert(nextCity);
 	itsMrowka->itsMiasto=nextCity;
 //	cout<<"---------------------------------"<<endl;
-	Parowanie();
+//	Parowanie();
 	return true;
 };
 int Engine::RetBest() const
@@ -110,7 +110,7 @@ int Engine::RetDlugosc()
 	for(i=0;i<itsMrowka->itsDroga.size();i++)
 	{
 //				cout<<"droga="<<droga<<endl;
-		droga+=itsKontener->itsDrogi[itsMrowka->itsDroga[i]]->itsDl;
+		droga+=itsKontener->RetDroga(itsMrowka->itsDroga[i])->itsDl;
 //		itsKontener->itsDrogi[itsMrowka->itsDroga[i]]->itsFeromony+=5;
 //				itsKontener->Print();
 	};
@@ -153,7 +153,7 @@ void Engine::ZostawFeromony(int droga)
 //		cout<<"&";
 		(*iter)->itsFeromony*=0.9f;
 //		(*iter)->itsFeromony=2;
-		(*iter)->itsFeromony+=(0.2f/((double)droga));
+		(*iter)->itsFeromony+=(0.1f/((double)droga));
 	};
 };
 Drogi Engine::RetTrasa()
@@ -171,6 +171,6 @@ void Engine::Parowanie()
 	Drogi::iterator iter;
 	for(iter=itsKontener->itsDrogi.begin();iter!=itsKontener->itsDrogi.end();iter++)
 	{
-//		(*iter)->itsFeromony*=0.5f;
+		(*iter)->itsFeromony*=0.7f;
 	};
 };
