@@ -23,6 +23,7 @@ void Engine::NewAnt(int number)
 			itsMrowki[i]=NULL;
 		};
 	};
+	delete itsMrowki;
 	itsAntNumber=number;
 	itsMrowki=new Mrowka*[itsAntNumber];
 	for(i=0;i<itsAntNumber;i++)
@@ -36,8 +37,10 @@ void Engine::NewAnt(int number)
 };
 bool Engine::Step()
 {
+	static Mrowka* LocalBestAnt=0;
+	static int LocalBestDist=999999999;
 	unsigned int i;
-	int skonczonych=10;
+	int pozostalo=itsAntNumber;
 	for(i=0;i<itsAntNumber;i++)
 	{
 		std::vector<Droga*> drogi=RetMozliweDrogi(itsMrowki[i]);
@@ -45,15 +48,26 @@ bool Engine::Step()
 		{
 			if(itsMrowki[i]->itsOdwiedzone.size()==itsKontener->itsMiasta.size())
 			{
+				if(itsMrowki[i]->itsPowrocila)
+					break;
 				int domkniecie=itsKontener->FindRoadId(itsMrowki[i]->itsStart,itsMrowki[i]->itsMiasto);
 				itsMrowki[i]->itsDroga.push_back(domkniecie);
+				itsMrowki[i]->itsDlugosc+=itsKontener->itsDrogi[domkniecie].itsDl;
+				itsMrowki[i]->itsPowrocila=true;
 				int droga=itsMrowki[i]->itsDlugosc;
 				cout<<"droga: "<<droga<<endl;
 //				ZostawFeromony(droga);	
 				if(droga<itsBest)
+				{
 					itsBest=droga;
+				};
+				if(droga<LocalBestDist)
+				{
+					LocalBestDist=droga;
+					LocalBestAnt=itsMrowki[i];
+				};
 			};
-			skonczonych--;
+			pozostalo--;
 			cout<<i<<endl;
 			continue;
 		};
@@ -61,7 +75,12 @@ bool Engine::Step()
 		int roadID=itsKontener->FindRoadId(drogi[selected]);
 		itsMrowki[i]->IdzDroga(roadID,drogi[selected]);
 	};
-	return skonczonych>0;
+	if(pozostalo==0)
+	{
+		ZostawFeromony(LocalBestAnt);
+		LocalBestDist=99999;
+	};
+	return pozostalo>0;
 };
 int Engine::RetBest() const
 {
@@ -126,7 +145,7 @@ int Engine::PickRoad(Drogi drogi)
 			maxID=i;
 		};
 	};
-//	if(((double)rand()/(double)RAND_MAX )<0.9)
+	if(((double)rand()/(double)RAND_MAX )<0.5)
 		return maxID;
 	double los=((double)rand()/(double)(RAND_MAX))*tab[size-1];
 	for(i=0;i<size;i++)
@@ -135,14 +154,14 @@ int Engine::PickRoad(Drogi drogi)
 	};
 	return i;
 };
-void Engine::ZostawFeromony(int droga,Mrowka* mrowka)
+void Engine::ZostawFeromony(Mrowka* mrowka)
 {
 	Drogi trasa=RetTrasa(mrowka);
 	Drogi::iterator iter;
 	for(iter=trasa.begin();iter!=trasa.end();iter++)
 	{
 		(*iter)->itsFeromony*=0.9f;
-		(*iter)->itsFeromony+=(0.1f/(double)itsBest);
+		(*iter)->itsFeromony+=(0.1f/(double)mrowka->itsDlugosc);
 //		(*iter)->itsFeromony+=itsBest*(itsBest/((double)droga));
 //		if(droga<itsBest)
 //			(*iter)->itsFeromony+=0.5;
@@ -168,8 +187,8 @@ void Engine::Parowanie()
 	for(iter=itsKontener->itsDrogi.begin();iter!=itsKontener->itsDrogi.end();iter++)
 	{
 		(*iter).itsFeromony*=0.8f;
-		if((*iter).itsFeromony<1)
-			(*iter).itsFeromony=1;
+//		if((*iter).itsFeromony<0.0001f)
+//			(*iter).itsFeromony=0.0001f;
 	};
 };
 void Engine::LoadMap(std::string path)

@@ -2,6 +2,7 @@
 Mrowka::Mrowka()
 {
 	itsDlugosc=0;
+	itsPowrocila=false;
 };
 void Mrowka::IdzDroga(int roadID, Droga* droga)
 {

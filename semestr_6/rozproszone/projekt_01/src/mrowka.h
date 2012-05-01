@@ -11,6 +11,7 @@ class Mrowka
 //	private:
 		std::vector<int> itsDroga;
 		std::set<int> itsOdwiedzone;
+		bool itsPowrocila;
 		int itsMiasto;
 		int itsStart;
 		int itsDlugosc;

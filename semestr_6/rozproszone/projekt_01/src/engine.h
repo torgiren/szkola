@@ -22,7 +22,7 @@ class Engine
 		Drogi RetTrasa(Mrowka* mrowka);
 //		int RetDlugosc();
 		int PickRoad(Drogi drogi);
-		void ZostawFeromony(int dlugosc,Mrowka* mrowka);
+		void ZostawFeromony(Mrowka* mrowka);
 		Kontener* itsKontener;
 		Mrowka** itsMrowki;
 		unsigned int itsAntNumber;

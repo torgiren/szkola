@@ -15,10 +15,10 @@ int main(int argc, char* argv[])
 	int i;
 	for(i=0;i<100;i++)
 	{
-		eng.NewAnt(10);
+		eng.NewAnt(50);
 		while(eng.Step());
 		eng.Parowanie();
-		std::cout<<"Najlepsza droga: "<<eng.RetBest()<<std::endl;
+		std::cout<<"i="<<i<<"\tNajlepsza droga: "<<eng.RetBest()<<std::endl;
 	};
 //	+=eng.PrintKontener();
 
