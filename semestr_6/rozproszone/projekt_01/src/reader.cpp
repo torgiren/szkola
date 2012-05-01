@@ -31,7 +31,7 @@ Kontener* Reader::ReadMap(std::string path)
 			sscanf(tmp,"%c %d %d %d",&trash,&src,&dst,&len);
 			wynik->AddRoad(Droga(src-1,dst-1,len));
 		};
-		std::cout<<tmp<<std::endl;
+//		std::cout<<tmp<<std::endl;
 	};
 	return wynik;
 };

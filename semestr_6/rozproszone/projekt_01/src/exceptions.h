@@ -32,4 +32,13 @@ class OutOfBound
 		};
 		std::string itsDesc;
 };
+class ObjectNotFound
+{
+	public:
+		ObjectNotFound(std::string desc)
+		{
+			itsDesc=desc;
+		};
+		std::string itsDesc;
+};
 #endif

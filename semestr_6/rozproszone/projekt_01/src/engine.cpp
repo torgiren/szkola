@@ -7,67 +7,77 @@ using namespace std;
 Engine::Engine()
 {
 	itsKontener=NULL;
-	itsMrowka=NULL;
+	itsMrowki=NULL;
 	itsBest=99999999;
+	itsAntNumber=0;
 
 };
-void Engine::NewAnt()
+void Engine::NewAnt(int number)
 {
-	if(itsMrowka)
+	unsigned int i;
+	if(itsAntNumber)
 	{
-		delete itsMrowka;
-		itsMrowka=NULL;
+		for(i=0;i<itsAntNumber;i++)
+		{
+			delete itsMrowki[i];
+			itsMrowki[i]=NULL;
+		};
 	};
-	itsMrowka=new Mrowka();
-	int start=rand()%itsKontener->itsMiasta.size();
-	itsMrowka->itsMiasto=start;
-	itsMrowka->itsStart=start;
-	itsMrowka->itsOdwiedzone.insert(start);
+	itsAntNumber=number;
+	itsMrowki=new Mrowka*[itsAntNumber];
+	for(i=0;i<itsAntNumber;i++)
+	{
+		int start=rand()%itsKontener->itsMiasta.size();
+		itsMrowki[i]=new Mrowka();
+		itsMrowki[i]->itsMiasto=start;
+		itsMrowki[i]->itsStart=start;
+		itsMrowki[i]->itsOdwiedzone.insert(start);
+	}
 };
 bool Engine::Step()
 {
-	std::vector<Droga*> drogi=RetMozliweDrogi();
-	if(drogi.size()==0)
+	unsigned int i;
+	int skonczonych=10;
+	for(i=0;i<itsAntNumber;i++)
 	{
-		if(itsMrowka->itsOdwiedzone.size()==itsKontener->itsMiasta.size())
+		std::vector<Droga*> drogi=RetMozliweDrogi(itsMrowki[i]);
+		if(drogi.size()==0)
 		{
-			int domkniecie=itsKontener->FindRoadId(itsMrowka->itsStart,itsMrowka->itsMiasto);
-			cout<<"domkniecie: "<<domkniecie<<endl;
-			itsMrowka->itsDroga.push_back(domkniecie);
-			int droga=RetDlugosc();
-			cout<<"droga: "<<droga<<endl;
-			if(droga<itsBest)
-				itsBest=droga;
-			ZostawFeromony(droga);	
+			if(itsMrowki[i]->itsOdwiedzone.size()==itsKontener->itsMiasta.size())
+			{
+				int domkniecie=itsKontener->FindRoadId(itsMrowki[i]->itsStart,itsMrowki[i]->itsMiasto);
+				itsMrowki[i]->itsDroga.push_back(domkniecie);
+				int droga=itsMrowki[i]->itsDlugosc;
+				cout<<"droga: "<<droga<<endl;
+//				ZostawFeromony(droga);	
+				if(droga<itsBest)
+					itsBest=droga;
+			};
+			skonczonych--;
+			cout<<i<<endl;
+			continue;
 		};
-		return false;
+		int selected=PickRoad(drogi);
+		int roadID=itsKontener->FindRoadId(drogi[selected]);
+		itsMrowki[i]->IdzDroga(roadID,drogi[selected]);
 	};
-	int selected=PickRoad(drogi);
-	itsMrowka->itsDroga.push_back(std::distance(itsKontener->itsDrogi.begin(),std::find(itsKontener->itsDrogi.begin(),itsKontener->itsDrogi.end(),*drogi[selected])));
-	int nextCity=
-		(drogi[selected]->itsMiasta[0]
-		==itsMrowka->itsMiasto)?
-		drogi[selected]->itsMiasta[1]:
-		drogi[selected]->itsMiasta[0];
-	itsMrowka->itsOdwiedzone.insert(nextCity);
-	itsMrowka->itsMiasto=nextCity;
-	return true;
+	return skonczonych>0;
 };
 int Engine::RetBest() const
 {
 	return itsBest;
 };
-Drogi Engine::RetMozliweDrogi()
+Drogi Engine::RetMozliweDrogi(Mrowka* mrowka)
 {
-	int start=itsMrowka->itsMiasto;
+	int start=mrowka->itsMiasto;
 	Drogi drogi;
 	drogi=itsKontener->RetDrogi(start);
 //Usuwanie odwiedzony dróg
 	Drogi::iterator iter;
 	for(iter=drogi.begin();iter!=drogi.end();)
 	{
-		if(itsMrowka->itsOdwiedzone.find((*iter)->itsMiasta[0])!=itsMrowka->itsOdwiedzone.end()&&
-		itsMrowka->itsOdwiedzone.find((*iter)->itsMiasta[1])!=itsMrowka->itsOdwiedzone.end())
+		if(mrowka->itsOdwiedzone.find((*iter)->itsMiasta[0])!=mrowka->itsOdwiedzone.end()&&
+		mrowka->itsOdwiedzone.find((*iter)->itsMiasta[1])!=mrowka->itsOdwiedzone.end())
 		{
 
 			drogi.erase(iter);
@@ -80,16 +90,18 @@ Drogi Engine::RetMozliweDrogi()
 	};
 	return drogi;
 };
-int Engine::RetDlugosc()
+/*
+int Engine::RetDlugosc(Mrowka* mrowka)
 {
 	unsigned int i;
 	int droga=0;
-	for(i=0;i<itsMrowka->itsDroga.size();i++)
+	for(i=0;i<mrowka->itsDroga.size();i++)
 	{
-		droga+=itsKontener->RetDroga(itsMrowka->itsDroga[i])->itsDl;
+		droga+=itsKontener->RetDroga(mrowka->itsDroga[i])->itsDl;
 	};
 	return droga;
 };
+*/
 int Engine::PickRoad(Drogi drogi)
 {
 	Drogi::iterator iter;
@@ -97,12 +109,25 @@ int Engine::PickRoad(Drogi drogi)
 	int size=drogi.size();
 	double *tab=new double[size];
 	int i=0;
+	double max=0;
+	int maxID=0;
 	for(i=0,iter=drogi.begin();iter!=drogi.end();iter++,i++)
 	{
 		double tmp=1.0f/((double((*iter)->itsDl)*(double)(*iter)->itsDl));
-		sum+=((*iter)->itsFeromony+tmp);
+//		double tmp=double(itsKontener->itsMaxLen-(*iter)->itsDl)/(double)(itsKontener->itsMaxLen);
+//		cout<<(itsKontener->itsMaxLen)<<" "<<(*iter)->itsDl<<" "<<tmp<<endl;
+//		cout<<(*iter)->itsFeromony<<" "<<tmp<<endl;
+		double tmp2=((*iter)->itsFeromony*tmp);
+		sum+=tmp2;
 		tab[i]=sum;
+		if(tmp2>max)
+		{
+			max=tmp2;
+			maxID=i;
+		};
 	};
+//	if(((double)rand()/(double)RAND_MAX )<0.9)
+		return maxID;
 	double los=((double)rand()/(double)(RAND_MAX))*tab[size-1];
 	for(i=0;i<size;i++)
 	{
@@ -110,22 +135,28 @@ int Engine::PickRoad(Drogi drogi)
 	};
 	return i;
 };
-void Engine::ZostawFeromony(int droga)
+void Engine::ZostawFeromony(int droga,Mrowka* mrowka)
 {
-	Drogi trasa=RetTrasa();
+	Drogi trasa=RetTrasa(mrowka);
 	Drogi::iterator iter;
 	for(iter=trasa.begin();iter!=trasa.end();iter++)
 	{
-//		(*iter)->itsFeromony*=0.9f;
-		(*iter)->itsFeromony+=2*itsBest*(2*itsBest/((double)droga));
-//		(*iter)->itsFeromony+=(0.5f);
+		(*iter)->itsFeromony*=0.9f;
+		(*iter)->itsFeromony+=(0.1f/(double)itsBest);
+//		(*iter)->itsFeromony+=itsBest*(itsBest/((double)droga));
+//		if(droga<itsBest)
+//			(*iter)->itsFeromony+=0.5;
+//		(*iter)->itsFeromony+=(0.1f);
+//		if((*iter)->itsFeromony>5.0f)
+//			(*iter)->itsFeromony=5.0f;
+
 	};
 };
-Drogi Engine::RetTrasa()
+Drogi Engine::RetTrasa(Mrowka* mrowka)
 {
 	Drogi wynik;	
 	std::vector<int>::iterator iter;
-	for(iter=itsMrowka->itsDroga.begin();iter!=itsMrowka->itsDroga.end();iter++)
+	for(iter=mrowka->itsDroga.begin();iter!=mrowka->itsDroga.end();iter++)
 	{
 		wynik.push_back(itsKontener->RetDroga(*iter));
 	};
@@ -136,7 +167,7 @@ void Engine::Parowanie()
 	std::vector<Droga>::iterator iter;
 	for(iter=itsKontener->itsDrogi.begin();iter!=itsKontener->itsDrogi.end();iter++)
 	{
-		(*iter).itsFeromony*=0.5f;
+		(*iter).itsFeromony*=0.8f;
 		if((*iter).itsFeromony<1)
 			(*iter).itsFeromony=1;
 	};

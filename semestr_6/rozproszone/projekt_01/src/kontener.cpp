@@ -2,6 +2,7 @@
 #include <stdio.h>
 Kontener::Kontener(int cities)
 {
+	itsMaxLen=0;
 	int i;
 	for(i=0;i<cities;i++)
 	{
@@ -21,6 +22,8 @@ void Kontener::AddRoad(Droga road)
 	itsDrogi.push_back(road);
 	itsMiasta[road.itsMiasta[0]]->AddRoad(itsDrogi.size()-1);
 	itsMiasta[road.itsMiasta[1]]->AddRoad(itsDrogi.size()-1);
+	if(road.itsDl+1>itsMaxLen)
+		itsMaxLen=road.itsDl+1;
 };
 void Kontener::Print()
 {
@@ -85,4 +88,14 @@ int Kontener::FindRoadId(int miasto0, int miasto1)
 		};
 	};
 	return -1;
+};
+int Kontener::FindRoadId(Droga* droga)
+{
+	unsigned int i;
+	for(i=0;i<itsDrogi.size();i++)
+	{
+		if(itsDrogi[i]==*droga)
+			return i;
+	};
+	throw(ObjectNotFound("FindRoadId(Droga* droga)"));
 };

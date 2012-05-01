@@ -13,9 +13,9 @@ int main(int argc, char* argv[])
 		eng.LoadMap("map.ini");
 	std::cout<<"Hello world"<<std::endl;
 	int i;
-	for(i=0;i<10000;i++)
+	for(i=0;i<100;i++)
 	{
-		eng.NewAnt();
+		eng.NewAnt(10);
 		while(eng.Step());
 		eng.Parowanie();
 		std::cout<<"Najlepsza droga: "<<eng.RetBest()<<std::endl;
