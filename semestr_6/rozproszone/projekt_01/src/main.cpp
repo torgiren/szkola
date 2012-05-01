@@ -9,13 +9,12 @@ int main(int argc, char* argv[])
 
 	srand(time(NULL));
 	Engine eng;
-	int cities;
 		eng.LoadMap("map.ini");
 	std::cout<<"Hello world"<<std::endl;
 	int i;
-	for(i=0;i<100;i++)
+	for(i=0;i<200;i++)
 	{
-		eng.NewAnt(50);
+		eng.NewAnt(eng.Cities());
 		while(eng.Step());
 		eng.Parowanie();
 		std::cout<<"i="<<i<<"\tNajlepsza droga: "<<eng.RetBest()<<std::endl;
