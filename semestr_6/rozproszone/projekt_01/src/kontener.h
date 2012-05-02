@@ -16,12 +16,12 @@ class Kontener
 		std::vector<Droga*> RetDrogi(int city);
 		Droga* RetDroga(unsigned int id);
 		int Dump(char* data);
-		void Load(char* data,int size);
+		void Load(char*& data);
 		int FindRoadId(int miasto0,int miasto1);
 		int FindRoadId(Droga* droga);
 	private:
 		std::vector<Droga> itsDrogi;
-		std::vector<Miasto*> itsMiasta;
+		std::vector<Miasto> itsMiasta;
 		int itsMaxLen;
 };
 #endif

@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 		eng.LoadMap("map.ini");
 	std::cout<<"Hello world"<<std::endl;
 	int i;
-	for(i=0;i<200;i++)
+	for(i=0;i<50;i++)
 	{
 		eng.NewAnt(eng.Cities());
 		while(eng.Step());
@@ -21,5 +21,15 @@ int main(int argc, char* argv[])
 	};
 //	+=eng.PrintKontener();
 
+	char* data=new char[0xffff];
+	int size;
+	size=eng.DumpContainer(data);
+	printf("%s\n",data);
+	printf("Size: %d\n",size);
+	Engine eng2;
+	eng2.CreateContainer(eng.Cities());
+	eng2.LoadContainer(data);
+	eng2.DumpContainer(data);
+	printf("%s\n",data);
 	return 0;
 };

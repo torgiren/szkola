@@ -7,7 +7,7 @@ class Miasto
 		void AddRoad(int num);
 		std::vector<int>* RetDrogi();
 		char* Dump();
-		void Load(char* data);
+		void Load(char*& data);
 	private:
 		std::vector<int> itsDrogi;
 };

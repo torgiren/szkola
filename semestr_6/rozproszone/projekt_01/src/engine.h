@@ -15,7 +15,7 @@ class Engine
 		int Cities();
 		void CreateContainer(int cities);
 		int DumpContainer(char* data) {return itsKontener->Dump(data);};
-		void LoadContainer(char* data, int size);
+		void LoadContainer(char* data) { std::cout<<itsKontener<<std::endl; itsKontener->Load(data);};
 		void PrintKontener() {itsKontener->Print();};
 	private:
 		Drogi RetMozliweDrogi(Mrowka* mrowka);

@@ -1,27 +1,24 @@
 #include "kontener.h"
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 Kontener::Kontener(int cities)
 {
 	itsMaxLen=0;
 	int i;
 	for(i=0;i<cities;i++)
 	{
-		itsMiasta.push_back(new Miasto());
+		itsMiasta.push_back(Miasto());
 	};
 };
 Kontener::~Kontener()
 {
-	unsigned int i;
-	for(i=0;i<itsMiasta.size();i++)
-	{
-		delete itsMiasta[i];
-	};
 };
 void Kontener::AddRoad(Droga road)
 {
 	itsDrogi.push_back(road);
-	itsMiasta[road.itsMiasta[0]]->AddRoad(itsDrogi.size()-1);
-	itsMiasta[road.itsMiasta[1]]->AddRoad(itsDrogi.size()-1);
+	itsMiasta[road.itsMiasta[0]].AddRoad(itsDrogi.size()-1);
+	itsMiasta[road.itsMiasta[1]].AddRoad(itsDrogi.size()-1);
 	if(road.itsDl+1>itsMaxLen)
 		itsMaxLen=road.itsDl+1;
 };
@@ -32,7 +29,7 @@ void Kontener::Print()
 	{
 		std::cout<<i<<": "<<std::endl;
 		unsigned int j;
-		std::vector<int>* drog=itsMiasta[i]->RetDrogi();
+		std::vector<int>* drog=itsMiasta[i].RetDrogi();
 		for(j=0;j<drog->size();j++)
 		{
 			std::cout<<"\t"<<itsDrogi[(*drog)[j]].itsMiasta[0]<<" ";
@@ -47,7 +44,7 @@ std::vector<Droga*> Kontener::RetDrogi(int city)
 {
 	std::vector<Droga*> wynik;
 	unsigned int i;
-	std::vector<int>* drog=itsMiasta[city]->RetDrogi();
+	std::vector<int>* drog=itsMiasta[city].RetDrogi();
 	for(i=0;i<drog->size();i++)
 	{
 		wynik.push_back(&itsDrogi[(*drog)[i]]);
@@ -62,16 +59,46 @@ Droga* Kontener::RetDroga(unsigned int id)
 };
 int Kontener::Dump(char* data)
 {
-	printf("%d ",itsDrogi.size());	
+	sprintf(data,"%d ",itsDrogi.size());	
 	unsigned int i;
 	for(i=0;i<itsDrogi.size();i++)
 	{
-
+		sprintf(data,"%s %s",data,itsDrogi[i].Dump());		
 	};
-	return 0;
+	sprintf(data,"%s %d ",data,itsMiasta.size());
+	for(i=0;i<itsMiasta.size();i++)
+	{
+		sprintf(data,"%s %s",data,itsMiasta[i].Dump());
+	};
+
+	return strlen(data);
 };
-void Kontener::Load(char* data, int size)
+void Kontener::Load(char*& data)
 {
+	itsDrogi.clear();
+	itsMiasta.clear();
+	int ile;
+	int size;
+	char a[16];
+	size=sscanf(data,"%s", a);
+	ile=atoi(a);
+	data+=strlen(a)+1;
+	int i;
+	for(i=0;i<ile;i++)
+	{
+		Droga tmp;
+		tmp.Load(data);
+		itsDrogi.push_back(tmp);
+	};
+	size=sscanf(data,"%s",a);
+	data+=strlen(a)+1;
+	ile=atoi(a);
+	for(i=0;i<ile;i++)
+	{
+		Miasto tmp;
+		tmp.Load(data);
+		itsMiasta.push_back(tmp);
+	};
 };
 int Kontener::FindRoadId(int miasto0, int miasto1)
 {

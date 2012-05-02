@@ -217,6 +217,7 @@ void Engine::CreateContainer(int cities)
 	if(itsKontener)
 	{
 		delete itsKontener;
-		itsKontener=new Kontener(cities);
 	};
+	itsKontener=new Kontener(cities);
 };
+
