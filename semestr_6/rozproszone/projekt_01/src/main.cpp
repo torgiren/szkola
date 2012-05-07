@@ -38,6 +38,26 @@ int main(int argc, char* argv[])
 		eng.NewAnt(eng.Cities());
 		while(eng.Step());
 		eng.Parowanie();
+			int dystans=eng.RetBestAnt()->itsDlugosc;
+			MPI_Send(&dystans,1,MPI_INT,0,0,MPI_COMM_WORLD);
+		if(rank==0)
+		{
+			int i;
+			int best=99999999;
+			int bestRank=0;
+			MPI_Status status;
+			int recv;
+			for(i=0;i<size;i++)
+			{
+				MPI_Recv(&recv,1,MPI_INT,0,0,MPI_COMM_WORLD,&status);
+				if(recv<best)
+				{
+					best=recv;
+					bestRank=status.MPI_SOURCE;	
+				};
+			};
+		};
+
 // znajdz najlepsza mrówke i uczyń ją pracownicą miesiąca
 		eng.ZostawFeromony(eng.RetBestAnt());
 
