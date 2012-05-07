@@ -6,26 +6,46 @@
 #include "engine.h"
 int main(int argc, char* argv[])
 {
-
+	printf("a");
+	MPI_Init(&argc,&argv);
+	printf("b");
+	int rank,size;
+	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+	MPI_Comm_size(MPI_COMM_WORLD,&size);
+	printf("c");
 	srand(time(NULL));
 	Engine eng;
+	char* data=new char[0xffffff];
+	int len=0;
+	int cities;
+	if(rank==0)
+	{
 		eng.LoadMap("map.ini");
-	std::cout<<"Hello world"<<std::endl;
+		len=eng.DumpContainer(data);
+		cities=eng.Cities();
+	}
+	MPI_Bcast(&cities,1,MPI_INT,0,MPI_COMM_WORLD);
+	MPI_Bcast(&len,1,MPI_INT,0,MPI_COMM_WORLD);
+	MPI_Bcast(data,len,MPI_CHAR,0,MPI_COMM_WORLD);
+	if(rank!=0)
+	{
+		eng.CreateContainer(cities);
+		eng.LoadContainer(data);
+	};
 	int i;
 	for(i=0;i<200;i++)
 	{
 		eng.NewAnt(eng.Cities());
 		while(eng.Step());
 		eng.Parowanie();
-/*
- * znajdz najlepsza mrówke i uczyń ją pracownicą miesiąca
- */
+// znajdz najlepsza mrówke i uczyń ją pracownicą miesiąca
 		eng.ZostawFeromony(eng.RetBestAnt());
 
 		std::cout<<"i="<<i<<"\tNajlepsza droga: "<<eng.RetBest()<<std::endl;
 	};
 //	+=eng.PrintKontener();
 
+/*
 	char* data=new char[0xffffff];
 	int size;
 	size=eng.DumpContainer(data);
@@ -36,5 +56,7 @@ int main(int argc, char* argv[])
 	eng2.LoadContainer(data);
 	eng2.DumpContainer(data);
 //	printf("%s\n",data);
+*/
+	MPI_Finalize();
 	return 0;
 };
