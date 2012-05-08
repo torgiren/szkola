@@ -3,12 +3,13 @@
 class Droga
 {
 	public:
+		Droga(){};
 		Droga(int src, int dst, int len);
 		void DodajFeromony();
 		bool operator==(const Droga& droga) const;
 		bool operator!=(const Droga& droga) const;
 		char* Dump();
-		void Load(char* data);
+		void Load(char*& data);
 //	private:
 		int itsDl;
 		double itsFeromony;

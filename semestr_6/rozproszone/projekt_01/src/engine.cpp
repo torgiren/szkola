@@ -24,6 +24,7 @@ void Engine::NewAnt(int number)
 		};
 	};
 	delete itsMrowki;
+	itsBestAnt=NULL;
 	itsAntNumber=number;
 	itsMrowki=new Mrowka*[itsAntNumber];
 	for(i=0;i<itsAntNumber;i++)
@@ -37,7 +38,6 @@ void Engine::NewAnt(int number)
 };
 bool Engine::Step()
 {
-	static Mrowka* LocalBestAnt=0;
 	static int LocalBestDist=999999999;
 	unsigned int i;
 	int pozostalo=itsAntNumber;
@@ -64,7 +64,7 @@ bool Engine::Step()
 				if(droga<LocalBestDist)
 				{
 					LocalBestDist=droga;
-					LocalBestAnt=itsMrowki[i];
+					itsBestAnt=itsMrowki[i];
 				};
 			};
 			pozostalo--;
@@ -75,9 +75,10 @@ bool Engine::Step()
 		int roadID=itsKontener->FindRoadId(drogi[selected]);
 		itsMrowki[i]->IdzDroga(roadID,drogi[selected]);
 	};
+
 	if(pozostalo==0)
 	{
-		ZostawFeromony(LocalBestAnt);
+//		ZostawFeromony(LocalBestAnt);
 		LocalBestDist=99999;
 	};
 	return pozostalo>0;
@@ -156,6 +157,7 @@ int Engine::PickRoad(Drogi drogi)
 };
 void Engine::ZostawFeromony(Mrowka* mrowka)
 {
+	if(!mrowka) return;
 	Drogi trasa=RetTrasa(mrowka);
 	Drogi::iterator iter;
 	for(iter=trasa.begin();iter!=trasa.end();iter++)
@@ -217,6 +219,10 @@ void Engine::CreateContainer(int cities)
 	if(itsKontener)
 	{
 		delete itsKontener;
-		itsKontener=new Kontener(cities);
 	};
+	itsKontener=new Kontener(cities);
 };
+Mrowka* Engine::RetBestAnt() const
+{
+	return itsBestAnt;
+}

@@ -9,23 +9,25 @@ class Engine
 		Engine();
 		bool Step();
 		int RetBest() const;
+		Mrowka* RetBestAnt() const;
 		void NewAnt(int number);
 		void Parowanie();
 		void LoadMap(std::string path);
 		int Cities();
 		void CreateContainer(int cities);
 		int DumpContainer(char* data) {return itsKontener->Dump(data);};
-		void LoadContainer(char* data, int size);
+		void LoadContainer(char* data) { std::cout<<itsKontener<<std::endl; itsKontener->Load(data);};
 		void PrintKontener() {itsKontener->Print();};
+		void ZostawFeromony(Mrowka* mrowka);
 	private:
 		Drogi RetMozliweDrogi(Mrowka* mrowka);
 		Drogi RetTrasa(Mrowka* mrowka);
 //		int RetDlugosc();
 		int PickRoad(Drogi drogi);
-		void ZostawFeromony(Mrowka* mrowka);
 		Kontener* itsKontener;
 		Mrowka** itsMrowki;
 		unsigned int itsAntNumber;
+		Mrowka* itsBestAnt;
 		int itsBest;
 };
 #endif

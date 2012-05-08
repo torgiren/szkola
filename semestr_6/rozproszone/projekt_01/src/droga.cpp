@@ -1,6 +1,8 @@
 #include "droga.h"
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 Droga::Droga(int src,int dst, int len):
 itsDl(len),itsFeromony(1)
 {
@@ -21,7 +23,20 @@ char* Droga::Dump()
 	sprintf(wynik,"%d %lf %d %d ",itsDl,itsFeromony,itsMiasta[0],itsMiasta[1]);
 	return wynik;
 };
-void Droga::Load(char* data)
+void Droga::Load(char*& data)
 {
-	sscanf(data,"%d %f %d %d",&itsDl, &itsFeromony,&itsMiasta[0],&itsMiasta[1]);
+	int size;
+//	printf("Przed: %s\n",data);
+	char a[16],b[16],c[16],d[16];
+	sscanf(data,"%s %s %s %s ",a,b,c,d);
+//	printf("wczytano...\n");
+	size=strlen(a)+strlen(b)+strlen(c)+strlen(d)+5;
+	itsDl=atoi(a);
+	itsFeromony=atof(b);
+	itsMiasta[0]=atoi(c);
+	itsMiasta[1]=atoi(d);
+//	printf("dl=%d, ferm=%lf, mias=%d,%d\n",itsDl,itsFeromony,itsMiasta[0],itsMiasta[1]);
+//	printf("Wczytano: %d\n",size);
+	data+=size;
+//	printf("Po: %s\n",data);
 };

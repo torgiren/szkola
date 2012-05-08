@@ -1,6 +1,7 @@
 #include "miasto.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 void Miasto::AddRoad(int num)
 {
 	itsDrogi.push_back(num);
@@ -21,7 +22,21 @@ char* Miasto::Dump()
 	};
 	return data;
 };
-void Miasto::Load(char* data)
+void Miasto::Load(char*& data)
 {
-	
+	int i;
+	int ile;
+	int size;
+	char a[16];
+	size=sscanf(data,"%s",a);
+	ile=atoi(a);
+	data+=strlen(a)+2;
+	for(i=0;i<ile;i++)
+	{
+		int tmp;
+		size=sscanf(data,"%s",a);
+		data+=strlen(a)+2;
+		tmp=atoi(a);
+		itsDrogi.push_back(tmp);
+	};
 };
