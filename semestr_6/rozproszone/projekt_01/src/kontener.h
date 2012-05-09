@@ -15,8 +15,8 @@ class Kontener
 		void Print();
 		std::vector<Droga*> RetDrogi(int city);
 		Droga* RetDroga(unsigned int id);
-		int Dump(char* data);
-		void Load(char*& data);
+		int Dump(char*& data);
+		void Load(char* data);
 		int FindRoadId(int miasto0,int miasto1);
 		int FindRoadId(Droga* droga);
 	private:

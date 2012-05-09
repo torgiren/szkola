@@ -8,6 +8,8 @@ class Mrowka
 	public:
 		Mrowka();
 		void IdzDroga(int roadID, Droga* droga);
+		void PartialDump(char*& data);
+		void PartialLoad(char* data);
 //	private:
 		std::vector<int> itsDroga;
 		std::set<int> itsOdwiedzone;

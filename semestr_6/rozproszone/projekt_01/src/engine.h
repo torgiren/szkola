@@ -2,11 +2,12 @@
 #define __ENGINE_H
 #include "mrowka.h"
 #include "kontener.h"
+#include <cstring>
 typedef std::vector<Droga*> Drogi;
 class Engine
 {
 	public:	
-		Engine();
+		Engine(int rank);
 		bool Step();
 		int RetBest() const;
 		Mrowka* RetBestAnt() const;
@@ -16,7 +17,7 @@ class Engine
 		int Cities();
 		void CreateContainer(int cities);
 		int DumpContainer(char* data) {return itsKontener->Dump(data);};
-		void LoadContainer(char* data) { std::cout<<itsKontener<<std::endl; itsKontener->Load(data);};
+		int LoadContainer(char* data) { std::cout<<itsKontener<<std::endl; itsKontener->Load(data);return strlen(data);};
 		void PrintKontener() {itsKontener->Print();};
 		void ZostawFeromony(Mrowka* mrowka);
 	private:
@@ -29,5 +30,6 @@ class Engine
 		unsigned int itsAntNumber;
 		Mrowka* itsBestAnt;
 		int itsBest;
+		int itsRank;
 };
 #endif

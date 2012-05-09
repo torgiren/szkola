@@ -57,46 +57,68 @@ Droga* Kontener::RetDroga(unsigned int id)
 		throw OutOfBound("Kontener::RetDroga: id="+id);
 	return &itsDrogi[id];
 };
-int Kontener::Dump(char* data)
+int Kontener::Dump(char*& data)
 {
+	char* tmp=new char[255];
+//	printf("%p\n",data);
 	sprintf(data,"%d ",itsDrogi.size());	
 	unsigned int i;
 	for(i=0;i<itsDrogi.size();i++)
 	{
-		sprintf(data,"%s %s",data,itsDrogi[i].Dump());		
+		memset(tmp,0,255);
+		itsDrogi[i].Dump(tmp);
+		strcat(data,tmp);
+//		sprintf(data,"%s %s",data,tmp);		
 	};
-	sprintf(data,"%s %d ",data,itsMiasta.size());
+	sprintf(data+strlen(data),"%d ",itsMiasta.size());
 	for(i=0;i<itsMiasta.size();i++)
 	{
-		sprintf(data,"%s %s",data,itsMiasta[i].Dump());
+		memset(tmp,0,255);
+		itsMiasta[i].Dump(tmp);
+		strcat(data,tmp);
+//		sprintf(data,"%s %s",data,itsMiasta[i].Dump());
 	};
+	delete [] tmp;
 
 	return strlen(data);
 };
-void Kontener::Load(char*& data)
+void Kontener::Load(char* data)
 {
 	itsDrogi.clear();
 	itsMiasta.clear();
 	int ile;
 	int size;
 	char a[16];
-	size=sscanf(data,"%s", a);
+	size=sscanf(data,"%s ", a);
 	ile=atoi(a);
+//	std::cout<<"Load: Drog: "<<ile<<std::endl;
+//		std::cout<<data<<std::endl;
 	data+=strlen(a)+1;
+//		std::cout<<data<<std::endl;
 	int i;
 	for(i=0;i<ile;i++)
 	{
 		Droga tmp;
-		tmp.Load(data);
+		int size=tmp.Load(data);
 		itsDrogi.push_back(tmp);
+//		std::cout<<"Load: Load_Road size="<<size<<std::endl;
+//		printf("%p\n",data);
+//		std::cout<<data<<std::endl;
+		data+=size;
+//		printf("%p\n",data);
 	};
+//	printf("%p\n",data);
 	size=sscanf(data,"%s",a);
+//	printf("%p\n",data);
 	data+=strlen(a)+1;
+//	printf("%p\n",data);
 	ile=atoi(a);
+//	std::cout<<"Load: Miast: "<<ile<<std::endl;
 	for(i=0;i<ile;i++)
 	{
 		Miasto tmp;
-		tmp.Load(data);
+		int size=tmp.Load(data);
+//		data+=size;
 		itsMiasta.push_back(tmp);
 	};
 };

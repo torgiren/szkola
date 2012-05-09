@@ -10,19 +10,20 @@ std::vector<int>* Miasto::RetDrogi()
 {
 	return &itsDrogi;
 };
-char* Miasto::Dump()
+void Miasto::Dump(char* data)
 {
-	char *data=new char[1024];
-	memset(data,0,1024);
+//	char *data=new char[1024];
+//	memset(data,0,1024);
 	unsigned int i;
 	sprintf(data,"%d ",itsDrogi.size());
 	for(i=0;i<itsDrogi.size();i++)
 	{
-		sprintf(data,"%s %d ",data,itsDrogi[i]);
+//		strcat(data,itsDrogi[i]);
+		sprintf(data+strlen(data),"%d ",itsDrogi[i]);
 	};
-	return data;
+//	return data;
 };
-void Miasto::Load(char*& data)
+int Miasto::Load(char*& data)
 {
 	int i;
 	int ile;
@@ -30,13 +31,16 @@ void Miasto::Load(char*& data)
 	char a[16];
 	size=sscanf(data,"%s",a);
 	ile=atoi(a);
-	data+=strlen(a)+2;
+	size=strlen(a)+1;
+	data+=size;
 	for(i=0;i<ile;i++)
 	{
 		int tmp;
-		size=sscanf(data,"%s",a);
-		data+=strlen(a)+2;
+		sscanf(data,"%s",a);
+		data+=strlen(a)+1;
+		size+=strlen(a)+1;
 		tmp=atoi(a);
 		itsDrogi.push_back(tmp);
 	};
+	return size;
 };

@@ -1,2 +1,2 @@
 #!/bin/sh
-mpirun -np 2 -machinefile machines ./Mrowisko
+mpirun -np 4 -machinefile machines ./Mrowisko

@@ -4,12 +4,13 @@
 #include <algorithm>
 #include "reader.h"
 using namespace std;
-Engine::Engine()
+Engine::Engine(int rank)
 {
 	itsKontener=NULL;
 	itsMrowki=NULL;
 	itsBest=99999999;
 	itsAntNumber=0;
+	itsRank=rank;
 
 };
 void Engine::NewAnt(int number)
@@ -46,29 +47,27 @@ bool Engine::Step()
 		std::vector<Droga*> drogi=RetMozliweDrogi(itsMrowki[i]);
 		if(drogi.size()==0)
 		{
-			if(itsMrowki[i]->itsOdwiedzone.size()==itsKontener->itsMiasta.size())
-			{
-				if(itsMrowki[i]->itsPowrocila)
-					break;
-				int domkniecie=itsKontener->FindRoadId(itsMrowki[i]->itsStart,itsMrowki[i]->itsMiasto);
-				itsMrowki[i]->itsDroga.push_back(domkniecie);
-				itsMrowki[i]->itsDlugosc+=itsKontener->itsDrogi[domkniecie].itsDl;
-				itsMrowki[i]->itsPowrocila=true;
-				int droga=itsMrowki[i]->itsDlugosc;
-				cout<<"droga: "<<droga<<endl;
+//			if(itsMrowki[i]->itsOdwiedzone.size()==itsKontener->itsMiasta.size())
+			if(itsMrowki[i]->itsPowrocila)
+				break;
+			int domkniecie=itsKontener->FindRoadId(itsMrowki[i]->itsStart,itsMrowki[i]->itsMiasto);
+			itsMrowki[i]->itsDroga.push_back(domkniecie);
+			itsMrowki[i]->itsDlugosc+=itsKontener->itsDrogi[domkniecie].itsDl;
+			itsMrowki[i]->itsPowrocila=true;
+			int droga=itsMrowki[i]->itsDlugosc;
+//			cout<<"rank "<<itsRank<<": "<<"droga: "<<droga<<endl;
 //				ZostawFeromony(droga);	
-				if(droga<itsBest)
-				{
-					itsBest=droga;
-				};
-				if(droga<LocalBestDist)
-				{
-					LocalBestDist=droga;
-					itsBestAnt=itsMrowki[i];
-				};
+			if(droga<itsBest)
+			{
+				itsBest=droga;
+			};
+			if(droga<LocalBestDist)
+			{
+				LocalBestDist=droga;
+				itsBestAnt=itsMrowki[i];
 			};
 			pozostalo--;
-			cout<<i<<endl;
+			cout<<"rank "<<itsRank<<": "<<i<<"/"<<itsAntNumber<<": "<<"droga: "<<droga<<endl;
 			continue;
 		};
 		int selected=PickRoad(drogi);

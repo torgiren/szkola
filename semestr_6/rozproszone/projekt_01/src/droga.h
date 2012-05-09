@@ -8,8 +8,8 @@ class Droga
 		void DodajFeromony();
 		bool operator==(const Droga& droga) const;
 		bool operator!=(const Droga& droga) const;
-		char* Dump();
-		void Load(char*& data);
+		void Dump(char* data);
+		int Load(char*& data);
 //	private:
 		int itsDl;
 		double itsFeromony;
