@@ -15,11 +15,21 @@ struct Siatka
 void alloc(struct Siatka *tab,int sizeX, int sizeY, int offsetX, int offsetY, int przeszXMin, int przeszXMax, int przeszYMin, int przeszYMax);
 void dealloc(struct Siatka *tab);
 void poczatkowe(struct Siatka *tab);
+void poczatkowe2(struct Siatka *tab);
 void oblicz(struct Siatka *tab);
+void oblicz2(struct Siatka *tab);
 double kwadrat(double liczba);
 double ak(struct Siatka *tab);
 void zapisz(struct Siatka *tab,char* path);
+int in(double val, double min, double max);
+void zad1();
+void zad2();
 int main()
+{
+	zad2();
+	return 0;
+};
+void zad1()
 {
 	struct Siatka siatka;
 	alloc(&siatka,200,100,0,50,95,105,50,70);
@@ -28,7 +38,15 @@ int main()
 	oblicz(&siatka);
 	zapisz(&siatka,"zad1.dat");
 	dealloc(&siatka);
-	return 0;
+};
+void zad2()
+{
+	struct Siatka siatka;
+	alloc(&siatka,200,100,0,50,94,104,50,70);
+	poczatkowe2(&siatka);
+	oblicz2(&siatka);
+	zapisz(&siatka,"zad2.dat");
+	dealloc(&siatka);
 };
 void alloc(struct Siatka *tab,int sizeX, int sizeY, int offsetX, int offsetY, int przeszXMin, int przeszXMax, int przeszYMin, int przeszYMax)
 {
@@ -97,17 +115,16 @@ void poczatkowe2(struct Siatka *tab)
 	};
 	for(i=0;i<tab->itsSizeY;i++)
 	{
-		tab->itsTab[1][i]=u0;
+		tab->itsTab[0][i]=u0;
 	};
 	for(i=0;i<tab->itsSizeX;i++)
 	{
-		tab->itsTab[i][tab->itsSizeY-1]=u0*(double)(i+tab->itsOffsetX);
+		tab->itsTab[i][tab->itsSizeY-1]=u0*(double)(i+1);
 	};
 	for(i=0;i<tab->itsSizeY;i++)
 	{
 		tab->itsTab[tab->itsSizeX-1][i]=u0*(double)(tab->itsSizeX+tab->itsOffsetX);
 	};
-
 };
 void oblicz(struct Siatka *tab)
 {
@@ -133,6 +150,48 @@ void oblicz(struct Siatka *tab)
 };
 void oblicz2(struct Siatka *tab)
 {
+	int i,j;
+	double a=-123;
+	double a_prev=123;
+	while(fabs(a-a_prev)>0.001)
+	{
+		
+		for(i=0;i<=94;i++)
+		{
+			tab->itsTab[i][0]=tab->itsTab[i][1];
+		};
+		for(i=105;i<tab->itsSizeX;i++)
+		{
+			tab->itsTab[i][0]=tab->itsTab[i][1];
+		};
+		//Hardcodujemy wartości
+		for(i=0;i<=20;i++)
+		{
+			tab->itsTab[94][i]=tab->itsTab[93][i];
+			tab->itsTab[104][i]=tab->itsTab[105][i];
+		};
+		for(i=94;i<105;i++)
+		{
+			tab->itsTab[i][20]=tab->itsTab[i][21];
+		};
+
+		tab->itsTab[94][20]=(tab->itsTab[93][20]+tab->itsTab[94][21])/2.0f;
+		tab->itsTab[104][20]=(tab->itsTab[105][20]+tab->itsTab[104][21])/2.0f;
+
+
+		for(i=1;i<tab->itsSizeX-1;i++)
+		{
+			for(j=1;j<tab->itsSizeY-1;j++)
+			{
+				if(i>=tab->itsPrzeszkoda[0]&&i<=tab->itsPrzeszkoda[2]&&j<=tab->itsPrzeszkoda[3]&&j>=tab->itsPrzeszkoda[1])
+					continue;
+				tab->itsTab[i][j]=(tab->itsTab[i-1][j]+tab->itsTab[i+1][j]+tab->itsTab[i][j-1]+tab->itsTab[i][j+1])/4.0f;
+			};
+
+		};
+		a_prev=a;
+		a=ak(tab);
+	};
 };
 double kwadrat(double liczba)
 {
@@ -173,4 +232,8 @@ void zapisz(struct Siatka* tab, char* path)
 	};
 
 	fclose(plik);
+};
+int in2(double val, double min, double max)
+{
+	return (val>min&&val<max);
 };
