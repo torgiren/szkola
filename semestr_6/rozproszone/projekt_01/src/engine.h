@@ -20,6 +20,7 @@ class Engine
 		int LoadContainer(char* data) { std::cout<<itsKontener<<std::endl; itsKontener->Load(data);return strlen(data);};
 		void PrintKontener() {itsKontener->Print();};
 		void ZostawFeromony(Mrowka* mrowka);
+		bool IsFinished() {return itsFinished;};
 	private:
 		Drogi RetMozliweDrogi(Mrowka* mrowka);
 		Drogi RetTrasa(Mrowka* mrowka);
@@ -31,5 +32,6 @@ class Engine
 		Mrowka* itsBestAnt;
 		int itsBest;
 		int itsRank;
+		bool itsFinished;
 };
 #endif

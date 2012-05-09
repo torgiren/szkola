@@ -56,13 +56,18 @@ int main(int argc, char* argv[])
 	data=new char[1024];
 //	eng.DumpContainer(data);
 //	std::cout<<"rank "<<rank<<": "<<data<<std::endl;
-	for(i=0;i<200;i++)
+	int quit=0;
+	for(i=0;i<50|!quit;i++)
 	{
 //		std::cout<<"NewAnt dla "<<eng.Cities()<<" miast w rank= "<<rank<<std::endl;
 		int dystans=0;
 //		if(rank!=0)
 		{
-			eng.NewAnt(eng.Cities()/size);
+			if(rank==0)
+				eng.NewAnt(eng.Cities()/size+eng.Cities()%size);
+			else
+				eng.NewAnt(eng.Cities()/size);
+
 			while(eng.Step());
 			eng.Parowanie();
 
@@ -117,6 +122,29 @@ int main(int argc, char* argv[])
 
 // znajdz najlepsza mrówke i uczyń ją pracownicą miesiąca
 		eng.ZostawFeromony(&bestAnt);
+
+//		printf("rank %d: Finished: %d\n",rank,eng.IsFinished());
+
+
+		int finished=eng.IsFinished();
+		MPI_Send(&finished,1,MPI_INT,0,0,MPI_COMM_WORLD);
+		MPI_Barrier(MPI_COMM_WORLD);
+		if(rank==0)
+		{
+			int i;
+			int recv;
+			int koniec=1;
+			for(i=0;i<size;i++)
+			{
+				MPI_Recv(&recv,1,MPI_INT,MPI_ANY_SOURCE,MPI_ANY_TAG,MPI_COMM_WORLD,NULL);
+				if(!recv)
+				{
+					koniec=0;
+				};
+			};
+			quit=koniec;
+		};
+		MPI_Bcast(&quit,1,MPI_INT,0,MPI_COMM_WORLD);
 
 		std::cout<<"i="<<i<<"\tNajlepsza droga: "<<eng.RetBest()<<std::endl;
 	};

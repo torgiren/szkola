@@ -11,7 +11,7 @@ Engine::Engine(int rank)
 	itsBest=99999999;
 	itsAntNumber=0;
 	itsRank=rank;
-
+	itsFinished=false;
 };
 void Engine::NewAnt(int number)
 {
@@ -42,6 +42,7 @@ bool Engine::Step()
 	static int LocalBestDist=999999999;
 	unsigned int i;
 	int pozostalo=itsAntNumber;
+	std::vector<int> wyniki;
 	for(i=0;i<itsAntNumber;i++)
 	{
 		std::vector<Droga*> drogi=RetMozliweDrogi(itsMrowki[i]);
@@ -68,13 +69,23 @@ bool Engine::Step()
 			};
 			pozostalo--;
 			cout<<"rank "<<itsRank<<": "<<i<<"/"<<itsAntNumber<<": "<<"droga: "<<droga<<endl;
+			wyniki.push_back(droga);
 			continue;
 		};
 		int selected=PickRoad(drogi);
 		int roadID=itsKontener->FindRoadId(drogi[selected]);
 		itsMrowki[i]->IdzDroga(roadID,drogi[selected]);
 	};
-
+	if(wyniki.size())
+	{
+		int size=wyniki.size();
+		std::sort(wyniki.begin(),wyniki.end());
+		wyniki.erase(std::unique(wyniki.begin(),wyniki.end()),wyniki.end());
+		if(wyniki.size()<=2)
+			itsFinished=true;
+		else
+			itsFinished=false;
+	};
 	if(pozostalo==0)
 	{
 //		ZostawFeromony(LocalBestAnt);
