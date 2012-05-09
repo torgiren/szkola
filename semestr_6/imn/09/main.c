@@ -80,6 +80,28 @@ void poczatkowe(struct Siatka *tab)
 		};
 	};
 };
+void poczatkowe2(struct Siatka *tab)
+{
+	double u0=1;
+	int i,j;
+	for(i=0;i<tab->itsSizeX;i++)
+	{
+		memset(tab->itsTab[i],0,sizeof(double)*tab->itsSizeY);
+	};
+	for(i=0;i<tab->itsSizeY;i++)
+	{
+		tab->itsTab[1][i]=u0;
+	};
+	for(i=0;i<tab->itsSizeX;i++)
+	{
+		tab->itsTab[i][tab->itsSizeY-1]=u0*(double)(i+tab->itsOffsetX);
+	};
+	for(i=0;i<tab->itsSizeY;i++)
+	{
+		tab->itsTab[tab->itsSizeX-1][i]=u0*(double)(tab->itsSizeX+tab->itsOffsetX);
+	};
+
+};
 void oblicz(struct Siatka *tab)
 {
 	int i,j;
@@ -101,6 +123,9 @@ void oblicz(struct Siatka *tab)
 		a=ak(tab);
 	};
 
+};
+void oblicz2(struct Siatka *tab)
+{
 };
 double kwadrat(double liczba)
 {
