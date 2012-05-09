@@ -18,15 +18,19 @@ void poczatkowe(struct Siatka *tab);
 void poczatkowe2(struct Siatka *tab);
 void oblicz(struct Siatka *tab);
 void oblicz2(struct Siatka *tab);
+void oblicz3(struct Siatka *tab);
 double kwadrat(double liczba);
 double ak(struct Siatka *tab);
 void zapisz(struct Siatka *tab,char* path);
 int in(double val, double min, double max);
+//xy=0 dx, xy=1 dy
+double pochodna(struct Siatka *tab,int x, int y, int xy);
 void zad1();
 void zad2();
+void zad3();
 int main()
 {
-	zad2();
+	zad3();
 	return 0;
 };
 void zad1()
@@ -46,6 +50,16 @@ void zad2()
 	poczatkowe2(&siatka);
 	oblicz2(&siatka);
 	zapisz(&siatka,"zad2.dat");
+	dealloc(&siatka);
+};
+void zad3()
+{
+	struct Siatka siatka;
+	alloc(&siatka,200,100,0,50,94,104,50,70);
+	poczatkowe2(&siatka);
+	oblicz2(&siatka);
+	oblicz3(&siatka);
+	zapisz(&siatka,"zad3.dat");
 	dealloc(&siatka);
 };
 void alloc(struct Siatka *tab,int sizeX, int sizeY, int offsetX, int offsetY, int przeszXMin, int przeszXMax, int przeszYMin, int przeszYMax)
@@ -236,4 +250,46 @@ void zapisz(struct Siatka* tab, char* path)
 int in2(double val, double min, double max)
 {
 	return (val>min&&val<max);
+};
+double pochodna(struct Siatka *tab,int x, int y, int xy)
+{
+	double v1;
+	double v2;
+	v1=tab->itsTab[x][y];
+	v2=xy?tab->itsTab[x][y+1]:tab->itsTab[x+1][y];
+	return v2-v1;
+};
+void oblicz3(struct Siatka *tab)
+{
+	double r=1;
+	double p0=10;
+	double u0=1;
+		
+	int i,j;
+	for(i=0;i<tab->itsSizeX-1;i++)
+	{
+		for(j=0;j<tab->itsSizeY-1;j++)
+		{
+				if(i>=tab->itsPrzeszkoda[0]&&i<=tab->itsPrzeszkoda[2]&&j<=tab->itsPrzeszkoda[3]&&j>=tab->itsPrzeszkoda[1])
+				{
+					tab->itsTab[i][j]=p0;
+					continue;
+				}
+			else
+			{
+				double u=pochodna(tab,i,j,0);
+				double v=-pochodna(tab,i,j,1);
+				printf("%d %d %lf %lf\n",i,j,u,v);
+				tab->itsTab[i][j]=p0+r*kwadrat(u0)-r*(kwadrat(u)+kwadrat(v));
+			};
+		};
+	};
+	for(i=0;i<tab->itsSizeX;i++)
+	{
+		tab->itsTab[i][tab->itsSizeY-1]=p0;
+	};
+	for(i=0;i<tab->itsSizeY;i++)
+	{
+		tab->itsTab[tab->itsSizeX-1][i]=p0;
+	};
 };
