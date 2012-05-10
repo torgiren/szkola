@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <cstring>
-//#include <mpi.h>
+#include <mpi.h>
 #include "kontener.h"
 #include "reader.h"
 #include "engine.h"
-#include "mympe.h"
+//#include "mympe.h"
 int main(int argc, char* argv[])
 {
 /*
@@ -20,9 +20,6 @@ int main(int argc, char* argv[])
 	int rank,size;
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 	MPI_Comm_size(MPI_COMM_WORLD,&size);
-	if(rank==0)
-	{
-	};
 	srand(time(NULL)*rank);
 	Engine eng(rank);
 	char* data=new char[0xfffff];
@@ -62,6 +59,7 @@ int main(int argc, char* argv[])
 //	eng.DumpContainer(data);
 //	std::cout<<"rank "<<rank<<": "<<data<<std::endl;
 	int quit=0;
+	int glob_best=99999999;
 	for(i=0;(i<50)|(!quit);i++)
 	{
 //		std::cout<<"NewAnt dla "<<eng.Cities()<<" miast w rank= "<<rank<<std::endl;
@@ -100,6 +98,8 @@ int main(int argc, char* argv[])
 
 					best=recv;
 					bestRank=status.MPI_SOURCE;	
+					if(best<glob_best)
+						glob_best=best;
 				};
 //				printf("\n");
 			};
@@ -121,7 +121,7 @@ int main(int argc, char* argv[])
 //		printf("rank %d: odebrana mrowka: %s\n",rank,data);
 		Mrowka bestAnt;
 		bestAnt.PartialLoad(data);
-		bestAnt.PartialDump(data);
+	//	bestAnt.PartialDump(data);
 //		printf("rank %d: zredumpowana mrowka: %s\n",rank,data);
 
 
@@ -155,7 +155,19 @@ int main(int argc, char* argv[])
 	};
 	MPI_Barrier(MPI_COMM_WORLD);
 	std::cout<<"rank="<<rank<<"\tNajlepsza droga: "<<eng.RetBest()<<std::endl;
-
+	
+	if(rank==0)
+	{
+		FILE* plik;
+		plik=fopen("wynik.txt","w");
+		if(!plik)
+		{
+			fprintf(stderr,"Problem z otwarciem pliku\n");
+			return -1;
+		};
+		fprintf(plik,"Globalnie najlepsza droga to: %d\n",glob_best);
+		fclose(plik);
+	}
 	MPI_Finalize();
 	return 0;
 };

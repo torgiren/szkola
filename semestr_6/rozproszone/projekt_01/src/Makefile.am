@@ -8,4 +8,4 @@ Mrowisko_SOURCES = main.cpp\
 				   reader.h reader.cpp\
 				   engine.h engine.cpp\
 				   mympe.h mympe.cpp
-Mrowisko_CXXFLAGS= -Wall -g -I/usr/lib/mpich/include
+Mrowisko_CXXFLAGS= -Wall -g 
