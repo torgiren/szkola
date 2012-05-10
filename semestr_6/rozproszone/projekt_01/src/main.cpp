@@ -1,10 +1,12 @@
 #include <iostream>
+#include <stdio.h>
 #include <cstdlib>
 #include <cstring>
-#include <mpi.h>
+//#include <mpi.h>
 #include "kontener.h"
 #include "reader.h"
 #include "engine.h"
+#include "mympe.h"
 int main(int argc, char* argv[])
 {
 /*
@@ -18,6 +20,9 @@ int main(int argc, char* argv[])
 	int rank,size;
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 	MPI_Comm_size(MPI_COMM_WORLD,&size);
+	if(rank==0)
+	{
+	};
 	srand(time(NULL)*rank);
 	Engine eng(rank);
 	char* data=new char[0xfffff];
@@ -57,7 +62,7 @@ int main(int argc, char* argv[])
 //	eng.DumpContainer(data);
 //	std::cout<<"rank "<<rank<<": "<<data<<std::endl;
 	int quit=0;
-	for(i=0;i<50|!quit;i++)
+	for(i=0;(i<50)|(!quit);i++)
 	{
 //		std::cout<<"NewAnt dla "<<eng.Cities()<<" miast w rank= "<<rank<<std::endl;
 		int dystans=0;

@@ -48,7 +48,8 @@ PROGRAMS = $(bin_PROGRAMS)
 am_Mrowisko_OBJECTS = Mrowisko-main.$(OBJEXT) \
 	Mrowisko-mrowka.$(OBJEXT) Mrowisko-miasto.$(OBJEXT) \
 	Mrowisko-droga.$(OBJEXT) Mrowisko-kontener.$(OBJEXT) \
-	Mrowisko-reader.$(OBJEXT) Mrowisko-engine.$(OBJEXT)
+	Mrowisko-reader.$(OBJEXT) Mrowisko-engine.$(OBJEXT) \
+	Mrowisko-mympe.$(OBJEXT)
 Mrowisko_OBJECTS = $(am_Mrowisko_OBJECTS)
 Mrowisko_LDADD = $(LDADD)
 Mrowisko_LINK = $(CXXLD) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) \
@@ -108,6 +109,9 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+PKG_CONFIG = @PKG_CONFIG@
+PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
+PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
@@ -141,6 +145,8 @@ localedir = @localedir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
+mpe_CFLAGS = @mpe_CFLAGS@
+mpe_LIBS = @mpe_LIBS@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
 prefix = @prefix@
@@ -161,9 +167,10 @@ Mrowisko_SOURCES = main.cpp\
 				   droga.h droga.cpp\
 				   kontener.h kontener.cpp\
 				   reader.h reader.cpp\
-				   engine.h engine.cpp
+				   engine.h engine.cpp\
+				   mympe.h mympe.cpp
 
-Mrowisko_CXXFLAGS = -Wall -g
+Mrowisko_CXXFLAGS = -Wall -g -I/usr/lib/mpich/include
 all: all-am
 
 .SUFFIXES:
@@ -251,6 +258,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-miasto.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-mrowka.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-mympe.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Mrowisko-reader.Po@am__quote@
 
 .cpp.o:
@@ -364,6 +372,20 @@ Mrowisko-engine.obj: engine.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='engine.cpp' object='Mrowisko-engine.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-engine.obj `if test -f 'engine.cpp'; then $(CYGPATH_W) 'engine.cpp'; else $(CYGPATH_W) '$(srcdir)/engine.cpp'; fi`
+
+Mrowisko-mympe.o: mympe.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-mympe.o -MD -MP -MF $(DEPDIR)/Mrowisko-mympe.Tpo -c -o Mrowisko-mympe.o `test -f 'mympe.cpp' || echo '$(srcdir)/'`mympe.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/Mrowisko-mympe.Tpo $(DEPDIR)/Mrowisko-mympe.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='mympe.cpp' object='Mrowisko-mympe.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-mympe.o `test -f 'mympe.cpp' || echo '$(srcdir)/'`mympe.cpp
+
+Mrowisko-mympe.obj: mympe.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -MT Mrowisko-mympe.obj -MD -MP -MF $(DEPDIR)/Mrowisko-mympe.Tpo -c -o Mrowisko-mympe.obj `if test -f 'mympe.cpp'; then $(CYGPATH_W) 'mympe.cpp'; else $(CYGPATH_W) '$(srcdir)/mympe.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/Mrowisko-mympe.Tpo $(DEPDIR)/Mrowisko-mympe.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='mympe.cpp' object='Mrowisko-mympe.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Mrowisko_CXXFLAGS) $(CXXFLAGS) -c -o Mrowisko-mympe.obj `if test -f 'mympe.cpp'; then $(CYGPATH_W) 'mympe.cpp'; else $(CYGPATH_W) '$(srcdir)/mympe.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

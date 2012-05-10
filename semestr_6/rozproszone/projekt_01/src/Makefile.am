@@ -6,5 +6,6 @@ Mrowisko_SOURCES = main.cpp\
 				   droga.h droga.cpp\
 				   kontener.h kontener.cpp\
 				   reader.h reader.cpp\
-				   engine.h engine.cpp
-Mrowisko_CXXFLAGS= -Wall -g
+				   engine.h engine.cpp\
+				   mympe.h mympe.cpp
+Mrowisko_CXXFLAGS= -Wall -g -I/usr/lib/mpich/include
