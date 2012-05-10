@@ -60,6 +60,7 @@ int main(int argc, char* argv[])
 //	std::cout<<"rank "<<rank<<": "<<data<<std::endl;
 	int quit=0;
 	int glob_best=99999999;
+	Mrowka glob_best_ant;
 	for(i=0;(i<50)|(!quit);i++)
 	{
 //		std::cout<<"NewAnt dla "<<eng.Cities()<<" miast w rank= "<<rank<<std::endl;
@@ -99,7 +100,9 @@ int main(int argc, char* argv[])
 					best=recv;
 					bestRank=status.MPI_SOURCE;	
 					if(best<glob_best)
+					{
 						glob_best=best;
+					};
 				};
 //				printf("\n");
 			};
@@ -121,6 +124,16 @@ int main(int argc, char* argv[])
 //		printf("rank %d: odebrana mrowka: %s\n",rank,data);
 		Mrowka bestAnt;
 		bestAnt.PartialLoad(data);
+		if(rank==0)
+		{
+			printf("dlugosc:  %d -- %d\n",bestAnt.itsDlugosc,glob_best);
+			if(bestAnt.itsDlugosc<=glob_best)
+			{
+				printf("*********");
+				glob_best=bestAnt.itsDlugosc;
+				glob_best_ant=bestAnt;
+			};
+		};
 	//	bestAnt.PartialDump(data);
 //		printf("rank %d: zredumpowana mrowka: %s\n",rank,data);
 
@@ -166,6 +179,18 @@ int main(int argc, char* argv[])
 			return -1;
 		};
 		fprintf(plik,"Globalnie najlepsza droga to: %d\n",glob_best);
+		int i;
+		std::vector<Droga*> drogi=eng.RetTrasa(&glob_best_ant);
+		int last=glob_best_ant.itsStart;
+//		fprintf(plik,"%d ",last);
+		printf("Liczba drog: %d\n",drogi.size());
+		printf("Dlugosc mrowki: %d\n",glob_best_ant.itsDlugosc);
+		for(i=0;i<eng.Cities();i++)
+		{
+//			last=drogi[i]->itsMiasta[0];
+			last=drogi[i]->itsMiasta[0]==last?drogi[i]->itsMiasta[1]:drogi[i]->itsMiasta[0];
+			fprintf(plik,"%d ",last);
+		};
 		fclose(plik);
 	}
 	MPI_Finalize();

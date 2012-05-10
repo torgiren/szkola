@@ -21,9 +21,9 @@ class Engine
 		void PrintKontener() {itsKontener->Print();};
 		void ZostawFeromony(Mrowka* mrowka);
 		bool IsFinished() {return itsFinished;};
+		Drogi RetTrasa(Mrowka* mrowka);
 	private:
 		Drogi RetMozliweDrogi(Mrowka* mrowka);
-		Drogi RetTrasa(Mrowka* mrowka);
 //		int RetDlugosc();
 		int PickRoad(Drogi drogi);
 		Kontener* itsKontener;
