@@ -2,11 +2,10 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <cstring>
-#include <mpi.h>
+#include "mympe.h"
 #include "kontener.h"
 #include "reader.h"
 #include "engine.h"
-//#include "mympe.h"
 int main(int argc, char* argv[])
 {
 /*

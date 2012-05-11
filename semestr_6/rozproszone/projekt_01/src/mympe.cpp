@@ -1,4 +1,3 @@
-/*
 #include "mympe.h"
 int MPI_Init(int *argc, char*** argv)
 {
@@ -43,4 +42,3 @@ int MPI_Finalize(void)
         MPE_Finish_log("log.dat");
         return PMPI_Finalize();
 };
-*/
