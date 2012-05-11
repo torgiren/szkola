@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 	srand(time(NULL)*rank);
 	Engine eng(rank);
 	char* data=new char[0xfffff];
-	printf("%p\n",data);
+//	printf("%p\n",data);
 	memset(data,0,0xfffff);
 	int len=0;
 	int cities=0;
@@ -34,8 +34,20 @@ int main(int argc, char* argv[])
 //		std::cout<<"Wysylam dane o dl: "<<len<<std::endl;
 		cities=eng.Cities();
 	}
-
 	MPI_Bcast(&cities,1,MPI_INT,0,MPI_COMM_WORLD);
+	if(size>cities)
+	{
+		if(rank==0)
+			fprintf(stderr,"Liczba procesow wieszka niz liczba miast. nie moge obsluzyc\n");
+		MPI_Finalize();
+		exit(2);
+	};
+
+	if(rank==0)
+	{
+		printf("Trwa wysylanie mapy...\n");
+		printf("Rozmiar mapy: %d bajtow\n",len);
+	};
 //	std::cout<<eng.Cities()<<" miast w rank= "<<rank<<std::endl;
 	MPI_Bcast(&len,1,MPI_INT,0,MPI_COMM_WORLD);
 	MPI_Bcast(data,len,MPI_CHAR,0,MPI_COMM_WORLD);
