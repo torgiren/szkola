@@ -21,7 +21,7 @@ void Mrowka::IdzDroga(int roadID, Droga* droga)
 };
 void Mrowka::PartialDump(char*& data)
 {
-	int i;
+	unsigned int j;
 	sprintf(data,"%d ",itsDroga.size());
 	for(i=0;i<itsDroga.size();i++)
 	{
