@@ -8,32 +8,30 @@
 #include "engine.h"
 int main(int argc, char* argv[])
 {
-/*
-	Engine eng;
-	eng.LoadMap("map.ini");
-	char* data=new char[0xfffff];
-	eng.DumpContainer(data);
-	std::cout<<data<<std::endl;
-*/
+//Inicjacja MPI
+//Funkcja przeciążona inicjująca również mpe
 	MPI_Init(&argc,&argv);
 	int rank,size;
+//Odczytanie rozmiaru chmury oraz swojego id.
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 	MPI_Comm_size(MPI_COMM_WORLD,&size);
 	srand(time(NULL)*rank);
+//Stworzenie klasy silnika.
+//Mówimy mu jaki ma id;
 	Engine eng(rank);
 	char* data=new char[0xfffff];
-//	printf("%p\n",data);
 	memset(data,0,0xfffff);
 	int len=0;
 	int cities=0;
+//Wczytanie mapy na nodzie zerowym.
+//oraz zrzucenie go do zmiennej tekstowej;
 	if(rank==0)
 	{
 		eng.LoadMap("map.ini");
 		len=eng.DumpContainer(data);
-//		std::cout<<data<<std::endl;
-//		std::cout<<"Wysylam dane o dl: "<<len<<std::endl;
 		cities=eng.Cities();
 	}
+//Przekazanie liczby miast do wszystkich wezłów
 	MPI_Bcast(&cities,1,MPI_INT,0,MPI_COMM_WORLD);
 	if(size>cities)
 	{
@@ -42,56 +40,44 @@ int main(int argc, char* argv[])
 		MPI_Finalize();
 		exit(2);
 	};
-
-	if(rank==0)
-	{
-		printf("Trwa wysylanie mapy...\n");
-		printf("Rozmiar mapy: %d bajtow\n",len);
-	};
-//	std::cout<<eng.Cities()<<" miast w rank= "<<rank<<std::endl;
+//Wysłanie mapy do pozostałych węzłów
 	MPI_Bcast(&len,1,MPI_INT,0,MPI_COMM_WORLD);
 	MPI_Bcast(data,len,MPI_CHAR,0,MPI_COMM_WORLD);
 	MPI_Barrier(MPI_COMM_WORLD);
-//	std::cout<<eng.Cities()<<" miast w rank= "<<rank<<std::endl;
+//Wczytywanie w nodach mapy na podstawie przesłanych danych
 	if(rank!=0)
 	{
-//		std::cout<<"Len="<<len<<std::endl;
-//		std::cout<<"strlen="<<strlen(data)<<std::endl;
-//		std::cout<<"Loaded="<<
 		eng.CreateContainer(cities);
 		eng.LoadContainer(data);
-//		<<std::endl;
-//		std::cout<<"Data="<<data<<std::endl;
 	};
 	std::cout<<eng.Cities()<<" miast w rank= "<<rank<<std::endl;
 	int i;
 	delete [] data;
 	data=new char[1024];
-//	eng.DumpContainer(data);
-//	std::cout<<"rank "<<rank<<": "<<data<<std::endl;
 	int quit=0;
 	int glob_best=99999999;
 	Mrowka glob_best_ant;
 	for(i=0;(i<50)|(!quit);i++)
 	{
-//		std::cout<<"NewAnt dla "<<eng.Cities()<<" miast w rank= "<<rank<<std::endl;
 		int dystans=0;
-//		if(rank!=0)
-		{
-			if(rank==0)
-				eng.NewAnt(eng.Cities()/size+eng.Cities()%size);
-			else
-				eng.NewAnt(eng.Cities()/size);
+//Stworzenie odpowiedniej ilości mrówek
+		if(rank==0)
+			eng.NewAnt(eng.Cities()/size+eng.Cities()%size);
+		else
+			eng.NewAnt(eng.Cities()/size);
+//Stepowanie mrówek aż do obejścia wszystkich miast
+		while(eng.Step());
+//Parowanie feromonów
+		eng.Parowanie();
 
-			while(eng.Step());
-			eng.Parowanie();
+//Zapisanie wartości najkrótszej ścieżki w każdym węźle
+		dystans=eng.RetBestAnt()->itsDlugosc;
 
-			dystans=eng.RetBestAnt()->itsDlugosc;
-
-//			printf("rank %d wysyla dystans=%d\n",rank,dystans);
-			MPI_Send(&dystans,1,MPI_INT,0,0,MPI_COMM_WORLD);
-		}
+//Wysyłanie do węzła głównego swoich najmniejszych długości
+		MPI_Send(&dystans,1,MPI_INT,0,0,MPI_COMM_WORLD);
 		int bestRank=0;
+//Wybranie węzła z najlepszą ścieżką
+//znajdź najlepsza mrówkę i uczyń ją pracownicą miesiąca
 		if(rank==0)
 		{
 			int i;
@@ -101,13 +87,9 @@ int main(int argc, char* argv[])
 
 			for(i=0;i<size;i++)
 			{
-//				printf("recv id=%d rank=%d\n",i,rank);
 				MPI_Recv(&recv,1,MPI_INT,MPI_ANY_SOURCE,MPI_ANY_TAG,MPI_COMM_WORLD,&status);
-//				printf("recv=%d best=%d od=%d ",recv,best,status.MPI_SOURCE);
 				if(recv<best)
 				{
-//					printf("*");
-
 					best=recv;
 					bestRank=status.MPI_SOURCE;	
 					if(best<glob_best)
@@ -115,24 +97,21 @@ int main(int argc, char* argv[])
 						glob_best=best;
 					};
 				};
-//				printf("\n");
 			};
 		};
-//		std::cout<<"Najlepsza mrowka jest w ranku: "<<bestRank<<std::endl;
-
+//Rozesłanie informacji o najlepszym węźle do całej chmury
 		MPI_Bcast(&bestRank,1,MPI_INT,0,MPI_COMM_WORLD);
 		memset(data,0,1024);
+//Jeśli to ja jestem najlepszy, zrzucam najlepsza ścieżkę do zmiennej
 		if(rank==bestRank)
 		{
 			eng.RetBestAnt()->PartialDump(data);
-//			std::cout<<"rank: "<<rank<<": Rozmiar mrowki: "<<strlen(data)<<std::endl;
 			len=strlen(data);
 		};
+//Wysyłam swoją najlepszą ścieżkę do całej chmury
 		MPI_Bcast(&len,1,MPI_INT,bestRank,MPI_COMM_WORLD);
-//		printf("Bcast mrowki w rank=%d a bestRank=%d\n",rank,bestRank);
 		MPI_Bcast(data,len,MPI_CHAR,bestRank,MPI_COMM_WORLD);
 		MPI_Barrier(MPI_COMM_WORLD);
-//		printf("rank %d: odebrana mrowka: %s\n",rank,data);
 		Mrowka bestAnt;
 		bestAnt.PartialLoad(data);
 		if(rank==0)
@@ -140,21 +119,15 @@ int main(int argc, char* argv[])
 			printf("dlugosc:  %d -- %d\n",bestAnt.itsDlugosc,glob_best);
 			if(bestAnt.itsDlugosc<=glob_best)
 			{
-				printf("*********");
 				glob_best=bestAnt.itsDlugosc;
 				glob_best_ant=bestAnt;
 			};
 		};
-	//	bestAnt.PartialDump(data);
-//		printf("rank %d: zredumpowana mrowka: %s\n",rank,data);
-
-
-// znajdz najlepsza mrówke i uczyń ją pracownicą miesiąca
+//Zostaw feromony na najlepszej ścieżce w danej iteracji
 		eng.ZostawFeromony(&bestAnt);
 
-//		printf("rank %d: Finished: %d\n",rank,eng.IsFinished());
 
-
+//Ustalenie warunku znalezienia globalnie najlepszej ścieżki
 		int finished=eng.IsFinished();
 		MPI_Send(&finished,1,MPI_INT,0,0,MPI_COMM_WORLD);
 		MPI_Barrier(MPI_COMM_WORLD);
@@ -178,8 +151,10 @@ int main(int argc, char* argv[])
 		std::cout<<"i="<<i<<"\tNajlepsza droga: "<<eng.RetBest()<<std::endl;
 	};
 	MPI_Barrier(MPI_COMM_WORLD);
+//Wypisanie najlepszych ostatecznych dróg dla węzłów
 	std::cout<<"rank="<<rank<<"\tNajlepsza droga: "<<eng.RetBest()<<std::endl;
 	
+//Zapisanie wyników do pliku
 	if(rank==0)
 	{
 		FILE* plik;
@@ -193,17 +168,16 @@ int main(int argc, char* argv[])
 		int i;
 		std::vector<Droga*> drogi=eng.RetTrasa(&glob_best_ant);
 		int last=glob_best_ant.itsStart;
-//		fprintf(plik,"%d ",last);
 		printf("Liczba drog: %d\n",drogi.size());
 		printf("Dlugosc mrowki: %d\n",glob_best_ant.itsDlugosc);
 		for(i=0;i<eng.Cities();i++)
 		{
-//			last=drogi[i]->itsMiasta[0];
 			last=drogi[i]->itsMiasta[0]==last?drogi[i]->itsMiasta[1]:drogi[i]->itsMiasta[0];
 			fprintf(plik,"%d ",last);
 		};
 		fclose(plik);
 	}
+//Zakończenie pracy z MPI
 	MPI_Finalize();
 	return 0;
 };
