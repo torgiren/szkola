@@ -1,0 +1,18 @@
+sin(a*x)*x //var_40
+
+y*b  //var_48
+sin(y*b+y)*y*b+x*sin(a*x)
+
+
+sin(x*a)
+
+
+
+sin(x*a)*x=var_40
+
+y*b=var_48
+
+sin(y+y)*y*b+sin(x*a)*x=>var_8
+
+y*b*sin(y^2)+x*sin(a*x)
+
