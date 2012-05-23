@@ -7,11 +7,6 @@ using namespace std;
   int ngen     = 100;
   float pmut   = 0.01;
   float pcross = 0.6;
-double funkcja(double x, double y)
-{
-	const double a=2,b=3;
-	return y*b*sin(y*y)+x*sin(a*x);
-};
 float objective(GAGenome& gen);
 int main(int argc, char* argv[])
 {
@@ -32,16 +27,22 @@ int main(int argc, char* argv[])
 	ga.scaling(scaling);
 
 	ga.scoreFilename("zbieznosc.dat");
-	ga.scoreFrequency(10);
+	ga.scoreFrequency(1);
 	ga.flushFrequency(50);
-	ga.evolve((unsigned)time(0));
+	ga.selectScores(GAStatistics::AllScores);
+//	ga.evolve((unsigned)time(0));
 
+	int i;
+	for(i=0;i<100;i++)
+{
+	ga.step();
 	GABin2DecGenome best_genome(map,objective);
 	best_genome=ga.statistics().bestIndividual();
 	cout<<"Online: "<<ga.statistics().online()<<endl;
 	cout<<"Offline: "<<ga.statistics().offlineMax()<<":"<<ga.statistics().offlineMin()<<endl;
 	cout<<"Najlepsze rozwiazanie: ("<<best_genome.phenotype(0)<<","<<best_genome.phenotype(1)<<")=>"<<objective(best_genome)<<endl;
 	cout<<"Najlepsze rozwiazanie2: "<<ga.population().best()<<":"<<ga.population().best().evaluate()<<":"<<ga.population().best().fitness()<<endl;
+};
 	return 0;
 };
 float objective(GAGenome& gen)
