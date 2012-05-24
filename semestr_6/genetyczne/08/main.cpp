@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 
 
 	int c;
-	while((c=getopt(argc,argv,"p:g:m:c:s:"))!=-1)
+	while((c=getopt(argc,argv,"p:m:c:s:"))!=-1)
 	{
 		switch(c)
 		{
@@ -38,16 +38,16 @@ int main(int argc, char* argv[])
 				popsize=atoi(optarg);
 				break;
 			//generations
-			case 'g':
-				ngen=atoi(optarg);
-				break;
+//			case 'g':
+//				ngen=atoi(optarg);
+//				break;
 			//mutation
 			case 'm':
-				pmut=atoi(optarg);
+				pmut=atof(optarg);
 				break;
 			//crossover
 			case 'c':
-				pcross=atoi(optarg);
+				pcross=atof(optarg);
 				break;
 			//selector
 			case 's':
@@ -115,7 +115,7 @@ int main(int argc, char* argv[])
 	//	cout<<"Online: "<<ga.statistics().online()<<endl;
 	//	cout<<"Offline: "<<ga.statistics().offlineMax()<<":"<<ga.statistics().offlineMin()<<endl;
 	//	cout<<"Najlepsze rozwiazanie: ("<<best_genome.phenotype(0)<<","<<best_genome.phenotype(1)<<")=>"<<objective(best_genome)<<endl;
-	//	cout<<"Najlepsze rozwiazanie2: "<<ga.population().best()<<":"<<ga.population().best().evaluate()<<":"<<ga.population().best().fitness()<<endl;
+//	cout<<"Najlepsze rozwiazanie2: "<<ga.population().best()<<":"<<ga.population().best().evaluate()<<":"<<ga.population().best().fitness()<<endl;
 		best.push_back(objective(ga.population().individual(0)));
 		median.push_back(objective(ga.population().individual(ga.population().size()/2)));
 		online.push_back(ga.statistics().online());
@@ -131,6 +131,14 @@ int main(int argc, char* argv[])
 		fprintf(plik,"%f %f %f %f %f\n",best[i],median[i],online[i],offlineMax[i],offlineMin[i]);
 		fclose(plik);
 	};
+	plik=fopen("wynik.raw","a");
+		GABin2DecGenome best_genome(map,objective);
+		best_genome=ga.statistics().bestIndividual();
+	fprintf(plik,"%f %f\n",best_genome.phenotype(0),best_genome.phenotype(1));
+//	fprintf("%f %f\n",ga.statistics().bestIndividual().phenotype(0),ga.statistics().bestIndividual().phenotype(1));
+	fclose(plik);
+
+//		cout<<"Najlepsze rozwiazanie: ("<<best_genome.phenotype(0)<<","<<best_genome.phenotype(1)<<")=>"<<objective(best_genome)<<endl;
 	return 0;
 };
 float objective(GAGenome& gen)
