@@ -24,12 +24,11 @@ int main(int argc, char* argv[])
 	map.add(20,GA_Get_Min_y(4),GA_Get_Max_y(4));
 
 	GABin2DecGenome genome(map,objective);
-	GASimpleGA ga(genome);
-
-
 
 	int c;
-	while((c=getopt(argc,argv,"p:m:c:s:"))!=-1)
+	GASelectionScheme* sel=NULL;
+
+	while((c=getopt(argc,argv,"p:m:c:S:"))!=-1)
 	{
 		switch(c)
 		{
@@ -50,23 +49,51 @@ int main(int argc, char* argv[])
 				pcross=atof(optarg);
 				break;
 			//selector
-			case 's':
+			case 'S':
+				cout<<"selector"<<endl;
 				if(!strcmp(optarg,"list"))
 				{
 					fprintf(stderr,"lista selectorów:\n\truletka\n\tturniej\n\trankingowa");
 					exit(2);
 				}
-				else if(!strcmp(optarg,"ruletka"))
+				else if(!strcmp(optarg,"roulette"))
 				{
-					ga.selector(GARouletteWheelSelector());
+//					ga.selector(GARouletteWheelSelector());
+					sel=new GARouletteWheelSelector();
 				}
-				else if(!strcmp(optarg,"turniej"))
+				else if(!strcmp(optarg,"tournament"))
 				{
-					ga.selector(GATournamentSelector());
+//					ga.selector(GATournamentSelector());
+					sel=new GATournamentSelector();
 				}
-				else if(!strcmp(optarg,"rankingowe"))
+				else if(!strcmp(optarg,"rank"))
 				{
-					ga.selector(GARankSelector());
+//					ga.selector(GARankSelector());
+					sel=new GARankSelector();
+				};
+				break;
+			case 'C':
+				cout<<"crossover"<<endl;
+				if(!strcmp(optarg,"list"))
+				{
+					fprintf(stderr,"lista crossoverow:\n\tonepoint\n\ttwopoint\n\tevenodd\n\tuniform");
+					exit(2);
+				}
+				else if(!strcmp(optarg,"onepoint"))
+				{
+					genome.crossover(GA1DBinaryStringGenome::OnePointCrossover);
+				}
+				else if(!strcmp(optarg,"twopoint"))
+				{
+					genome.crossover(GA1DBinaryStringGenome::TwoPointCrossover);
+				}
+				else if(!strcmp(optarg,"evenodd"))
+				{
+					genome.crossover(GA1DBinaryStringGenome::EvenOddCrossover);
+				}
+				else if(!strcmp(optarg,"uniform"))
+				{
+					genome.crossover(GA1DBinaryStringGenome::UniformCrossover);
 				};
 				break;
 			case '?':
@@ -76,8 +103,10 @@ int main(int argc, char* argv[])
 	};
 
 
+	GASimpleGA ga(genome);
 
-
+	if(sel)
+		ga.selector(*sel);
 
 
 
@@ -128,7 +157,7 @@ int main(int argc, char* argv[])
 		char path[255];
 		sprintf(path,"tmp_%04d.raw",i);
 		plik=fopen(path,"a");
-		fprintf(plik,"%f %f %f %f %f\n",best[i],median[i],online[i],offlineMax[i],offlineMin[i]);
+		fprintf(plik,"%f %f %f %f %f\n",best[i],median[i],offlineMax[i],offlineMin[i],online[i]);
 		fclose(plik);
 	};
 	plik=fopen("wynik.raw","a");
