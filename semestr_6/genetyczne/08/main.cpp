@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 	int c;
 	GASelectionScheme* sel=NULL;
 
-	while((c=getopt(argc,argv,"p:m:c:S:"))!=-1)
+	while((c=getopt(argc,argv,"p:m:c:S:C:"))!=-1)
 	{
 		switch(c)
 		{
@@ -50,7 +50,6 @@ int main(int argc, char* argv[])
 				break;
 			//selector
 			case 'S':
-				cout<<"selector"<<endl;
 				if(!strcmp(optarg,"list"))
 				{
 					fprintf(stderr,"lista selectorów:\n\truletka\n\tturniej\n\trankingowa");
@@ -73,7 +72,6 @@ int main(int argc, char* argv[])
 				};
 				break;
 			case 'C':
-				cout<<"crossover"<<endl;
 				if(!strcmp(optarg,"list"))
 				{
 					fprintf(stderr,"lista crossoverow:\n\tonepoint\n\ttwopoint\n\tevenodd\n\tuniform");

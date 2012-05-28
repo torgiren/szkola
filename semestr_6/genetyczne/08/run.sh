@@ -6,6 +6,8 @@ export GDFONTPATH=./
 mut="0.01 0.05 0.1 0.2 0.4"
 cros="0.9 0.4 0.5 0.6 0.7 0.8 0.3"
 pop="100 30 50 70 90 10 200"
+selections="roulette tournament rank"
+crossmetod="onepoint twopoint evenodd uniform"
 #gen="10 30 50 70 90 100 200"
 for m in $mut
 do
@@ -15,16 +17,16 @@ do
 #		do
 			for p in $pop
 			do
-#				for s in $selections
-#				do
-#					for cm in $crosmetod
-#					do
+				for s in $selections
+				do
+					for cm in $crossmetod
+					do
 
 
 						param="-m $m -c $c -p $p -S $s -C $cm"
 						sufix=$m-$c-`printf %03d $p`-$s-$cm
-						echo $param
-						for x in `seq 1 50`
+#						echo $param
+						for x in `seq 1 100`
 						do
 							./main $param
 						done
@@ -58,11 +60,12 @@ do
 							done
 						done
 						echo "gen dla: " $sufix
-						./gen_plot.sh $sufix "opis bla bla bla"
+						opis="pCross=$c pMut=$m popsize=$p selector=$s krzyzowanie=$cm"
+						./gen_plot.sh $sufix "$opis"
 						./plot_$sufix.sh
 						rm tmp*.dat
-#					done
-#				done
+					done
+				done
 
 			done
 #		done
