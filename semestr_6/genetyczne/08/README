@@ -1,0 +1,7 @@
+Katalog zawiera program: main.cpp
+Skrypt uruchamiający badanie: run.sh /** Skrypt wykonuje się ok 10 godz)
+Dokumentacje projektu: opis.pdf
+Dane wynikowe: dane_xxxxxxx.dat
+Wykresy do danych data_xxxx.png
+Skrypy rysujące wykresy: plot_xxxxx.sh
+
