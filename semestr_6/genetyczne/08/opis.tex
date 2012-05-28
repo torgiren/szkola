@@ -1,0 +1,133 @@
+\documentclass[a4,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage{graphicx}
+\usepackage{float}
+\title{Algorytmy genetyczne. Lab 08}
+\author{Marcin Fabrykowski}
+\date{}
+\begin{document}
+\maketitle
+\newpage
+\section{Opis programu}
+Celem programu jest znalezienie minimum nieznanej funkcji wykorzystując metodę algorytmów genetycznych.\\
+Wyniki wyprowadzane są w funkcji pokoleń, dlatego zastępujemy funkcję \textit{evolve} na pętlę wykorzystującą funkcję \textit{step}
+\section{Omówienie badań nad algorytmem}
+Badamy zachowanie algorytmu genetycznego przy zmiennych parametrach. Lista badanych parametrów i ich wartości:
+\begin{itemize}
+\item Prawdopodobieństwo mutacji: 0.01; 0.05; 0.1; 0.2; 0.4;
+\item Prawdopodobieństwo krzyżowania: 0.4; 0.5; 0.6; 0.7; 0.8; 0.9;
+\item Wielkość populacji: 10; 30; 50; 70; 90; 100; 200;
+\item Metody selekcji: roulette; tournament; rank;
+\item Metody krzyżowania: onepoint; twopoint; evenodd; unioform;
+\end{itemize}
+\section{Przedstawienie wyników}
+\subsection{Metoda rankingowa}
+Zauważamy, że wykorzystanie metody \textit{rankingowej} pozwala otrzymać całkiem dobrą zbieżność już po 15 pokoleniach przy zastosowaniu dużego współczynnika mutacji i małego współczynnika krzyżowania (rys.~\ref{fig:rank_dobre_onepoint}). 
+Zauważamy również, że w tym przypadku nie ma dużego wpływu metoda krzyżowania (rys~\ref{fig:rank_dobre_twopoint},\ref{fig:rank_dobre_uniform}). Rozmiar populacji natomiast ma wpływ na polepszenie wyników, przy dobrze dobranych poprzednich parametrach (rys. \ref{fig:rank_dobre_pop50},\ref{fig:rank_dobre_pop100},\ref{fig:rank_dobre_pop200}).
+Przy zastosowaniu innego zestawu parametrów, uzyskane wyniki okazują się bardzo niesatysfakcjonujące (rys. \ref{fig:rank_zle_mut},\ref{fig:rank_zle_cross_mut}).
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.4-0.3-100-rank-onepoint}.png}
+\caption{Metoda rankingowa}
+\label{fig:rank_dobre_onepoint}
+\end{figure}
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.4-0.3-100-rank-twopoint}.png}
+\caption{Metoda rankingowa - różne krzyżowania}
+\label{fig:rank_dobre_twopoint}
+\end{figure}
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.4-0.3-100-rank-uniform}.png}
+\caption{Metoda rankingowa - różne krzyżowania c.d.}
+\label{fig:rank_dobre_uniform}
+\end{figure}
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.4-0.3-050-rank-onepoint}.png}
+\caption{Metoda rankingowa - różne populacje}
+\label{fig:rank_dobre_pop50}
+\end{figure}
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.4-0.3-100-rank-onepoint}.png}
+\caption{Metoda rankingowa - różne populacje c.d.}
+\label{fig:rank_dobre_pop100}
+\end{figure}
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.4-0.3-200-rank-onepoint}.png}
+\caption{Metoda rankingowa - różne populacje c.d.}
+\label{fig:rank_dobre_pop200}
+\end{figure}
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.05-0.3-100-rank-onepoint}.png}
+\caption{Metoda rankingowa - złe parametry}
+\label{fig:rank_zle_mut}
+\end{figure}
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.05-0.8-100-rank-onepoint}.png}
+\caption{Metoda rankingowa - złe parametry}
+\label{fig:rank_zle_cross_mut}
+\end{figure}
+\subsection{Metoda turniejowa}
+Używając metody turniejowej, obserwujemy dwie rodziny parametrów godnych uwagi.
+\begin{itemize}
+\item Małe krzyżowanie i mała mutacja. Otrzymujemy całkiem dobre wartości najlepszego osobnika, oraz bardzo dobre osobniki medialne. Dobrze zbieżna jest również \textit{zbieżność online} (rys. \ref{fig:tourn_male_cross_onepoint}). Obserwujemy tutaj również nieco lepsze wyniki przy wykorzystaniu krzyżowania \textit{dwupunktowego} (rys.~\ref{fig:tourn_male_cross_twopoint}) niż innych krzyżowań (rys.~\ref{fig:tourn_male_cross_uniform},\ref{fig:tourn_male_cross_evenodd}).
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.01-0.4-100-tournament-onepoint}.png}
+\caption{Metoda turniejowa}
+\label{fig:tourn_male_cross_onepoint}
+\end{figure}
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.01-0.4-100-tournament-twopoint}.png}
+\caption{Metoda turniejowa - krzyżowanie dwupunktowe}
+\label{fig:tourn_male_cross_twopoint}
+\end{figure}
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.01-0.4-100-tournament-uniform}.png}
+\caption{Metoda turniejowa - inne krzyżowania}
+\label{fig:tourn_male_cross_uniform}
+\end{figure}
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.01-0.4-100-tournament-evenodd}.png}
+\caption{Metoda turniejowa - inne krzyżowania}
+\label{fig:tourn_male_cross_evenodd}
+\end{figure}
+\item Duża mutacja i duże krzyżowanie. Otrzymujemy wtedy lepszą zbieżność \textit{offline} (rys.~\ref{fig:tourn_duze_mut_onepoint}). Zmiana metody krzyżowania nie niesie za sobą znaczącej poprawy działania algorytmu.
+Natomiast zwiększenie mutacji do poziomu 0.04, powoduje pogorszenie otrzymywanych wyników. (rys.~\ref{fig:tourn_za_duze_mut}).
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.2-0.9-100-tournament-onepoint}.png}
+\caption{Metoda turniejowa - duża mutacja}
+\label{fig:tourn_duze_mut_onepoint}
+\end{figure}
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.4-0.9-100-tournament-onepoint}.png}
+\caption{Metoda turniejowa - za duża mutacja}
+\label{fig:tourn_za_duze_mut}
+\end{figure}
+\end{itemize}
+\subsection{Metoda ruletki}
+Metoda ruletki przy małej populacji - 50 osobników, daje lepszą zbieżność online niż metoda rankingowa (rys.~\ref{fig:roulette_duzy_cross}) przy czym jest wydajniejsza, gdyż z samej idei tej metody, nie sortujemy osobników co jest operacją czasochłonną. Ponadto, zbieżność wyników jest lepsza niż w przypadku metody rankingowej (rys.~\ref{fig:rank_dobre_pop50})
+\begin{figure}[b]
+\hspace{-3.5cm}
+\includegraphics[scale=0.30]{{data_0.1-0.9-100-roulette-onepoint}.png}
+\caption{Metoda ruletki}
+\label{fig:roulette_duzy_cross}
+\end{figure}
+\section{Wnioski}
+\paragraph {Wybór algorytmu.}
+Analizując nieznana funkcję różnymi metodami, można stwierdzić że najlepsze wyniki online daje metoda turniejowa z małym prawdopodobieństwem krzyżowania i mutacji, natomiast najlepsze wyniki offline daje metoda rankingowa przy małym prawdopodobieństwie krzyżowania i dużym mutacji.
+Wybrałbym jednak metodę turniejową, gdyż ma bardzo dobrą zbieżność online i dobrą offline co czyni ją najbardziej uniwersalną metodą.
+\paragraph{Charakter funkcji} Badania wykazały, że wszystkie metody skupiały się w jednym obszarze, co można interpretować, że funkcja posiada jedno minimum w okolicach $x\in(9.035,9.04), y\in(8.665,8.67)$.
+\end{document}
