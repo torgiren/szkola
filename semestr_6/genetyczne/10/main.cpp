@@ -2,12 +2,14 @@
 #include <fstream>
 #include <ga/ga.h>
 #include <vector>
+#include <math.h>
 using namespace std;
 const int popsize=300;
 const int ngen=100;
 const float pmut=0.01;
 const float pcross=0.90;
 float objective(GAGenome &);
+float pole(float,float,float);
 void init(GAGenome& gen);
 bool PossibleTriangle(float,float,float);
 int tab[300];
@@ -58,6 +60,7 @@ float objective(GAGenome& gen)
 		if(PossibleTriangle(tab[a],tab[b],tab[c]))
 		{
 //			printf("Mozliwy z bokow: %d %d %d\n",tab[a],tab[b],tab[c]);
+
 			wynik+=100;
 		};
 	};
@@ -81,4 +84,8 @@ bool PossibleTriangle(float a,float b,float c)
 	bool possible=false;
 	if((a+b>c)&&(a+c>b)&&(b+c>a)) possible=true;
 	return possible;
+};
+float pole(float a,float b,float c)
+{
+	return sqrt( (a+b+c)*(a+b-c)*(a-b+c)*(-a+b+c) )/4.0;
 };
