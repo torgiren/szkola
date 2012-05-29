@@ -1,1 +1,8 @@
 Specyfikacja "asemblera"
+mov reg reg/value //move
+inc reg //increment value
+dec reg //decrement value
+jz line //jump if zero to <line> TODO: jump to label
+jnz line //jump if non zero to <line> TODO: jump to label
+cmp ->	zf=1 i równe
+		zf=0 jeśli różne

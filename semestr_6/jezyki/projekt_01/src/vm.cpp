@@ -9,6 +9,13 @@
 #include <vector>
 #include <string.h>
 using namespace std;
+int* findDst(char *reg);
+int eip=0;
+int ax=0;
+int bx=0;
+int cx=0;
+int dx=0;
+int zf=0;
 int main(int argc, char* argv[])
 {
 	if(argc<2)
@@ -31,87 +38,124 @@ int main(int argc, char* argv[])
 		plik.getline(line,255);
 		prog.push_back(line);
 	};
-	int esp=0;
-	int ax=0;
-	int bx=0;
-	int cx=0;
-	int dx=0;
-	while(esp<prog.size())
+	int step=0;
+	while(eip<prog.size())
 	{
-		printf("ax=%d\nbx=%d\ncx=%d\ndx=%d\nesp=%d\n\n",ax,bx,cx,dx,esp);
-		printf("%s\n",prog[esp].c_str());
+		printf("\t\tstep=%d\tax=%d\tbx=%d\tcx=%d\tdx=%d\teip=%d\tzf=%d\n",step++,ax,bx,cx,dx,eip,zf);
+		printf("%s\n",prog[eip].c_str());
 		char tmp[255];
 		memset(tmp,0,255);
-		sscanf(prog[esp].c_str(),"%s",tmp);
+		sscanf(prog[eip].c_str(),"%s",tmp);
 		if(!strcmp(tmp,"mov"))
 		{
 			char a[16],b[16];
-			sscanf(prog[esp].c_str(),"%s %s %s",tmp,a,b);
+			sscanf(prog[eip].c_str(),"%s %s %s",tmp,a,b);
 //			printf("mov %s : %s\n",a,b);
-			int* dst=NULL;
-			if(!strcmp(a,"ax"))
-				dst=&ax;
-			else if(!strcmp(a,"bx"))
-				dst=&bx;
-			else if(!strcmp(a,"cx"))
-				dst=&cx;
-			else if(!strcmp(a,"dx"))
-				dst=&dx;
-			else
+			int* dst=findDst(a);
+			if(!dst)
 			{
-				fprintf(stderr,"Segmentation fault.\n%s\nUnknow destination %s\n",prog[esp].c_str(),a);
+				fprintf(stderr,"Segmentation fault.\n%s\nUnknow destination %s\n",prog[eip].c_str(),a);
 				exit(3);
 			};
-			int src=0;
-			if(!strcmp(b,"ax"))
-				src=ax;
-			else if(!strcmp(b,"bx"))
-				src=bx;
-			else if(!strcmp(b,"cx"))
-				src=cx;
-			else if(!strcmp(b,"dx"))
-				src=dx;
+			int *src=findDst(b);
+			if(src)
+				*dst=*src;
 			else
-				src=atoi(b);
-			*dst=src;
+				*dst=atoi(b);
 		}
 		else if(!strcmp(tmp,"inc"))
 		{
 			char a[16];
-			sscanf(prog[esp].c_str(),"%s %s",tmp,a);
-			if(!strcmp(a,"ax"))
-				ax++;
-			else if(!strcmp(a,"bx"))
-				bx++;
-			else if(!strcmp(a,"cx"))
-				cx++;
-			else if(!strcmp(a,"dx"))
-				dx++;
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int* dst=findDst(a);
+			if(dst)
+			{
+				(*dst)++;
+				zf=!(*dst);
+			}
 			else
 			{
-				fprintf(stderr,"Segmentation fault.\n%s\nUnknow destination %s\n",prog[esp].c_str(),a);
+				fprintf(stderr,"Segmentation fault.\n%s\nUnknow destination %s\n",prog[eip].c_str(),a);
 				exit(3);
 			};
 		}
 		else if(!strcmp(tmp,"dec"))
 		{
 			char a[16];
-			sscanf(prog[esp].c_str(),"%s %s",tmp,a);
-			if(!strcmp(a,"ax"))
-				ax--;
-			else if(!strcmp(a,"bx"))
-				bx--;
-			else if(!strcmp(a,"cx"))
-				cx--;
-			else if(!strcmp(a,"dx"))
-				dx--;
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int* dst=findDst(a);
+			if(dst)
+			{
+				(*dst)--;
+				zf=!(*dst);
+			}
 			else
 			{
-				fprintf(stderr,"Segmentation fault.\n%s\nUnknow destination %s\n",prog[esp].c_str(),a);
+				fprintf(stderr,"Segmentation fault.\n%s\nUnknow destination %s\n",prog[eip].c_str(),a);
 				exit(3);
 			};
+		}
+		else if(!strcmp(tmp,"jz"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int adr=atoi(a);
+			if(zf)
+			{
+				eip=adr;
+//				printf("\tskok do %d=%d\n",adr,eip);
+				continue;
+			};
+
+		}
+		else if(!strcmp(tmp,"jnz"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int adr=atoi(a);
+			if(!zf)
+			{
+				eip=adr;
+//				printf("\tskok do %d=%d\n",adr,eip);
+				continue;
+			};
+
+		}
+		else if(!strcmp(tmp,"cmp"))
+		{
+			char a[16];
+			char b[16];
+			sscanf(prog[eip].c_str(),"%s %s %s",tmp,a,b);
+			int *src=findDst(a);
+			int *dst=findDst(b);
+			int s,d;
+			if(src)
+				s=*src;
+			else
+				s=atoi(a);
+			if(dst)
+				d=*dst;
+			else
+				d=atoi(b);
+			if(s==d)
+				zf=1;
+			else
+				zf=0;
 		};
-		++esp;
+		++eip;
 	};
 	return 0;
+};
+int* findDst(char *reg)
+{
+	int* dst=NULL;
+	if(!strcmp(reg,"ax"))
+		dst=&ax;
+	else if(!strcmp(reg,"bx"))
+		dst=&bx;
+	else if(!strcmp(reg,"cx"))
+		dst=&cx;
+	else if(!strcmp(reg,"dx"))
+		dst=&dx;
+	return dst;
 };
