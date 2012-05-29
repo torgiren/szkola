@@ -4,7 +4,7 @@
 #include <vector>
 #include <math.h>
 using namespace std;
-const int popsize=300;
+const int popsize=1000;
 const int ngen=100;
 const float pmut=0.01;
 const float pcross=0.90;
@@ -45,12 +45,9 @@ int main()
 	cout << ga.population().best().fitness() << ")" << endl;
 
 
-
-};
-float objective(GAGenome& gen)
-{
-	int i;
-	GA1DArrayGenome<int>& genome=(GA1DArrayGenome<int>&) gen;
+	{
+	GA1DArrayGenome<int>& genome=(GA1DArrayGenome<int>&) ga.population().best();
+	vector<float> pola;
 	float wynik=0;
 	for(i=0;i<100;i++)
 	{
@@ -60,10 +57,61 @@ float objective(GAGenome& gen)
 		if(PossibleTriangle(tab[a],tab[b],tab[c]))
 		{
 //			printf("Mozliwy z bokow: %d %d %d\n",tab[a],tab[b],tab[c]);
+			
+			pola.push_back(pole(tab[a],tab[b],tab[c]));
+			wynik++;
+		};
+	};
+	float suma=0;
+	for(i=0;i<pola.size();i++)
+	{
+		suma+=pola[i];
+	};
+	float odchyl=0;
+	for(i=0;i<pola.size();i++)
+	{
+		odchyl+=(suma-pola[i])*(suma-pola[i]);
+	};
+	odchyl=sqrt(odchyl);
+	cout<<"Trojkatow: "<<wynik<<endl;
+	cout<<"Odchylenie: "<<odchyl<<endl;
+	};
 
+};
+float objective(GAGenome& gen)
+{
+	int i;
+	GA1DArrayGenome<int>& genome=(GA1DArrayGenome<int>&) gen;
+	vector<float> pola;
+	float wynik=0;
+	for(i=0;i<100;i++)
+	{
+		int a=genome[3*i];
+		int b=genome[3*i+1];
+		int c=genome[3*i+2];
+		if(PossibleTriangle(tab[a],tab[b],tab[c]))
+		{
+//			printf("Mozliwy z bokow: %d %d %d\n",tab[a],tab[b],tab[c]);
+			
+			pola.push_back(pole(tab[a],tab[b],tab[c]));
 			wynik+=100;
 		};
 	};
+	float suma=0;
+	for(i=0;i<pola.size();i++)
+	{
+		suma+=pola[i];
+	};
+	float odchyl=0;
+	for(i=0;i<pola.size();i++)
+	{
+		odchyl+=(suma-pola[i])*(suma-pola[i]);
+	};
+	odchyl=sqrt(odchyl);
+	wynik-=0.015*odchyl;
+//	cout<<"odchylenie: "<<odchyl<<endl;
+//	cout<<"wynik: "<<wynik<<endl;
+	if(wynik<0) wynik=0;
 	return wynik;
 };
 void init(GAGenome& gen)
