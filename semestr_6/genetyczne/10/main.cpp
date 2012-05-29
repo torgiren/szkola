@@ -4,9 +4,9 @@
 #include <vector>
 using namespace std;
 const int popsize=300;
-const int ngen=50;
+const int ngen=100;
 const float pmut=0.01;
-const float pcross=0.80;
+const float pcross=0.90;
 float objective(GAGenome &);
 void init(GAGenome& gen);
 bool PossibleTriangle(float,float,float);
