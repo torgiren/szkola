@@ -67,13 +67,16 @@ int main()
 	{
 		suma+=pola[i];
 	};
+	suma/=(float)pola.size();
 	float odchyl=0;
 	for(i=0;i<pola.size();i++)
 	{
 		odchyl+=(suma-pola[i])*(suma-pola[i]);
 	};
+	odchyl/=pola.size()-1;
 	odchyl=sqrt(odchyl);
 	cout<<"Trojkatow: "<<wynik<<endl;
+	cout<<"Srednie pole: "<<suma<<endl;
 	cout<<"Odchylenie: "<<odchyl<<endl;
 	};
 
@@ -103,12 +106,13 @@ float objective(GAGenome& gen)
 		suma+=pola[i];
 	};
 	float odchyl=0;
+	suma/=(float)pola.size();
 	for(i=0;i<pola.size();i++)
 	{
 		odchyl+=(suma-pola[i])*(suma-pola[i]);
 	};
 	odchyl=sqrt(odchyl);
-	wynik-=0.015*odchyl;
+	wynik-=2.0f*odchyl;
 //	cout<<"odchylenie: "<<odchyl<<endl;
 //	cout<<"wynik: "<<wynik<<endl;
 	if(wynik<0) wynik=0;
