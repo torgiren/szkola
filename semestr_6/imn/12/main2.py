@@ -19,7 +19,8 @@ print math.fabs(bilans)
 pole_nowe=deepcopy(pole)
 pole_tmp=deepcopy(pole_nowe);
 x=0;
-strumienie=open("strumienie.dat","w")
+strumienie=open("strumienie2.dat","w")
+h=0.1
 while math.fabs(bilans)>0.0001:
 	x=x+1;
 	for przyb in range(1,100):
@@ -34,19 +35,20 @@ while math.fabs(bilans)>0.0001:
 				pole_tmp[i][j]=temp(i,j,pole,pole_nowe);
 
 		for j in range(1,30):
-			pole_tmp[29][j]=pole_nowe[28][j]
+			pole_tmp[29][j]=pole_nowe[28][j]/(h+1)
 		for j in range(1,15):
-			pole_tmp[15][j]=pole_nowe[16][j]
+			pole_tmp[15][j]=pole_nowe[16][j]/(h+1)
 		for i in range(1,16):
-			pole_tmp[i][15]=pole_nowe[i][16]
+			pole_tmp[i][15]=pole_nowe[i][16]/(h+1)
 		for i in range(2,30):
-			pole_tmp[i][29]=pole_nowe[i][28]
-		pole_tmp[15][15]=pole_nowe[16][16]
-		pole_tmp[29][29]=pole_nowe[28][28]
+			pole_tmp[i][29]=pole_nowe[i][28]/(h+1)
+		pole_tmp[15][15]=1.41*pole_nowe[16][16]/(h+1.41)
+		pole_tmp[29][29]=1*41*pole_nowe[28][28]/(h+1.41)
 		pole_nowe=deepcopy(pole_tmp);
 	pole=deepcopy(pole_nowe);
 
-
+	if x>300:
+		break;
 	print "iteracja ",x
 	sum=0
 	for i in range(15,29):
@@ -64,7 +66,7 @@ while math.fabs(bilans)>0.0001:
 strumienie.close()
 
 
-file =open("data.dat","w")
+file =open("data2.dat","w")
 
 
 for i in range(1,30):
