@@ -112,7 +112,7 @@ float objective(GAGenome& gen)
 		odchyl+=(suma-pola[i])*(suma-pola[i]);
 	};
 	odchyl=sqrt(odchyl);
-	wynik-=2.0f*odchyl;
+	wynik-=2.5f*odchyl;
 //	cout<<"odchylenie: "<<odchyl<<endl;
 //	cout<<"wynik: "<<wynik<<endl;
 	if(wynik<0) wynik=0;
