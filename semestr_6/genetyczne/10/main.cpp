@@ -16,6 +16,7 @@ int tab[300];
 int main()
 {
 	srand(time(NULL));
+	GARandomSeed(rand());
 	ifstream plik;
 	plik.open("input.dat");
 	int i;
@@ -36,49 +37,61 @@ int main()
 	ga.pMutation(pmut);
 	ga.pCrossover(pcross);
 
-	ga.evolve(time(NULL));
-
-
-	cout << "Najlepsze rozwiazanie to F(x=";
-	cout << ga.population().best() << ")=";
-	cout << ga.population().best().evaluate() << " (";
-	cout << ga.population().best().fitness() << ")" << endl;
-
-
+	float srednia_trojkatow=0;
+	float srednia_pole=0;
+	float srednia_odchyl=0;
+	int j;
+	for(j=0;j<10;j++)
 	{
-	GA1DArrayGenome<int>& genome=(GA1DArrayGenome<int>&) ga.population().best();
-	vector<float> pola;
-	float wynik=0;
-	for(i=0;i<100;i++)
-	{
-		int a=genome[3*i];
-		int b=genome[3*i+1];
-		int c=genome[3*i+2];
-		if(PossibleTriangle(tab[a],tab[b],tab[c]))
+		cout<<j<<endl;
+		ga.evolve(rand());
+		GA1DArrayGenome<int>& genome=(GA1DArrayGenome<int>&) ga.population().best();
+		vector<float> pola;
+		float wynik=0;
+		for(i=0;i<100;i++)
 		{
-//			printf("Mozliwy z bokow: %d %d %d\n",tab[a],tab[b],tab[c]);
-			
-			pola.push_back(pole(tab[a],tab[b],tab[c]));
-			wynik++;
+			int a=genome[3*i];
+			int b=genome[3*i+1];
+			int c=genome[3*i+2];
+			if(PossibleTriangle(tab[a],tab[b],tab[c]))
+			{
+	//			printf("Mozliwy z bokow: %d %d %d\n",tab[a],tab[b],tab[c]);
+				
+				pola.push_back(pole(tab[a],tab[b],tab[c]));
+				wynik++;
+			};
 		};
+		float suma=0;
+		for(i=0;i<pola.size();i++)
+		{
+			suma+=pola[i];
+		};
+		suma/=(float)pola.size();
+		float odchyl=0;
+		for(i=0;i<pola.size();i++)
+		{
+			odchyl+=(suma-pola[i])*(suma-pola[i]);
+		};
+		odchyl/=pola.size()-1;
+		odchyl=sqrt(odchyl);
+//		cout << "Najlepsze rozwiazanie to "<< ga.population().best() << endl;
+		cout<<"Trojkatow: "<<wynik<<endl;
+		cout<<"Srednie pole: "<<suma<<endl;
+		cout<<"Odchylenie: "<<odchyl<<endl;
+		srednia_trojkatow+=wynik;
+		srednia_pole+=suma;
+		srednia_odchyl+=odchyl;
 	};
-	float suma=0;
-	for(i=0;i<pola.size();i++)
-	{
-		suma+=pola[i];
-	};
-	suma/=(float)pola.size();
-	float odchyl=0;
-	for(i=0;i<pola.size();i++)
-	{
-		odchyl+=(suma-pola[i])*(suma-pola[i]);
-	};
-	odchyl/=pola.size()-1;
-	odchyl=sqrt(odchyl);
-	cout<<"Trojkatow: "<<wynik<<endl;
-	cout<<"Srednie pole: "<<suma<<endl;
-	cout<<"Odchylenie: "<<odchyl<<endl;
-	};
+	srednia_trojkatow/=10.0f;
+	srednia_pole/=10.0f;
+	srednia_odchyl/=10.0f;
+	cout<<"---------------------------------------------"<<endl;
+	cout<<"Trojkatow: "<<srednia_trojkatow<<endl;
+	cout<<"Srednie pole: "<<srednia_pole<<endl;
+	cout<<"Odchylenie: "<<srednia_odchyl<<endl;
+//	FILE* output=fopen("output_cycle_roulette","w");
+//	fprintf(output,"%f %f %f\n",srednia_trojkatow,srednia_pole,srednia_odchyl);
+//	fclose(output);
 
 };
 float objective(GAGenome& gen)
