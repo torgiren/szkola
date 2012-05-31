@@ -13,12 +13,23 @@ float pole(float,float,float);
 void init(GAGenome& gen);
 bool PossibleTriangle(float,float,float);
 int tab[300];
-int main()
+int main(int argc, char* argv[])
 {
+	if(argc<2)
+	{
+		fprintf(stderr,"Using %s <file>\n",argv[0]);
+		return 1;
+
+	};
 	srand(time(NULL));
 	GARandomSeed(rand());
 	ifstream plik;
-	plik.open("input.dat");
+	plik.open(argv[1]);
+	if(!plik)
+	{
+		fprintf(stderr,"Błąd otwarcia pliku: %s\n",argv[1]);
+		return 2;
+	};
 	int i;
 	for(i=0;i<300;i++)
 	{
