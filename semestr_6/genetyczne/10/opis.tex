@@ -1,0 +1,43 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\author{Marcin Fabrykowski}
+\title{Algorytmy genetyczne. Lab 10}
+\date{}
+\begin{document}
+\maketitle
+\newpage
+\section{Opis problemu}
+Naszym zadaniem jest dobranie takiej kolejności prętów, aby tworząc z każdych trzech kolejnych prętów utworzyć trójkąt.\\
+Dodatkowo zależy nam, aby liczba utworzonych trójkątów była jak największa. Ponadto zależy nam aby odchylenie pól powstałych trójkątów było jak najmniejsze.
+\section{Kodowanie}
+Listę prętów wczytujemy z pliku podanego jako argument wywołania programu. Wczytujemy ją do tablicy.\\
+Kodujemy rozwiązanie jako tablicę indeksów tablicy prętów.
+\section{Ocenianie rozwiązania}
+Użyty przeze mnie algorytm przyznawania punktów w funkcji przystosowania przedstawia się następująco:
+\begin{enumerate}
+\item Dla stu trójek prętów, sprawdzamy czy można zbudować trójkąt
+\item Jeśli można zbudować, dodajemy do wyniku dla badanego osobnika 100pkt, oraz obliczamy pole tego trójkąta i dodajemy je do listy pól.
+\item Obliczamy średnie pole powstałych trójkątów oraz odchylenie standardowe.
+\item Od wyniku osobnika, odejmujemy wartość odchylenia standardowego pomnożona przez empirycznie wyznaczony współczynnik równy $2.5$.
+\end{enumerate}
+Szukamy osobnika o najwyższym współczynniku dostosowania.
+\section{Metody selekcji i krzyżowania}
+Testowano różne metody selekcji i krzyżowania. Poniższa tabela przedstawia średnie wyniki otrzymane dla 10 uruchomień programu.\\
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+&&Rank&Tournament&Roulette\\ \hline
+PartialMach&trójkątów&97,4&66,2&61,4\\
+&odchylenie&53,6&130,3&135,5\\ \hline
+Cycle&trójkątów&98,0&X&X\\
+&ochylenie&54,9&X&X\\ \hline
+Order&trójkątów&97,8&62,2&58,9\\
+&ochylenie&58,5&132,8&137,4\\
+\end{tabular}\\
+\small
+X - nieotrzymanie rozwiązania w~rozsądnym czasie
+\normalsize
+\end{center}
+Widzimy, że metoda rankingowa daje najlepsze wyniki, bez większego wpływu metody krzyżowania.\\
+Decydujemy się na wybór metody krzyżowania \textit{Cycle Crossover}, ponieważ daje najlepsze wyniki, a~przy tym działa czterokrotnie szybciej niż dwie pozostałe metody krzyżowania.
+\end{document}

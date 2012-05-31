@@ -28,7 +28,7 @@ int main()
 	GA1DArrayGenome<int> pop(300,objective);
 	pop.initializer(init);
 	pop.mutator(GA1DArrayGenome<int>::SwapMutator);
-	pop.crossover(GA1DArrayGenome<int>::PartialMatchCrossover);
+	pop.crossover(GA1DArrayGenome<int>::CycleCrossover);
 
 	GASimpleGA ga(pop);
 	ga.selector(GARankSelector());
