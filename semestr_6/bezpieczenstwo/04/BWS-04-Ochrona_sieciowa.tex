@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,11pt]{article}
 \usepackage{polski}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -76,4 +76,77 @@ Zdarza się, że nasze reguły obejmują sprawdzanie czy np: ip wychodzącego pa
 Z pomocą przychodzą ipsety. Pozwalają stworzyć, np: bazę adresów ip naszych klientów, a w firewallu jedynie odwołać się, czy adres źródłowy pakietu znajduje się w danych ipsecie.\\
 W takiej sytuacji dodanie bądź usunięcie klienta odbywa się tylko w ipsecie bez zmiany reguł w iptables. Dodatkowo przeszukiwanie ipseta jest wydajniejsze niż sprawdzanie wszystkich reguł w iptables.
 \part{Wykonanie ćwiczenia}
+\section{Podstawowe polecenia iptables}
+\subsection{Blokowanie połączeń wychodzących}
+Na początek spróbujemy zablokować połączenia wychodzące. Spróbujmy wejść na stronę: \textit{www.ftj.agh.edu.pl}. Powinna się ona załadować. Następnie wyjdźmy z niej.\\
+Teraz spróbujemy zablokować do niej dostęp z naszego komputera. Wykonujemy jako root polecenie:
+\begin{verbatim}
+iptables -A OUTPUT --dst www.ftj.agh.edu.pl -j DROP
+\end{verbatim}
+Powyższe polecenie dodaje regułę do łańcucha OUTPUT, czyli tego przez który przechodzi każdy wygenerowany przez nas pakiet. Następnie sprawdza czy adres docelowy pakietu jest równy adresowi w regule, jeśli jest taki sam to dropuje pakiet.\\
+Spróbujmy wejść teraz na \textit{www.ftj.agh.edu.pl}. Widzimy, że nie jesteśmy się w stanie połączyć, i wyskakuje timeout. Dzieje się tak dlatego, że przeglądarka wysyła zapytanie, które jest na wyjściu z komputera zapominane i nigdy nie dochodzi do \textit{www.ftj.agh.edu.pl}.\\
+\subsection{Podgląd aktualnych reguł}
+Przy dłuższym firewallu możemy zapomnieć jakie reguły dodaliśmy do niego. Dlatego pomocną opcją, jest wyświetlenie reguł. Wpiszmy w konsoli:
+\begin{verbatim}
+iptables -L
+iptables -L -v
+\end{verbatim}
+Oba powyższe polecenia wyświetlą nam aktualne reguły w naszym firewallu dla łańcuchów \textit{INPUT, FORWARD, OUTPUT} dla tablicy \textit{filter}, która jest domyślną i zalecaną tablicą do filtrowania pakietów. Opcja -v dodaje nam statystyki ilościowe i objętościowe pakietów które przeszły przez daną regułę. 
+\subsection{Usuwanie reguł}
+Ale mu jednak lubimy nasz wydział, i chcielibyśmy móc wchodzić na jego stronę. Musimy więc usunąć blokujący nas wpis. Możemy to zrobić na kilka sposobów:
+\begin{enumerate}
+\item Możemy podać numer reguły którą chcemy usunąć, np:
+\begin{verbatim}
+iptables -D OUTPUT 1
+\end{verbatim}
+co staje się trudne w przypadku większych firewalli.
+\item Możemy podać definicje reguły którą chcemy usunąć, czyli skopiować naszą regułę blokującą i zamienić \textit{-A} na \textit{-D}
+\begin{verbatim}
+iptables -D OUTPUT --dst www.ftj.agh.edu.pl -j DROP
+\end{verbatim}
+\item Ostatnią, dość brutalną metodą, jest wyczyszczenie całej tablicy reguł. Możemy to zrobić za pomocą:
+\begin{verbatim}
+iptables -F OUTPUT
+\end{verbatim}
+\end{enumerate}
+\subsection{Polityki}
+Jednym z parametrów iptables, są tzw. polityki. Jest to standardowa akcja którą podejmuje firewall w przypadku gdy pakiet przejdzie przez całego firewalla i nie zostanie zdecydowane czy należy go zaakceptować czy odrzucić. Ogólnie przyjętym założeniem jest, że należy wszystko dropować, oprócz żeby które chcemy zaakceptować.\\
+Ustawmy politykę \textit{DROP} dla wszystkich połączeń przychodzących:
+\begin{verbatim}
+iptables -P INPUT DROP
+\end{verbatim}
+W tej chwili żaden pakiet nie zostanie dopuszczony do naszego komputera. Ale mu lubimy nasz wydział i wierzymy, że nie grozi nam żadne niebezpieczeństwo z jego strony. Możemy wpuścić do nas stronę wydziału:
+\begin{verbatim}
+iptables -A INPUT -p udp --sport 53 -j ACCEPT
+iptables -A INPUT --src www.ftj.agh.edu.pl -j ACCEPT
+\end{verbatim}
+pierwsza linijka przepuszcza dnsy, które mogą się przydać przy rozwiązywaniu nazw. Druga wpuszcza pakiety przychodzące z \textit{www.ftj.agh.edu.pl}. Spróbujmy teraz wejść na stronę wydziału. A spróbujmy wejść na stronę wydziału.\\
+Następnie spróbujmy wejść na inną stronę. O ile ma inne ip, niż strona wydziału, nie uda się jej załadować, gdyż pakiety przychodzące do nas będą odrzucane.
+\section{Ciekawsze podstawowe zastosowania}
+\subsection{Comment}
+Czasami chcemy dodać do firewalla komentarz, że dane pakiety przyszły, np: do statystyk. Możemy to zrobić za pomocą modułu \textit{comment}.
+\begin{verbatim}
+iptables -A INPUT --src www.google.pl -m comment --comment "Pakiety pochodzace z google.pl"
+\end{verbatim}
+Każdy pakiet z googla komentujemy. Nie mamy reguły wpuszczającej go do komputera, ale możemy odnotować, że taka próba była. Jest to przydatne przy administracji.
+\subsection{Logowanie}
+Bardzo często chcemy, aby nasz ruch był logowany w celu wykrywania włamań itp.\\
+Robimy to przy pomocy targetu \textit{LOG} oraz opcji \textit{log-prefix}
+\begin{verbatim}
+iptables -A INPUT -j LOG --log-prefix "polaczenie przychodzace"
+\end{verbatim}
+w po wykonaniu tego polecenia, wszystkie pakiety przychodzące będą logowane do sysloga. W domyślnej konfiguracji sysloga, będą one zapisywane to \textit{/var/log/messages}
+\subsection{Stany połączeń}
+W wielu przypadkach, wystarczy rozważyć zaakceptowanie tylko pierwszego pakietu z połączenia, a następnie uznać, że jeżeli puściliśmy pierwszy pakiet, to ufamy temu połączeniu. Możemy skorzystać z możliwości conntracka, który śledzi, czy kolejne pakiety są częścią juz istniejącego połączenia. Jeśli tak, możemy je zaakceptować bez prowadzenia czasochłonnej procedury decydowania o akceptacji pakietu.
+Dlatego warto umieścić na początku firewalla poniższą instrukcję:
+\begin{verbatim}
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+\end{verbatim}
+Aby sprawdzić jak ona działa, dodajmy jeszcze logowanie. Całość przedstawia poniższy skrypt:
+\begin{verbatim}
+iptables -F
+iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A OUTPUT -j LOG
+\end{verbatim}
+Zobaczymy w logach tylko pierwszy pakiet z każdego połączenia które wykonamy. Pozwala to na śledzenie zawiązywanych połączeń, oraz zachowanie przejrzystości i małej objętości logów.
 \end{document}
