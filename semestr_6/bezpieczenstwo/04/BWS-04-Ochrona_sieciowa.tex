@@ -69,4 +69,6 @@ oraz wiele innych
 Iptables pozwala na bardziej przejrzyste budowanie firewalla poprzez tworzenie łańcuchów z własnymi sekwencjami akcji.
 \subsection{Portknocking}
 Jest to sztuczka, polegająca na odrzucaniu pakietów przychodzących na dany port, z możliwością przepuszczania pakietu, jeżeli wcześniej została wysłana specjalna sekwencja pakietów na inne porty, tzw. \textit{pukanie}.
+\subsection{Load Balancing}
+Inna ciekawą możliwością jest load balancing. Wykonuje się to za pomocą dopasowania \textit{state} oraz wykorzystaniem licznika. Każde nowe połączenie jest kierowane do innego serwera z puli. W efekcie otrzymuje się zrównoważenie obciążenia redundantnych serwerów w sieci.
 \end{document}
