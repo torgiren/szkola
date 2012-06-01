@@ -10,17 +10,17 @@
 \newpage
 \section{Odczytywanie niebezpiecznych danych użytkownika}
 W tym ćwiczeniu uruchamiamy sniffer i wchodzimy na stronę z formularzem logowania o której wiemy że nie szyfruje danych.\\
-Efektem podłuchu jest możliwość odczytania takigo pakietu:
+Efektem posłuchu jest możliwość odczytania takiego pakietu:
 \footnotesize
 \verbatiminput{haxite.org}
 \normalsize
-Jak można zauważyć, w powyższym pakiecie przysyłane sa jawnie dane logowania: "moj\_login" oraz "tajne"
+Jak można zauważyć, w powyższym pakiecie przysyłane są jawnie dane logowania: "moj\_login" oraz "tajne"
 \section{Wireshark}
 Chciałbym wspomnieć na wstępie, iż uważam że wstawianie screenshotów z wiresharka mija się z celem.\\
 \subsection{Analiza ramek}
 We wstępie teoretycznym jest błąd, gdyż protokół ARP rozsyła request po macu FF:FF:FF:FF:FF, gdyż jeszcze nie zna maca odbiorcy. Pozostałe zaobserwowane rzeczy zgadzają się z wstępem teoretycznym.
-\subsection{Analiza liczby pakietow}
-Łącząc się ze swoją prostą strona, zaobserowałem wymianę kilku pakietów:
+\subsection{Analiza liczby pakietów}
+Łącząc się ze swoją prostą strona, zaobserwowałem wymianę kilku pakietów:
 \begin{enumerate}
 \item 3-way-handshake
 \item 2 pakiety requesta i 2 ACK
@@ -37,10 +37,10 @@ Jednak zauważamy w snifferze, że traceroute wysyła dane do badanego hosta, z 
 \section{3-way-handshake}
 Połączenie inicjowane jest przez klienta. Następuje wymiana pakietów SYN$\rightarrow$SYN,ACK$\rightarrow$ACK, po czym połączenie jest nawiązane.\\
 Następnie odbywa się wymiana danych.\\
-Zakonczenie połączenia inicjuje klient. Wymiana pakietów: FIN,ACK$\rightarrow$ACK. Następnie od servera: FIN,ACK$\rightarrow$ACK
+Zakończenie połączenia inicjuje klient. Wymiana pakietów: FIN,ACK$\rightarrow$ACK. Następnie od servera: FIN,ACK$\rightarrow$ACK
 \section{POP3}
 Zauważyłem, że dane do logowania były przesyłane w formie jawnej, co niesie za sobą możliwość bezproblemowego dostępu do skrzynki pocztowej osobom postronnym.
 \section{FTP}
 Tutaj podobnie jak w POP3, dane do logowania, oraz wykonywane operacje były przesyłane w sposób jawny.
-Niestety nie udało mi się pobrać żadnego pliku, dlatego całe moje połączenie odbyło się na porcie 21 i nie zostałem przekierowany na ftp-data (port 20), co zgodnie z moją wiedzą, powinno stać się w przybadku przesyłu danych.
+Niestety nie udało mi się pobrać żadnego pliku, dlatego całe moje połączenie odbyło się na porcie 21 i nie zostałem przekierowany na ftp-data (port 20), co zgodnie z moją wiedzą, powinno stać się w przypadku przesyłu danych.
 \end{document}
