@@ -149,4 +149,9 @@ iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A OUTPUT -j LOG
 \end{verbatim}
 Zobaczymy w logach tylko pierwszy pakiet z każdego połączenia które wykonamy. Pozwala to na śledzenie zawiązywanych połączeń, oraz zachowanie przejrzystości i małej objętości logów.
+\section{Wyniki}
+Wszelkie wyniki można przedstawić w postaci wyniku wykonania
+\begin{verbatim}
+iptables -L -nv
+\end{verbatim}
 \end{document}
