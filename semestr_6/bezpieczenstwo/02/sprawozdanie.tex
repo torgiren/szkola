@@ -1,0 +1,46 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{verbatim}
+\author{Marcin Fabrykowski}
+\title{Bezpieczeństwo w sieci. Lab 02}
+\date{}
+\begin{document}
+\maketitle
+\newpage
+\section{Odczytywanie niebezpiecznych danych użytkownika}
+W tym ćwiczeniu uruchamiamy sniffer i wchodzimy na stronę z formularzem logowania o której wiemy że nie szyfruje danych.\\
+Efektem podłuchu jest możliwość odczytania takigo pakietu:
+\footnotesize
+\verbatiminput{haxite.org}
+\normalsize
+Jak można zauważyć, w powyższym pakiecie przysyłane sa jawnie dane logowania: "moj\_login" oraz "tajne"
+\section{Wireshark}
+Chciałbym wspomnieć na wstępie, iż uważam że wstawianie screenshotów z wiresharka mija się z celem.\\
+\subsection{Analiza ramek}
+We wstępie teoretycznym jest błąd, gdyż protokół ARP rozsyła request po macu FF:FF:FF:FF:FF, gdyż jeszcze nie zna maca odbiorcy. Pozostałe zaobserwowane rzeczy zgadzają się z wstępem teoretycznym.
+\subsection{Analiza liczby pakietow}
+Łącząc się ze swoją prostą strona, zaobserowałem wymianę kilku pakietów:
+\begin{enumerate}
+\item 3-way-handshake
+\item 2 pakiety requesta i 2 ACK
+\end{enumerate}
+natomiast, łącząc się z stroną onetu zaobserwowałem
+\begin{enumerate}
+\item 3-way-handshake
+\item ok 20 pakietów segmentowych dla jednej dużej treści strony (+20 tyle samo ACK)
+\end{enumerate}
+Chciałbym dodać, że wykorzystywaną przeglądarką był links. Przypuszczam również, że oczekiwanym wynikiem była porcja danych którą otrzymałem, a następnie kolejne połączenia dla takich elementów jak obrazki, skrypty JS, oraz CSS.
+\subsection{Traceroute}
+Wykonanie polecenia traceroute nie dało żadnych przydatnych danych, prawdopodobnie z powodu filtrów na bramie w sieci.\\
+Jednak zauważamy w snifferze, że traceroute wysyła dane do badanego hosta, z rosnącymi ttlami. Począwszy od 1. Oczekuje on odpowiedzi od poszczególnych hostów po drodze ze "pakiet umarł" i na tej podstawie próbować będzie badać hosty pośredniczące w komunikacji.
+\section{3-way-handshake}
+Połączenie inicjowane jest przez klienta. Następuje wymiana pakietów SYN$\rightarrow$SYN,ACK$\rightarrow$ACK, po czym połączenie jest nawiązane.\\
+Następnie odbywa się wymiana danych.\\
+Zakonczenie połączenia inicjuje klient. Wymiana pakietów: FIN,ACK$\rightarrow$ACK. Następnie od servera: FIN,ACK$\rightarrow$ACK
+\section{POP3}
+Zauważyłem, że dane do logowania były przesyłane w formie jawnej, co niesie za sobą możliwość bezproblemowego dostępu do skrzynki pocztowej osobom postronnym.
+\section{FTP}
+Tutaj podobnie jak w POP3, dane do logowania, oraz wykonywane operacje były przesyłane w sposób jawny.
+Niestety nie udało mi się pobrać żadnego pliku, dlatego całe moje połączenie odbyło się na porcie 21 i nie zostałem przekierowany na ftp-data (port 20), co zgodnie z moją wiedzą, powinno stać się w przybadku przesyłu danych.
+\end{document}
