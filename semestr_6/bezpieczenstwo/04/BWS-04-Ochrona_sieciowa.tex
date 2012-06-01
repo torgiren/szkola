@@ -71,4 +71,9 @@ Iptables pozwala na bardziej przejrzyste budowanie firewalla poprzez tworzenie �
 Jest to sztuczka, polegająca na odrzucaniu pakietów przychodzących na dany port, z możliwością przepuszczania pakietu, jeżeli wcześniej została wysłana specjalna sekwencja pakietów na inne porty, tzw. \textit{pukanie}.
 \subsection{Load Balancing}
 Inna ciekawą możliwością jest load balancing. Wykonuje się to za pomocą dopasowania \textit{state} oraz wykorzystaniem licznika. Każde nowe połączenie jest kierowane do innego serwera z puli. W efekcie otrzymuje się zrównoważenie obciążenia redundantnych serwerów w sieci.
+\subsection{IPset}
+Zdarza się, że nasze reguły obejmują sprawdzanie czy np: ip wychodzącego pakietu należy do zarejestrowanego użytkownika czy też do nowo podpiętego. Znając listę adresów ip naszych klientów, moglibyśmy napisać po jednej regule na każdy komputer z odpowiednimi opcjami --src. Jednak takie wyjście jest czasochłonne, zaciemnia firewalla dużą liczba reguł, a dodanie bądź usunięcie klienta, wiąże się z ingerencją w reguły co bywa czasem niebezpieczne.\\
+Z pomocą przychodzą ipsety. Pozwalają stworzyć, np: bazę adresów ip naszych klientów, a w firewallu jedynie odwołać się, czy adres źródłowy pakietu znajduje się w danych ipsecie.\\
+W takiej sytuacji dodanie bądź usunięcie klienta odbywa się tylko w ipsecie bez zmiany reguł w iptables. Dodatkowo przeszukiwanie ipseta jest wydajniejsze niż sprawdzanie wszystkich reguł w iptables.
+\part{Wykonanie ćwiczenia}
 \end{document}
