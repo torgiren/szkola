@@ -12,6 +12,7 @@
 using namespace std;
 int* findDst(char *reg);
 int findVal(char* val);
+void errorHeader(int eip);
 int eip=0;
 int ax=0;
 int bx=0;
@@ -57,7 +58,8 @@ int main(int argc, char* argv[])
 			int* dst=findDst(a);
 			if(!dst)
 			{
-				fprintf(stderr,"Segmentation fault.\n%s\nUnknow destination %s\n",prog[eip].c_str(),a);
+				errorHeader(eip);
+				fprintf(stderr,"Unknow destination %s\n",a);
 				exit(UNKNOW_DESTINATION);
 			};
 			int *src=findDst(b);
@@ -78,7 +80,8 @@ int main(int argc, char* argv[])
 			}
 			else
 			{
-				fprintf(stderr,"Segmentation fault.\n%s\nUnknow destination %s\n",prog[eip].c_str(),a);
+				errorHeader(eip);
+				fprintf(stderr,"Unknow destination %s\n",a);
 				exit(UNKNOW_DESTINATION);
 			};
 		}
@@ -94,7 +97,8 @@ int main(int argc, char* argv[])
 			}
 			else
 			{
-				fprintf(stderr,"Segmentation fault.\n%s\nUnknow destination %s\n",prog[eip].c_str(),a);
+				errorHeader(eip);
+				fprintf(stderr,"Unknow destination %s\n",a);
 				exit(UNKNOW_DESTINATION);
 			};
 		}
@@ -163,19 +167,36 @@ int main(int argc, char* argv[])
 						case 1:
 							if(bx>=vars.size())
 							{
-								fprintf(stderr,"Segmentation fault\n%s\nVarible index out of range\n",prog[eip].c_str());
+								errorHeader(eip);
+								fprintf(stderr,"Varible index out of range\n",prog[eip].c_str());
 								exit(OUT_OF_RANGE);
 								break;
 							};
-							printf("%s\n",prog[vars[bx]].c_str());
+							printf("%s\n",prog[vars[bx]].c_str()+3);
 						break;
+						case 2:
+							if(bx>=vars.size())
+							{
+								errorHeader(eip);
+								fprintf(stderr,"Varible index out of range\n",prog[eip].c_str());
+								exit(OUT_OF_RANGE);
+							};
+							char line[255];
+							scanf("%[^\n]",line);
+							char result[255];
+							strcpy(result,"db ");
+							strcat(result,line);
+							prog[vars[bx]]=result;
+							break;
 						default:
-							fprintf(stderr,"Segmentation fault\n%s\nUnknow operation %d in int %d\n",prog[eip].c_str(),ax,przerw);
+							errorHeader(eip);
+							fprintf(stderr,"Unknow operation %d in int %d\n",ax,przerw);
 							exit(UNKNOW_OPERATION);
 					};
 					break;
 				default:
-					fprintf(stderr,"Segmentation fault.\n%s\nUnknow interuption %d\n",prog[eip].c_str(),przerw);
+					errorHeader(eip);
+					fprintf(stderr,"Unknow interuption %d\n",przerw);
 					exit(UNKNOW_INTERUPTION);
 			};
 		};
@@ -207,4 +228,8 @@ int findVal(char* val)
 		return vars[cx];
 	else if(!strcmp(val,"[dx]"))
 		return vars[dx];
+};
+void errorHeader(int eip)
+{
+	fprintf(stderr,"Segmentation fault\n%s\n",prog[eip].c_str());
 };
