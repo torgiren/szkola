@@ -8,20 +8,24 @@
 #include <string>
 #include <vector>
 #include <string.h>
+#include "errors.h"
 using namespace std;
 int* findDst(char *reg);
+int findVal(char* val);
 int eip=0;
 int ax=0;
 int bx=0;
 int cx=0;
 int dx=0;
 int zf=0;
+vector<int> vars;
+vector<string> prog;
 int main(int argc, char* argv[])
 {
 	if(argc<2)
 	{
 		fprintf(stderr,"Za mało parametrów.\nUżycie: %s <program>\n",argv[0]);
-		exit(1);
+		exit(NOT_ENOUGH_PARAMS);
 	};
 	ifstream plik(argv[1]);
 //	FILE* plik;
@@ -29,9 +33,8 @@ int main(int argc, char* argv[])
 	if(!plik)
 	{
 		fprintf(stderr,"Blad otwarcia pliku....\n");
-		exit(2);
+		exit(FILE_OPEN_ERROR);
 	};
-	vector<string> prog;
 	char line[255];
 	while(!plik.eof())
 	{
@@ -55,7 +58,7 @@ int main(int argc, char* argv[])
 			if(!dst)
 			{
 				fprintf(stderr,"Segmentation fault.\n%s\nUnknow destination %s\n",prog[eip].c_str(),a);
-				exit(3);
+				exit(UNKNOW_DESTINATION);
 			};
 			int *src=findDst(b);
 			if(src)
@@ -76,7 +79,7 @@ int main(int argc, char* argv[])
 			else
 			{
 				fprintf(stderr,"Segmentation fault.\n%s\nUnknow destination %s\n",prog[eip].c_str(),a);
-				exit(3);
+				exit(UNKNOW_DESTINATION);
 			};
 		}
 		else if(!strcmp(tmp,"dec"))
@@ -92,7 +95,7 @@ int main(int argc, char* argv[])
 			else
 			{
 				fprintf(stderr,"Segmentation fault.\n%s\nUnknow destination %s\n",prog[eip].c_str(),a);
-				exit(3);
+				exit(UNKNOW_DESTINATION);
 			};
 		}
 		else if(!strcmp(tmp,"jz"))
@@ -141,8 +144,43 @@ int main(int argc, char* argv[])
 				zf=1;
 			else
 				zf=0;
+		}
+		else if(!strcmp(tmp,"db"))
+		{
+			vars.push_back(eip);
+		}
+		else if(!strcmp(tmp,"int"))
+		{
+			char nr[16];
+			int przerw;
+			sscanf(prog[eip].c_str(),"%s %s",tmp,nr);
+			przerw=atoi(nr);
+			switch(przerw)
+			{
+				case 1:
+					switch(ax)
+					{
+						case 1:
+							if(bx>=vars.size())
+							{
+								fprintf(stderr,"Segmentation fault\n%s\nVarible index out of range\n",prog[eip].c_str());
+								exit(OUT_OF_RANGE);
+								break;
+							};
+							printf("%s\n",prog[vars[bx]].c_str());
+						break;
+						default:
+							fprintf(stderr,"Segmentation fault\n%s\nUnknow operation %d in int %d\n",prog[eip].c_str(),ax,przerw);
+							exit(UNKNOW_OPERATION);
+					};
+					break;
+				default:
+					fprintf(stderr,"Segmentation fault.\n%s\nUnknow interuption %d\n",prog[eip].c_str(),przerw);
+					exit(UNKNOW_INTERUPTION);
+			};
 		};
 		++eip;
+
 	};
 	return 0;
 };
@@ -158,4 +196,15 @@ int* findDst(char *reg)
 	else if(!strcmp(reg,"dx"))
 		dst=&dx;
 	return dst;
+};
+int findVal(char* val)
+{
+	if(!strcmp(val,"[ax]"))
+		return vars[ax];
+	else if(!strcmp(val,"[bx]"))
+		return vars[bx];
+	else if(!strcmp(val,"[cx]"))
+		return vars[cx];
+	else if(!strcmp(val,"[dx]"))
+		return vars[dx];
 };
