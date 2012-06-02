@@ -6,3 +6,16 @@ jz line //jump if zero to <line> TODO: jump to label
 jnz line //jump if non zero to <line> TODO: jump to label
 cmp ->	zf=1 i równe
 		zf=0 jeśli różne
+int nr //interupt number <nr>
+	1 -> I/O
+		ax -> 1 //write to stdout
+			bx //address of string to be printed
+		ax -> 2 read from stdin
+			bx //oddress of string to be readed
+	2 -> Number conversion
+		ax -> 1 //string to integer
+			bx //address of string
+			cx //address of integer
+		ax -> 2 //integer to string
+			bx //address of string
+			cx //address of integer
