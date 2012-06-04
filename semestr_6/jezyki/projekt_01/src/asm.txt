@@ -12,10 +12,15 @@ int nr //interupt number <nr>
 			bx //address of string to be printed
 		ax -> 2 read from stdin
 			bx //oddress of string to be readed
-	2 -> Number conversion
-		ax -> 1 //string to integer
+	2 -> Variable operations 
+		ax -> 1 //string to real conversion
 			bx //address of string
-			cx //address of integer
-		ax -> 2 //integer to string
+			cx //integer part
+			dx //fractional part
+		ax -> 2 //real to string conversion
 			bx //address of string
-			cx //address of integer
+			cx //integer part
+			dx //fractional part
+		ax -> 3 //string concat
+			bx //address of destination string
+			cx //address of source string

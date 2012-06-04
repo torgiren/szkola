@@ -26,3 +26,27 @@ mov ax 2
 int 1
 mov ax 1
 int 1
+mov ax 1
+mov bx 1
+int 2
+mov ax 2
+mov bx 0
+mov cx 5
+mov dx 505
+int 2
+mov ax 1
+mov bx 0
+int 1
+mov ax 2
+mov bx 0
+int 1
+mov ax 2
+mov bx 1
+int 1
+mov ax 3
+mov bx 0
+mov cx 1
+int 2
+mov ax 1
+mov bx 0
+int 1

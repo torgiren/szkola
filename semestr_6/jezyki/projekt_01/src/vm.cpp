@@ -12,7 +12,11 @@
 using namespace std;
 int* findDst(char *reg);
 int findVal(char* val);
+const char* retVar(int num);
+void writeVar(int num,char* var);
 void errorHeader(int eip);
+template<class T>
+void checkRange(int index,vector<T> vec);
 int eip=0;
 int ax=0;
 int bx=0;
@@ -159,40 +163,61 @@ int main(int argc, char* argv[])
 			int przerw;
 			sscanf(prog[eip].c_str(),"%s %s",tmp,nr);
 			przerw=atoi(nr);
+			char line[255];
 			switch(przerw)
 			{
 				case 1:
 					switch(ax)
 					{
 						case 1:
-							if(bx>=vars.size())
-							{
-								errorHeader(eip);
-								fprintf(stderr,"Varible index out of range\n",prog[eip].c_str());
-								exit(OUT_OF_RANGE);
-								break;
-							};
-							printf("%s\n",prog[vars[bx]].c_str()+3);
-						break;
+							checkRange(bx,vars);
+							printf("%s\n",retVar(bx));
+							break;
 						case 2:
-							if(bx>=vars.size())
-							{
-								errorHeader(eip);
-								fprintf(stderr,"Varible index out of range\n",prog[eip].c_str());
-								exit(OUT_OF_RANGE);
-							};
-							char line[255];
-							scanf("%[^\n]",line);
-							char result[255];
-							strcpy(result,"db ");
-							strcat(result,line);
-							prog[vars[bx]]=result;
+							checkRange(bx,vars);
+//							scanf("%[^\n]",line);
+							char* line;		
+							size_t size;
+							getline(&line,&size,stdin);
+							writeVar(bx,line);
 							break;
 						default:
 							errorHeader(eip);
 							fprintf(stderr,"Unknow operation %d in int %d\n",ax,przerw);
 							exit(UNKNOW_OPERATION);
 					};
+					break;
+				case 2:
+					switch(ax)
+					{
+						case 1:
+							checkRange(bx,vars);
+							float val;
+							val=atof(retVar(bx));	
+							printf("odczytana wartosc: %f\n",val);
+							cx=(int)val;
+							dx=(val-cx)*100000.0f;
+							break;
+						case 2:
+							checkRange(bx,vars);
+							sprintf(line,"%d.%d",cx,dx);
+							writeVar(bx,line);
+//							prog[vars[bx]]=line;
+							break;
+						case 3:
+							checkRange(bx,vars);
+							checkRange(cx,vars);
+							char* str1;
+							str1=(char*)retVar(bx);
+							str1[strlen(str1)-1]='\0';
+							sprintf(line,"%s%s",str1,retVar(cx));
+							writeVar(bx,line);
+							break;
+						default:
+							errorHeader(eip);
+							fprintf(stderr,"Unknow operation %d in int %d\n",ax,przerw);
+							exit(UNKNOW_OPERATION);
+					}
 					break;
 				default:
 					errorHeader(eip);
@@ -232,4 +257,24 @@ int findVal(char* val)
 void errorHeader(int eip)
 {
 	fprintf(stderr,"Segmentation fault\n%s\n",prog[eip].c_str());
+};
+template<class T>
+void checkRange(int index,vector<T> vec)
+{
+	if(index>=vec.size())
+	{
+		errorHeader(eip);
+		fprintf(stderr,"Varible index out of range\n");
+		exit(OUT_OF_RANGE);
+	};
+};
+const char* retVar(int num)
+{
+	return prog[vars[num]].c_str()+3;
+};
+void writeVar(int num,char* var)
+{
+	char tmp[255];
+	sprintf(tmp,"db %s",var);
+	prog[vars[num]]=tmp;
 };
