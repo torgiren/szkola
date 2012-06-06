@@ -25,6 +25,7 @@ int dx=0;
 int zf=0;
 vector<int> vars;
 vector<string> prog;
+vector<int> stack;
 int main(int argc, char* argv[])
 {
 	if(argc<2)
@@ -40,18 +41,66 @@ int main(int argc, char* argv[])
 		fprintf(stderr,"Blad otwarcia pliku....\n");
 		exit(FILE_OPEN_ERROR);
 	};
-	char line[255];
+	char *line;
+	line=(char*)malloc(sizeof(char*)*255);
 	while(!plik.eof())
 	{
 		plik.getline(line,255);
 		prog.push_back(line);
 	};
 	int step=0;
+	int skipping_steps=0;
 	while(eip<prog.size())
 	{
-		printf("\t\tstep=%d\tax=%d\tbx=%d\tcx=%d\tdx=%d\teip=%d\tzf=%d\n",step++,ax,bx,cx,dx,eip,zf);
-		printf("%s\n",prog[eip].c_str());
+//**********************************************************/
+// Komunikacja z użytkownikiem...
+//*********************************************************/
 		char tmp[255];
+		char tmp2[255];
+		if(skipping_steps==0)
+		{
+			printf("%s\n",prog[eip].c_str());
+			printf("$ ");
+			size_t size;
+			memset(tmp,0,255);
+			fgets(line,255,stdin);
+			sscanf(line,"%s",tmp);
+//			scanf("%s %s",tmp,tmp2);
+			if(!strcmp(tmp,"reg"))
+			{
+				printf("\t\tstep=%d\tax=%d\tbx=%d\tcx=%d\tdx=%d\teip=%d\tzf=%d\n",step,ax,bx,cx,dx,eip,zf);
+				continue;
+			}
+			else if(!strcmp(tmp,"step"))
+			{
+				skipping_steps=1;
+				int ile;
+				if(strlen(line)!=strlen(tmp)+1)
+				{
+					sscanf(line,"%s %d",tmp,&ile);
+					if(ile==0) ile=1;
+					skipping_steps=ile;
+				}
+				printf("Skipping: %d\n",skipping_steps);
+				continue;
+			}
+			else if(!strcmp(tmp,"stack"))
+			{
+				int i;
+				for(i=stack.size()-1;i>=0;i--)
+				{
+					printf("%d:\t%d\n",i,stack[i]);
+				};
+				continue;
+			}
+			else
+				continue;
+		}
+		--skipping_steps;
+		++step;
+//**********************************************************/
+// Wykonywanie programu
+//*********************************************************/
 		memset(tmp,0,255);
 		sscanf(prog[eip].c_str(),"%s",tmp);
 		if(!strcmp(tmp,"mov"))
@@ -177,9 +226,11 @@ int main(int argc, char* argv[])
 							checkRange(bx,vars);
 //							scanf("%[^\n]",line);
 							char* line;		
+							line=(char*)malloc(sizeof(char*)*255);
 							size_t size;
 							getline(&line,&size,stdin);
 							writeVar(bx,line);
+							free(line);
 							break;
 						default:
 							errorHeader(eip);
@@ -228,6 +279,7 @@ int main(int argc, char* argv[])
 		++eip;
 
 	};
+	free(line);
 	return 0;
 };
 int* findDst(char *reg)
