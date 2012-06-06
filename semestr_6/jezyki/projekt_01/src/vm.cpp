@@ -225,12 +225,9 @@ int main(int argc, char* argv[])
 						case 2:
 							checkRange(bx,vars);
 //							scanf("%[^\n]",line);
-							char* line;		
-							line=(char*)malloc(sizeof(char*)*255);
-							size_t size;
-							getline(&line,&size,stdin);
+							char line[255];
+							fgets(line,255,stdin);
 							writeVar(bx,line);
-							free(line);
 							break;
 						default:
 							errorHeader(eip);
