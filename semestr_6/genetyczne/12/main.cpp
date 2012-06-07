@@ -1,8 +1,8 @@
 #include <iostream>
 #include <ga/ga.h>
-const int popsize=100;
+const int popsize=500;
 const int ngen=100;
-const float pmut=0.1;
+const float pmut=0.01;
 const float pcross=0.9;
 float objective(GAGenome&);
 bool play(GAGenome& first, GAGenome& second);
@@ -13,7 +13,7 @@ int main()
 	srand(time(NULL));
 	GA1DArrayGenome<bool> pop(50,objective);
 	pop.initializer(init);
-//	pop.crossover(GA1DArrayGenome<bool>::UniformCrossover);
+//	pop.crossover(GA1DArrayGenome<bool>::PartialMatchCrossover);
 	GASimpleGA ga(pop);	
 	ga.pMutation(pmut);
 	ga.pCrossover(pcross);
@@ -35,12 +35,16 @@ float objective(GAGenome& gen)
 	int wynik=0;
 	for(i=0;i<100;i++)
 	{
-		wynik+=play(genome,genome.geneticAlgorithm()->population().individual(rand()%genome.geneticAlgorithm()->population().size()));
+		wynik+=2*play(genome,genome.geneticAlgorithm()->population().individual(i));
 	};
 	for(i=0;i<100;i++)
 	{
-		wynik+=!play(genome.geneticAlgorithm()->population().individual(rand()%genome.geneticAlgorithm()->population().size()),genome);
+		wynik+=!play(genome.geneticAlgorithm()->population().individual(i),genome);
 	};
+//	for(i=0;i<500;i++)
+//	{
+//		wynik+=!play(genome.geneticAlgorithm()->population().individual(rand()%genome.geneticAlgorithm()->population().size()),genome);
+//	};
 //	for(i=0;i<genome.size();i++)
 //	{
 //		printf("%d",genome[i]);
@@ -53,8 +57,8 @@ bool play(GAGenome& first, GAGenome& second)
 	GA1DArrayGenome<bool>& g1=(GA1DArrayGenome<bool>&)first;
 	GA1DArrayGenome<bool>& g2=(GA1DArrayGenome<bool>&)second;
 	GA1DArrayGenome<bool>* act[2];
-	act[0]=&g1;
-	act[1]=&g2;
+	act[0]=&g2;
+	act[1]=&g1;
 	int kamienie=50;
 	int ruchow=0;
 	int i=0;
@@ -88,7 +92,7 @@ bool play(GAGenome& first, GAGenome& second)
 	printf("\n");
 	printf("Czy pierwszy wygral: %d\tpo %d ruchach\n",(!(ruchow%2)),ruchow);
 */
-	return !(ruchow%2);
+	return (ruchow%2);
 };
 void init(GAGenome& gen)
 {
