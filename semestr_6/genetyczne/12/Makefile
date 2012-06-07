@@ -1,6 +1,6 @@
 CXX=g++
 CXXFLAGS=-Wall
-LDFLAGS=
+LDFLAGS=-lga
 all: main
 	
 main: main.o
