@@ -50,7 +50,9 @@ int main(int argc, char* argv[])
 	};
 	int step=0;
 	int skipping_steps=0;
-	while(eip<prog.size())
+	bool quit=false;
+	int exit_value=0;
+	while((eip<prog.size())&&(!quit))
 	{
 //**********************************************************/
 // Komunikacja z użytkownikiem...
@@ -179,7 +181,14 @@ int main(int argc, char* argv[])
 //				printf("\tskok do %d=%d\n",adr,eip);
 				continue;
 			};
-
+		}
+		else if(!strcmp(tmp,"jmp"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int adr=atoi(a);
+			eip=adr;
+			continue;
 		}
 		else if(!strcmp(tmp,"cmp"))
 		{
@@ -235,6 +244,20 @@ int main(int argc, char* argv[])
 			}
 			stack.pop_back();
 		}
+		else if(!strcmp(tmp,"call"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int b=atoi(a);
+			stack.push_back(eip);
+			eip=b;
+			continue;
+		}
+		else if(!strcmp(tmp,"ret"))
+		{
+			eip=stack.back();
+			stack.pop_back();
+		}
 		else if(!strcmp(tmp,"int"))
 		{
 			char nr[16];
@@ -271,7 +294,7 @@ int main(int argc, char* argv[])
 							checkRange(bx,vars);
 							float val;
 							val=atof(retVar(bx));	
-							printf("odczytana wartosc: %f\n",val);
+//							printf("odczytana wartosc: %f\n",val);
 							cx=(int)val;
 							dx=(val-cx)*100000.0f;
 							break;
@@ -296,6 +319,10 @@ int main(int argc, char* argv[])
 							exit(UNKNOW_OPERATION);
 					}
 					break;
+				case 8:
+					exit_value=ax;
+					quit=true;
+					break;
 				default:
 					errorHeader(eip);
 					fprintf(stderr,"Unknow interuption %d\n",przerw);
@@ -306,7 +333,7 @@ int main(int argc, char* argv[])
 
 	};
 	free(line);
-	return 0;
+	return exit_value;
 };
 int* findDst(char *reg)
 {
