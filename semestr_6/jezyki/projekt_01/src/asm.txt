@@ -4,6 +4,8 @@ inc reg //increment value
 dec reg //decrement value
 jz line //jump if zero to <line> TODO: jump to label
 jnz line //jump if non zero to <line> TODO: jump to label
+push reg/val //push register or value on stack
+pop [reg] //pop from stack. optionaly save val to reg
 cmp ->	zf=1 i równe
 		zf=0 jeśli różne
 int nr //interupt number <nr>
