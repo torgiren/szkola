@@ -206,6 +206,35 @@ int main(int argc, char* argv[])
 		{
 			vars.push_back(eip);
 		}
+		else if(!strcmp(tmp,"push"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int *src=findDst(a);
+			int s;
+			if(src)
+				s=*src;
+			else
+				s=atoi(a);
+			stack.push_back(s);
+		}
+		else if(!strcmp(tmp,"pop"))
+		{
+			char a[16];
+			if(strlen(prog[eip].c_str())!=strlen(tmp))
+			{
+				sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+				int *src=findDst(a);
+				if(!src)
+				{
+					errorHeader(eip);
+					fprintf(stderr,"Unknow destination %s\n",a);
+					exit(UNKNOW_DESTINATION);
+				};
+				*src=stack.back();
+			}
+			stack.pop_back();
+		}
 		else if(!strcmp(tmp,"int"))
 		{
 			char nr[16];

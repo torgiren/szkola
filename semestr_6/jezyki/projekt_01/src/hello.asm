@@ -4,6 +4,15 @@ db a to trzecia
 mov ax 3
 mov bx 5
 mov cx bx
+push ax
+push 10
+push 50
+pop bx
+pop
+push bx
+push cx
+push 5
+pop ax
 inc ax
 inc bx
 inc bx
@@ -17,7 +26,7 @@ cmp ax cx
 mov cx 10
 dec cx
 cmp cx 0
-jnz 17
+jnz 26
 mov ax 2
 mov ax 1
 mov bx 1
