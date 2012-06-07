@@ -4,6 +4,7 @@ inc reg //increment value
 dec reg //decrement value
 jz line //jump if zero to <line> TODO: jump to label
 jnz line //jump if non zero to <line> TODO: jump to label
+jmp line //jump to line
 push reg/val //push register or value on stack
 pop [reg] //pop from stack. optionaly save val to reg
 cmp ->	zf=1 i równe
@@ -26,3 +27,5 @@ int nr //interupt number <nr>
 		ax -> 3 //string concat
 			bx //address of destination string
 			cx //address of source string
+	8 -> return
+		ax // exit value
