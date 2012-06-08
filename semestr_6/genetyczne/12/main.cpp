@@ -14,17 +14,22 @@ int main()
 	GA1DArrayGenome<bool> pop(50,objective);
 	pop.initializer(init);
 //	pop.crossover(GA1DArrayGenome<bool>::PartialMatchCrossover);
+	pop.crossover(GA1DArrayGenome<bool>::TwoPointCrossover);
 	GASimpleGA ga(pop);	
 	ga.pMutation(pmut);
 	ga.pCrossover(pcross);
 	ga.nGenerations(ngen);
 	ga.populationSize(popsize);
+	ga.selector(GARankSelector());
 	ga.evolve(rand());
 	int i;
 	GA1DArrayGenome<bool>& best=(GA1DArrayGenome<bool>&)ga.population().best();
 	for(i=49;i>=0;i--)
 	{
-		printf("%d: %d\n",i+1,best[i]);
+		printf("%d: %d",i+1,best[i]);
+		if(!((i)%3))
+			printf("*");
+		printf("\n");
 	};
 		cout<<ga.population().best()<<"\n"<<ga.population().best().evaluate()<<endl;
 };
@@ -50,6 +55,13 @@ float objective(GAGenome& gen)
 //		printf("%d",genome[i]);
 //	};
 //	printf("\t%d\n",wynik);
+	for(i=0;i<15;i++)
+	{
+		if((genome[3*i+1]==0)&&(genome[3*i+2]==1))
+		{
+			wynik+=1;
+		};
+	};
 	return wynik;
 };
 bool play(GAGenome& first, GAGenome& second)
