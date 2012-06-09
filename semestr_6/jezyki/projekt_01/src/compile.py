@@ -17,6 +17,8 @@ def arguments(exploded_line,num):
 		print "Too many arguments"
 def unquote(tekst):
 	return tekst[1:-1]
+def isQuoted(tekst):
+	return (tekst[0]=='"')&(tekst[-1]=='"')
 linie=wczytaj_plik("hello.jzk")
 zmienne={}
 wyjscie=[]
@@ -65,7 +67,18 @@ for linia in linie:
 
 	tmp=linia.rstrip().split("=",1)
 	if tmp[0] in zmienne:
-		print linia
+		if tmp[1] in zmienne:
+			wyjscie.append("mov ax 4")
+			wyjscie.append("mov bx %d"%zmienne[tmp[0]])
+			wyjscie.append("mov cx %d"%zmienne[tmp[1]])
+		else:
+			if isQuoted(tmp[1]):
+				tmp_nr=len(wyjscie)
+				wyjscie.append("db "+unquote(tmp[1]))
+				wyjscie.append("mov ax 4")
+				wyjscie.append("mov bx %d"%zmienne[tmp[0]])
+				wyjscie.append("mov cx %d"%tmp_nr)
+				wyjscie.append("int 2")
 
 
 print "Compiled:"
