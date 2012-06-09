@@ -1,0 +1,8 @@
+string imie
+wczytaj imie
+string inny
+string witaj="Witaj swiecie"
+copy inny,imie
+wypisz inny
+wypisz witaj
+inny="Jakis tekst"
