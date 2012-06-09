@@ -27,5 +27,8 @@ int nr //interupt number <nr>
 		ax -> 3 //string concat
 			bx //address of destination string
 			cx //address of source string
+		ax -> 4 //string copy
+			bx //address of destination
+			cx //sddres of source string
 	8 -> return
 		ax // exit value
