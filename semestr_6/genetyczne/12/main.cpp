@@ -1,7 +1,7 @@
 #include <iostream>
 #include <ga/ga.h>
 const int popsize=500;
-const int ngen=100;
+const int ngen=200;
 const float pmut=0.01;
 const float pcross=0.9;
 float objective(GAGenome&);
@@ -40,11 +40,11 @@ float objective(GAGenome& gen)
 	int wynik=0;
 	for(i=0;i<100;i++)
 	{
-		wynik+=2*play(genome,genome.geneticAlgorithm()->population().individual(i));
+		wynik+=10*play(genome,genome.geneticAlgorithm()->population().individual(i));
 	};
 	for(i=0;i<100;i++)
 	{
-		wynik+=!play(genome.geneticAlgorithm()->population().individual(i),genome);
+		wynik+=10*!play(genome.geneticAlgorithm()->population().individual(i),genome);
 	};
 //	for(i=0;i<500;i++)
 //	{
@@ -55,13 +55,16 @@ float objective(GAGenome& gen)
 //		printf("%d",genome[i]);
 //	};
 //	printf("\t%d\n",wynik);
-	for(i=0;i<15;i++)
+	for(i=0;i<int(50/3);i++)
 	{
 		if((genome[3*i+1]==0)&&(genome[3*i+2]==1))
 		{
 			wynik+=1;
 		};
 	};
+	if(genome[0]!=0)
+		wynik-=500;
+	if(wynik<0) wynik=0;
 	return wynik;
 };
 bool play(GAGenome& first, GAGenome& second)
