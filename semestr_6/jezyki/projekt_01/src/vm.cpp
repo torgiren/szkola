@@ -282,13 +282,14 @@ int main(int argc, char* argv[])
 					{
 						case 1:
 //							checkRange(bx,vars);
-							printf("%s",retVar(bx));
+							printf("%s\n",retVar(bx));
 							break;
 						case 2:
 //							checkRange(bx,vars);
 //							scanf("%[^\n]",line);
 							char line[255];
 							fgets(line,255,stdin);
+							line[strlen(line)-1]='\0';
 							writeVar(bx,line);
 							break;
 						default:
