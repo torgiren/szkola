@@ -11,7 +11,7 @@
 #include "errors.h"
 using namespace std;
 int* findDst(char *reg);
-int findVal(char* val);
+//int findVal(char* val);
 const char* retVar(int num);
 void writeVar(int num,char* var);
 void errorHeader(int eip);
@@ -23,17 +23,26 @@ int bx=0;
 int cx=0;
 int dx=0;
 int zf=0;
-vector<int> vars;
+//vector<int> vars;
 vector<string> prog;
 vector<int> stack;
+bool debug=false;
 int main(int argc, char* argv[])
 {
-	if(argc<2)
+	int args=argc;
+	if(args>1)
+		if(!strcmp(argv[1],"-g"))
+		{
+			args--;
+			debug=true;
+		};
+	printf("%d\n",args);
+	if(args<2)
 	{
 		fprintf(stderr,"Za mało parametrów.\nUżycie: %s <program>\n",argv[0]);
 		exit(NOT_ENOUGH_PARAMS);
 	};
-	ifstream plik(argv[1]);
+	ifstream plik(argv[argc-1]);
 //	FILE* plik;
 //	plik=fopen(argv[1],"r");
 	if(!plik)
@@ -59,7 +68,7 @@ int main(int argc, char* argv[])
 //*********************************************************/
 		char tmp[255];
 		char tmp2[255];
-		if(skipping_steps==0)
+		if(skipping_steps==0&&debug)
 		{
 			printf("%s\n",prog[eip].c_str());
 			printf("$ ");
@@ -105,6 +114,7 @@ int main(int argc, char* argv[])
 //*********************************************************/
 		memset(tmp,0,255);
 		sscanf(prog[eip].c_str(),"%s",tmp);
+		if(tmp[0]=='%') continue;
 		if(!strcmp(tmp,"mov"))
 		{
 			char a[16],b[16];
@@ -213,7 +223,7 @@ int main(int argc, char* argv[])
 		}
 		else if(!strcmp(tmp,"db"))
 		{
-			vars.push_back(eip);
+//			vars.push_back(eip);
 		}
 		else if(!strcmp(tmp,"push"))
 		{
@@ -271,11 +281,11 @@ int main(int argc, char* argv[])
 					switch(ax)
 					{
 						case 1:
-							checkRange(bx,vars);
+//							checkRange(bx,vars);
 							printf("%s\n",retVar(bx));
 							break;
 						case 2:
-							checkRange(bx,vars);
+//							checkRange(bx,vars);
 //							scanf("%[^\n]",line);
 							char line[255];
 							fgets(line,255,stdin);
@@ -291,7 +301,7 @@ int main(int argc, char* argv[])
 					switch(ax)
 					{
 						case 1:
-							checkRange(bx,vars);
+//							checkRange(bx,vars);
 							float val;
 							val=atof(retVar(bx));	
 //							printf("odczytana wartosc: %f\n",val);
@@ -299,14 +309,14 @@ int main(int argc, char* argv[])
 							dx=(val-cx)*100000.0f;
 							break;
 						case 2:
-							checkRange(bx,vars);
+//							checkRange(bx,vars);
 							sprintf(line,"%d.%d",cx,dx);
 							writeVar(bx,line);
 //							prog[vars[bx]]=line;
 							break;
 						case 3:
-							checkRange(bx,vars);
-							checkRange(cx,vars);
+//							checkRange(bx,vars);
+//							checkRange(cx,vars);
 							char* str1;
 							str1=(char*)retVar(bx);
 							str1[strlen(str1)-1]='\0';
@@ -348,6 +358,7 @@ int* findDst(char *reg)
 		dst=&dx;
 	return dst;
 };
+/*
 int findVal(char* val)
 {
 	if(!strcmp(val,"[ax]"))
@@ -359,6 +370,7 @@ int findVal(char* val)
 	else if(!strcmp(val,"[dx]"))
 		return vars[dx];
 };
+*/
 void errorHeader(int eip)
 {
 	fprintf(stderr,"Segmentation fault\n%s\n",prog[eip].c_str());
@@ -375,11 +387,11 @@ void checkRange(int index,vector<T> vec)
 };
 const char* retVar(int num)
 {
-	return prog[vars[num]].c_str()+3;
+	return prog[num].c_str()+3;
 };
 void writeVar(int num,char* var)
 {
 	char tmp[255];
 	sprintf(tmp,"db %s",var);
-	prog[vars[num]]=tmp;
+	prog[num]=tmp;
 };
