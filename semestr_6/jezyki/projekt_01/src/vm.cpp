@@ -282,7 +282,7 @@ int main(int argc, char* argv[])
 					{
 						case 1:
 //							checkRange(bx,vars);
-							printf("%s\n",retVar(bx));
+							printf("%s",retVar(bx));
 							break;
 						case 2:
 //							checkRange(bx,vars);
@@ -322,6 +322,11 @@ int main(int argc, char* argv[])
 							str1[strlen(str1)-1]='\0';
 							sprintf(line,"%s%s",str1,retVar(cx));
 							writeVar(bx,line);
+							break;
+						case 4:
+							char *str2;
+							str2=(char*)retVar(cx);
+							writeVar(bx,str2);
 							break;
 						default:
 							errorHeader(eip);
