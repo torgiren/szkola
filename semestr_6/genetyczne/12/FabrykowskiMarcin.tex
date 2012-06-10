@@ -41,6 +41,34 @@ Roulette&47.5\%&58.75\%&41.25\%\\
 Rank&42.25\%&47.4\%&66.25\%\\
 &0.192s&0.198s&0.202s\\ \hline
 \end{tabular}
+\item
+\begin{itemize}
+\item Populacja: 200
+\item Pokoleń: 200
+\item Krzyżowanie: 0.9
+\item Mutacja: 0.01
+\end{itemize}
+\begin{tabular}{l|c|c|c}
+&OnePoint&TwoPoints&PartialMatch\\ \hline
+Roulette&82.5\%&77.50\%&31.25\%\\
+&1.87s&1.86s&1.89s\\ \hline
+Rank&92.50\%&93.75\%&86.25\%\\
+&1.52s&1.57s&1.55s\\ \hline
+\end{tabular}
+\item
+\begin{itemize}
+\item Populacja: 200
+\item Pokoleń: 300
+\item Krzyżowanie: 0.9
+\item Mutacja: 0.01
+\end{itemize}
+\begin{tabular}{l|c|c|c}
+&OnePoint&TwoPoints&PartialMatch\\ \hline
+Roulette&80\%&85\%&46.25\%\\
+&2.74s&2.75s&2.87s\\ \hline
+Rank&80\%&95\%&98.75\%\\
+&2.3s&2.28s&2.29s\\ \hline
+\end{tabular}
 \end{enumerate}
 \subsubsection{Kodowanie 55 bitów}
 \begin{enumerate}
@@ -72,7 +100,22 @@ Roulette&78.75\%&83.75\%&40\%\\
 Rank&97.5\%&98.75\%&97.5\% \\
 &1.9s&1.73s&1.78\\ \hline
 \end{tabular}
+\item
+\begin{itemize}
+\item Populacja: 200
+\item Pokoleń: 300
+\item Krzyżowanie: 0.9
+\item Mutacja: 0.01
+\end{itemize}
+\begin{tabular}{l|c|c|c}
+&OnePoint&TwoPoints&PartialMatch\\ \hline
+Roulette&77.5\%&75\%&42.50\%\\
+&3.02s&3.01s&3.15s\\ \hline
+Rank&100\%&100\%&88.75\%\\
+&2.6s&2.62s&2.58s\\ \hline
+\end{tabular}
 \end{enumerate}
 \subsection{Ocena wyników}
-Zauważamy, że dla źle dobranych parametrów algorytmu, metoda krzyżowania ani selekcji nie odgrywa większej roli. Natomiast przy lepiej dobranych parametrach, metoda rankingowa daje lepsze wyniki niż ruletka. Metody krzyżowania nie wprowadzają zbytnich różnic. Małą przewagę "dobroci" strategii jak i czasu wykonywania ma metoda dwupunktowa, dlatego zdecydowałem się wybrać tą właśnie metodę.
+Zauważamy, że dla źle dobranych parametrów algorytmu, metoda krzyżowania ani selekcji nie odgrywa większej roli. Natomiast przy lepiej dobranych parametrach, metoda rankingowa daje lepsze wyniki niż ruletka.\\
+Metody krzyżowania jedno- i dwupunktowa sprawdzając się najlepiej. Analizując wyniki, zdecydowałem się użyć kodowania 55 bitowego, krzyżowania jednopunktowego i selekcji rankingowej. Wyniki rzędu 100\% dobrych posunięć są akceptowalnie dobre.
 \end{document}
