@@ -26,7 +26,6 @@ int main()
 	ga.evolve(rand());
 	int i;
 	GA1DArrayGenome<bool>& best=(GA1DArrayGenome<bool>&)ga.population().best();
-/*
 	for(i=49;i>=0;i--)
 	{
 		printf("%d: %d",i+1,best[i]);
@@ -34,7 +33,6 @@ int main()
 			printf("*");
 		printf("\n");
 	};
-*/
 	float wynik=0;
 	for(i=0;i<50/3;i++)
 	{
@@ -43,7 +41,7 @@ int main()
 	};
 	wynik*=100;
 	wynik/=50/3;
-	//	cout<<ga.population().best()<<"\n"<<ga.population().best().evaluate()<<endl;
+		cout<<ga.population().best()<<"\n"<<ga.population().best().evaluate()<<endl;
 	printf("Wynik: %.2f%%\n",wynik);
 };
 float objective(GAGenome& gen)
