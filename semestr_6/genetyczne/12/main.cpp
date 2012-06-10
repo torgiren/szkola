@@ -1,7 +1,7 @@
 #include <iostream>
 #include <ga/ga.h>
 const int popsize=200;
-const int ngen=200;
+const int ngen=300;
 const float pmut=0.01;
 const float pcross=0.9;
 float objective(GAGenome&);
@@ -14,8 +14,8 @@ int main()
 	GA1DArrayGenome<bool> pop(55,objective);
 	pop.initializer(init);
 //	pop.crossover(GA1DArrayGenome<bool>::PartialMatchCrossover);
-	pop.crossover(GA1DArrayGenome<bool>::TwoPointCrossover);
-//	pop.crossover(GA1DArrayGenome<bool>::OnePointCrossover);
+//	pop.crossover(GA1DArrayGenome<bool>::TwoPointCrossover);
+	pop.crossover(GA1DArrayGenome<bool>::OnePointCrossover);
 	GASimpleGA ga(pop);	
 	ga.pMutation(pmut);
 	ga.pCrossover(pcross);
@@ -23,6 +23,10 @@ int main()
 	ga.populationSize(popsize);
 	ga.selector(GARankSelector());
 //	ga.selector(GARouletteWheelSelector());
+int iter;
+float sredni=0;
+for(iter=0;iter<5;iter++)
+{
 	ga.evolve(rand());
 	int i;
 	GA1DArrayGenome<bool>& best=(GA1DArrayGenome<bool>&)ga.population().best();
@@ -43,6 +47,10 @@ int main()
 	wynik/=50/3;
 		cout<<ga.population().best()<<"\n"<<ga.population().best().evaluate()<<endl;
 	printf("Wynik: %.2f%%\n",wynik);
+	sredni+=wynik;
+};
+	sredni/=5.0;
+	printf("Sredni: %.2f\n",sredni);
 };
 float objective(GAGenome& gen)
 {
