@@ -1,0 +1,78 @@
+\documentclass[a4paper,12pkt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage{graphicx}
+\author{Marcin Fabrykowski}
+\title{Algorytmy genetyczne. Lab 12}
+\begin{document}
+\maketitle
+\newpage
+\section{Zdefiniowanie problemu}
+Naszym celem było przygotowanie strategii gry w kamienie. Gra polega na zdejmowaniu naprzemiennie jednego bądź dwóch kamieni. Grę zaczyna się z 50 kamieniami na stole.
+\section{Kodowanie}
+Osobnika reprezentującego strategię gry początkowo kodowałem binarnie na 50 bitach. Była to relacja: numer bitu $\rightarrow$ liczba kamieni na stole. Wartość $0$ oznaczała zabranie jednego kamienia, natomiast wartość $1$ dwóch kamieni.\\
+Niezależnie od parametrów algorytmu genetycznego (szczegóły w kolejnych sekcjach), nie udawało się doprowadzić wynikowej strategii do idealnej, tj. takiej która od samego początku gry dawałaby zwycięskie ruchy. Stabilizacja zaczynała się od ok 46 kamieni na stole.\\
+Dlatego zastosowałem kodowanie 55 bitowe, reprezentujące grę zaczynającą się od 55 kamieni. Problem niestabilności na początku gry pozostał, jednak został on przesunięty poza obszar naszego zainteresowania, co w efekcie dobrania odpowiednich parametrów, daje nam optymalną strategię gry w kamienie.
+\subsection{Inicjalizacja}
+Osobniki w populacji początkowej inicjalizowane są losowym ciągiem bitów. Reprezentują one losowe strategie.
+\section{Ocena dostosowania osobnika}
+Aby ocenić dostosowanie osobnika, przeprowadzamy stukrotną rozgrywkę między badanym osobnikiem a setką najlepszych osobników w populacji. Za każdą wygraną rozgrywkę przyznajemy 10 pkt dostosowania.\\
+Bo przeprowadzeniu pojedynków, sprawdzamy czy nasz osobnik nie próbuje zabrać dwóch kamieni, jeżeli pozostał tylko jeden. W takim przypadku ustanawiamy karę w wysokości 500 pkt dostosowania.
+\section{Rozgrywka}
+Rozgrywka przeprowadzana jest do czasu, aż na stole nie pozostanie żadnej kamień. Liczba kamieni zdejmowanych przez aktualnego gracza określana jest na podstawie wartości na $n+1$ bicie osobnika (przesunięcie wynika z indeksowania osobnika: bit zerowy odpowiada jednemu pozostałego kamieniowi, bit pierwszy - dwóm). Zwracana jest prawda, jeżeli gracz pierwszy wygrał, bądź fałsz w przeciwnym wypadku.
+\section{Parametry algorytmu genetycznego}
+\subsection{Założenia dot. oceny strategii}
+Jako ocenę otrzymanej strategii, wykorzystam fakt minimalizacji problemu gry w kamienie do zasady "przegranego pola", tj. pola z którego gracz nie ma możliwości wygrać, jeżeli przeciwnik wykonuje odpowiednie ruchy.\\
+Takimi polami są pola $1,4,7,10,13,...,3*n+1$. Miarą "dobroci" strategii będzie procent takich pól do których zostanie zepchnięty przeciwnik do wszystkich możliwych. Generowanie będzie powtarzane pięciokrotnie, a wynikiem ostatecznym będzie średnia.
+\subsection{Porównanie wybranych zestawów parametrów}
+\subsubsection{Kodowanie 50 bitów}
+\begin{enumerate}
+\item
+\begin{itemize}
+\item Populacja: 100
+\item Pokoleń: 50
+\item Krzyżowanie: 0.9
+\item Mutacja: 0.01
+\end{itemize}
+\begin{tabular}{l|c|c|c}
+&OnePoint&TwoPoints&PartialMatch\\ \hline
+Roulette&47.5\%&58.75\%&41.25\%\\
+&0.242s&0.244s&0.25s\\ \hline
+Rank&42.25\%&47.4\%&66.25\%\\
+&0.192s&0.198s&0.202s\\ \hline
+\end{tabular}
+\end{enumerate}
+\subsubsection{Kodowanie 55 bitów}
+\begin{enumerate}
+\item
+\begin{itemize}
+\item Populacja: 100
+\item Pokoleń: 50
+\item Krzyżowanie: 0.9
+\item Mutacja: 0.01
+\end{itemize}
+\begin{tabular}{l|c|c|c}
+&OnePoint&TwoPoints&PartialMatch\\ \hline
+Roulette&58.606\%&46.25\%&33.75\%	\\
+&0.267s&0.27s&0.27s\\ \hline
+Rank&53.75\%&48.75\%&50\%\\
+&0.226s&0.216s&0.23s\\ \hline
+\end{tabular}
+\item
+\begin{itemize}
+\item Populacja: 200
+\item Pokoleń: 200
+\item Krzyżowanie: 0.9
+\item Mutacja: 0.01
+\end{itemize}
+\begin{tabular}{l|c|c|c}
+&OnePoint&TwoPoints&PartialMatch\\ \hline
+Roulette&78.75\%&83.75\%&40\%\\
+&2.11s&2.11s&2.17s\\ \hline
+Rank&97.5\%&98.75\%&97.5\% \\
+&1.9s&1.73s&1.78\\ \hline
+\end{tabular}
+\end{enumerate}
+\subsection{Ocena wyników}
+Zauważamy, że dla źle dobranych parametrów algorytmu, metoda krzyżowania ani selekcji nie odgrywa większej roli. Natomiast przy lepiej dobranych parametrach, metoda rankingowa daje lepsze wyniki niż ruletka. Metody krzyżowania nie wprowadzają zbytnich różnic. Małą przewagę "dobroci" strategii jak i czasu wykonywania ma metoda dwupunktowa, dlatego zdecydowałem się wybrać tą właśnie metodę.
+\end{document}
