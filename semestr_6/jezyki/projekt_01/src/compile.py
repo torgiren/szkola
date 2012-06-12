@@ -33,12 +33,12 @@ for linia in linie:
 			arguments(tmp,2)
 			exit(1);
 		inicjacja=tmp[1].split("=");
-		zmienne[inicjacja[0]]=len(wyjscie)
+		zmienne[inicjacja[0]]=(len(wyjscie),'s')
 		cmd="db";
 		if len(inicjacja)==2:
 			cmd+=" "+unquote(inicjacja[1])
 		wyjscie.append(cmd);
-	if tmp[0]=="wczytaj":
+	elif tmp[0]=="wczytaj":
 		if len(tmp)!=2:
 			error_header(linia,x)
 			arguments(tmp,2)
@@ -46,7 +46,7 @@ for linia in linie:
 		wyjscie.append("mov ax 2")
 		wyjscie.append("mov bx %d" % zmienne[tmp[1]]);
 		wyjscie.append("int 1");
-	if tmp[0]=="wypisz":
+	elif tmp[0]=="wypisz":
 		if len(tmp)!=2:
 			error_header(line,x)
 			arguments(tmp,2)
@@ -54,7 +54,7 @@ for linia in linie:
 		wyjscie.append("mov ax 1")
 		wyjscie.append("mov bx %d"%zmienne[tmp[1]])
 		wyjscie.append("int 1")
-	if tmp[0]=="copy":
+	elif tmp[0]=="copy":
 		args=tmp[1].split(",");
 		if len(tmp)!=2:
 			error_header(linia,x)
@@ -64,21 +64,21 @@ for linia in linie:
 		wyjscie.append("mov bx %d" % zmienne[args[0]])
 		wyjscie.append("mov cx %d" % zmienne[args[1]])
 		wyjscie.append("int 2")
-
-	tmp=linia.rstrip().split("=",1)
-	if tmp[0] in zmienne:
-		if tmp[1] in zmienne:
-			wyjscie.append("mov ax 4")
-			wyjscie.append("mov bx %d"%zmienne[tmp[0]])
-			wyjscie.append("mov cx %d"%zmienne[tmp[1]])
-		else:
-			if isQuoted(tmp[1]):
-				tmp_nr=len(wyjscie)
-				wyjscie.append("db "+unquote(tmp[1]))
+	else:
+		tmp=linia.rstrip().split("=",1)
+		if tmp[0] in zmienne:
+			if tmp[1] in zmienne:
 				wyjscie.append("mov ax 4")
 				wyjscie.append("mov bx %d"%zmienne[tmp[0]])
-				wyjscie.append("mov cx %d"%tmp_nr)
-				wyjscie.append("int 2")
+				wyjscie.append("mov cx %d"%zmienne[tmp[1]])
+			else:
+				if isQuoted(tmp[1]):
+					tmp_nr=len(wyjscie)
+					wyjscie.append("db "+unquote(tmp[1]))
+					wyjscie.append("mov ax 4")
+					wyjscie.append("mov bx %d"%zmienne[tmp[0]])
+					wyjscie.append("mov cx %d"%tmp_nr)
+					wyjscie.append("int 2")
 
 
 print "Compiled:"
