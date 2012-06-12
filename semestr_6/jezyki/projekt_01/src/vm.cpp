@@ -133,6 +133,70 @@ int main(int argc, char* argv[])
 			else
 				*dst=atoi(b);
 		}
+		else if(!strcmp(tmp,"add"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int* dst=findDst(a);
+			if(dst)
+			{
+				ax+=*dst;
+			}
+			else
+			{
+				ax+=atoi(a);
+			};
+			if(!ax)
+				zf=true;
+		}
+		else if(!strcmp(tmp,"sub"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int* dst=findDst(a);
+			if(dst)
+			{
+				ax-=*dst;
+			}
+			else
+			{
+				ax-=atoi(a);
+			};
+			if(!ax)
+				zf=true;
+		}
+		else if(!strcmp(tmp,"mul"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int* dst=findDst(a);
+			if(dst)
+			{
+				ax*=*dst;
+			}
+			else
+			{
+				ax*=atoi(a);
+			};
+			if(!ax)
+				zf=true;
+		}
+		else if(!strcmp(tmp,"div"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int* dst=findDst(a);
+			if(dst)
+			{
+				ax/=*dst;
+			}
+			else
+			{
+				ax/=atoi(a);
+			};
+			if(!ax)
+				zf=true;
+		}
 		else if(!strcmp(tmp,"inc"))
 		{
 			char a[16];

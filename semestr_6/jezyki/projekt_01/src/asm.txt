@@ -1,5 +1,9 @@
 Specyfikacja "asemblera"
 mov reg reg/value //move
+add reg/val //add register val/val to ax value. result in ax
+sub reg/val //sub register val/val to ax value. result in ax
+mul reg/val //mul register val/val to ax value. result in ax
+div reg/val //div register val/val to ax value. result in ax
 inc reg //increment value
 dec reg //decrement value
 jz line //jump if zero to <line> TODO: jump to label
