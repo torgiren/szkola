@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import sys
 def wczytaj_plik(nazwa):
 	plik=open(nazwa,"r");
 	linie=[];
@@ -15,11 +16,13 @@ def arguments(exploded_line,num):
 		print "Argument missing"
 	else:
 		print "Too many arguments"
+def unknow_symbol(symbol):
+	print "Unknow symbol: %s"%symbol
 def unquote(tekst):
 	return tekst[1:-1]
 def isQuoted(tekst):
 	return (tekst[0]=='"')&(tekst[-1]=='"')
-linie=wczytaj_plik("hello.jzk")
+linie=wczytaj_plik(sys.argv[1])
 zmienne={}
 wyjscie=[]
 x=0;
@@ -33,10 +36,21 @@ for linia in linie:
 			arguments(tmp,2)
 			exit(1);
 		inicjacja=tmp[1].split("=");
-		zmienne[inicjacja[0]]=len(wyjscie)
+		zmienne[inicjacja[0]]=(len(wyjscie),'s')
 		cmd="db";
 		if len(inicjacja)==2:
 			cmd+=" "+unquote(inicjacja[1])
+		wyjscie.append(cmd);
+	if tmp[0]=="num":
+		if len(tmp)!=2:
+			error_header(linia,x)
+			arguments(tmp,2)
+			exit(1)
+		inicjacja=tmp[1].split("=")
+		cmd="db"
+		zmienne[inicjacja[0]]=(len(wyjscie),'n')
+		if len(inicjacja)==2:
+			cmd+=" "+inicjacja[1]
 		wyjscie.append(cmd);
 	if tmp[0]=="wczytaj":
 		if len(tmp)!=2:
@@ -44,7 +58,7 @@ for linia in linie:
 			arguments(tmp,2)
 			exit(1)
 		wyjscie.append("mov ax 2")
-		wyjscie.append("mov bx %d" % zmienne[tmp[1]]);
+		wyjscie.append("mov bx %d" % zmienne[tmp[1]][0]);
 		wyjscie.append("int 1");
 	if tmp[0]=="wypisz":
 		if len(tmp)!=2:
@@ -52,7 +66,7 @@ for linia in linie:
 			arguments(tmp,2)
 			exit(1)
 		wyjscie.append("mov ax 1")
-		wyjscie.append("mov bx %d"%zmienne[tmp[1]])
+		wyjscie.append("mov bx %d"%zmienne[tmp[1]][0])
 		wyjscie.append("int 1")
 	if tmp[0]=="copy":
 		args=tmp[1].split(",");
@@ -61,24 +75,29 @@ for linia in linie:
 			arguments(tmp,2)
 			exit(1)
 		wyjscie.append("mov ax 4")
-		wyjscie.append("mov bx %d" % zmienne[args[0]])
-		wyjscie.append("mov cx %d" % zmienne[args[1]])
+		wyjscie.append("mov bx %d" % zmienne[args[0]][0])
+		wyjscie.append("mov cx %d" % zmienne[args[1]][0])
 		wyjscie.append("int 2")
 
 	tmp=linia.rstrip().split("=",1)
 	if tmp[0] in zmienne:
 		if tmp[1] in zmienne:
 			wyjscie.append("mov ax 4")
-			wyjscie.append("mov bx %d"%zmienne[tmp[0]])
-			wyjscie.append("mov cx %d"%zmienne[tmp[1]])
+			wyjscie.append("mov bx %d"%zmienne[tmp[0]][0])
+			wyjscie.append("mov cx %d"%zmienne[tmp[1]][0])
 		else:
 			if isQuoted(tmp[1]):
 				tmp_nr=len(wyjscie)
 				wyjscie.append("db "+unquote(tmp[1]))
 				wyjscie.append("mov ax 4")
-				wyjscie.append("mov bx %d"%zmienne[tmp[0]])
+				wyjscie.append("mov bx %d"%zmienne[tmp[0]][0])
 				wyjscie.append("mov cx %d"%tmp_nr)
 				wyjscie.append("int 2")
+			else:
+				error_header(linia,x);
+				unknow_symbol(tmp[1])
+				exit(1)
+				
 
 
 print "Compiled:"
