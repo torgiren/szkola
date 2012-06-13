@@ -18,6 +18,8 @@ def arguments(exploded_line,num):
 		print "Too many arguments"
 def unknow_symbol(symbol):
 	print "Unknow symbol: %s"%symbol
+def unknow_operator(symbol):
+	print "Unknow operator: %s"%symbol
 def unquote(tekst):
 	return tekst[1:-1]
 def isQuoted(tekst):
@@ -30,7 +32,9 @@ for linia in linie:
 	x+=1;
 #	print linia;
 	tmp=linia.rstrip().split(" ",1)
-	if tmp[0]=="string" :
+	if tmp[0]=="noop":
+		wyjscie.append("noop")
+	elif tmp[0]=="string" :
 		if len(tmp)!=2 :
 			error_header(linia,x)
 			arguments(tmp,2)
@@ -86,17 +90,59 @@ for linia in linie:
 				wyjscie.append("mov bx %d"%zmienne[tmp[0]][0])
 				wyjscie.append("mov cx %d"%zmienne[tmp[1]][0])
 			else:
-				if isQuoted(tmp[1]):
-					tmp_nr=len(wyjscie)
-					wyjscie.append("db "+unquote(tmp[1]))
-					wyjscie.append("mov ax 4")
-					wyjscie.append("mov bx %d"%zmienne[tmp[0]][0])
-					wyjscie.append("mov cx %d"%tmp_nr)
-					wyjscie.append("int 2")
+				if zmienne[tmp[0]][1]=='n':
+					print "numeryczna"
+					sep=('+','-','*','/')
+					old=0;
+					wyjscie.append("push ax")
+					wyjscie.append("push bx")
+					wyjscie.append("push cx")
+					wyjscie.append("push dx")
+					wyjscie.append("mov ebp esp")
+					wyjscie.append("alloc 6");
+					app="mov ax"
+					for i in range(0,len(tmp[1])):
+						if tmp[1][i] in sep:
+							val=tmp[1][old:i]
+							if val in zmienne:
+								print "val %s jest zmiennych"%val
+								wyjscie.append("%s %d"%(app,zmienne[val][0]))
+							elif val.isdigit()==False:
+								error_header(linie,x)
+								unknow_symbol(tmp[1])
+								exit(1)
+							else:
+								wyjscie.append("%s %d"%(app,int(val)))
+							print "val: "+val
+							print "sep: "+tmp[1][i]
+							old=i+1;
+						if tmp[1][i]=='+':
+							app="add "
+						elif tmp[1][i]=='-':
+							app="sub"
+						elif tmp[1][i]=='*':
+							app="mul"
+						elif tmp[1][i]=='/':
+							app="div"
+
+					wyjscie.append("pop dx")
+					wyjscie.append("pop cx")
+					wyjscie.append("pop bx")
+					wyjscie.append("pop ax")
+					
+					print "val: "+tmp[1][old:]
 				else:
-					error_header(linia,x);
-					unknow_symbol(tmp[1])
-					exit(1)
+					if isQuoted(tmp[1]):
+						tmp_nr=len(wyjscie)
+						wyjscie.append("db "+unquote(tmp[1]))
+						wyjscie.append("mov ax 4")
+						wyjscie.append("mov bx %d"%zmienne[tmp[0]][0])
+						wyjscie.append("mov cx %d"%tmp_nr)
+						wyjscie.append("int 2")
+					else:
+						error_header(linia,x);
+						unknow_symbol(tmp[1])
+						exit(1)
 
 print "Compiled:"
 plik=open("out.asm","w")
