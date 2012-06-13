@@ -18,6 +18,8 @@ void errorHeader(int eip);
 template<class T>
 void checkRange(int index,vector<T> vec);
 int eip=0;
+int ebp=0;
+int esp=0;
 int ax=0;
 int bx=0;
 int cx=0;
@@ -63,6 +65,7 @@ int main(int argc, char* argv[])
 	int exit_value=0;
 	while((eip<prog.size())&&(!quit))
 	{
+		esp=stack.size()-1;
 //**********************************************************/
 // Komunikacja z użytkownikiem...
 //*********************************************************/
@@ -79,7 +82,7 @@ int main(int argc, char* argv[])
 //			scanf("%s %s",tmp,tmp2);
 			if(!strcmp(tmp,"reg"))
 			{
-				printf("\t\tstep=%d\tax=%d\tbx=%d\tcx=%d\tdx=%d\teip=%d\tzf=%d\n",step,ax,bx,cx,dx,eip,zf);
+				printf("\t\tstep=%d\tax=%d\tbx=%d\tcx=%d\tdx=%d\teip=%d\tesp=%d\tebp=%d\tzf=%d\n",step,ax,bx,cx,dx,eip,esp,ebp,zf);
 				continue;
 			}
 			else if(!strcmp(tmp,"step"))
@@ -289,6 +292,33 @@ int main(int argc, char* argv[])
 		{
 //			vars.push_back(eip);
 		}
+		else if(!strcmp(tmp,"noop"))
+		{
+		}
+		else if(!strcmp(tmp,"alloc"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int size;
+			size=atoi(a);
+			int i;
+			for(i=0;i<size;i++)
+			{
+				stack.push_back(0);
+			};
+		}
+		else if(!strcmp(tmp,"free"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int size;
+			size=atoi(a);
+			int i;
+			for(i=0;i<size;i++)
+			{
+				stack.pop_back();
+			};
+		}
 		else if(!strcmp(tmp,"push"))
 		{
 			char a[16];
@@ -426,6 +456,32 @@ int* findDst(char *reg)
 		dst=&cx;
 	else if(!strcmp(reg,"dx"))
 		dst=&dx;
+	else if(!strcmp(reg,"ebp"))
+		dst=&ebp;
+	else if(!strcmp(reg,"esp"))
+		dst=&esp;
+	else if(reg[0]=='[')
+	{
+		char* tmp=&reg[1];
+		tmp[strlen(tmp)-1]='\0';
+		printf("stack index: %s\n",tmp);
+		char* tok;
+		tok=strtok(tmp,"+");
+		if(strcmp(tok,"ebp"))
+		{
+			errorHeader(eip);
+			fprintf(stderr,"Syntax error\n");
+			exit(SYNTAX_ERROR);
+		};
+		tok=strtok(NULL,"+");
+		if(!tok)
+		{
+			errorHeader(eip);
+			fprintf(stderr,"Syntax error\n");
+			exit(SYNTAX_ERROR);
+		};
+		dst=&stack[ebp+atoi(tok)];
+	};
 	return dst;
 };
 /*

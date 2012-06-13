@@ -11,6 +11,9 @@ jnz line //jump if non zero to <line> TODO: jump to label
 jmp line //jump to line
 push reg/val //push register or value on stack
 pop [reg] //pop from stack. optionaly save val to reg
+noop //noop
+alloc size //alloc <size> ints on stack
+free size //free <size> ints from stack
 cmp ->	zf=1 i równe
 		zf=0 jeśli różne
 int nr //interupt number <nr>

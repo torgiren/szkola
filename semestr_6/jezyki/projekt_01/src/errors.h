@@ -6,4 +6,5 @@
 #define UNKNOW_INTERUPTION 4
 #define UNKNOW_OPERATION 5
 #define OUT_OF_RANGE 6
+#define SYNTAX_ERROR 7
 #endif
