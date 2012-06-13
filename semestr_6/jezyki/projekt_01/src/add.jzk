@@ -1,0 +1,9 @@
+num x=2
+num y
+num zmienna=10
+wczytaj y
+num z
+noop
+z=x+y+x
+noop
+wypisz z
