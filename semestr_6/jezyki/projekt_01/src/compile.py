@@ -26,7 +26,11 @@ def isQuoted(tekst):
 	return (tekst[0]=='"')&(tekst[-1]=='"')
 linie=wczytaj_plik(sys.argv[1])
 zmienne={}
+funkcje={}
 wyjscie=[]
+wyjscie.append("")
+isMain=False
+inFunc=False
 x=0;
 for linia in linie:
 	x+=1;
@@ -35,6 +39,10 @@ for linia in linie:
 	if tmp[0]=="noop":
 		wyjscie.append("noop")
 	elif tmp[0]=="string" :
+		if isMain==False and inFunc==False:
+			error_header(linia,x)
+			print "Global variables not supported"
+			exit(1)
 		if len(tmp)!=2 :
 			error_header(linia,x)
 			arguments(tmp,2)
@@ -46,6 +54,10 @@ for linia in linie:
 			cmd+=" "+unquote(inicjacja[1])
 		wyjscie.append(cmd);
 	elif tmp[0]=="num":
+		if isMain==False and inFunc==False:
+			error_header(linia,x)
+			print "Global variables not supported"
+			exit(1)
 		if len(tmp)!=2:
 			error_header(linia,x)
 			arguments(tmp,2)
@@ -82,6 +94,36 @@ for linia in linie:
 		wyjscie.append("mov bx %d" % zmienne[args[0]][0])
 		wyjscie.append("mov cx %d" % zmienne[args[1]][0])
 		wyjscie.append("int 2")
+	elif tmp[0]=="func":
+		if inFunc==True:
+			error_header(linie,x)
+			print "Function declaration in function"
+			exit(1)
+		inFunc=True
+		nazwa=tmp[1].split('(')[0]
+		if nazwa=="main":
+			isMain=True;
+			wyjscie[0]="jmp %d"%len(wyjscie)
+		elif isMain==True:
+			error_header(linie,x)
+			print "Function definition after main definition"
+			exit(1)
+		else:
+			funkcje[nazwa]=len(wyjscie)
+	elif tmp[0]=="end":
+		inFunc=False
+		wyjscie.append("ret")
+	elif tmp[0].split('(')[0] in funkcje:
+		args=tmp[0].split('(')[1].split(')')[0].split(',')
+		args.reverse()
+		for arg in args:
+			if arg not in zmienne:
+				wyjscie.append("db %s"%arg)
+				wyjscie.append("push %d"%(len(wyjscie)-1))
+			else:
+				wyjscie.append("push %d"%zmienne[arg][0])
+		wyjscie.append("push %d"%len(args))
+		wyjscie.append("call %d"%funkcje[tmp[0].split('(')[0]])
 	else:
 		tmp=linia.rstrip().split("=",1)
 		if tmp[0] in zmienne:
@@ -245,7 +287,6 @@ for linia in linie:
 						error_header(linia,x);
 						unknow_symbol(tmp[1])
 						exit(1)
-
 print "Compiled:"
 plik=open("out.asm","w")
 for linia in wyjscie:
