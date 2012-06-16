@@ -25,6 +25,7 @@ int bx=0;
 int cx=0;
 int dx=0;
 int zf=0;
+int cf=0;
 //vector<int> vars;
 vector<string> prog;
 vector<int> stack;
@@ -82,10 +83,10 @@ int main(int argc, char* argv[])
 //			scanf("%s %s",tmp,tmp2);
 			if(!strcmp(tmp,"reg"))
 			{
-				printf("\t\tstep=%d\tax=%d\tbx=%d\tcx=%d\tdx=%d\teip=%d\tesp=%d\tebp=%d\tzf=%d\n",step,ax,bx,cx,dx,eip,esp,ebp,zf);
+				printf("\t\tstep=%d\tax=%d\tbx=%d\tcx=%d\tdx=%d\teip=%d\tesp=%d\tebp=%d\tzf=%d\tcf=%d\n",step,ax,bx,cx,dx,eip,esp,ebp,zf,cf);
 				continue;
 			}
-			else if(!strcmp(tmp,"step"))
+			else if((!strcmp(tmp,"step"))||(!strcmp(tmp,"s")))
 			{
 				skipping_steps=1;
 				int ile;
@@ -151,6 +152,13 @@ int main(int argc, char* argv[])
 			};
 			if(!ax)
 				zf=true;
+			if(ax>=100000)
+			{
+				ax-=100000;
+				cf=1;
+			}
+			else
+				cf=0;
 		}
 		else if(!strcmp(tmp,"sub"))
 		{
@@ -253,6 +261,30 @@ int main(int argc, char* argv[])
 			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
 			int adr=atoi(a);
 			if(!zf)
+			{
+				eip=adr;
+//				printf("\tskok do %d=%d\n",adr,eip);
+				continue;
+			};
+		}
+		else if(!strcmp(tmp,"jnc"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int adr=atoi(a);
+			if(!cf)
+			{
+				eip=adr;
+//				printf("\tskok do %d=%d\n",adr,eip);
+				continue;
+			};
+		}
+		else if(!strcmp(tmp,"jc"))
+		{
+			char a[16];
+			sscanf(prog[eip].c_str(),"%s %s",tmp,a);
+			int adr=atoi(a);
+			if(cf)
 			{
 				eip=adr;
 //				printf("\tskok do %d=%d\n",adr,eip);
@@ -399,7 +431,8 @@ int main(int argc, char* argv[])
 //							checkRange(bx,vars);
 							float val;
 							val=atof(retVar(bx));	
-//							printf("odczytana wartosc: %f\n",val);
+							printf("Odczytany string: %s\n",retVar(bx));
+							printf("odczytana wartosc: %f\n",val);
 							cx=(int)val;
 							dx=(val-cx)*100000.0f;
 							break;
