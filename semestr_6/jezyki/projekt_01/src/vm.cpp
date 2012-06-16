@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 			args--;
 			debug=true;
 		};
-	printf("%d\n",args);
+//	printf("%d\n",args);
 	if(args<2)
 	{
 		fprintf(stderr,"Za mało parametrów.\nUżycie: %s <program>\n",argv[0]);
