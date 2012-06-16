@@ -32,9 +32,9 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = vm$(EXEEXT) compile$(EXEEXT)
+bin_PROGRAMS = vm$(EXEEXT)
 subdir = src
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in compile
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -45,9 +45,6 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_compile_OBJECTS = compile.$(OBJEXT)
-compile_OBJECTS = $(am_compile_OBJECTS)
-compile_LDADD = $(LDADD)
 am_vm_OBJECTS = vm.$(OBJEXT)
 vm_OBJECTS = $(am_vm_OBJECTS)
 vm_LDADD = $(LDADD)
@@ -60,8 +57,8 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-SOURCES = $(compile_SOURCES) $(vm_SOURCES)
-DIST_SOURCES = $(compile_SOURCES) $(vm_SOURCES)
+SOURCES = $(vm_SOURCES)
+DIST_SOURCES = $(vm_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -149,7 +146,6 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 vm_SOURCES = vm.cpp
-compile_SOURCES = compile.cpp
 all: all-am
 
 .SUFFIXES:
@@ -221,9 +217,6 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-compile$(EXEEXT): $(compile_OBJECTS) $(compile_DEPENDENCIES) 
-	@rm -f compile$(EXEEXT)
-	$(CXXLINK) $(compile_OBJECTS) $(compile_LDADD) $(LIBS)
 vm$(EXEEXT): $(vm_OBJECTS) $(vm_DEPENDENCIES) 
 	@rm -f vm$(EXEEXT)
 	$(CXXLINK) $(vm_OBJECTS) $(vm_LDADD) $(LIBS)
@@ -234,7 +227,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/compile.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vm.Po@am__quote@
 
 .cpp.o:

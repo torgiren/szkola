@@ -1,3 +1,2 @@
-bin_PROGRAMS = vm compile
+bin_PROGRAMS = vm
 vm_SOURCES=vm.cpp
-compile_SOURCES=compile.cpp
