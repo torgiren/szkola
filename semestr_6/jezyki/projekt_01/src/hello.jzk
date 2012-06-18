@@ -1,3 +1,4 @@
+func main()
 string imie
 wczytaj imie
 string inny
