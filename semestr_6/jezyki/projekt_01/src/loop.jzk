@@ -1,0 +1,16 @@
+func main()
+string cmd
+string menu1="1: Chce sie przedstawic"
+string menu2="2: Pzywitaj mnie"
+string menu3="3: Wyjsc"
+string info="Podales opcje:"
+string imie
+num wybor
+do
+wypisz menu1
+wypisz menu2
+wypisz menu3
+wczytaj wybor
+wypisz info
+wypisz wybor
+while wybor != 3
