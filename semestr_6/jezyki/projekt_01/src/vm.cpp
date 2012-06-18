@@ -431,8 +431,8 @@ int main(int argc, char* argv[])
 //							checkRange(bx,vars);
 							float val;
 							val=atof(retVar(bx));	
-							printf("Odczytany string: %s\n",retVar(bx));
-							printf("odczytana wartosc: %f\n",val);
+//							printf("Odczytany string: %s\n",retVar(bx));
+//							printf("odczytana wartosc: %f\n",val);
 							cx=(int)val;
 							dx=(val-cx)*100000.0f;
 							break;

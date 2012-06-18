@@ -31,7 +31,9 @@ wyjscie=[]
 wyjscie.append("")
 isMain=False
 inFunc=False
+ifStart=0
 whileStart=0
+jmp_type=""
 x=0;
 for linia in linie:
 	x+=1;
@@ -128,7 +130,6 @@ for linia in linie:
 	elif tmp[0]=="do":
 		whileStart=len(wyjscie)
 	elif tmp[0]=="while":
-		jmp_type=""
 		params=tmp[1].split(" ")
 		if params[1]=="==":
 			jmp_type="jz"
@@ -172,6 +173,56 @@ for linia in linie:
 		wyjscie.append("pop bx")
 		wyjscie.append("cmp ax bx")
 		wyjscie.append("%s %d"%(jmp_type,whileStart))
+	elif tmp[0]=="if":
+		params=tmp[1].split(" ")
+		if params[1]=="==":
+			jmp_type="jnz"
+			print "JNZ"
+		elif params[1]=="!=":
+			jmp_type="jz"
+			print "JZ"
+		else:
+			error_header(linia,x)
+			print "Unsupported operator"
+			exit(1)
+		if params[0] in zmienne:
+			if zmienne[params[0]][1]=='n':
+				print "Zmienna jest numeryczna"
+				wyjscie.append("mov ax 1")
+				wyjscie.append("mov bx %d"%zmienne[params[0]][0])
+				wyjscie.append("int 2")
+				wyjscie.append("push cx")
+		elif params[2].isdigit()==True:
+			print "wartosc"
+			wyjscie.append("push %d"%(int(params[0])))
+		else:
+			error_header(linia,x)
+			print "Unsupported string comparasion"
+			exit(1)
+		if params[2] in zmienne:
+			if zmienne[params[0]][1]=='n':
+				print "Zmienna jest numeryczna"
+				wyjscie.append("mov ax 1")
+				wyjscie.append("mov bx %d"%zmienne[params[2]][0])
+				wyjscie.append("int 2")
+				wyjscie.append("push cx")
+		elif params[2].isdigit()==True:
+			print "wartosc"
+			wyjscie.append("push %d"%(int(params[2])))
+		else:
+			error_header(linia,x)
+			print "Unsupported string comparasion"
+			exit(1)
+		wyjscie.append("pop ax")
+		wyjscie.append("pop bx")
+		wyjscie.append("cmp ax bx")
+		ifStart=len(wyjscie)
+		wyjscie.append("")
+		#wyjscie.append("%s %d"%(jmp_type,whileStart))
+	elif tmp[0]=="fi":
+		print ifStart
+		print len(wyjscie)
+		wyjscie[ifStart]="%s %d"%(jmp_type,len(wyjscie));
 	else:
 		tmp=linia.rstrip().split("=",1)
 		if tmp[0] in zmienne:
@@ -335,6 +386,10 @@ for linia in linie:
 						error_header(linia,x);
 						unknow_symbol(tmp[1])
 						exit(1)
+		else:
+			error_header(linia,x)
+			print "Unknow symbol"
+			exit(1)
 print "Compiled:"
 plik=open("out.asm","w")
 for linia in wyjscie:

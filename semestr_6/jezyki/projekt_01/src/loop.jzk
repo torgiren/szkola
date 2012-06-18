@@ -1,16 +1,27 @@
-func main()
-string cmd
+func menu()
 string menu1="1: Chce sie przedstawic"
 string menu2="2: Pzywitaj mnie"
 string menu3="3: Wyjsc"
-string info="Podales opcje:"
-string imie
-num wybor
-do
 wypisz menu1
 wypisz menu2
 wypisz menu3
+end
+func main()
+string cmd
+string info="Podales opcje:"
+string imie="Nie podano"
+string pytanie_o_imie="Podaj swoje imie"
+string przywitanie="Witaj:"
+num wybor
+do
+menu()
 wczytaj wybor
-wypisz info
-wypisz wybor
+if wybor == 1
+wypisz pytanie_o_imie
+wczytaj imie
+fi
+if wybor == 2
+wypisz przywitanie
+wypisz imie
+fi
 while wybor != 3
