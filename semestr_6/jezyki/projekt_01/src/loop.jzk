@@ -1,10 +1,27 @@
 func menu()
 string menu1="1: Chce sie przedstawic"
 string menu2="2: Pzywitaj mnie"
-string menu3="3: Wyjsc"
+string menu3="3: Dodawanie"
+string menu0="9: Wyjsc"
 wypisz menu1
 wypisz menu2
 wypisz menu3
+wypisz menu0
+end
+func add()
+string liczba1="Podaj pierwsza liczbe"
+string liczba2="Podaj druga liczbe"
+string wynik="Wynik to:"
+num x
+num y
+num z
+wypisz liczba1
+wczytaj x
+wypisz liczba2
+wczytaj y
+z=x+y
+wypisz wynik
+wypisz z
 end
 func main()
 string cmd
@@ -16,6 +33,7 @@ num wybor
 do
 menu()
 wczytaj wybor
+wypisz wybor
 if wybor == 1
 wypisz pytanie_o_imie
 wczytaj imie
@@ -24,4 +42,7 @@ if wybor == 2
 wypisz przywitanie
 wypisz imie
 fi
-while wybor != 3
+if wybor == 3
+add()
+fi
+while wybor != 9
