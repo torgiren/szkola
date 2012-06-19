@@ -1,0 +1,12 @@
+func add()
+string imie="Marcin"
+wypisz imie
+end
+func main()
+string hello="Hello World"
+wypisz hello
+num x=3
+num y=5
+add(x,y,8)
+string bye="Dzieki za uwage"
+wypisz bye

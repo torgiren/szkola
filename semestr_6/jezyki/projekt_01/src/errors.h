@@ -1,0 +1,10 @@
+#ifndef __ERRORS_H
+#define __ERRORS_H
+#define NOT_ENOUGH_PARAMS 1
+#define FILE_OPEN_ERROR 2
+#define UNKNOW_DESTINATION 3
+#define UNKNOW_INTERUPTION 4
+#define UNKNOW_OPERATION 5
+#define OUT_OF_RANGE 6
+#define SYNTAX_ERROR 7
+#endif

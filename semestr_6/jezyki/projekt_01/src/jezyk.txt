@@ -1,0 +1,3 @@
+string nazwa //Tworzy zmienna stringowa o podanej nazwie
+wczytaj nazwa //Wczytuje wartosc i zapisuje ją do zmiennej nazwa
+wypisz nazwa //Wypisuje wartosc zmiennej nazwa
