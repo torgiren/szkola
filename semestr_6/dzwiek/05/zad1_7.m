@@ -16,5 +16,5 @@ subplot(2,1,1);
 plot(y);
 subplot(2,1,2);
 plot(f,2*abs(Y(1:NFFT/2+1)));
-print -deps zad1_5.jpg
-print -deps zad1_5.png
+print -deps zad1_7.jpg
+print -deps zad1_7.png
