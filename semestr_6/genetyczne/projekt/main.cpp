@@ -3,7 +3,7 @@
 #include<string.h>
 #include <iostream>
 using namespace std;
-int popsize=300;
+int popsize=1000;
 int ngen=500;
 float pmut=0.01;
 float pcross=0.8;
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 		fprintf(stderr,"Can't open file %s\n",argv[1]);
 		return 2;
 	};
-	int tmp=fscanf(plik,"%d",&size);
+	fscanf(plik,"%d",&size);
 	if(!(size>0))
 	{
 		fprintf(stderr,"Data error. Wrong number of blocks\n");
@@ -72,9 +72,10 @@ int main(int argc, char* argv[])
 	ga.evolve(rand());
 	{
 		GENOME& genome=(GENOME&)ga.population().best();
+		float pos=0;
 		for(i=genome.size()-1;i>=0;--i)
 		{
-			printf("%d:\t X:%f\tW:%f\n",i,tab[genome[i]].itsX,GetSzerokosc(&tab[genome[i]]));
+			printf("%d:\tnr:%d\tX:%f\tW:%f\n",i,genome[i],tab[genome[i]].itsX,GetSzerokosc(&tab[genome[i]]));
 		};
 	}
 	printf("Najlepsze rozwiazanie to %f\n",objective(ga.population().best()));
@@ -98,7 +99,8 @@ void init(GAGenome& gen)
 	for(i=0;i<genome.size()/2;i++)
 	{
 		tab[genome[i]].itsObrot=rand()%2;
-		tab[genome[i]].itsX=rand()%20-10;
+//		tab[genome[i]].itsX=rand()%21-10;
+		tab[genome[i]].itsX=(float)rand()/RAND_MAX;
 	};
 };
 float objective(GAGenome& gen)
@@ -111,23 +113,42 @@ float objective(GAGenome& gen)
 		int j;
 //		float szer=tab[genome[i]].itsObrot?tab[genome[i]].itsH:tab[genome[i]].itsW;
 		float szer=GetSzerokosc(&tab[genome[i]]);
-		float srodek=tab[genome[i]].itsX+szer/2.0f;
+		float srodek=szer/2.0f;
 		float srodek_suma=srodek;
 		float pos=0;
 		int num=0;
-		for(j=i,num=1;j>0;j--,num++)
+		for(j=i,num=2;j>0;j--,num++)
 		{
-			pos+=tab[genome[j-1]].itsX;
+			float w2=GetSzerokosc(&tab[genome[j]]);
+			float w1=GetSzerokosc(&tab[genome[j-1]]);
+			pos=pos+w2/2.0f-w1*tab[genome[j-1]].itsX;
+//			pos-=tab[genome[j-1]].itsX;
 //			float w=GetSzerokosc(&tab[genome[j-1]]);
-			if(!((srodek>pos)&&(srodek<pos+GetSzerokosc(&tab[genome[j-1]]))))
+			if(!((srodek>pos)&&(srodek<pos+w1)))
 				goto endfor;
 
-			srodek_suma+=pos+GetSzerokosc(&tab[genome[j]])/2.0f;
+			srodek_suma+=pos+w1/2.0f;
 			srodek=srodek_suma/(float)num;
 		};
 		wynik+=1000;
 	};
 endfor:
+	int max_i=i;
+	float min=tab[genome[0]].itsX;
+	float max=min+GetSzerokosc(&tab[genome[0]]);
+	float pos=min;
+//	for(i=1;i<max_i-1;i++)
+	for(i=1;i<10;i++)
+	{
+		float w2=GetSzerokosc(&tab[genome[i+1]]);
+		float w1=GetSzerokosc(&tab[genome[i]]);
+		pos=pos+tab[genome[i]].itsX*w1-w2/2.0f;
+		if(pos<min)
+			min=pos;
+		if(pos+w2>max)
+			max=pos+w2;
+	};
+	wynik+=max-min;
 //	printf("Genome 10=%d, genome[50]=%d\n",genome[10],genome[50]);
 	return wynik;
 };
@@ -149,9 +170,9 @@ int MyMutator(GAGenome& gen, float pmut)
 		}
 		if(GAFlipCoin(pmut))
 		{
-			printf("przed: %f\n",tab[genome[i]].itsX);
-			tab[genome[i]].itsX+=(float)(rand()%5-2);
-			printf("po: %f\n",tab[genome[i]].itsX);
+//			printf("przed: %f\n",tab[genome[i]].itsX);
+//			tab[genome[i]].itsX=(float)rand()/RAND_MAX;
+//			printf("po: %f\n",tab[genome[i]].itsX);
 			nMut++;
 		};
 		if(GAFlipCoin(pmut))

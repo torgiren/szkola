@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-Wall -O2
+CXXFLAGS=-Wall -O3
 LDFLAGS=-l ga
 all: main
 
