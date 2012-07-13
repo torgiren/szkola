@@ -1,0 +1,55 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage{verbatim}
+\title{Algorytmy Genetyczne - projekt}
+\author{Marcin Fabrykowski}
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Opis problemu}
+Mamy dany zbiór N klocków o zadanych wymiarach W i H. Naszym zadaniem jest ułożenie wieży z posiadanych klocków. Zależy nam, aby wieża była jak najwyższa oraz jak najszersza.
+
+Klocki możemy układać tylko z w płaszczyźnie XY, oraz możemy je obracać wokół osi OZ.
+\section{Opis rozwiązania problemu dwukryterialności}
+W moim projekcie postanowiłem położyć większy nacisk na wysokość wieży, aniżeli na jej szerokość.
+Za każdy postawiony klocek, osobnik dostaje 1000pkt, natomiast punkty za szerokość są przyznawane w wartości równej tej szerokości.
+
+Powoduje to, że punktacja za wysokość jest decydująca, a następnie z najwyższych rozwiązań wybieramy najszersze.
+\section{Szczegółowy opis kodowania}
+Osobnik kodowany jest jako tablica numerów klolejno kładzionych klocków.\\
+Klocek definiowany jest za pomocą następujących parametrów:
+\begin{enumerate}
+\item Szerokosc: float itsW
+\item Wysokosc: float itsH
+\item Obrot: int itsObrot
+\item Przesunięcie: float itsX
+\end{enumerate}
+Przesunięcie klocka kodowane jest w zakresie $<0,1>$, co jest rozumiane jako procent długości klocka spodniego nad którym znajduje się środek ciężkości klocka nadrzędnego.\\
+Dla przykładu: dla wartości $0$, środek ciężkości klocka kładzionego, znajduje się nad lewą krawędzią klocka dolnego. Dla wartości $0.5$, klocek górny ma środek ciężkości nad środkiem ciężkości klocka dolnego
+
+Przeliczanie wartości kodowanej przesunięcia na wymiar przesunięcia względnego odbywa się przy użyciu wzoru:
+$$x=w_1*dx-\frac{w_2}{2}$$
+gdzie: $x$ - pozycja klocka górnego zadanym przez temat formacie\\
+$w_1$ - szerokość klocka dolnego\\
+$w_2$ - szerokość klocka górnego\\
+$dx$ - wartość procentowego przesunięcia odczytywana z osobnika
+\section{Szczegółowy opis inicjacji populacji bazowej}
+Tworzenie populacji bazowej przebiega w następujący sposób:
+\begin{enumerate}
+\item Tworzymy osobnika układającego wszystkie klocki w kolejności zadanej z danych wejściowych
+\item Zamieniamy miejscami w kolejności dwa losowe klocki. Zamian takich wykonujemy w ilości odpowiadającej liczbie osobników w populacji
+\item Dla każdego klocka losujemy czy będzie on obrócony oraz procent przesunięcia.
+\end{enumerate}
+\section{Opis użytej funkcji dostosowania}
+W funkcji dostosowania sprawdzamy od klocka $i=1$ do $i=popsize$ czy wieża jest stabilna.\\
+Zakładamy, że wartość $0$ na osi $OX$ znajduje się na wysokości lewego boku kładzionego klocka. Wtedy zauważamy, że środek jego ciężkości znajduje się w $\frac{w_2}{2}$.\\
+Przyjmujemy oznaczenia:\\
+$w_1$ - szerokość klocka dolnego\\
+$w_2$ - szerokość klocka górnego\\
+$dx$ - przesunięcie klocka górnego odczytane z osobnika\\
+$k$ - pozycja klocka dolnego względem punktu $0$\\
+$l$ - pozycja klocka górnego względem punktu $0$\\
+\end{document}
