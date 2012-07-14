@@ -1,6 +1,7 @@
 #include<ga/ga.h>
 #include<stdio.h>
 #include<string.h>
+#include<ctime>
 #include <iostream>
 using namespace std;
 int popsize=1000;
@@ -22,9 +23,11 @@ void init(GAGenome&);
 int size;
 int MyMutator(GAGenome& gen, float pmut);
 char** wynik;
+float zapas;
 int main(int argc, char* argv[])
 {
 	srand(time(NULL));
+	zapas=(float)rand()/RAND_MAX;
 	if(argc<2)
 	{
 		fprintf(stderr,"Not enough parameters\nUsage: ./%s <filename>\n",argv[0]);
@@ -147,7 +150,8 @@ float objective(GAGenome& gen)
 			pos=pos+w2/2.0f-w1*tab[genome[j-1]].itsX;
 //			pos-=tab[genome[j-1]].itsX;
 //			float w=GetSzerokosc(&tab[genome[j-1]]);
-			if(!((srodek-1>pos)&&(srodek+1<pos+w1)))
+//			if(!((srodek-1>pos)&&(srodek+1<pos+w1)))
+			if(!((srodek-zapas>pos)&&(srodek+zapas<pos+w1)))
 				goto endfor;
 
 			srodek_suma+=pos+w2/2.0f;
