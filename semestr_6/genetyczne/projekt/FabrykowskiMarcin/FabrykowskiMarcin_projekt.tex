@@ -1,0 +1,143 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage{verbatim}
+\usepackage{color}
+\title{Algorytmy Genetyczne - projekt}
+\author{Marcin Fabrykowski}
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Opis problemu}
+Mamy dany zbiór N klocków o zadanych wymiarach W i H. Naszym zadaniem jest ułożenie wieży z posiadanych klocków. Zależy nam, aby wieża była jak najwyższa oraz jak najszersza.
+
+Klocki możemy układać tylko z w płaszczyźnie XY, oraz możemy je obracać wokół osi OZ.
+\section{Opis rozwiązania problemu dwukryterialności}
+W moim projekcie postanowiłem położyć większy nacisk na wysokość wieży, aniżeli na jej szerokość.
+Za każdy postawiony klocek, osobnik dostaje 1000pkt, natomiast punkty za szerokość są przyznawane w wartości równej tej szerokości.
+
+Powoduje to, że punktacja za wysokość jest decydująca, a następnie z najwyższych rozwiązań wybieramy najszersze.\\
+Punkty za szerokość przyznawane są tylko dla pierwszych 10 klocków.
+\section{Szczegółowy opis kodowania}
+Osobnik kodowany jest jako tablica numerów klolejno kładzionych klocków.\\
+Klocek definiowany jest za pomocą następujących parametrów:
+\begin{enumerate}
+\item Szerokosc: float itsW
+\item Wysokosc: float itsH
+\item Obrot: int itsObrot
+\item Przesunięcie: float itsX
+\end{enumerate}
+Przesunięcie klocka kodowane jest w zakresie $<0,1>$, co jest rozumiane jako procent długości klocka spodniego nad którym znajduje się środek ciężkości klocka nadrzędnego.\\
+Dla przykładu: dla wartości $0$, środek ciężkości klocka kładzionego, znajduje się nad lewą krawędzią klocka dolnego. Dla wartości $0.5$, klocek górny ma środek ciężkości nad środkiem ciężkości klocka dolnego
+
+Przeliczanie wartości kodowanej przesunięcia na wymiar przesunięcia względnego odbywa się przy użyciu wzoru:
+$$x=w_1*dx-\frac{w_2}{2}$$
+gdzie: $x$ - pozycja klocka górnego zadanym przez temat formacie\\
+$w_1$ - szerokość klocka dolnego\\
+$w_2$ - szerokość klocka górnego\\
+$dx$ - wartość procentowego przesunięcia odczytywana z osobnika
+\section{Szczegółowy opis inicjacji populacji bazowej}
+Tworzenie populacji bazowej przebiega w następujący sposób:
+\begin{enumerate}
+\item Tworzymy osobnika układającego wszystkie klocki w kolejności zadanej z danych wejściowych
+\item Zamieniamy miejscami w kolejności dwa losowe klocki. Zamian takich wykonujemy w ilości odpowiadającej rozmiarowi osobnika.
+\item Dla każdego klocka losujemy czy będzie on obrócony oraz procent przesunięcia.
+\end{enumerate}
+\section{Opis użytej funkcji dostosowania}
+W funkcji dostosowania sprawdzamy od klocka $i=1$ do $i=popsize$ czy wieża jest stabilna.\\
+Zakładamy, że wartość $0$ na osi $OX$ znajduje się na wysokości lewego boku kładzionego klocka. Wtedy zauważamy, że środek jego ciężkości znajduje się w $\frac{w_2}{2}$.\\
+Przyjmujemy oznaczenia:\\
+$w_1$ - szerokość klocka dolnego\\
+$w_2$ - szerokość klocka górnego\\
+$dx$ - przesunięcie klocka górnego odczytane z osobnika\\
+$k$ - pozycja klocka dolnego względem punktu $0$\\
+$l$ - pozycja klocka górnego względem punktu $0$\\
+następnie dokładamy klocek od dołu i sprawdzamy czy taki układ jest stabilny, tj. środek ciężkości wyższego znajduje się nad podstawą dolnego.
+Jeżeli tak, to obliczamy środek ciężkości układu dwóch klocków i dokładamy kolejny klocek od dołu.
+Jeśli środek ciężkości znajduje się nad podstawą dołożonego klocka, uznajemy to za stabilne.
+Postępujemy tak, aż dojdziemy do podstawy. Uznajemy wtedy, że wieża do badanego klocka jest stabilna.\\
+Powtarzamy wtedy postępowanie biorąc jako pierwszy i+1-wszy klocek.\\
+W przypadku nie powodzenia, przerywamy procedurę i przechodzimy do obliczania szerokości.
+
+Szerokość obliczana jest według algorytmu:
+\begin{enumerate}
+\item przyjmujemy wartość min jako lewy bok podstawy
+\item przyjmujemy wartość max jako prawy bok podstawy
+\item przechodzimy do następnego klocka
+\item sprawdzamy czy pozycja lewej krawędzi jest mniejsza niż min. Jeśli tak to min=pozycja lewego boku
+\item jeśli pozycja prawego boku jest większa niż max, to max=pozycja prawego boku
+\item powtarzamy dla 10 klocków licząc od podstawy
+\end{enumerate}
+do wartości dostosowania dodajemy szerokość wierzy wyrażoną jako $max-min$.
+\section{Opis użytych metod krzyżowania, mutacji oraz selekcji}
+\subsection{Metody krzyżowania}
+Zakładamy przyjęcie następujących stałych:
+\begin{enumerate}
+\item wielkość populacji: 500
+\item liczba generacji: 500
+\item metoda selekcji: RankSelector
+\item prawdopodobieństwo mutacji: 0.01
+\item prawdopodobieństwo krzyżowania: 0.8
+\end{enumerate}
+Badanie metod krzyżowania przedstawia poniższa tabela\\
+\begin{tabular}{c|c|c|c}
+&OrderCrossover&CycleCrossover&PartialMatchCrossover\\
+\hline
+czas&\textcolor{red}{20s}&--&21s\\
+\hline
+klockow&230&--&\textcolor{red}{238}\\
+\hline
+szerokosc&29&--&\textcolor{red}{35}\\
+\end{tabular}\\
+Powyższe zestawienie skłania mnie do wybrania metody PartialMatchCrossover, ponieważ metoda daje lepsze wyniki przy nieznacznie dłuższym czasie wykonywania.
+\subsection{Metody mutacji}
+Wykorzystałem własną funkcję mutacji.\\
+Testowane były 4 różne metody mutacji:
+\begin{enumerate}
+\item zamieniająca losowe dwa klocki
+\item zamieniająca losowe dwa klocki oraz zmiana obrotu klocka
+\item zamieniająca losowe dwa klocki oraz zmiana obrotu klocka oraz zmiana przesunięcia klocka
+\item zamieniająca losowe dwa klocki oraz zmiana przesunięcia klocka
+\end{enumerate}
+Testy wykazały, że wykorzystanie funkcji zmieniających obrót i/lub przesunięcie powodowało drastyczny spadek ilości ułożonych klocków do wartości rzędu 5-30 klocków, dlatego wybrana została funkcja zmieniająca jedynie kolejność klocków.
+\subsection{Metody selekcji}
+Zakładamy przyjęcie następujących stałych:
+\begin{enumerate}
+\item wielkość populacji: 500
+\item liczba generacji: 500
+\item metoda krzyżowania: PartialMatchCrossover
+\item prawdopodobieństwo mutacji: 0.01
+\item prawdopodobieństwo krzyżowania: 0.8
+\end{enumerate}
+Testy wykazały następujące wyniki\\
+\begin{tabular}{c|c|c|c}
+&RankSelector&TournamentSelector&RouletteWheelSelector\\
+\hline
+czas&23s&\textcolor{red}{6s}&\textcolor{red}{6s}\\
+\hline
+klockow&\textcolor{red}{252}&7&36\\
+\hline
+szerokosc&\textcolor{red}{34}&31&24\\
+\end{tabular}\\
+Zauważamy, że metoda rankingowa daje znacząco lepsze efekty, dlatego zdecydowałem się na tę właśnie metodę.
+\section{Podsumowanie wybranych parametrół}
+Ostatecznie zostały wybrane następujące parametry algrorytmu:
+\begin{itemize}
+\item Metoda krzyżowania: PartialMatchCrossover\\
+Uzasadnienie w odpowiedniej sekcji
+\item Metoda selekcji: RankSelector\\
+Uzasadnienie w odpowiedniej sekcji
+\item Metoda mutacji: własna metoda\\
+Uzasadnienie w odpowiedniej sekcji
+\item Wielkość populacji: 1000\\
+Testy wykazały poprawę wyników przy zwiększeniu populacji do 1000 osobników
+\item Ilość pokoleń: 1000\\
+Testy wykazały poprawę wyników przy zwiększeniu liczby pokoleń do 1000
+\item Prawdopodobieństwo mutacji: 0.01\\
+Większe wartości powodują znaczne pogorszenie wyników
+\item Prawdopodobieństwo krzyżowania 0.8\\
+Wartości oscylujące około 0,8 - 0.9 nie powodują znacznych zmian w wynikach
+\end{itemize}
+\end{document}
