@@ -9,6 +9,12 @@ typedef struct __klocek
 	int itsObrot;
 	float itsX;
 } klocek;
+typedef struct __wejscie
+{
+	int itsNr;
+	int itsObr;
+	float itsX;
+} wejscie;
 klocek *tab;
 int main(int argc, char* argv[])
 {
@@ -45,14 +51,76 @@ int main(int argc, char* argv[])
 	};
 	fclose(plik);
 	plik=fopen(argv[2],"r");
+	wejscie* data=(wejscie*)malloc(size*sizeof(wejscie));
+	for(i=0;i<size;i++)
+	{
+		fscanf(plik,"%d %d %f",&data[i].itsNr,&data[i].itsObr,&data[i].itsX);
+	};
+	fclose(plik);
 	float posX=50;
 	float posY=size*20;
-	gdImagePtr im=gdImageCreate(100,size*20);
+	int j=0;
+	int color[4];
+	gdImagePtr im;
+	for(j=1;j<size;j++)
+	{
+		for(i=j;i>0;i--)
+		{
+			float posX=50;
+			float posY=0;
+			float srodek=0;
+			float srodek_suma=0;
+			im=gdImageCreate(100,j*10+100);
+			int white=gdImageColorAllocate(im,255,255,255);
+			color[0]=gdImageColorAllocate(im,255,0,0);
+			color[1]=gdImageColorAllocate(im,0,255,0);
+			color[2]=gdImageColorAllocate(im,0,0,255);
+			color[3]=gdImageColorAllocate(im,255,0,255);
+			int num=0;
+			int k;
+			for(k=j,num=0;k>=i;k--,num++)
+			{
+				float w=data[k].itsObr?tab[data[k].itsNr].itsH:tab[data[k].itsNr].itsW;
+				float h=data[k].itsObr?tab[data[k].itsNr].itsW:tab[data[k].itsNr].itsH;
+				h=10;
+				gdImageFilledRectangle(im,posX,posY,posX+w,posY+h,color[k%3]);
+				srodek_suma+=posX+w/2.0;
+				posX-=data[k].itsX;
+				posY+=h;
+			};
+			srodek=srodek_suma/(float)(num);	
+			float w=data[k].itsObr?tab[data[k].itsNr].itsH:tab[data[k].itsNr].itsW;
+			float h=data[k].itsObr?tab[data[k].itsNr].itsW:tab[data[k].itsNr].itsH;
+			gdImageFilledRectangle(im,posX,posY,posX+w,posY+h,color[k%3]);
+
+
+			gdImageFilledEllipse(im,srodek,posY+2.5,2,2,color[3]);
+			char nazwa[255];
+			sprintf(nazwa,"details/rys_%03d_%03d.png",j,k);
+			printf("Nazwa: %s\n",nazwa);
+			plik=fopen(nazwa,"w");
+			if(!plik)
+			{
+				printf("problem otwarci pliku\n");
+			};
+			gdImagePng(im,plik);
+			fclose(plik);
+			gdImageDestroy(im);
+				
+		};
+
+
+
+
+	};
+	im=gdImageCreate(100,size*20);
 	int white=gdImageColorAllocate(im,255,255,255);
-	int color[3];
 	color[0]=gdImageColorAllocate(im,255,0,0);
 	color[1]=gdImageColorAllocate(im,0,255,0);
 	color[2]=gdImageColorAllocate(im,0,0,255);
+	color[3]=gdImageColorAllocate(im,0,255,255);
+	
+	plik=fopen(argv[2],"r");
 	for(i=0;i<size;i++)
 	{
 		int nr;

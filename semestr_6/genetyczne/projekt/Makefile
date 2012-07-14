@@ -2,7 +2,7 @@ CXX=g++
 CXXFLAGS=-Wall -O3
 LDFLAGS=
 LDFLAGS_main=-l ga
-LDFLAGS_rys=-l gd
+LDFLAGS_rys=-l gd 
 all: main rys
 
 main: main.o
