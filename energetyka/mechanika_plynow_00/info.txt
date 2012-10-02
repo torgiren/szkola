@@ -1,0 +1,11 @@
+Skrypt: Mechanika płynów z elementami pomiaroznawstwa, K. Filek,  Rodczymialski(czy jakoś tak), Wacławik, 1990r
+K. Filek, p 107, A1
+
+grupa Id
+Osoby: Kamil Płonka, Kamil Górczyński, Jakub Siewierski
+plonka-x@o2.pl
+
+Numery laborek:
+2. Pomiar natężenia przepływu (ilość/czas) (to samo co wydatek,strumień)
+	Q=V/t
+
