@@ -1,0 +1,5 @@
+probki:
+szer:	0.8cm	0.8cm	0.8cm
+dł:		4.8cm	4.8cm	4.8cm
+grubość:1mm		1mm		1mm
+
