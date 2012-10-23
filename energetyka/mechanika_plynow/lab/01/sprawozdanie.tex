@@ -1,0 +1,77 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage{amsmath}
+\title{Mechanika płynów\\
+Laboratorium 01\\
+Badanie lepkości powietrza}
+\author{Marcin Fabrykowski\\Kamil Płonka\\Kamil Górczyński\\Jakub Siewierski}
+\begin{document}
+\maketitle
+\newpage
+\section{Wstęp teoretyczny}
+Lepkość jest to opór wewnętrzny płynu, wynikający z powstawania wirów wewnątrz płynu na skutek przekazywania pędu pomiędzy warstwami o różnych prędkościach przepływu.\\
+Aby wyznaczyć teoretyczny współczynnik lepkości, stosujemy wzór na natężenie przepływu:
+$$Q=S*v$$
+Będziemy badać przepływ przez rurociąg o przekroju kołowym, dlatego pole przekroju przyjmujemy:
+$$S=\dfrac{\pi D^2}{4}$$
+Natomiast prędkość maksymalna cieczy w rurociągu wyznaczamy ze wzoru:
+$$v=\dfrac{\Delta pD^2}{4*8*\mu*l}$$
+gdzie:\\
+$ Q$ - Natężenie przepływu\\
+$ S$ - przekrój rurociągu\\
+$ v$ - prędkość cieczy\\
+$\Delta p $ - spadek ciśnienia\\
+$ D$ - średnica rurociągu\\
+$ \mu$ - lepkość płynu\\
+$ l$ - długość rurociągu\\
+Podstawiając powyższe równania do wzoru, otrzymujemy:
+$$Q=\dfrac{\pi\Delta pD^4}{128\mu l}$$
+Wyznaczając z powyższego interesującą nas lepkość, otrzymamy:
+$$\mu=\dfrac{\pi\Delta pD^4}{128Ql}$$
+Zauważając, że natężenie przepływu jest równe:
+$$Q=\dfrac{V}{t}$$
+Możemy wykorzystać tą zależność i wstawić wartości, które jesteśmy w stanie zmierzyć prostymi przyrządami. Ostateczny wzór na wyznaczenie lepkości płynu wygląda następująco:
+$$\mu=\dfrac{\pi\Delta pD^4t}{128Vl}$$
+
+Aby powyższy był prawdziwy, przepływ w rurociągu musi być laminarny.\\
+Aby sprawdzić charakter przepływu, należy wyznaczyć \textit{liczbę Reynoldsa}.\\
+Liczba ta wyraża się wzorem:
+$$Re=\dfrac{v_{sr}D}{\mu}$$
+gdzie:\\
+$Re$ - liczba Reynoldsa\\
+$v_{str}$ - prędkość średnia cieczy, wyrażona stosunkiem $0.8v_{max}$\\
+
+Możemy przyjąć, że dla wartości $Re<2300$ przepływ miał charakter laminarny, natomiast w przeciwnym wypadku charakter burzliwy.
+\section{Wykonanie ćwiczenia}
+Ćwiczenie wykonujemy przepuszczając przez rurociąg pewną objętość płynu, mierząc jednocześnie czas w jakim to nastąpiło oraz spadek ciśnienia w rurociągu na badanym odcinku.\\
+Następnie, wykorzystując wyprowadzone wcześniej wzory, dokonujemy obliczeń lepkości oraz liczby Reynoldsa.\\
+Poniższa tabela przedstawia zmierzone wartości oraz otrzymane wyniki:\\
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+L.p&t[s]&$\Delta p$[Pa]&V[$mm^3$]&$\mu$[Pa*s]&$v_{sr}$[m/s]&Re\\
+\hline
+1&$8.1$&$385$&$390$&$18.1*10^{-6}$&$6,38$&$1092,19$\\
+2&$7.93$&$373$&$361$&$18.5*10^{-6}$&$6.03$&$1007.76$\\
+3&$8.01$&$345$&$343$&$18.2*10^{-6}$&$5.67$&$964,06$\\
+4&$8.18$&$349$&$348$&$18.5*10^{-6}$&$5.63$&$940.65$\\
+5&$8.03$&$334$&$330$&$18.4*10^{-6}$&$5.21$&$917.18$\\
+6&$8.26$&$321$&$325$&$18.4*10^{-6}$&$5.21$&$874.79$\\
+7&$7.99$&$309$&$306$&$18.2*10^{-6}$&$5.07$&$860.98$\\
+8&$8.17$&$297$&$301$&$18.2*10^{-6}$&$4.88$&$828.96$\\
+9&$7.93$&$283$&$280$&$18.1*10^{-6}$&$4.69$&$801.09$\\
+10&$8.16$&$272$&$275$&$18.2*10^{-6}$&$4.46$&$757.39$\\
+\hline
+&&&średnia:&$18.3*10^{-6}$&&\\
+\hline
+\end{tabular}\\
+Przy danych stanowiska pomiarowego:\\
+D=$3.1$mm\\
+L=$1$m\\
+\section{Wnioski}
+Otrzymany wynik średni, wynoszący $18.3*10^-6$Pa*s, jest większy niż tablicowy, który wynosi $17.08*10^-6$Pa*s.\\
+Przypuszczam, że różnica ta wynika z niedokładności pomiarowych spowodowanych niedoskonałym czynnikiem ludzkim odmierzającym czas i/lub mierzącym objętości wody.\\
+Wynik różniący się o 7\% możemy uznać za zadowalający
+
+Jako, iż dla każdego pomiaru, liczba Reynoldsa jest mniejsza niż graniczna, tj. 2300, stwierdzamy, że przepływ w każdym przypadku był laminarny, co daje nam podstawy uważać otrzymaną wartość lepkości za prawdziwą.
+\end{document}
