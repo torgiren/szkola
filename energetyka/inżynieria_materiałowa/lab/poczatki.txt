@@ -1,0 +1,8 @@
+probki:
+szer:	0.8cm	0.8cm	0.8cm
+dł:		4.8cm	4.8cm	4.8cm
+grubość:1mm		1mm		1mm
+
+powierzchnia:
+	0.8cm*4.8cm*2+0.8cm*1mm*2+4.8cm*1mm*2=880mm^2=8.8cm^2
+
