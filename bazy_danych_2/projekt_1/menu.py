@@ -22,19 +22,13 @@ class Menu(Window):
 				self.itsWindow.addch(0,0,'^',curses.color_pair(2))
 			if self.ViewStart+self.itsSizeY-2<len(self.itsOpts):
 				self.itsWindow.addch(self.itsSizeY-1,0,'v',curses.color_pair(2))
-	def Up(self):
-		self.itsAct-=1
-		self.CheckAct()
-		self.redraw()
-	def Down(self):
-		self.itsAct+=1
-		self.CheckAct()
-		self.redraw()
-	def CheckAct(self):
+	def checkAct(self):
 		if self.itsAct>=len(self.itsOpts):
-			self.itsAct-=len(self.itsOpts)
+			self.itsAct=len(self.itsOpts)-1
+#			self.itsAct-=len(self.itsOpts)
 		if self.itsAct<0 :
-			self.itsAct+=len(self.itsOpts)
+			self.itsAct=0
+#			self.itsAct+=len(self.itsOpts)
 
 		if self.itsAct<self.ViewStart:
 			self.ViewStart=self.itsAct
@@ -42,6 +36,16 @@ class Menu(Window):
 			self.ViewStart=self.itsAct-self.itsSizeY+3
 	def driver(self,key):
 		if key==curses.KEY_UP:
-			self.Up()	
+			self.itsAct-=1
 		if key==curses.KEY_DOWN:
-			self.Down()
+			self.itsAct+=1
+		if key==curses.KEY_NPAGE:
+			self.itsAct+=self.itsSizeY-3
+		if key==curses.KEY_PPAGE:
+			self.itsAct-=self.itsSizeY-3
+		if key==curses.KEY_HOME:
+			self.itsAct=0
+		if key==curses.KEY_END:
+			self.itsAct=len(self.itsOpts)-1
+		self.checkAct()
+		self.redraw()
