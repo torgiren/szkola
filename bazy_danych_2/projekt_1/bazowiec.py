@@ -22,6 +22,9 @@ class Bazowiec:
 		table=table.split('.')
 		self.itsCur.execute("select * from information_schema.columns where table_schema='%s' and table_name='%s'"%(table[0],table[1]))
 		return [ (row[3],row[7]) for row in self.itsCur.fetchall()]
+	def query(self,query):
+		self.itsCur.execute(query)
+		return self.itsCur.fetchall()
 #row[3] name
 #row[7] type
 if __name__=="__main__":

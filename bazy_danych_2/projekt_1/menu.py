@@ -48,6 +48,8 @@ class Menu(Window):
 			self.itsAct=len(self.itsOpts)-1
 		if key==10:
 			return self.itsOpts[self.itsAct]
+		if key==curses.KEY_F10:
+			return "_DONE_"
 		self.checkAct()
 		self.redraw()
 		return None

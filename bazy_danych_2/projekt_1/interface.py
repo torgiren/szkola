@@ -5,7 +5,7 @@ class Interface:
 	def __init__(self):
 		self.stdscr=curses.initscr()
 		self.stdscr.keypad(1)
-		curses.noecho()
+#		curses.noecho()
 		curses.curs_set(0)
 		curses.cbreak()
 		curses.start_color()
@@ -20,10 +20,12 @@ class Interface:
 	def newmenu(self,name,sizeY,sizeX,offsetY,offsetX):
 		self.windows[name]=Menu(sizeY,sizeX,offsetY,offsetX,False)
 		return self.windows[name]
-	def menu(self,name,title,sizeY,sizeX,offsetY,offsetX,menuOffsetY,menuOffsetX,options):
+	def menu(self,name,title,sizeY,sizeX,offsetY,offsetX,menuOffsetY,menuOffsetX,options,looped=False):
 		self.refresh()
 		self.windows[name]=Window(sizeY,sizeX,offsetY, offsetX,True)
 		self.windows[name].addstr(title)
+		if looped:
+			self.windows[name].addstr(" F10: Koniec")
 		self.windows[name].refresh()
 		self.windows["%s_menu"%name]=Menu(sizeY-menuOffsetY-3,sizeX-2,menuOffsetY+offsetY,offsetX+menuOffsetX,False)
 		men=self.windows["%s_menu"%name]
@@ -39,6 +41,8 @@ class Interface:
 			k.refresh()
 	def getch(self):
 		return self.stdscr.getch()
+	def getstr(self,x,y):
+		return self.stdscr.getstr(x,y)
 	def clear(self):
 		self.stdscr.clear()
 		for (i,k) in self.windows.items():
