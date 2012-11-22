@@ -8,10 +8,9 @@ import interface
 OPTS=["a","b","c","d"]
 face=interface.Interface()
 win=face.newwin("menu",25,40,10,10,True)
-menu=interface.Menu(5,20,15,1,False)
-menu.addopt("raz")
-menu.addopt("dwa")
-menu.addopt("trzy")
+menu=face.newmenu("bazy",5,20,15,11)
+for o in OPTS:
+	menu.addopt(o)
 menu.redraw()
 act=0
 while 1:

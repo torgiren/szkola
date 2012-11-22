@@ -15,6 +15,9 @@ class Interface:
 	def newwin(self,name,sizeY,sizeX,offsetY,offsetX, border=False):
 		self.windows[name]=Window(sizeY,sizeX,offsetY,offsetX,border)
 		return self.windows[name]
+	def newmenu(self,name,sizeY,sizeX,offsetY,offsetX):
+		self.windows[name]=Menu(sizeY,sizeX,offsetY,offsetX,False)
+		return self.windows[name]
 	def addstr(self,name,string):
 		self.windows[name].addstr(string)
 	def refresh(self):
