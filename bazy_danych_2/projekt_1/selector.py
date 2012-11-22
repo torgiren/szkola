@@ -1,36 +1,26 @@
 #!/usr/bin/env python
 import curses
-stdscr=curses.initscr()
-stdscr.keypad(1)
-curses.noecho()
-curses.curs_set(0)
-curses.start_color()
-curses.init_pair(1,curses.COLOR_WHITE,curses.COLOR_BLUE)
-
-
-win=curses.newwin(20,40,10,10)
-OPTS=['Raz','Dwa','Trzy']
+#import bazowiec
+import interface
+#baza= bazowiec.Bazowiec()
+#baza.connect()
+#OPTS=baza.listDatabases()
+OPTS=["a","b","c","d"]
+face=interface.Interface()
+win=face.newwin("menu",25,40,10,10,True)
+menu=interface.Menu(5,20,15,1,False)
+menu.addopt("raz")
+menu.addopt("dwa")
+menu.addopt("trzy")
+menu.redraw()
 act=0
 while 1:
-	win.border()
-	win.addstr(1,1,"Menu:")
-	for count,o in enumerate(OPTS):
-		if count==act:
-			style=curses.color_pair(1)|curses.A_BOLD
-		else:
-			style=curses.color_pair(0)
-		win.addstr(3+count,1,o,style)
-	stdscr.refresh()
-	win.refresh()
-	key=stdscr.getch()
+	face.refresh()
+	menu.redraw()
+	menu.refresh()
+	key=face.getch()
+	face.clear()
 	if key==ord('q'):
 		break
-	elif key==curses.KEY_UP:
-		act-=1
-	elif key==curses.KEY_DOWN:
-		act+=1
-	if act<0:
-		act+=len(OPTS)
-	elif act>len(OPTS)-1:
-		act-=len(OPTS)
+	menu.driver(key)	
 curses.endwin()
