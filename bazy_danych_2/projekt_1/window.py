@@ -9,7 +9,7 @@ class Window:
 		if self.itsBorder:
 			self.itsWindowBorder=curses.newwin(sizeY,sizeX,offsetY,offsetX)
 			self.itsWindowBorder.border()
-			self.itsWindow=curses.newwin(sizeY-1,sizeX-1,offsetY+1,offsetX+1)
+			self.itsWindow=curses.newwin(sizeY-2,sizeX-2,offsetY+1,offsetX+1)
 		else:
 			self.itsWindow=curses.newwin(sizeY,sizeX,offsetY,offsetX)
 	def addstr(self,string):

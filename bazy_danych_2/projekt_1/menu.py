@@ -7,16 +7,17 @@ class Menu(Window):
 		self.itsHeight=self.itsSizeY
 		self.itsOpts=[]
 		self.itsAct=0
+		self.ViewStart=0
 	def addopt(self,opt):
 		self.itsOpts.append(opt)
 	def redraw(self):
-		self.itsWindow.clear()
-		for i,o in enumerate(self.itsOpts):
-			if self.itsAct==i:
+#		self.itsWindow.clear()
+		for i,o in enumerate(self.itsOpts[self.ViewStart:self.ViewStart+self.itsSizeY]):
+			if self.itsAct==i+self.ViewStart:
 				style=curses.color_pair(1)|curses.A_BOLD
 			else:
 				style=curses.color_pair(0)
-			self.itsWindow.addstr(1+i,0,o,style)
+			self.itsWindow.addstr(i,0,o,style)
 	def Up(self):
 		self.itsAct-=1
 		self.CheckAct()
@@ -30,6 +31,11 @@ class Menu(Window):
 			self.itsAct-=len(self.itsOpts)
 		if self.itsAct<0 :
 			self.itsAct+=len(self.itsOpts)
+
+		if self.itsAct<self.ViewStart:
+			self.ViewStart=self.itsAct
+		if self.itsAct>self.ViewStart+self.itsSizeY-1:
+			self.ViewStart=self.itsAct-self.itsSizeY+1
 	def driver(self,key):
 		if key==curses.KEY_UP:
 			self.Up()	

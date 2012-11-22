@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 import curses
-#import bazowiec
+import bazowiec
 import interface
-#baza= bazowiec.Bazowiec()
-#baza.connect()
-#OPTS=baza.listDatabases()
-OPTS=["a","b","c","d"]
+baza= bazowiec.Bazowiec()
+baza.connect()
+OPTS=baza.listDatabases()
+print OPTS
+OPTS=["a","b","c","d","e","f","g","h","aa","bb","cc","dd"]
 face=interface.Interface()
 win=face.newwin("menu",25,40,10,10,True)
 menu=face.newmenu("bazy",5,20,15,11)
@@ -14,6 +15,7 @@ for o in OPTS:
 menu.redraw()
 act=0
 while 1:
+	face.addstr("menu","Bazy danych:")
 	face.refresh()
 	menu.redraw()
 	menu.refresh()
