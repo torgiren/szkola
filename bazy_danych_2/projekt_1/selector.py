@@ -1,27 +1,15 @@
 #!/usr/bin/env python
-import curses
 import bazowiec
 import interface
-baza= bazowiec.Bazowiec()
-baza.connect()
-OPTS=baza.listDatabases()
-print OPTS
-OPTS=["a","b","c","d","e","f","g","h","aa","bb","cc","dd"]
-face=interface.Interface()
-win=face.newwin("menu",25,40,10,10,True)
-menu=face.newmenu("bazy",5,20,15,11)
-for o in OPTS:
-	menu.addopt(o)
-menu.redraw()
-act=0
-while 1:
-	face.addstr("menu","Bazy danych:")
-	face.refresh()
-	menu.redraw()
-	menu.refresh()
-	key=face.getch()
-	face.clear()
-	if key==ord('q'):
-		break
-	menu.driver(key)	
-curses.endwin()
+def mainWindow(face,actBaza=None,actTabela=None):
+	pass
+def selectDatabase(baza,face):
+	OPTS=baza.listDatabases()
+	return face.menu("bazy","Bazy:",15,30,1,1,2,1,OPTS)
+def main():
+	baza= bazowiec.Bazowiec()
+	baza.connect()
+	face=interface.Interface()
+	sel_baza=selectDatabase(baza,face)
+	return  sel_baza
+print main()

@@ -3,15 +3,14 @@ from window import Window
 class Menu(Window):
 	def __init__(self,sizeY,sizeX,offsetY,offsetX,border):
 #		Window.__init__(sizeY,sizeX,offsetY,offsetX,border)
-		Window.__init__(self,sizeY,sizeX,offsetY,offsetX,border)
-		self.itsHeight=self.itsSizeY
+		Window.__init__(self,sizeY+2,sizeX,offsetY,offsetX,border)
 		self.itsOpts=[]
 		self.itsAct=0
 		self.ViewStart=0
 	def addopt(self,opt):
 		self.itsOpts.append(opt)
 	def redraw(self):
-#		self.itsWindow.clear()
+		self.itsWindow.clear()
 		for i,o in enumerate(self.itsOpts[self.ViewStart:self.ViewStart+self.itsSizeY-2]):
 			if self.itsAct==i+self.ViewStart:
 				style=curses.color_pair(1)|curses.A_BOLD
@@ -47,5 +46,20 @@ class Menu(Window):
 			self.itsAct=0
 		if key==curses.KEY_END:
 			self.itsAct=len(self.itsOpts)-1
+		if key==10:
+			return self.itsOpts[self.itsAct]
 		self.checkAct()
 		self.redraw()
+		return None
+	def run(self,stdscr):
+		self.itsAct=0
+		stdscr.refresh()
+		self.redraw()	
+		self.refresh()
+		while 1:
+			self.redraw()	
+			self.refresh()
+			key=stdscr.getch()
+			sel=self.driver(key)
+			if sel:
+				return sel

@@ -7,6 +7,7 @@ class Interface:
 		self.stdscr.keypad(1)
 		curses.noecho()
 		curses.curs_set(0)
+		curses.cbreak()
 		curses.start_color()
 		curses.init_pair(1,curses.COLOR_WHITE,curses.COLOR_BLUE)
 		curses.init_pair(2,curses.COLOR_RED,curses.COLOR_BLACK)
@@ -19,6 +20,17 @@ class Interface:
 	def newmenu(self,name,sizeY,sizeX,offsetY,offsetX):
 		self.windows[name]=Menu(sizeY,sizeX,offsetY,offsetX,False)
 		return self.windows[name]
+	def menu(self,name,title,sizeY,sizeX,offsetY,offsetX,menuOffsetY,menuOffsetX,options):
+		self.refresh()
+		self.windows[name]=Window(sizeY,sizeX,offsetY, offsetX,True)
+		self.windows[name].addstr(title)
+		self.windows[name].refresh()
+		self.windows["%s_menu"%name]=Menu(sizeY-menuOffsetY-3,sizeX-2,menuOffsetY+offsetY,offsetX+menuOffsetX,False)
+		men=self.windows["%s_menu"%name]
+		for o in options:
+			men.addopt(o)
+		men.redraw()
+		return men.run(self.stdscr)
 	def addstr(self,name,string):
 		self.windows[name].addstr(string)
 	def refresh(self):
