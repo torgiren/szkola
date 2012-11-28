@@ -1,0 +1,35 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\author{Marcin TORGiren Fabrykowski}
+\title{Bazy danych II\\ projekt A-2}
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Tematyka projektu}
+Celem programu jest konstrukcja zapytań SQL, bazując na dynamicznej liście baz, tabel i kolumn.\\
+Program pozwala użytkownikowi nieznającemu języka zapytań SQL na budowanie zapytań do bazy poprzez przyjazny interfejs tekstowy.
+\section{Wykorzystane technologie}\
+\begin{description}
+\item[baza danych]\hfill \\
+	MS SQL Server
+\item[język programowania]\hfill \\
+	Python
+\item[interface bazy danych]\hfill \\
+	pymssql	
+\item[interface użytkownika]\hfill \\
+	curses
+\end{description}
+\section{Ogólny zarys}
+Po uruchomieniu, program łączy się z bazą danych używając moduły pymssql.\\
+Dane do logowania zostały zapisane na sztywno w programie.\\
+Łączenie odbywa się przez tunel ssh prowadzący z localhost:1433 -> hostvirtualny:1433.\\
+Po udanym połączeniu następuje pobranie listy baz danych, oraz wyświetlenie jej w postaci przyjaznego menu.\\
+Po wybraniu bazy danych, program wysyła zapytanie ustawiające wybraną bazę jako używaną bazę danych.\\
+Następnie pobierana jest lista tabel w aktualnej bazie danych i zostaje ona wyświetlona jako menu.\\
+Dla wybranej tabeli, zostaje pobrana lista kolumn ... do dopisania
+
+
+\end{document}
