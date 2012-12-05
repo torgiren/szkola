@@ -25,8 +25,6 @@ Program pozwala użytkownikowi nieznającemu języka zapytań SQL na budowanie z
 \section{Komunikacja z~bazą}
 \subsection{Łączenie do bazy}
 Program łączy się z bazą danych używając moduły pymssql.\\
-Dane do logowania zostały zapisane na sztywno w programie.\\
-Łączenie odbywa się przez tunel ssh prowadzący z localhost:1433 $\rightarrow$ hostvirtualny:1433.\\
 \subsection{Wybór bazy danych}
 Pobranie listy baz danych odbywa się przy pomocy funkcji \textit{sp\_databases}.\\
 \subsection{Listowanie tabel}
@@ -34,6 +32,8 @@ Lista tabel w aktualnej bazie danych pobierana jest poprzez wykonanie zapytania 
 \subsection{Listowanie kolumn}
 Dla wybranej tabeli, zostaje pobrana lista kolumn poprzez zapytanie do tabeli \textit{INFORMATION\_SCHEMA}, do kolumny \textit{COLUMNS}, filtrując po nazwie tabeli \textit{TABLE\_NAME}
 \section{Schemat działania}
+\subsection{Uruchomienie programu}
+Program uruchamiany jest z~dwoma parametrami, którymi są odpowiednio: adres serwera i~port MS SQL Servera.
 \subsection{Przygotowanie środowiska}
 Po uruchomieniu, program łączy się z~bazą danych, a~następnie przygotowywany jest przyjazny interfejs użytkownika.\\
 Pobierana jest lista baz danych z~serwera
