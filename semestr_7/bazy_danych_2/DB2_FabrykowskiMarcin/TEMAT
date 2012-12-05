@@ -1,0 +1,1 @@
+Dynamiczna konstrukcja warunków wyszukiwania. Stworzenie frameworka do wspomagania tworzenia polecenia SELECT. Użytkownik dysponuje predefiniowanymi obiektami i operatorami, dzięki którym może wyszukać dane nie znając SQL. Konstrukcja pytania w formie tabeli ( analogia do sposobu użytego w Access ).
