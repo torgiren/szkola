@@ -22,14 +22,25 @@ Program pozwala użytkownikowi nieznającemu języka zapytań SQL na budowanie z
 \item[interface użytkownika]\hfill \\
 	curses
 \end{description}
-\section{Ogólny zarys}
-Po uruchomieniu, program łączy się z bazą danych używając moduły pymssql.\\
+\section{Komunikacja z~bazą}
+\subsection{Łączenie do bazy}
+Program łączy się z bazą danych używając moduły pymssql.\\
 Dane do logowania zostały zapisane na sztywno w programie.\\
-Łączenie odbywa się przez tunel ssh prowadzący z localhost:1433 -> hostvirtualny:1433.\\
-Po udanym połączeniu następuje pobranie listy baz danych, oraz wyświetlenie jej w postaci przyjaznego menu.\\
-Po wybraniu bazy danych, program wysyła zapytanie ustawiające wybraną bazę jako używaną bazę danych.\\
-Następnie pobierana jest lista tabel w aktualnej bazie danych i zostaje ona wyświetlona jako menu.\\
-Dla wybranej tabeli, zostaje pobrana lista kolumn ... do dopisania
+Łączenie odbywa się przez tunel ssh prowadzący z localhost:1433 $\rightarrow$ hostvirtualny:1433.\\
+\subsection{Wybór bazy danych}
+Pobranie listy baz danych odbywa się przy pomocy funkcji \textit{sp\_databases}.\\
+\subsection{Listowanie tabel}
+Lista tabel w aktualnej bazie danych pobierana jest poprzez wykonanie zapytania do tabeli \textit{INFORMATION\_SCHEMA} pobierając kolumnę \textit{TABLES} filtrując typ tabel jako \textit{BASE\_TABLE}.
+\subsection{Listowanie kolumn}
+Dla wybranej tabeli, zostaje pobrana lista kolumn poprzez zapytanie do tabeli \textit{INFORMATION\_SCHEMA}, do kolumny \textit{COLUMNS}, filtrując po nazwie tabeli \textit{TABLE\_NAME}
+\section{Schemat działania}
+Po uruchomieniu, program łączy się z~bazą danych, a~następnie przygotowywany jest przyjazny interfejs użytkownika.\\
+Pobierana jest lista baz danych z~serwera i~wyświetlana w~postaci menu.\\
+Po wybraniu bazy danych, pobierana zostaje lista tabel w~wybranej bazie.\\
 
+Następnie w~pętli następuje pobieranie listy kolumn w~tabeli i~wyświetlenie ich w~menu, pozwalając użytkownikowi na wielokrotne wybieranie kolumn.
+Wybrane kolumny są dodawane do listy kolumn do wyselekcjonowania.\\
+Zakończenie wybierania kolumn następuje po naciśnięciu klawisza F10.\\
 
+Kolejnym etapem jest wybieranie 
 \end{document}
