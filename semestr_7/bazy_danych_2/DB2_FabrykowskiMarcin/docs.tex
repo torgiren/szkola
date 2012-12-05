@@ -1,0 +1,56 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\author{Marcin TORGiren Fabrykowski}
+\title{Bazy danych II\\ projekt A-2\\Dynamiczna konstrukcja warunków wyszukiwania.}
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Tematyka projektu}
+Celem programu jest konstrukcja zapytań SQL, bazując na dynamicznej liście baz, tabel i kolumn.\\
+Program pozwala użytkownikowi nieznającemu języka zapytań SQL na budowanie zapytań do bazy poprzez przyjazny interfejs tekstowy.
+\section{Wykorzystane technologie}\
+\begin{description}
+\item[baza danych]\hfill \\
+	MS SQL Server
+\item[język programowania]\hfill \\
+	Python
+\item[interface bazy danych]\hfill \\
+	pymssql	
+\item[interface użytkownika]\hfill \\
+	curses
+\end{description}
+\section{Komunikacja z~bazą}
+\subsection{Łączenie do bazy}
+Program łączy się z bazą danych używając moduły pymssql.\\
+\subsection{Wybór bazy danych}
+Pobranie listy baz danych odbywa się przy pomocy funkcji \textit{sp\_databases}.\\
+\subsection{Listowanie tabel}
+Lista tabel w aktualnej bazie danych pobierana jest poprzez wykonanie zapytania do tabeli \textit{INFORMATION\_SCHEMA} pobierając kolumnę \textit{TABLES} filtrując typ tabel jako \textit{BASE\_TABLE}.
+\subsection{Listowanie kolumn}
+Dla wybranej tabeli, zostaje pobrana lista kolumn poprzez zapytanie do tabeli \textit{INFORMATION\_SCHEMA}, do kolumny \textit{COLUMNS}, filtrując po nazwie tabeli \textit{TABLE\_NAME}
+\section{Schemat działania}
+\subsection{Uruchomienie programu}
+Program uruchamiany jest z~dwoma parametrami, którymi są odpowiednio: adres serwera i~port MS SQL Servera.
+\subsection{Przygotowanie środowiska}
+Po uruchomieniu, program łączy się z~bazą danych, a~następnie przygotowywany jest przyjazny interfejs użytkownika.\\
+Pobierana jest lista baz danych z~serwera
+\subsection{Wybór bazy danych}
+Lista baz danych wyświetlana jest użytkownikowi w~postaci menu.\\
+Po wybraniu bazy danych, pobierana zostaje lista tabel w~wybranej bazie.\\
+\subsection{Wybór tabeli}
+Pobrana lista tabel zostaje przedstawiona użytkownikowi w~menu.
+\subsection{Wybór kolumn}
+Następnie w~pętli następuje pobieranie listy kolumn w~tabeli i~wyświetlenie ich w~menu, pozwalając użytkownikowi na wielokrotne wybieranie kolumn.
+Wybrane kolumny są dodawane do listy kolumn do wyselekcjonowania.\\
+Zakończenie wybierania kolumn następuje po naciśnięciu klawisza F10.\\
+\subsection{Wybór kryteriów}
+Kolejnym etapem jest wybieranie kryteriów wyboru. Użytkownikowi przedstawiana jest lista kolumn, z~których użytkownik wybiera kolumnę. Następnie z~nowego menu, użytkownik wybiera sposób filtrowania.
+Następnie użytkownik w~nowym oknie wpisuje wartość używaną do filtrowania.\\
+W~przypadku wyboru kolejnego pola do filtracji, użytkownik zostaje poproszony dodatkowo, o~sprecyzowanie logicznego warunku łączenia kryteriów.
+Wybór kryteriów kończy się po naciśnięciu klawisza F10.\\
+\subsection{Generowanie wyniku}
+Po zakończeniu wprowadzania danych, program generuje zapytanie do bazy danych na podstawie podanych wartości, oraz je wykonuje i~wyświetla wyniki zapytania oraz samo zapytanie.
+\end{document}
