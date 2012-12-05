@@ -8,11 +8,13 @@ class Bazowiec:
 		self.itsCur=None
 	def __del__(self):
 		"""Zamykamy połączenie do bazy"""
-		self.itsConn.close()
-	def connect(self):
+		if self.itsConn:
+			self.itsConn.close()
+	def connect(self,host,port):
 		"""Łączenie do bazy danych z ustawionymi na sztywno parametrami,
 			pobieramy kursor bazy"""
-		self.itsConn=pymssql.connect(host='localhost:14330',user='marcin',password='Project123',database='AdventureWorks',as_dict=True)
+		h="%s:%s"%(host,port)
+		self.itsConn=pymssql.connect(host=h,user='marcin',password='Project123',database='AdventureWorks',as_dict=True)
 		self.itsCur=self.itsConn.cursor()
 		return self.itsConn
 	def setDatabase(self,baza):

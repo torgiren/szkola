@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8
+import pymssql
 import bazowiec
 import interface
+import sys
+if len(sys.argv) <3:
+	print "Usage: %s <host> <port>\n"
+	exit(1)
 sel_baza=None
 sel_table=None
 wheres=[]
@@ -58,7 +63,12 @@ def selectComp(baza,face):
 
 #łączenie z bazą danych
 baza= bazowiec.Bazowiec()
-baza.connect()
+try:
+	baza.connect(sys.argv[1],sys.argv[2])
+except(pymssql.InterfaceError):
+	print "Blad polaczenia\n"
+	exit(2)
+
 #inicjacja interfejsu
 face=interface.Interface()
 #tworzenie okna głównego
@@ -76,11 +86,12 @@ while 1:
 	if sel=="_DONE_":
 		break
 	else:
-		global selects
+#		global selects
 		selects.append(sel.split(':')[0])
 
 #wybór kryteriów do wyselekcjonowania
 while 1:
+#	global wheres
 	mainWindow(face)
 	sel=selectColumn(baza,face,sel_table,'Kryteria')
 	if sel=="_DONE_":
@@ -93,7 +104,6 @@ while 1:
 		prompt=face.newwin('val',3,35,14,5,True)
 		prompt.refresh()
 		val=face.getstr(15,6)
-		global wheres
 		wheres.append("%s %s %s '%s' "%(comb,sel.split(':')[0],type,val))
 #wyłączenie interfejsu curses
 face.__del__()
