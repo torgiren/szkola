@@ -1,6 +1,7 @@
 \documentclass[10pt]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage{polski}
+\usepackage{verbatim}
 \author{Marcin TORGiren Fabrykowski}
 \title{Streaming video}
 \usetheme{Warsaw}
@@ -78,7 +79,74 @@
 \subsection{Kontenery}
 \begin{frame}
 	\frametitle{Kontenery}
+	\begin{block}<1->
+	{co to jest}
+	służą do pakowania kilku strumieni w jednym opakowaniu\\
+	działają jak multiplexer
+	\end{block}
+	\begin{block}<2->
+	{najpopularniejsze kontenery}
+	\begin{itemize}
+	\item AVI
+	\item Matroska
+	\item MPEG
+	\item MP4
+	\end{itemize}
+	\end{block}
 \end{frame}
-\section{Streaming unicastowy}
-\section{VOD}
+\section{Praktyka}
+\subsection{Live stream}
+\begin{frame}[fragile]
+	\frametitle{Live stream}
+	\begin{block}<1->
+	{stream z kamery/karty TV}
+	\footnotesize
+	\begin{verbatim}
+	cvlc -v --ttl 5 --rt-priority v4l2:///dev/video1:width=640:height=480
+	:input-slave=alsa://hw:0,2 :samplerate=44100
+	:sout=#transcode{vcodec=h264,vb=512,fps=25,scale=1,acodec=mp3,ab=128,
+	channels=1,audio-sync,deinterlace,threads=2}:duplicate{dst=std
+	{access=http,mux=ts,dst=0.0.0.0:3344}}"
+	\end{verbatim}
+	\end{block}
+	\begin{block}<2->
+	{odtwarzanie}
+	\begin{itemize}
+		\item mplayer http://server:3344
+		\item vlc http://server:3344
+	\end{itemize}
+	\end{block}
+\end{frame}
+\subsection{VOD}
+\begin{frame}[fragile]
+	\frametitle{VOD}
+	\begin{block}<1->
+	{uruchomienie}
+	\footnotesize
+	\begin{verbatim}
+	vlc  -v --color -I telnet --telnet-password videolan --telnet-port 4121
+	--rtsp-host 0.0.0.0 --rtsp-port 3344
+	\end{verbatim}
+	\end{block}
+	\begin{block}<2->
+	{telnotowanie}
+	\begin{verbatim}
+	telnet localhost 4212
+	\end{verbatim}
+	\end{block}
+	\begin{block}<3->
+	{konfiguracja}
+	\begin{verbatim}
+	new film1 vod enabled
+	setup film1 input film.mpg
+	\end{verbatim}
+	\end{block}
+	\begin{block}<4->
+	{odtwarzanie}
+	\begin{itemize}
+		\item vlc rtsp://server:3344/film1
+		\item mplayer rtsp://server:3344/film1
+	\end{itemize}
+	\end{block}
+\end{frame}
 \end{document}
