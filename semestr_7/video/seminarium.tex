@@ -1,0 +1,84 @@
+\documentclass[10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\author{Marcin TORGiren Fabrykowski}
+\title{Streaming video}
+\usetheme{Warsaw}
+\begin{document}
+\begin{frame}
+	\titlepage
+\end{frame}
+\begin{frame}
+	\frametitle{O czym będziemy mówić...}
+	\tableofcontents
+\end{frame}
+\section{Trochę teorii}
+\subsection{Co to jest streaming}
+\begin{frame}
+	\frametitle{Co to jest streaming}
+	\begin{block}<1->
+	{streaming}
+	przesyłanie ciągłych danych multimedialnych, najczęściej, przez internet
+	\end{block}
+	\begin{block}<2->
+	{rodzaje strimingów}
+	\begin{itemize}
+		\item<3-> live (np: telewizja w akademiku)
+		\item<4-> VOD (np: wypożyczalnia internetowa)
+	\end{itemize}
+	\end{block}
+	\begin{block}<5->
+	{protokoły transmisji}
+	\begin{itemize}
+		\item<6-> UDP
+		\item<7-> HTTP
+		\item<8-> RTSP
+	\end{itemize}
+	\end{block}
+\end{frame}
+\subsection{Kodeki}
+\begin{frame}
+	\frametitle{Kodeki}
+	Testowałem na przykładowym odcinku Świata wg. Bundych.
+	\begin{block}<1->
+	{z użyciem kodeka}
+	\uncover<2->
+	{
+		film zajmuje 178MB
+	}
+	\end{block}
+	\begin{block}<3->
+	{bez kodeka}
+	\uncover<4->
+	{
+		film zajmuje 12GB
+	}
+	\end{block}
+\end{frame}
+\begin{frame}
+	\frametitle{Przykładowe kodeki}
+	\begin{block}<1->
+	{najpopularniejsze kodeki video}
+	\begin{itemize}
+	\item MPEG-1/2/4
+	\item H264
+	\item FLV1
+	\end{itemize}
+	\end{block}
+	\begin{block}<2->
+	{najpopularniejsze kodeki audio}
+	\begin{itemize}
+	\item MPEG auidio
+	\item MPEG-3
+	\item FLAC
+	\item A52
+	\end{itemize}
+	\end{block}
+\end{frame}
+\subsection{Kontenery}
+\begin{frame}
+	\frametitle{Kontenery}
+\end{frame}
+\section{Streaming unicastowy}
+\section{VOD}
+\end{document}
