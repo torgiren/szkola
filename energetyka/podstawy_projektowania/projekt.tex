@@ -15,8 +15,8 @@
 	Urządzenie podłączane jest do komputera za pomocą portu USB.
 \section{Dane techniczne}
 	\begin{itemize}
-	\item Napięcie zasilania: 5V DC
-	\item Złącze: USB
+		\item Napięcie zasilania: 5V DC
+		\item Złącze: USB
 	\end{itemize}
 \section{Sterowanie}
 	\subsection{Wysokopoziomowe}
@@ -27,7 +27,20 @@
 		Sterowanie urządzeniem odbywa się poprzez przesyłanie wartości z przedziału od 0 do 1048576 do deskryptorów modułu obsługującego.
 		Przesłana wartość jest interpretowana jako mapa bitowa, gdzie kolejne bity odpowiadają za tryb zapalenie kolejnych diod.
 \section{Schemat}
-	Tutaj powinny być schematy układu sterującego.
+	Tutaj powinny być schematy urządzenia.
+\newpage
 \section{Instrukcja obsługi}
-	
+	\begin{enumerate}
+		\item Podłączyć urządzenie do komputera
+		\item Załadować moduł jądra:
+			\begin{verbatim}
+			insmod /mnt/cdrom/modules/ledicator.ko
+			\end{verbatim}
+			gdzie \textit{/mnt/cdrom} jest punktem montowania płyty CD
+		\item Uruchomić program sterujący:
+			\begin{verbatim}
+			/mnt/cdrom/apps/ledicator
+			\end{verbatim}
+		\item Wybrać schemat działania zgodnie z indywidualnymi preferencjami
+	\end{enumerate}
 \end{document}
