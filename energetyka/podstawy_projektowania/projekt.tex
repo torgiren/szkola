@@ -9,7 +9,25 @@
 \tableofcontents
 \newpage
 \section{Opis produktu}
-Ledicator jest oświetleniem komputera wykonanym w technologii led, z możliwością prezentowania poziomu obciążenia procesora.
-Oświetlenie wykonane jest z szeregu 20 diod led.
-Zamontowane zostały diode w trzech kolorach - zielone, żółte oraz czerwone.
+	Ledicator jest oświetleniem komputera wykonanym w technologii led, z możliwością sterowania poziomem wskaźnika.
+	Oświetlenie wykonane jest z szeregu 20 diod led.
+	Zamontowane zostały diody w trzech kolorach - zielone, żółte oraz czerwone.\\
+	Urządzenie podłączane jest do komputera za pomocą portu USB.
+\section{Dane techniczne}
+	\begin{itemize}
+	\item Napięcie zasilania: 5V DC
+	\item Złącze: USB
+	\end{itemize}
+\section{Sterowanie}
+	\subsection{Wysokopoziomowe}
+		Sterowanie odbywa się przy użyciu programu sterującego załączonego do urządzenia na płycie CD bądź pobranego ze strony internetowej.
+		Program pozwala na wybranie jednego z dostępnych schematów oświetlenia i animacji, bądź prezentowania monitorowanych wartości, takich jak obciążenie procesora, zużycie RAM bądź zajętość dysku.
+	\subsection{Niskopoziomowe}
+		Komunikacją z urządzeniem zajmuje się moduł jądra umieszczony na płycie CD bądź pobrany ze strony internetowej.	
+		Sterowanie urządzeniem odbywa się poprzez przesyłanie wartości z przedziału od 0 do 1048576 do deskryptorów modułu obsługującego.
+		Przesłana wartość jest interpretowana jako mapa bitowa, gdzie kolejne bity odpowiadają za tryb zapalenie kolejnych diod.
+\section{Schemat}
+	Tutaj powinny być schematy układu sterującego.
+\section{Instrukcja obsługi}
+	
 \end{document}
