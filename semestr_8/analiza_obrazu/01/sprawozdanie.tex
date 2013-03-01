@@ -1,0 +1,27 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage{graphicx}
+\author{Marcin TORGiren Fabrykowski}
+\title{Analiza i przetwarzanie obrazu\\laboratorium 1}
+\begin{document}
+\maketitle
+\newpage
+\section{Wstęp teoretyczny}
+\subsection{Wyjaśnienie podstawowych pojęć}
+\begin{description}
+\item[Piksel] najmniejszy widzialny element obrazu na ekranie monitora. W~systemie RGB składa się z~trzech subpikseli o~kolorach: czerwonym (Red), zielonym (Green) oraz niebieskim (Blue). W~zależności od natężenia światła emitowanego przez pojedynczy subpiksel, wypadkowa barwa piksela zmienia się na zasadzie syntezy addytywnej. 
+\item[Szum] zakłócenia na obrazie. Jest on skutkiem niedoskonałości technologii pobierającej obraz ze świata zewnętrznego (różnice w~czułości sąsiadujących elementów światłoczułych na matrycy). Jest on najbardziej widoczny gdy obraz powstał w~warunkach niedoboru światła. 
+\item[Szum sztuczny] szum wygenerowany w~sposób pseudolosowy za pomocą komputera.
+\item[Obraz ostry] przenosi dużą ilość informacji (często nadmiarowych), wszystkie detale obiektu są wyraźne i~łatwe do rozróżnienia.
+\item[Obraz słaby] obraz zaszumiony, nieostry, rozmazany lub zmodyfikowany w~inny sposób utrudniający jego odczytanie. Często przenosi on zbyt mało informacji do poprawnej klasyfikacji.
+\item[Wstępne przetwarzanie] operacje przeprowadzane na obrazie wejściowym, w~celu usunięcia zanieczyszczeń i~przygotowania do ekstrakcji cech.
+\item[Projekcja (pozioma/pionowa)] zliczenie pikseli w~liniach lub kolumnach i~przedstawienie zależności jako wykresu (histogramu).
+\item[Histogram] wykres słupkowy, przedstawiający zależność wartości cechy od jej ilości. W~analizie i~przetwarzaniu obrazów histogram oznacza w~szczególności wykres przedstawiający zależność wartości pikseli od ich ilości na obrazie. Oś pozioma zawiera rosnąco wartości pikseli od 0 do 255, natomiast oś pionowa - ilość wystąpień piksela o~danej wartości barwy. W~przypadku histogramu RGB każdy kanał rozpatrywany jest osobno.
+\item[Normalizacja histogramu] prosta operacja punktowa mająca na celu poprawić kontrast obrazu. Zakładamy że wartości pikseli należą do podprzedziału <0,255>. Wyszukujemy minimalną (minPix) oraz maksymalną (maxPix) wartość piksela. Następnie dla każdego piksela na obrazie wykonujemy następujące przekształcenie:
+\end{description}
+\subsection{Przetwarzany obraz}
+\begin{figure}[h]
+\includegraphics{tux}
+\end{figure}
+\end{document}
