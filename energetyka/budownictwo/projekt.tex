@@ -1,0 +1,51 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\author{Marcin Fabrykowski}
+\title{Projekt domku jednorodzinnego}
+\begin{document}
+\section{Obliczenia więźby}
+\subsection{Obciążenia stałe}
+Charakterystyczne obciążenie stałe: $g_k=1.20kN/m^2$\\
+Średni współczynnik obciążenia stałego: $\gamma_r=1.2$\\
+Wartość obliczeniowa obciążenia stałego: $g_d = 1.20 * 1.2 = 1.44 kN/m^2$
+\subsection{Obciążenie śniegiem}
+Częstochowa należy do II strefy śniegowej\\
+$k = 0.9kN/m^2$\\
+nachylenie dachu: $\alpha = 30^\circle$\\
+$C_2 = 1.2 * \dfrac{60 - \alpha}{30} = 1.2kN/m^2$\\
+$s_k = C_2 * k = 1.2 * 0.9 = 1.08kN/m^2$\\
+$s_d = 1.4 * s_k = 1.4 * 1.08 = 1.512kN/m^2$
+\subsection{Obciążenia wiatrem}
+Częstochowa należy do I strefy wiatrowej\\
+$q_k = 0.25 kN/m^2$
+$C_e = 1.0$\\
+$\Beta = 1.8$ - współczynnik porywów wiartru\\
+$C_z = 0.015 * \alpha -0.2$ - współczynnik aerodynamiczny\\
+$W_k = q_kC_eC_z\Beta = 0.25 * 1.0 * 1.8 * 0.475 = 0.21375kN/m^2$\\
+$W_d = \gamma p_k = 1.3 * 0.21375 = 0.277875 kN/m^2$
+\subsection{Całkowite obciążenia działające na dach}
+Obciążenie stałe prostopadłe do połaci dachu:\\
+$q_k = ag_k\cos \alpha = 0.7 * 1.2 * 0.866 = 0.7274400 kN/m^2$\\
+$q_d = ag_d\cos \alpha = 0.7 * 1.44 * 0.866 = 0.8729289 kN/m^2$\\
+Obciążenia zmienne prostopadłe do połaci dachu:\\
+$p_k = a(s_k\cos^2\alpha + w_k) = 0.7(1.08(0.75+0.21375) = 0.716625kN/m^2$\\
+$p_d = a(s_d\cos^2\alpha + w_d) = 0.7(1.512*0.75+0.277875) = 0.9883125 kN/m^2$\\
+Maksymalny obliczeniowy moment zginający:\\
+$M_{y,d}=0.125(q_d+p_d)I_d^2= 0.125(0.8729289 + 0.9883125) 4940^2 = 5677623 Nmm$
+\subsection{Obliczenia krokwi}
+Materiał: drewno sosnowe klasy C30:\\
+Wytrzymałość:
+\begin{itemize}
+	\item na zginanie: $f_{m,k}=30.0N/mm^2$
+	\item na ściskanie: $f_{a,0,k} = 23.0N/mm^2$
+	\item na ścinanie: $f_{v,k}=3.0N/mm^2$
+	\item średni moduł sprężystości: $E_{0,mean}=12.0kN/mm^2$
+\end{itemize}
+Współczynnik modyfikujący: $k_{mod}=0.9$\\
+Współczynniki zmodyfikowane:
+$f_{m,d}=\dfrac{f_{m,k}k_{mod}}{\gamma_M}=\dfrac{30.0*0.9}{1.3}=20.8N/mm^2$\\
+$f_{a,0,d}=\dfrac{f_{a,0,d}k_{mod}}{\gamma_M}=\dfrac{23.0*0.9}{1.3}=15.9N/mm^2$\\
+$f_{v,d}=\dfrac{f_{v,k}k_{mod}}{\gamma_M}=\dfrac{3.0*0.9}{1.3}=2.08N/mm^2$\\
+
+\end{document}
