@@ -107,7 +107,6 @@ class ImageAnal:
             self.__progowanie_lokalne(otoczenie=otoczenie)
         elif method == "mixed":
             self.__progowanie_mieszane(otoczenie=otoczenie, odchylenie=odchylenie)
-        self.__clear_alpha()
     @image_loaded
     def splot(self, filter):
         filter = np.array(filter, dtype=np.int8)
