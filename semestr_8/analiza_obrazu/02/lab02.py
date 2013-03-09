@@ -57,27 +57,27 @@ print "Splot"
 print "Rozmywajace"
 print "1"
 img.load_image("tux.png")
-img.splot([1,1,1],[1,1,1],[1,1,1])
+img.splot([[1,1,1],[1,1,1],[1,1,1]])
 img.save("splot_1_1.png")
 print "1"
 img.load_image("tux.png")
-img.splot([1,1,1],[1,2,1],[1,1,1])
+img.splot([[1,1,1],[1,2,1],[1,1,1]])
 img.save("splot_1_2.png")
 print "3"
 img.load_image("tux.png")
-img.splot([1,2,1],[2,4,2],[1,2,1])
+img.splot([[1,2,1],[2,4,2],[1,2,1]])
 img.save("splot_1_3.png")
 
 print "Wyostrzające"
 print "1"
 img.load_image("tux.png")
-img.splot([0,-1,0],[-1,5,-1],[0,-1,0])
+img.splot([[0,-1,0],[-1,5,-1],[0,-1,0]])
 img.save("splot_2_1.png")
 print "2"
 img.load_image("tux.png")
-img.splot([-1,-1,-1],[-1,9,-1],[-1,-1,-1])
+img.splot([[-1,-1,-1],[-1,9,-1],[-1,-1,-1]])
 img.save("splot_2_2.png")
 print "3"
 img.load_image("tux.png")
-img.splot([-1,-2,-1],[-2,5,-2],[1,-2,1])
+img.splot([[-1,-2,-1],[-2,5,-2],[1,-2,1]])
 img.save("splot_2_3.png")
