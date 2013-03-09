@@ -171,7 +171,6 @@ class ImageAnal:
         new = np.zeros((data.shape[0] * factor, data.shape[1] * factor, data.shape[2]))
         for x in xrange(data.shape[0]):
             for y in xrange(data.shape[1]):
-                print x, y
                 new[x * factor:(x + 1) * factor, y * factor:(y + 1) * factor, :] = data[x, y, :]
         self.__image = new
 
@@ -189,7 +188,6 @@ class ImageAnal:
         self.__image = data
 
     def __progowanie_mieszane(self, otoczenie, odchylenie):
-        print "progowanie mieszne"
         data = self.__image
         prog = self.__prog_mieszany(otoczenie, odchylenie)
         data = (data > prog) * 255
