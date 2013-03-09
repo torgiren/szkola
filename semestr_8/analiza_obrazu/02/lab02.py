@@ -42,15 +42,15 @@ img.save("local_25.png")
 print "Mieszane"
 print "Odchylenie 15"
 img.load_image("tux.png")
-img.progowanie(method="mixed", otoczenie=15. ochylenie=15)
+img.progowanie(method="mixed", otoczenie=15, ochylenie=15)
 img.save("mixed_15.png")
 print "Odchylenie 25"
 img.load_image("tux.png")
-img.progowanie(method="mixed", otoczenie=15. ochylenie=25)
+img.progowanie(method="mixed", otoczenie=15, ochylenie=25)
 img.save("mixed_25.png")
 print "Odchylenie 35"
 img.load_image("tux.png")
-img.progowanie(method="mixed", otoczenie=15. ochylenie=35)
+img.progowanie(method="mixed", otoczenie=15, ochylenie=35)
 img.save("mixed_35.png")
 
 print "Splot"
