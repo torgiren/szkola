@@ -1,6 +1,7 @@
 \documentclass[12pt,a4paper]{article}
 \usepackage{polski}
 \usepackage[utf8]{inputenc}
+\usepackage{amsmath}
 \author{Marcin Fabrykowski}
 \title{Projekt domku jednorodzinnego}
 \begin{document}
@@ -12,7 +13,7 @@ Wartość obliczeniowa obciążenia stałego: $g_d = 1.20 * 1.2 = 1.44 kN/m^2$
 \subsection{Obciążenie śniegiem}
 Częstochowa należy do II strefy śniegowej\\
 $k = 0.9kN/m^2$\\
-nachylenie dachu: $\alpha = 30^\circle$\\
+nachylenie dachu: $\alpha = 30^\circ$\\
 $C_2 = 1.2 * \dfrac{60 - \alpha}{30} = 1.2kN/m^2$\\
 $s_k = C_2 * k = 1.2 * 0.9 = 1.08kN/m^2$\\
 $s_d = 1.4 * s_k = 1.4 * 1.08 = 1.512kN/m^2$
@@ -20,9 +21,9 @@ $s_d = 1.4 * s_k = 1.4 * 1.08 = 1.512kN/m^2$
 Częstochowa należy do I strefy wiatrowej\\
 $q_k = 0.25 kN/m^2$
 $C_e = 1.0$\\
-$\Beta = 1.8$ - współczynnik porywów wiartru\\
+$\beta = 1.8$ - współczynnik porywów wiartru\\
 $C_z = 0.015 * \alpha -0.2$ - współczynnik aerodynamiczny\\
-$W_k = q_kC_eC_z\Beta = 0.25 * 1.0 * 1.8 * 0.475 = 0.21375kN/m^2$\\
+$W_k = q_kC_eC_z\beta = 0.25 * 1.0 * 1.8 * 0.475 = 0.21375kN/m^2$\\
 $W_d = \gamma p_k = 1.3 * 0.21375 = 0.277875 kN/m^2$
 \subsection{Całkowite obciążenia działające na dach}
 Obciążenie stałe prostopadłe do połaci dachu:\\
@@ -32,7 +33,7 @@ Obciążenia zmienne prostopadłe do połaci dachu:\\
 $p_k = a(s_k\cos^2\alpha + w_k) = 0.7(1.08(0.75+0.21375) = 0.716625kN/m^2$\\
 $p_d = a(s_d\cos^2\alpha + w_d) = 0.7(1.512*0.75+0.277875) = 0.9883125 kN/m^2$\\
 Maksymalny obliczeniowy moment zginający:\\
-$M_{y,d}=0.125(q_d+p_d)I_d^2= 0.125(0.8729289 + 0.9883125) 4940^2 = 5677623 Nmm$
+$M_{y,d}=0.125(q_d+p_d)I_d^2= 0.125(0.8729289 + 0.9883125) 4940^2 = 5677623 kNmm$
 \subsection{Obliczenia krokwi}
 Materiał: drewno sosnowe klasy C30:\\
 Wytrzymałość:
@@ -47,5 +48,54 @@ Współczynniki zmodyfikowane:
 $f_{m,d}=\dfrac{f_{m,k}k_{mod}}{\gamma_M}=\dfrac{30.0*0.9}{1.3}=20.8N/mm^2$\\
 $f_{a,0,d}=\dfrac{f_{a,0,d}k_{mod}}{\gamma_M}=\dfrac{23.0*0.9}{1.3}=15.9N/mm^2$\\
 $f_{v,d}=\dfrac{f_{v,k}k_{mod}}{\gamma_M}=\dfrac{3.0*0.9}{1.3}=2.08N/mm^2$\\
+Przyjęto krokwie o wymiarach przekroju $x80x160mm$\\
+Wskaźnik wytrzymałości przekroju krokwi:\\
+$W_r = bh^2/6 = 80*160^2 /6 = 341333 mm^3$\\
+Moment bezwładności:\\
+$I_y = bh^3/12 = 80 * 160^3 /12 = 27306666 mm^4$\\
+Sprawdzenie warunku stanu granicznego nośności krokwi:\\
+$\sigma_{md} = M_{y,d}/W_d = 5677623/277875=20.43<f_{m,d}=20.8N/mm^2$\\
+Sprawdzenie warunku stanu granicznego użytkowalności krokwi:\\
+$U_{fin}=\dfrac{5}{384}\dfrac{I_d^4}{E_{0,mean}I_y}\left[q_k\left(1+k_{def(q)}\right)+p_k\left(1+k_{def(p)}\right)\right]$\\
+$U_{fin}=(\dfrac{5}{385}*\dfrac{4940^4}{12000*27306666}*(0.7274400*1.6 + 0.716625)$\\
+$U_{fin}=44.5017869mm$
+\subsection{Obliczenia płatwi}
+Przyjęto, że obciążenie krokwi jest rozkładane równomiernie z pasma o szerokości:\\
+$0.5I_d+I_z = 0.5 * 4.94+2.63 = 5.1m$\\
+Rozpiętość obliczeniowa płatwi w płaszczyźnie pionowej przyjęta między mieczami:\\
+$I_{x,d}=2m$\\
+W płaszczyźnie poziomej płatew jest podparta w osiach słupów co:\\
+$I_{y,d}=4m$\\
+Przyjęto płatew o wymiarach $80x160mm$\\
+Wskaźnik wytrzymałości przekroju płatwi:\\
+$W_y=bh^2/6=341333mm^3$\\
+Moment bezwładności:\\
+$I_y=bh^3/12 = 27306666mm^4$\\
+Oraz:\\
+$W_z=b^2h/6=80^2*160/6=170666mm^3$\\
+$I_z=b^3h/12=80^3*160/12=6826666mm^4$\\
+Obciążenia pionowe stałe działające na płatew:\\
+$q_{y,k} = g_k(0.5I_d+I_g)=1.2*5.1=6.12N/mm$\\
+$q_{y.d} = h_d(0.5I_d+I_g)=1.44*5.1=7.344N/mm$\\
+Obciążenia pionowe zmienne działające na płatew:\\
+$p_{y,k}=(s_k\cos\alpha+w_k\cos\alpha)(0.5I_d+I_g)=(0.54*0.7071067+0.277875*0.7071067)*5.1 = 3.72N/mm$\\
+Obciążenia poziome działające na płatew:\\
+$p_{z,k}=w_k\sin\alpha(0.5I_d+I_g) = 0.21375*0.707106*5.1=0.685438N/mm$\\
+$p_{z,d}=w_d\sin\sin\alpha(0.5I_d+I_g)=0.277875*0.707106*5.1=0.89107N/mm$\\
+Maksymalne obliczeniowe momenty zginające:\\
+$M_{y,d}=0.125(q_{y,d}+p_{y,d})I_{y,d}^2=0.125(6.5304+3.315357)*2000^2=4922879Nmm$\\
+Oraz:\\
+$M_{z,d}=0.125p_{z,d}I_{z,d}^2=0.125*0.89107*4000^2 = 1782140Nmm$\\
+Sprawdzenie warnuku stanu granicznego nośności płatwi:\\
+$\sigma_{m,d}=\dfrac{M_{y,d}}{W_y}=\dfrac{4922879}{765625}=6.429882N/mm^2$\\
+$\sigma_{m,d}=\dfrac{M_{z,d}}{W_z}=\dfrac{1782140}{656250}=2.715642N/mm^2$\\
+$\sqrt{\sigma_{y,m,d}^2+\sigma_{z,m,d}^2}=\sqrt{(6.429882)^2+(2.715642)^2}=6.979845N/mm^2<f_{m,d}=20.8N/mm^2$\\
+$u_{y,fin}=\dfrac{5}{384}*\dfrac{I_{y,d}^4}{E_{0,mean}}[q_{y,k}(1+k_{def(q)}+p_{y,k}(1+k_{def(p)})]$\\
+$u_{y,fin}=\dfrac{5}{384}*\dfrac{2000^4}{12000*66992187}[5,442(1+0.6)+2.417072(1+0.00)]=2.882869mm$\\
+$u_{z,fin}=\dfrac{5}{384}*\dfrac{I_{z,d}^4}{E_{0,mean}I_z}[p_{z,k}(1+k_{def(w)})]$\\
+$u_{z,fin}=\dfrac{5}{384}*\dfrac{4000^4}{12000*66992187}[0.685438(1+0.6)]= 4.547383mm$\\
+$u_{fin}=\sqrt{u_{y,fin}^2+u_{z,fin}^2}=\sqrt{(2.882869)^2+(4.547381)^2}=5.3842mm<\dfrac{I_{y,d}}{250}=\dfrac{2000}{250}=8mm$\\
+Wykonane obliczenia wykazały, iż założone elementy konstrukcji spełniają wszystkie wymagania wytrzymałościowe
+
 
 \end{document}
