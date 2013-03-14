@@ -5,9 +5,9 @@ import random
 import matplotlib.pyplot as plt
 from scipy import stats
 from scipy import polyfit
-size = 10000
+size = 1000000
 print "Generowanie przesunięć"
-r = [random.gauss(0, 1) for x in range(size)]
+r = [random.normalvariate(0, 1) for x in range(size)]
 print "Obliczanie trajektorii"
 trajekt = np.zeros(size)
 for x in xrange(1, size):
@@ -18,7 +18,7 @@ print "Plotowanie trajektorii"
 plt.figure(1)
 plt.plot(range(size), trajekt)
 plt.plot(range(size), sred)
-plt.savefig("remote/out.png")
+plt.savefig("out.png")
 
 print "Plotowanie korelacji przesuniętej o 1"
 plt.figure(2)
@@ -29,7 +29,7 @@ x = np.linspace(trajekt.min(), trajekt.max())
 y = a *x + b
 plt.plot(trajekt[:-1], traj2, 'ro')
 plt.plot(x, y)
-plt.savefig("remote/out1.png")
+plt.savefig("out1.png")
 
 print "Plotowanie korelacji przesuniętej o 10"
 plt.figure(3)
@@ -40,7 +40,7 @@ x = np.linspace(trajekt.min(), trajekt.max())
 y = a *x + b
 plt.plot(trajekt[:-10], traj2, 'ro')
 plt.plot(x, y)
-plt.savefig("remote/out10.png")
+plt.savefig("out10.png")
 
 print "Plotowanie korelacji przesuniętej o 1000"
 plt.figure(4)
@@ -51,4 +51,4 @@ x = np.linspace(trajekt.min(), trajekt.max())
 y = a *x + b
 plt.plot(trajekt[:-1000], traj2, 'ro')
 plt.plot(x, y)
-plt.savefig("remote/out1000.png")
+plt.savefig("out1000.png")
