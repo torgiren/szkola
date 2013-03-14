@@ -1,1 +1,6 @@
 non_git
+*.pyc
+*~
+*.swp
+*.aux
+*.log
