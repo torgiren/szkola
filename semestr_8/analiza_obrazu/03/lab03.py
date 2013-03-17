@@ -28,7 +28,6 @@ img.open("tux.png")
 img.sobel()
 img.save("sobel.png")
 print "Obrot"
-print "Oryginalny"
 img.open("tux.png")
-img.rotate(35, method="orig")
-img.save("rot_orig.png")
+img.rotate(35)
+img.save("rot.png")

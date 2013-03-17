@@ -174,7 +174,7 @@ class ImageAnal:
         self.__image = data
 
     @image_loaded
-    def rotate(self, angle, method="orig"):
+    def rotate(self, angle):
         angle = np.deg2rad(angle)
         data = self.__image
         px = data.shape[0]/2
@@ -293,7 +293,7 @@ class ImageAnal:
         return data
 
     def __clear_alpha(self):
-        print "clear alpha"
+#        print "clear alpha"
         if self.__image.shape[2] == 4:
             self.__image[:, :, 3] = 255
 
