@@ -192,17 +192,19 @@ class ImageAnal:
     def szum(self, prop, method):
         if method == 'solpieprz':
             self.__szum_solpieprz(prop)
-        elif method == 'rownomierny':
-            self.__szum_rownomierny(prop)
+        elif method == 'rownomierny1':
+            self.__szum_rownomierny1(prop)
+        elif method == 'rownomierny2':
+            self.__szum_rownomierny1(prop)
 
     @image_loaded
     def odszumianie(self, method):
         if method == 'srednia':
             self.__odszumianie_srednie(self)
-        elif method = 'mediana':
+        elif method == 'mediana':
             self.__odszumianie_medianowe(self)
-        elif method = 'mediana2':
-            self.__odszymianie_medianowe2(self):
+        elif method == 'mediana2':
+            self.__odszymianie_medianowe2(self)
         else:
             raise NoSuchMethodError()
 
@@ -323,19 +325,50 @@ class ImageAnal:
         return data
 
     def __szum_solpieprz(self, prop):
-        prop *= 100
-        print "a"
         data = self.__image
-        print "b"
+        prop *= 100
         s = data.shape[0] * data.shape[1]
         s2 = (data.shape[0], data.shape[1])
         r = np.random.randint(100, size=s).reshape(s2)
-        print "c"
         r = r < prop
-        print r
-        print "d"
         r2 = np.random.randint(2, size=s).reshape(s2)
-        print "e"
         data = data * (1-r).repeat(4).reshape(data.shape) + r2.repeat(4).reshape(data.shape)
-        print "f"
         self.__image = data
+    
+    def __szum_rownomierny1(self, prop):
+        data = self.__image
+        prop *= 100
+        s = data.shape[0] * data.shape[1]
+        s2 = (data.shape[0], data.shape[1])
+        r = np.random.randint(100, size = s2).reshape(s2)
+        r = r < prop
+        tmp = np.array(data, dtype=np.int64)
+        r2 = np.random.randint(20, size = s2).reshape(s2)-10
+        r2 = r2 + (r2 > 0) * 20 - (r2 < 0) * 20
+        r2 = r2 * r
+        r2 = r2.repeat(4).reshape(data.shape)    
+        tmp += r2
+        tmp = tmp * (tmp > 0)
+        tmp -= 255
+        tmp = tmp * (tmp < 0)
+        tmp += 255
+        self.__image = tmp
+
+    def __szum_rownomierny2(self, prop):
+        data = slef.__image
+        prop *= 100
+        s = reduce(lambda x, y: x * y, data.shape)
+        r = np.random.randint(100, size = s).reshape(s2)
+        r = r < prop
+        tmp = np.array(data, dtype=np.int64)
+        r2 = np.random.randint(20, size = s)-10
+        r2 = r2 * r
+        r2 = r2 + (r2 > 0) * 20 - (r2 < 0) * 20
+        r2 = r2.reshape(data.shape)    
+        tmp += r2
+        tmp = tmp * (tmp > 0)
+        tmp -= 255
+        tmp = tmp * (tmp < 0)
+        tmp += 255
+        self.__image = tmp
+
