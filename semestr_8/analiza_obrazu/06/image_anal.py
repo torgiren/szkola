@@ -210,68 +210,152 @@ class ImageAnal:
 
     @image_loaded
     def KKM(self):
+        np.set_printoptions(linewidth=504, threshold='nan')
         czworki = [3, 6, 7, 12, 14, 15, 24, 28, 30, 48, 56, 60, 96, 112, 120, 129, 131, 135, 192, 193, 195, 224, 225, 240]
+        wyciecia = [3, 5, 7, 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31, 48, 52, 53, 54, 55, 56, 60, 61, 62, 63, 65, 67, 69, 71, 77, 79, 80, 81, 83, 84, 85, 86, 87, 88, 89, 91, 92, 93, 94, 95, 97, 99, 101, 103, 109, 111, 112, 113, 115, 116, 117, 118, 119, 120, 121, 123, 124, 125, 126, 127, 131, 133, 135, 141, 143, 149, 151, 157, 159, 181, 183, 189, 191, 192, 193, 195, 197, 199, 205, 207, 208, 209, 211, 212, 213, 214, 215, 216, 217, 219, 220, 221, 222, 223, 224, 225, 227, 229, 231, 237, 239, 240, 241, 243, 244, 245, 246, 247, 248, 249, 251, 252, 253, 254, 255]
         data = self.__image
+        print data.shape
         data = data[:,:,0]
         data = (data < 125) * 1
-        data[2,2] = 1
-        print "Poczatkowe"
-        print data
-        #krok I
-        pion = np.zeros(data.shape)
-        pion[1:-1,1:-1] = data[:-2,1:-1] + data[2:,1:-1] +\
-                          data[1:-1,:-2] + data[1:-1,2:]
-        pion = pion < 4
-        pion = (data == 1) * pion
-        data = (data * (-pion)) + (pion * 2)
+#        data[2,2] = 1
+#        data = np.array([[0,0,0,0,0,0,0,0,0],
+#                         [0,0,0,0,0,1,0,0,0],
+#                         [0,1,0,0,0,1,1,0,0],
+#                        [0,1,0,0,0,1,1,0,0],
+#                        [1,1,1,0,0,1,1,0,0],
+#                        [0,1,0,0,0,1,1,0,0],
+#                        [0,0,0,0,0,0,0,1,0],
+#                        [0,0,0,0,0,0,0,0,0]])
+        old = np.zeros(data.shape)
+        iter = 0
+        verb = False
+        while not np.array_equal(old, data):
+            print "iteracja: ", iter
+            iter += 1
+            old = data.copy()
+            if verb:
+                print "Poczatkowe"
+                print data
+                        #krok I
+            pion = np.zeros(data.shape)
+            pion[1:-1,1:-1] = (data[:-2,1:-1] == 0) + (data[2:,1:-1] == 0) +\
+                              (data[1:-1,:-2] == 0) + (data[1:-1,2:] == 0)
+#            pion = pion < 4
+            pion = (data == 1) * pion
+#            data = (data * (-pion)) + (pion * 2)
+            data = data + pion
+            if verb:
+                print "Po kroku I"
+                print data
 
-        #krok II
-        pion[1:-1,1:-1] = data[:-2, :-2] + data[:-2, 2:] +\
-                          data[2:, :-2] + data[2:, 2:]
-        pion = pion < 4
-        pion = (data == 1) * pion
-        data = (data * (-pion)) + (pion * 2)
-        #krok III
-        tmp = np.zeros(data.shape)
-        tmp[1:-1,1:-1] = 1 * (data[:-2, :-2]>0) +\
-                         2 * (data[1:-1, :-2]>0) +\
-                         4 * (data[2:, :-2]>0) +\
-                         128 * (data[:-2, 1:-1]>0) +\
-                         8 * (data[2:, 1:-1]>0) +\
-                         64 * (data[:-2, 2:]>0) +\
-                         32 * (data[1:-1, 2:]>0) +\
-                         16 * (data[2:, 2:]>0)
+                        #krok II
+            pion = np.zeros(data.shape)
+            pion[1:-1,1:-1] = (data[:-2, :-2] == 0) + (data[:-2, 2:] == 0) +\
+                              (data[2:, :-2] == 0) + (data[2:, 2:] == 0)
+#            pion = pion < 4
+            pion = (data == 1) * pion
+#            data = (data * (-pion)) + (pion * 3)
+            data = data + pion * 2
+            if verb:
+                print "Po kroku II"
+                print data
+                        #krok III
+            tmp = np.zeros(data.shape)
+            tmp[1:-1,1:-1] = 1 * (data[:-2, :-2]>0) +\
+                             2 * (data[1:-1, :-2]>0) +\
+                             4 * (data[2:, :-2]>0) +\
+                             128 * (data[:-2, 1:-1]>0) +\
+                             8 * (data[2:, 1:-1]>0) +\
+                             64 * (data[:-2, 2:]>0) +\
+                             32 * (data[1:-1, 2:]>0) +\
+                             16 * (data[2:, 2:]>0)
 
-        tmp2 = np.zeros(tmp.shape, dtype=np.bool)
-        for i in czworki:
-            tmp2 += tmp == i
-        tmp2 = tmp2 * (data == 2)
+            tmp = (data==2) * tmp
+            tmp2 = np.zeros(tmp.shape, dtype=np.bool)
+            for i in czworki:
+                tmp2 += (tmp == i)
+            data += (tmp2*2)
+            if verb:
+                print "Po kroku III"
+                print data
 
-        data = data * (-tmp2) + (tmp2 * 4)
+                            #krok IV
+            tmp = np.zeros(data.shape)
+            tmp[1:-1,1:-1] = 1 * (data[:-2, :-2]>0) +\
+                             2 * (data[1:-1, :-2]>0) +\
+                             4 * (data[2:, :-2]>0) +\
+                             128 * (data[:-2, 1:-1]>0) +\
+                             8 * (data[2:, 1:-1]>0) +\
+                             64 * (data[:-2, 2:]>0) +\
+                             32 * (data[1:-1, 2:]>0) +\
+                             16 * (data[2:, 2:]>0)
 
-        #krok IV
-        tmp = np.zeros(data.shape)
-        tmp[1:-1,1:-1] = 1 * (data[:-2, :-2]>0) +\
-                         2 * (data[1:-1, :-2]>0) +\
-                         4 * (data[2:, :-2]>0) +\
-                         128 * (data[:-2, 1:-1]>0) +\
-                         8 * (data[2:, 1:-1]>0) +\
-                         64 * (data[:-2, 2:]>0) +\
-                         32 * (data[1:-1, 2:]>0) +\
-                         16 * (data[2:, 2:]>0)
+            tmp = (data == 4) * tmp
+            tmp2 = np.zeros(tmp.shape, dtype=np.bool)
+            for i in wyciecia:
+                tmp2 += (tmp == i)
+            tmp = (tmp>0) - tmp2
 
-        tmp2 = np.zeros(tmp.shape, dtype=np.bool)
-        for i in czworki:
-            tmp2 += tmp == i
+            data = data * (data != 4) + tmp * 1 + tmp2 * 0
+            if verb:
+                print "Po kroku IV"
+                print data
 
-        data = data * (-tmp2) + (tmp2 * 0)
+                            #krok V
+            tmp = np.zeros(data.shape)
+            tmp[1:-1,1:-1] = 1 * (data[:-2, :-2]>0) +\
+                             2 * (data[1:-1, :-2]>0) +\
+                             4 * (data[2:, :-2]>0) +\
+                             128 * (data[:-2, 1:-1]>0) +\
+                             8 * (data[2:, 1:-1]>0) +\
+                             64 * (data[:-2, 2:]>0) +\
+                             32 * (data[1:-1, 2:]>0) +\
+                             16 * (data[2:, 2:]>0)
 
+            tmp = (data == 2) * tmp
+            tmp2 = np.zeros(tmp.shape, dtype=np.bool)
+            for i in wyciecia:
+                tmp2 += (tmp == i)
+            tmp = (tmp>0) - tmp2
 
-        print "Data"
-        print data
-        print "pion"
-        print pion
+            data = data * (data != 2) + tmp * 1 + tmp2 * 0
+            if verb:
+                print "Po kroku V"
+                print data
+
+                            #krok VI
+            tmp = np.zeros(data.shape)
+            tmp[1:-1,1:-1] = 1 * (data[:-2, :-2]>0) +\
+                             2 * (data[1:-1, :-2]>0) +\
+                             4 * (data[2:, :-2]>0) +\
+                             128 * (data[:-2, 1:-1]>0) +\
+                             8 * (data[2:, 1:-1]>0) +\
+                             64 * (data[:-2, 2:]>0) +\
+                             32 * (data[1:-1, 2:]>0) +\
+                             16 * (data[2:, 2:]>0)
+
+            tmp = (data == 3) * tmp
+            tmp2 = np.zeros(tmp.shape, dtype=np.bool)
+            for i in wyciecia:
+                tmp2 += (tmp == i)
+            tmp = (tmp>0) - tmp2
+
+            data = data * (data != 3) + tmp * 1 + tmp2 * 0
+            if verb:
+                print "Po kroku VI"
+                print data
+
+        data = data * 255
         print data.shape
+        self.__image = np.zeros((data.shape[0], data.shape[1], 3))
+        print self.__image.shape
+        self.__image[:,:,0] = data
+        self.__image[:,:,1] = data
+        self.__image[:,:,2] = data
+        print self.__image.shape
+#        self.__image = data
+
+
 
     @image_loaded
     def save(self, path):
@@ -395,7 +479,7 @@ class ImageAnal:
         s = data.shape[0] * data.shape[1]
         s2 = (data.shape[0], data.shape[1])
         r = np.random.randint(100, size=s).reshape(s2)
-        r = r < prop
+        R = r < prop
         r2 = np.random.randint(2, size=s).reshape(s2)
         data = data * (1-r).repeat(4).reshape(data.shape) + r2.repeat(4).reshape(data.shape)
         self.__image = data
