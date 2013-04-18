@@ -255,8 +255,8 @@ class ImageAnal:
                 print data
                         #krok I
             pion = np.zeros(data.shape)
-            pion[1:-1,1:-1] = (data[:-2,1:-1] == 0) + (data[2:,1:-1] == 0) +\
-                              (data[1:-1,:-2] == 0) + (data[1:-1,2:] == 0)
+            pion[1:-1,1:-1] = (data[:-2,1:-1] == 0) | (data[2:,1:-1] == 0) |\
+                              (data[1:-1,:-2] == 0) | (data[1:-1,2:] == 0)
 #            pion = pion < 4
             pion = (data == 1) * pion
 #            data = (data * (-pion)) + (pion * 2)
@@ -267,8 +267,8 @@ class ImageAnal:
 
                         #krok II
             pion = np.zeros(data.shape)
-            pion[1:-1,1:-1] = (data[:-2, :-2] == 0) + (data[:-2, 2:] == 0) +\
-                              (data[2:, :-2] == 0) + (data[2:, 2:] == 0)
+            pion[1:-1,1:-1] = (data[:-2, :-2] == 0) | (data[:-2, 2:] == 0) |\
+                              (data[2:, :-2] == 0) | (data[2:, 2:] == 0)
 #            pion = pion < 4
             pion = (data == 1) * pion
 #            data = (data * (-pion)) + (pion * 3)
@@ -290,7 +290,7 @@ class ImageAnal:
             tmp = (data==2) * tmp
             tmp2 = np.zeros(tmp.shape, dtype=np.bool)
             for i in czworki:
-                tmp2 += (tmp == i)
+                tmp2 |= (tmp == i)
             data += (tmp2*2)
             if verb:
                 print "Po kroku III"
@@ -310,7 +310,7 @@ class ImageAnal:
             tmp = (data == 4) * tmp
             tmp2 = np.zeros(tmp.shape, dtype=np.bool)
             for i in wyciecia:
-                tmp2 += (tmp == i)
+                tmp2 |= (tmp == i)
             tmp = (tmp>0) - tmp2
 
             data = data * (data != 4) + tmp * 1 + tmp2 * 0
@@ -332,7 +332,7 @@ class ImageAnal:
             tmp = (data == 2) * tmp
             tmp2 = np.zeros(tmp.shape, dtype=np.bool)
             for i in wyciecia:
-                tmp2 += (tmp == i)
+                tmp2 |= (tmp == i)
             tmp = (tmp>0) - tmp2
 
             data = data * (data != 2) + tmp * 1 + tmp2 * 0
@@ -354,7 +354,7 @@ class ImageAnal:
             tmp = (data == 3) * tmp
             tmp2 = np.zeros(tmp.shape, dtype=np.bool)
             for i in wyciecia:
-                tmp2 += (tmp == i)
+                tmp2 |= (tmp == i)
             tmp = (tmp>0) - tmp2
 
             data = data * (data != 3) + tmp * 1 + tmp2 * 0
