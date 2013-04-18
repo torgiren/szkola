@@ -3,4 +3,7 @@
 from image_anal import ImageAnal
 img = ImageAnal()
 img.open('12-b.bmp')
-img.segment('seg')
+img.segment1('seg')
+
+img.open('12-b.bmp')
+img.segment2('seg2')

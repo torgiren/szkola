@@ -538,7 +538,7 @@ class ImageAnal:
         tmp += 255
         self.__image = tmp
 
-    def segment(self, directory):
+    def segment1(self, directory):
         def ranges(val):
             lines = []
             tmp = 0
@@ -576,4 +576,43 @@ class ImageAnal:
  #                   misc.imsave(path, data[l[0]:l[1], c[0]:c[1]])
 
                 num += 1
+
+    def segment2(self, directory):
+        def neighbour(data, p):
+            p = list(p)
+            if p[0] == 0:
+                p[0] = 1
+            if p[1] == 0:
+                p[1] = 1
+            return set([tuple(i+p-(1,1)) for i in np.transpose(data[p[0] - 1:p[0] + 2, p[1] - 1:p[1] + 2].nonzero())])
+        data = (self.__image[:, :, 0] < 127) * 1
+        buf = set()
+        checked = set()
+        num = 0
+        while data.sum():
+            checked = set()
+            buf.add(tuple(np.transpose(data.nonzero())[0]))
+            while buf:
+                print "buf",buf
+                p = buf.pop()
+                print "point",p
+                n = neighbour(data, p)
+                print "neighbour", n
+                checked.add(p)
+                print "checked", checked
+                buf = buf.union(n - checked)
+                print "buf", buf
+                print "**********"
+            checked = np.array(list(checked))
+            minx = checked[:, 0].min()
+            miny = checked[:, 1].min()
+            maxx = checked[:, 0].max()
+            maxy = checked[:, 1].max()
+            tmp = np.zeros((1 + maxx - minx, 1 + maxy - miny))
+            path = directory+'/'+str(num)+".png"
+            for i in checked:
+                data[i[0], i[1]] = 0
+                tmp[i[0] - minx, i[1] - miny] = 1
+            misc.imsave(path, tmp)
+            num += 1
 
