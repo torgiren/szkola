@@ -15,12 +15,15 @@ m = 1
 Ca = U * dt / dx
 Cd = D * dt / dx ** 2
 
+dane1 = []
+dane2 = []
 
 def f1():
     return 10
 
 
 def method1():
+    num = 0
     C1 = Cd * (1.0 - Ca) - Ca / 6.0 * (Ca ** 2 - 3.0 * Ca + 2.0)
     C2 = Cd * (2.0 - 3.0 * Ca) - Ca / 2.0 * (Ca ** 2 - 2.0 * Ca - 1.0)
     C3 = Cd * (1.0 - 3.0 * Ca) - Ca / 2.0 * (Ca ** 2 - Ca - 2.0)
@@ -33,19 +36,22 @@ def method1():
         vec[2:-1] = vec[2:-1] + C1 * vec[3:] - C2 * vec[2:-1] + \
             C3 * vec[1:-2] + C4 * vec[:-3]
         hist.append(vec[xp])
-        print x, vec.sum()
         if not x % 50:
+            print x, vec.sum()
             plt.figure(x)
+
             plt.plot(xrange(len(vec)), vec)
-            plt.savefig("plots/%05d.png" % x)
+            plt.savefig("plots1/%05d.png" % num)
+            num += 1
             print "fig"
 
     plt.figure(x + 1)
     plt.plot(xrange(len(hist)), hist)
-    plt.savefig("plots/hist.png")
+    plt.savefig("plots1/hist.png")
 
 
 def method2():
+    num = 0
     vec = np.zeros(L / dx)
     vec[x0] = f1()
     hist = []
@@ -63,15 +69,14 @@ def method2():
     vec[x0] = f1()
     vec = vec.transpose()
     for x in xrange(10000):
-        print CC.shape
-        print vec.shape
         vec = np.dot(CC, vec)
         hist.append(vec[xp])
-        print x, vec.sum()
         if not x % 50:
+            print x, vec.sum()
             plt.figure(x)
             plt.plot(xrange(len(vec)), vec)
-            plt.savefig("plots2/%05d.png" % x)
+            plt.savefig("plots2/%05d.png" % num)
+            num += 1
             print "fig"
 
     plt.figure(x + 1)
