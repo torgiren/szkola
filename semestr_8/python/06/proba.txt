@@ -1,0 +1,4 @@
+to jest pierwsza linijka tekstu
+a to jest druga która wpisalem
+mam tez trzecia linijke
+nie zapominajmy o czwartej
