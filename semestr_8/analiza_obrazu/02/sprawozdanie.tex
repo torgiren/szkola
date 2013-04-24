@@ -1,0 +1,161 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\author{Marcin TORGiren Fabrykowski}
+\title{AIPO - Laboratorium 2}
+\begin{document}
+\lstset{language=Python, tabsize=2, inputencoding=utf8, basicstyle=\footnotesize}
+\maketitle
+\newpage
+\section{Teoria}
+\subsection{Filtr rozmywający}
+Filtr splotowy uśredniający (dolnoprzepustowy) - działanie tego filtru polega na ustawieniu wartości danego piksela na podstawie wartości pikseli znajdujących się w najbliższym otoczeniu tego piksela. Wynikiem jest uzyskanie rozmycia obrazu wejściowego.
+\subsection{Filtr wyostrzający}
+Filtr splotowy wyostrzający (górnoprzepustowy) - służy do wzmocnienia szczegółów o dużej częstotliwości. Wynikiem jest poprawa ostrości oraz kontrastu obrazu, jednak wzmacnia również szumy. Często stosowane po silnej filtracji uśredniającej, aby przywrócić ostrość obrazu.
+\subsection{Przetwarzany obraz}
+Obraz źródłowy znajduje się na rys.~\ref{fig:src}
+\begin{figure}[p]
+\includegraphics{tux}
+\caption{Obraz źródłowy}
+\label{fig:src}
+\end{figure}
+\newpage
+\section{Analiza obrazu}
+\subsection{Skalowanie}
+Na rys \ref{fig:down} przedstawiono skalowanie w dół w skali 0.4, natomiast na rys \ref{fig:up} skalowanie w górę w skali 2.5.
+
+\begin{figure}[p]
+\includegraphics{scale_down}
+\caption{Skalowanie w dół - 0.4}
+\label{fig:down}
+\end{figure}
+
+\begin{figure}[p]
+\includegraphics{scale_up}
+\caption{Skalowanie w górę - 2.5}
+\label{fig:up}
+\end{figure}
+\subsection{Progowanie}
+Na rysunku \ref{fig:global} przedstawiono progowanie z użytym globalną wartością progowania.
+\begin{figure}[p]
+\includegraphics{global}
+\caption{Progowanie globalne}
+\label{fig:global}
+\end{figure}
+Na rysunkach \ref{fig:local_5}, \ref{fig:local_11}, \ref{fig:local_15}, \ref{fig:local_21}, \ref{fig:local_25} przedstawiono progowanie localne z otoczeniami odpowiednio: 5, 11, 15, 21, 25.\\
+\begin{figure}[p]
+\includegraphics{local_5}
+\caption{Progowanie lokalne, otoczenie 5}
+\label{fig:local_5}
+\end{figure}
+
+\begin{figure}[p]
+\includegraphics{local_11}
+\caption{Progowanie lokalne, otoczenie 11}
+\label{fig:local_11}
+\end{figure}
+\begin{figure}[p]
+\includegraphics{local_15}
+\caption{Progowanie lokalne, otoczenie 15}
+\label{fig:local_15}
+\end{figure}
+\begin{figure}[p]
+\includegraphics{local_21}
+\caption{Progowanie lokalne, otoczenie 21}
+\label{fig:local_21}
+\end{figure}
+\begin{figure}[p]
+\includegraphics{local_25}
+\caption{Progowanie lokalne, otoczenie 25}
+\label{fig:local_25}
+\end{figure}
+Na rysunkach \ref{fig:mixed_15}, \ref{fig:mixed_25}, \ref{fig:mixed_35} na których przedstawiono progowanie mieszane dla otoczenia 15 i odchyleniu średniej odpowiednio: 15, 25, 35.\\
+\begin{figure}[p]
+\includegraphics{mixed_15}
+\caption{Progowanie mieszane, odchylenie 15}
+\label{fig:mixed_15}
+\end{figure}
+\begin{figure}[p]
+\includegraphics{mixed_25}
+\caption{Progowanie mieszane, odchylenie 25}
+\label{fig:mixed_25}
+\end{figure}
+\begin{figure}[p]
+\includegraphics{mixed_35}
+\caption{Progowanie mieszane, odchylenie 35}
+\label{fig:mixed_35}
+\end{figure}
+\subsection{Filtry splotowe}
+Na rysunkach \ref{fig:splot_1_1}, \ref{fig:splot_1_2}, \ref{fig:splot_1_3} przedstawiono filtrowanie obrazu następującymi filtrami rozmywającymi:\\
+\begin{tabular}{c|c|c}
+1&1&1\\ \hline
+1&1&1\\ \hline
+1&1&1\\
+\end{tabular},
+\begin{tabular}{c|c|c}
+1&1&1\\ \hline
+1&2&1\\ \hline
+1&1&1\\
+\end{tabular},
+\begin{tabular}{c|c|c}
+1&2&1\\ \hline
+2&4&2\\ \hline
+1&2&1\\
+\end{tabular}\\
+\begin{figure}[p]
+\includegraphics{splot_1_1}
+\caption{Filtrowanie rozmywające 1}
+\label{fig:splot_1_1}
+\end{figure}
+\begin{figure}[p]
+\includegraphics{splot_1_2}
+\caption{Filtrowanie rozmywające 2}
+\label{fig:splot_1_2}
+\end{figure}
+\begin{figure}[p]
+\includegraphics{splot_1_3}
+\caption{Filtrowanie rozmywające 3}
+\label{fig:splot_1_3}
+\end{figure}
+Na rysunkach \ref{fig:splot_2_1}, \ref{fig:splot_2_2}, \ref{fig:splot_2_3} przedstawiono filtrowanie obrazu następującymi filtrami wyostrzającymi:\\
+\begin{tabular}{c|c|c}
+0&-1&0\\ \hline
+-1&5&-1\\ \hline
+0&-1&0\\
+\end{tabular},
+\begin{tabular}{c|c|c}
+-1&-1&-1\\ \hline
+-1&9&-1\\ \hline
+-1&-1&-1\\
+\end{tabular},
+\begin{tabular}{c|c|c}
+1&-2&1\\ \hline
+-2&5&-2\\ \hline
+1&-2&1\\
+\end{tabular}\\
+\begin{figure}[p]
+\includegraphics{splot_2_1}
+\caption{Filtrowanie wyostrzające 1}
+\label{fig:splot_2_1}
+\end{figure}
+\begin{figure}[p]
+\includegraphics{splot_2_2}
+\caption{Filtrowanie wyostrzające 2}
+\label{fig:splot_2_2}
+\end{figure}
+\begin{figure}[p]
+\includegraphics{splot_2_3}
+\caption{Filtrowanie wyostrzające 3}
+\label{fig:splot_2_3}
+\end{figure}
+\newpage
+\section{Kod programu}
+\lstinputlisting{image_anal_ascii.py}
+\section{Wnioski}
+Jakoś skalowanie w górę można poprawić poprzez obliczanie wartości średnich dla nowych pixeli zamiast kopiować jeden pixel wielokrotnie.\\
+Najlepszy wynik progowowanie dała metoda mieszana z odchyleniem 35. Usuwa ona wszystkie niepotrzebne detale i pozostawia najważniejsze elementy obrazu, tj. kształt pingwina, a usuwa drobne przebłyski na smokingu i stopach.\\
+Wszystkie 3 filtry rozmywające dają podobny efekt wizualny, oraz nie różnią się zbytnio złożonością obliczeniową, dlatego uważam że wszystkie one są równorzędne.\\
+Moim zdaniem filtr wyostrzający 2 daje najlepsze wyniki. Można to zauważyć np. przy uwydatnieniu drobnego cienia świetlnego na rękach który mógłby zostać niezauważony na oryginalnym obrazku. Podobnie jest z prawą brwią pingwina - praktycznie niezauważalna na oryginalnym obrazku zostaje wyraźnie przedstawiona przy filtrze nr. 2
+\end{document}

@@ -1,0 +1,152 @@
+\documentclass[10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage{verbatim}
+\author{Marcin TORGiren Fabrykowski}
+\title{Streaming video}
+\usetheme{Warsaw}
+\begin{document}
+\begin{frame}
+	\titlepage
+\end{frame}
+\begin{frame}
+	\frametitle{O czym będziemy mówić...}
+	\tableofcontents
+\end{frame}
+\section{Trochę teorii}
+\subsection{Co to jest streaming}
+\begin{frame}
+	\frametitle{Co to jest streaming}
+	\begin{block}<1->
+	{streaming}
+	przesyłanie ciągłych danych multimedialnych, najczęściej, przez internet
+	\end{block}
+	\begin{block}<2->
+	{rodzaje strimingów}
+	\begin{itemize}
+		\item<3-> live (np: telewizja w akademiku)
+		\item<4-> VOD (np: wypożyczalnia internetowa)
+	\end{itemize}
+	\end{block}
+	\begin{block}<5->
+	{protokoły transmisji}
+	\begin{itemize}
+		\item<6-> UDP
+		\item<7-> HTTP
+		\item<8-> RTSP
+	\end{itemize}
+	\end{block}
+\end{frame}
+\subsection{Kodeki}
+\begin{frame}
+	\frametitle{Kodeki}
+	Testowałem na przykładowym odcinku Świata wg. Bundych.
+	\begin{block}<1->
+	{z użyciem kodeka}
+	\uncover<2->
+	{
+		film zajmuje 178MB
+	}
+	\end{block}
+	\begin{block}<3->
+	{bez kodeka}
+	\uncover<4->
+	{
+		film zajmuje 12GB
+	}
+	\end{block}
+\end{frame}
+\begin{frame}
+	\frametitle{Przykładowe kodeki}
+	\begin{block}<1->
+	{najpopularniejsze kodeki video}
+	\begin{itemize}
+	\item MPEG-1/2/4
+	\item H264
+	\item FLV1
+	\end{itemize}
+	\end{block}
+	\begin{block}<2->
+	{najpopularniejsze kodeki audio}
+	\begin{itemize}
+	\item MPEG auidio
+	\item MPEG-3
+	\item FLAC
+	\item A52
+	\end{itemize}
+	\end{block}
+\end{frame}
+\subsection{Kontenery}
+\begin{frame}
+	\frametitle{Kontenery}
+	\begin{block}<1->
+	{co to jest}
+	służą do pakowania kilku strumieni w jednym opakowaniu\\
+	działają jak multiplexer
+	\end{block}
+	\begin{block}<2->
+	{najpopularniejsze kontenery}
+	\begin{itemize}
+	\item AVI
+	\item Matroska
+	\item MPEG
+	\item MP4
+	\end{itemize}
+	\end{block}
+\end{frame}
+\section{Praktyka}
+\subsection{Live stream}
+\begin{frame}[fragile]
+	\frametitle{Live stream}
+	\begin{block}<1->
+	{stream z kamery/karty TV}
+	\footnotesize
+	\begin{verbatim}
+	cvlc -v --ttl 5 --rt-priority v4l2:///dev/video1:width=640:height=480
+	:input-slave=alsa://hw:0,2 :samplerate=44100
+	:sout=#transcode{vcodec=h264,vb=512,fps=25,scale=1,acodec=mp3,ab=128,
+	channels=1,audio-sync,deinterlace,threads=2}:duplicate{dst=std
+	{access=http,mux=ts,dst=0.0.0.0:3344}}"
+	\end{verbatim}
+	\end{block}
+	\begin{block}<2->
+	{odtwarzanie}
+	\begin{itemize}
+		\item mplayer http://server:3344
+		\item vlc http://server:3344
+	\end{itemize}
+	\end{block}
+\end{frame}
+\subsection{VOD}
+\begin{frame}[fragile]
+	\frametitle{VOD}
+	\begin{block}<1->
+	{uruchomienie}
+	\footnotesize
+	\begin{verbatim}
+	vlc  -v --color -I telnet --telnet-password videolan --telnet-port 4121
+	--rtsp-host 0.0.0.0 --rtsp-port 3344
+	\end{verbatim}
+	\end{block}
+	\begin{block}<2->
+	{telnotowanie}
+	\begin{verbatim}
+	telnet localhost 4212
+	\end{verbatim}
+	\end{block}
+	\begin{block}<3->
+	{konfiguracja}
+	\begin{verbatim}
+	new film1 vod enabled
+	setup film1 input film.mpg
+	\end{verbatim}
+	\end{block}
+	\begin{block}<4->
+	{odtwarzanie}
+	\begin{itemize}
+		\item vlc rtsp://server:3344/film1
+		\item mplayer rtsp://server:3344/film1
+	\end{itemize}
+	\end{block}
+\end{frame}
+\end{document}
