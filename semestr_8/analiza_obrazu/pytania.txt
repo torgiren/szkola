@@ -1,0 +1,12 @@
+1) Na obrazie mamy zakłócenie wynikające z transmisji danych. Zaproponuj filtry
+2) Czym się różnią filtry Gaussa od Laplasjana oraz Gabora.
+3) Podaj przykład maski dla następujących filtrów:
+	a) uśredniający
+	b) sobela
+	c) dolnoprzepustowe
+	d) górnoprzepustowe
+	e) filtry z pochodną
+4) Podaj przykłady na binaryzację, progowanie, kwantyzację
+5) Kiedy potrzebujemy normalizację histogramu
+6) Na czym polegają algorytmy genetyczne. Wykorzystanie w analizie i przetwarzaniu obrazu
+7) Na co należy zwrócić uwagę przy analizie i przetwarzaniu obrazów medycznych
