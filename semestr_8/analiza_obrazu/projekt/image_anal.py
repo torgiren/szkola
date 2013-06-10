@@ -555,6 +555,7 @@ class ImageAnal:
             return lines
 
         data = (self.__image[:,:,0] < 127) * 1
+        misc.imsave('binary.png', data)
         hist = data.sum(axis=1)
         lines = ranges(hist)
         print lines
@@ -564,14 +565,16 @@ class ImageAnal:
             hist = line.sum(axis=0)
             chars = ranges(hist)
             for c in chars:
-                path = directory + '/' + str(num) + ".png"
+                path = directory + '/%05d.png'%num
                 print path
                 c1 = data[l[0]:l[1], c[0]:c[1]]
                 hist = c1.sum(axis=1)
                 lines2 = ranges(hist)
                 print lines2
 #                if lines2:
-                misc.imsave(path, data[l[0]+lines2[0][0]:l[0]+lines2[-1][1], c[0]:c[1]])
+                litera = misc.imresize(data[l[0]+lines2[0][0]:l[0]+lines2[-1][1], c[0]:c[1]], size=(100,100))
+#                misc.imsave(path, data[l[0]+lines2[0][0]:l[0]+lines2[-1][1], c[0]:c[1]])
+                misc.imsave(path, litera)
  #               else:
  #                   misc.imsave(path, data[l[0]:l[1], c[0]:c[1]])
 
@@ -585,7 +588,9 @@ class ImageAnal:
             if p[1] == 0:
                 p[1] = 1
             return set([tuple(i+p-(1,1)) for i in np.transpose(data[p[0] - 1:p[0] + 2, p[1] - 1:p[1] + 2].nonzero())])
+        self.KKM()
         data = (self.__image[:, :, 0] < 127) * 1
+
         buf = set()
         checked = set()
         num = 0
@@ -593,23 +598,24 @@ class ImageAnal:
             checked = set()
             buf.add(tuple(np.transpose(data.nonzero())[0]))
             while buf:
-                print "buf",buf
+      #          print "buf",buf
                 p = buf.pop()
-                print "point",p
+     #           print "point",p
                 n = neighbour(data, p)
-                print "neighbour", n
+    #            print "neighbour", n
                 checked.add(p)
-                print "checked", checked
+   #             print "checked", checked
                 buf = buf.union(n - checked)
-                print "buf", buf
-                print "**********"
+  #              print "buf", buf
+ #               print "**********"
             checked = np.array(list(checked))
             minx = checked[:, 0].min()
             miny = checked[:, 1].min()
             maxx = checked[:, 0].max()
             maxy = checked[:, 1].max()
             tmp = np.zeros((1 + maxx - minx, 1 + maxy - miny))
-            path = directory+'/'+str(num)+".png"
+           # path = directory+'/'+str(num)+".png"
+            path = directory + '/%05d.png'%num
             for i in checked:
                 data[i[0], i[1]] = 0
                 tmp[i[0] - minx, i[1] - miny] = 1
