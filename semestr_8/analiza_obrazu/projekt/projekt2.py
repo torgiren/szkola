@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.7
 #*-* coding: utf8 *-*
 from image_anal import ImageAnal
 img = ImageAnal()
-img.open("ocr1.png")
-img.segment2('2')
+img.open("czcionki.png")
+img.segment2('fonty_png')
