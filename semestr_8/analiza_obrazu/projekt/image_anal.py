@@ -4,6 +4,7 @@ import numpy as np
 from scipy import misc
 import itertools
 from pprint import pprint
+from glob import glob
 
 
 class NoImageError(Exception):
@@ -628,13 +629,43 @@ class ImageAnal:
             maxx = checked[:, 0].max()+1
             maxy = checked[:, 1].max()+1
             tmp = np.zeros((1 + maxx - minx, 1 + maxy - miny))
-           # path = directory+'/'+str(num)+".png"
-            path = directory + '/%05dx%05dx%05dx%05d.png'%(minx, maxy, maxx, miny)
+            #path = directory + '/%05dx%05dx%05dx%05d.png'%(minx, maxy, maxx, miny)
+            path = directory + '/%05dx%05dx%05dx%05d.png'%(maxx, miny, minx, maxy)
             for i in checked:
                 data[i[0], i[1]] = 0
                 tmp[i[0] - minx, i[1] - miny] = 1
             misc.imsave(path, tmp)
             num += 1
+
+
+		# sklejanie kropek z literkami i i j
+        files = glob(directory + "/*.png")
+        print "szukam kandydatów na kropki"
+        i = files[4]
+        a = ".".join(i.split('/')[-1].split('.')[:-1]).split('x')
+        poz = np.array([".".join(i.split('/')[-1].split('.')[:-1]).split('x') for i in files], dtype=int)
+#        poz = [(int(i[0]), int(i[1]), int(i[2]), int(i[3])) for i in poz]
+
+        print poz
+        poz = np.array([i.tolist() + [i[0] - i[2], i[3] - i[1]] for i in poz])
+#        print poz
+        poz.tofile("/tmp/poz.txt", sep="&")
+        kropki = [tuple(i) for i in poz if i[4] < (poz[:, 4].mean() - 2 * poz[:, 4].std()) and i[5] < (poz[:, 4].mean() - 2 * poz[:, 4].std())]
+#        print poz[:, 4].mean() - 2 * poz[:, 4].std()
+        print kropki
+        kropki = set(kropki)
+        kropki_iter = kropki.copy()
+
+        for k in kropki_iter:
+            pprint(kropki)
+            print "Sprawdzam kropke:", k
+            tmp = np.array(filter(lambda x: x[1] < k[1], poz))
+            tmp = filter(lambda x: x[1] == tmp[:,1].max(), tmp)[0]
+            if (tmp[0] > (k[2] - k[4])) and (tmp[0] < k[0] + k[4]):
+                print "kropka na końcu"
+                kropki.remove(k)
+        print "Kropki nad literami: ", kropki
+
 	def resize2(self, size):
 		self.__image = misc.imresize(self.__image__, size)
 		return self.__image__
