@@ -44,4 +44,7 @@ sys.stdout.flush()
 learners = [Orange.classification.tree.TreeLearner(**opts)]
 res = Orange.evaluation.testing.cross_validation(learners, data, folds=5)
 print OK
-print "CA: %.2f\nAUC: %.2f" % (Orange.evaluation.scoring.CA(res)[0], Orange.evaluation.scoring.AUC(res)[0])
+print "CA: %.4f\nAUC: %.4f\nIS: %.4f" % \
+	(Orange.evaluation.scoring.CA(res)[0], 
+	Orange.evaluation.scoring.AUC(res)[0],
+	Orange.evaluation.scoring.IS(res)[0])
