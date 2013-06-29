@@ -22,6 +22,10 @@ class FilterSizeError(Exception):
     pass
 
 
+def gen_filename(down, left, up, right):
+    return "%05dx%05dx%05dx%05d.png" % (down, left, up, right)
+
+
 class ImageAnal:
     """Klasa przetwarzająca obrazy"""
 
@@ -599,6 +603,7 @@ class ImageAnal:
 #        self.kkm2()
 #        print "po kkm"
 #        print self.__image.shape
+        all_chars = []
         pprint(self.__image[:,:,0])
         data = (self.__image[:, :, 0] < 127) * 1
 
@@ -630,7 +635,10 @@ class ImageAnal:
             maxy = checked[:, 1].max()+1
             tmp = np.zeros((1 + maxx - minx, 1 + maxy - miny))
             #path = directory + '/%05dx%05dx%05dx%05d.png'%(minx, maxy, maxx, miny)
-            path = directory + '/%05dx%05dx%05dx%05d.png'%(maxx, miny, minx, maxy)
+            #path = directory + '/%05dx%05dx%05dx%05d.png'%(maxx, miny, minx, maxy)
+            filename = gen_filename(maxx, miny, minx, maxy)
+            path = directory + '/' + filename
+            all_chars.append(np.array(filename.split('.')[0].split('x'), dtype=int))
             for i in checked:
                 data[i[0], i[1]] = 0
                 tmp[i[0] - minx, i[1] - miny] = 1
@@ -655,15 +663,37 @@ class ImageAnal:
         print kropki
         kropki = set(kropki)
         kropki_iter = kropki.copy()
+        print "all chars"
+        pprint(all_chars)
 
         for k in kropki_iter:
-            pprint(kropki)
+            #pprint(kropki)
             print "Sprawdzam kropke:", k
             tmp = np.array(filter(lambda x: x[1] < k[1], poz))
             tmp = filter(lambda x: x[1] == tmp[:,1].max(), tmp)[0]
+            print "literka na lewo: ", tmp
             if (tmp[0] > (k[2] - k[4])) and (tmp[0] < k[0] + k[4]):
-                print "kropka na końcu"
-                kropki.remove(k)
+                if k in kropki_iter:
+                    print "warunek mówi że na końcu, ale jest koło innej kropki więc to jest kropka!!!"
+                else:
+                    print "kropka na końcu"
+                    kropki.remove(k)
+            else:
+               mid = (float(tmp[0]) + tmp[2])/2.0
+               top = float(tmp[2])
+               print "mid i top oraz k[0]:", mid, top, k[0]
+               print "mid - k[0], top - k[0]", mid - k[0], top - k[0]
+               if abs(mid - k[0]) < abs(top - k[0]):
+                   print "Kropka na końcu. drugi warunek"
+                   kropki.remove(k)
+               else:
+                   print "Kropka do doklejenia", k
+                   mid = float(k[1] + k[3]) / 2.0
+                   print filter(lambda x: x[1] <= mid and x[3] >= mid , all_chars)     
+                   pass
+
+            print ""
+
         print "Kropki nad literami: ", kropki
 
 	def resize2(self, size):
