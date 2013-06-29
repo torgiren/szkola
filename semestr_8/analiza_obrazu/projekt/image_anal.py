@@ -5,7 +5,7 @@ from scipy import misc
 import itertools
 from pprint import pprint
 from glob import glob
-
+import os
 
 class NoImageError(Exception):
     """Wyjątek sygnalizujący próbę operowania na niewczytanym obrazie"""
@@ -24,6 +24,29 @@ class FilterSizeError(Exception):
 
 def gen_filename(down, left, up, right):
     return "%05dx%05dx%05dx%05d.png" % (down, left, up, right)
+
+
+def find_left(tab, point, factor=1):
+    sizey = point[0] - point[2]
+    tmp = np.array(filter(lambda x: x[1] < point[1], tab))
+    tmp = np.array(filter(lambda x: (x[0] > (point[0] - sizey * factor) and x[2] < (point[0] - sizey * factor)) or
+                           (x[0] > (point[2] + sizey * factor) and x[2] < (point[2] + sizey * factor)), tmp))
+    print type(tmp)
+    print tmp.shape
+    indices = tmp[:,1].argsort()
+    indices = indices[::-1]
+    tmp = tmp[indices]
+    return tmp
+
+
+def find_down(tab, point, factor=1):
+    sizex = point[3] - point[1]
+    tmp = np.array(filter(lambda x: x[2] > point[0], tab))
+    tmp = np.array(filter(lambda x: ((x[1] - sizex * factor) < point[1] and (x[3] + sizex * factor) > point[1]) or
+                                    ((x[1] - sizex * factor) < point[3] and (x[3] + sizex * factor) > point[3]), tmp))
+    indices = tmp[:,0].argsort()
+    tmp = tmp[indices]
+    return tmp
 
 
 class ImageAnal:
@@ -455,13 +478,13 @@ class ImageAnal:
         return prog
 
     def __prog_mieszany(self, otoczenie, odchylenie):
-        glob = self.__prog_globalny()
+        globa = self.__prog_globaalny()
         prog = self.__prog_lokalny(otoczenie)
-        prog -= (glob + odchylenie)
+        prog -= (globa + odchylenie)
         prog = prog * (prog > 0)
         prog -= 2 * odchylenie
         prog = prog * (prog < 0)
-        prog += (glob + odchylenie)
+        prog += (globa + odchylenie)
         return prog
 
     def __expand(self, src, otoczenie):
@@ -505,7 +528,7 @@ class ImageAnal:
         s = data.shape[0] * data.shape[1]
         s2 = (data.shape[0], data.shape[1])
         r = np.random.randint(100, size=s).reshape(s2)
-        R = r < prop
+#        R = r < prop
         r2 = np.random.randint(2, size=s).reshape(s2)
         data = data * (1 - r).repeat(
             4).reshape(data.shape) + r2.repeat(4).reshape(data.shape)
@@ -514,7 +537,7 @@ class ImageAnal:
     def __szum_rownomierny1(self, prop):
         data = self.__image
         prop *= 100
-        s = data.shape[0] * data.shape[1]
+#        s = data.shape[0] * data.shape[1]
         s2 = (data.shape[0], data.shape[1])
         r = np.random.randint(100, size=s2).reshape(s2)
         r = r < prop
@@ -534,7 +557,7 @@ class ImageAnal:
         data = self.__image
         prop *= 100
         s = reduce(lambda x, y: x * y, data.shape)
-        r = np.random.randint(100, size=s).reshape(s2)
+        r = np.random.randint(100, size=s).reshape(s)
         r = r < prop
         tmp = np.array(data, dtype=np.int64)
         r2 = np.random.randint(20, size=s) - 10
@@ -654,7 +677,7 @@ class ImageAnal:
         files = glob(directory + "/*.png")
         print "szukam kandydatów na kropki"
         i = files[4]
-        a = ".".join(i.split('/')[-1].split('.')[:-1]).split('x')
+#        a = ".".join(i.split('/')[-1].split('.')[:-1]).split('x')
         poz = np.array([".".join(i.split(
             '/')[-1].split('.')[:-1]).split('x') for i in files], dtype=int)
 #        poz = [(int(i[0]), int(i[1]), int(i[2]), int(i[3])) for i in poz]
@@ -668,38 +691,106 @@ class ImageAnal:
         print kropki
         kropki = set(kropki)
         kropki_iter = kropki.copy()
-        print "all chars"
-        pprint(all_chars)
+#        print "all chars"
+#        pprint(all_chars)
 
         for k in kropki_iter:
-            #pprint(kropki)
+            found = False
             print "Sprawdzam kropke:", k
-            tmp = np.array(filter(lambda x: x[1] < k[1], poz))
-            tmp = filter(lambda x: x[1] == tmp[:, 1].max(), tmp)[0]
-            print "literka na lewo: ", tmp
-            if (tmp[0] > (k[2] - k[4])) and (tmp[0] < k[0] + k[4]):
-                if k in kropki_iter:
-                    print "warunek mówi że na końcu, ale jest koło innej kropki więc to jest kropka!!!"
-                else:
-                    print "kropka na końcu"
-                    kropki.remove(k)
-            else:
-                mid = (float(tmp[0]) + tmp[2]) / 2.0
-                top = float(tmp[2])
-                print "mid i top oraz k[0]:", mid, top, k[0]
-                print "mid - k[0], top - k[0]", mid - k[0], top - k[0]
-                if abs(mid - k[0]) < abs(top - k[0]):
-                    print "Kropka na końcu. drugi warunek"
-                    kropki.remove(k)
-                else:
-                    print "Kropka do doklejenia", k
-                    mid = float(k[1] + k[3]) / 2.0
-                    print filter(lambda x: x[1] <= mid and x[3] >= mid, all_chars)
-                    pass
+            lista = find_left(poz, k)
+            while not found:
+                tmp = lista[0]
+                lista = lista[1:]
+                #pprint(kropki)
+#            tmp = np.array(filter(lambda x: x[1] < k[1], poz))
+#            tmp = filter(lambda x: x[1] == tmp[:, 1].max(), tmp)[0]
+                print "literka na lewo: ", tmp
+                if (tmp[0] > (k[2] - k[4])) and (tmp[0] < k[0] + k[4]):
 
-            print ""
+                    if tuple(tmp) in kropki_iter:
+                        print "warunek mówi że na końcu, ale jest koło innej kropki więc to jest kropka!!!"
+                    else:
+                        print "kropka na końcu"
+                        found = True
+                        kropki.remove(k)
+                else:
+                    mid = (float(tmp[0]) + tmp[2]) / 2.0
+                    top = float(tmp[2])
+                    print "mid i top oraz k[0]:", mid, top, k[0]
+                    print "mid - k[0], top - k[0]", mid - k[0], top - k[0]
+                    if abs(mid - k[0]) < abs(top - k[0]):
+                        print "Kropka na końcu. drugi warunek"
+                        kropki.remove(k)
+                        found = True
+                    else:
+                        print "Kropka do doklejenia", k
+                        mid = float(k[1] + k[3]) / 2.0
+                        print filter(lambda x: x[1] <= mid and x[3] >= mid, all_chars)
+                        found = True
+
+                print ""
 
         print "Kropki nad literami: ", kropki
+        for i in kropki:
+            print "Sklejam kropke", i
+            doklejka = find_down(poz, i)[0]
+            print "doklejka: ", doklejka
+            print doklejka[0]
+            maxy = doklejka[0]
+            miny = i[2]
+            if doklejka[1] < i[1]:
+                minx = doklejka[1]
+            else:
+                minx = i[1]
+            if doklejka[3] > i[3]:
+                maxx = doklejka[3]
+            else:
+                maxx = i[3]
+            sizex = maxx - minx + 1
+            sizey = maxy - miny + 1
+            new = np.zeros((sizex , sizey )).T
+            dx = i[1] - minx
+            dy = i[2] - miny
+            filename = gen_filename(i[0], i[1], i[2], i[3])
+            path = directory + '/' + filename
+            img = misc.imread(path)
+            print filename
+            os.remove(directory + '/' + filename)
+            odx = dy
+            dox = dy + i[0] - i[2] + 1
+            ody = dx
+            doy = dx + i[3] - i[1] + 1
+            print "minx=%d, maxx=%d, miny=%d, maxy=%d"%(minx, maxx, miny, maxy)
+            print "sizex=%d, sizey=%d"%(sizex, sizey)
+            print "new.shape", new.shape
+            print "img.shape", img.shape
+            print ody,":", doy, ", ",odx,":", dox
+            print "..."
+            new[odx:dox, ody:doy] = img
+
+            dx = doklejka[1] - minx
+            dy = doklejka[2] - miny
+            filename = gen_filename(doklejka[0], doklejka[1], doklejka[2], doklejka[3])
+            path = directory + '/' + filename
+            img = misc.imread(path)
+            print filename
+            os.remove(directory + '/' + filename)
+            odx = dy
+            dox = dy + doklejka[0] - doklejka[2] + 1
+            ody = dx
+            doy = dx + doklejka[3] - doklejka[1] + 1
+
+            print "minx=%d, maxx=%d, miny=%d, maxy=%d"%(minx, maxx, miny, maxy)
+            print "sizex=%d, sizey=%d"%(sizex, sizey)
+            print "new.shape", new.shape
+            print "img.shape", img.shape
+            print ody,":", doy, ", ",odx,":", dox
+            print "..."
+            new[odx:dox, ody:doy] = img
+
+
+            filename = gen_filename(maxy, minx, miny, maxx)
+            misc.imsave(directory + '/' + filename, new)
 
         def resize2(self, size):
             self.__image = misc.imresize(self.__image__, size)
