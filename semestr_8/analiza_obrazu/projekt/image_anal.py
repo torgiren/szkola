@@ -185,9 +185,11 @@ class ImageAnal:
         data = self.__image
         px = data.shape[0] / 2
         py = data.shape[1] / 2
-        new = np.zeros((data.shape[0] * 3, data.shape[1] * 3, data.shape[2]), np.uint8)
+        new = np.zeros(
+            (data.shape[0] * 3, data.shape[1] * 3, data.shape[2]), np.uint8)
         for i, j in itertools.product(np.arange(0, data.shape[0]), np.arange(0, data.shape[1]), repeat=1):
-            new[np.cos(angle) * i - np.sin(angle) * j + px, np.sin(angle) * i + np.cos(angle) * j + py] = data[i, j]
+            new[np.cos(angle) * i - np.sin(angle) * j + px, np.sin(
+                angle) * i + np.cos(angle) * j + py] = data[i, j]
         horiz = np.nonzero(new.sum(axis=0) != 0)[0]
         vert = np.nonzero(new.sum(axis=1) != 0)[0]
 
@@ -222,23 +224,24 @@ class ImageAnal:
 
         tmp = np.zeros(data.shape)
 
-        tmp[1:-1,1:-1] = ((data[1:-1,:-2] == 0) & (data[1:-1, 1:-1] == 1) & (data[1:-1, 2:] == 1) & (data[:-2, 2:] == 1) & (data[2:, 2:] == 1) |
-                          (data[2:,1:-1] == 0) & (data[1:-1, 1:-1] == 1) & (data[:-2, 2:] == 1) & (data[:-2, 1:-1] == 1) & (data[:-2, :-2] == 1) |
-                          (data[2:,1:-1] == 0) & (data[1:-1, 1:-1] == 1) & (data[:-2, 2:] == 1) & (data[:-2, 1:-1] == 1) & (data[:-2, :-2] == 1) |
-                          (data[:-2,1:-1] == 0) & (data[1:-1, 1:-1] == 1) & (data[2:, :-2] == 1) & (data[2:, 1:-1] == 1) & (data[2:, 2:] == 1))
+        tmp[1:-1, 1:-1] = ((data[1:-1, :-2] == 0) & (data[1:-1, 1:-1] == 1) & (data[1:-1, 2:] == 1) & (data[:-2, 2:] == 1) & (data[2:, 2:] == 1) |
+                          (data[2:, 1:-1] == 0) & (data[1:-1, 1:-1] == 1) & (data[:-2, 2:] == 1) & (data[:-2, 1:-1] == 1) & (data[:-2, :-2] == 1) |
+                          (data[2:, 1:-1] == 0) & (data[1:-1, 1:-1] == 1) & (data[:-2, 2:] == 1) & (data[:-2, 1:-1] == 1) & (data[:-2, :-2] == 1) |
+                          (data[:-2, 1:-1] == 0) & (data[1:-1, 1:-1] == 1) & (data[2:, :-2] == 1) & (data[2:, 1:-1] == 1) & (data[2:, 2:] == 1))
         self.__image = np.zeros((data.shape[0], data.shape[1], 3))
-        self.__image[:,:,0] = tmp
-        self.__image[:,:,1] = tmp
-        self.__image[:,:,2] = tmp
+        self.__image[:, :, 0] = tmp
+        self.__image[:, :, 1] = tmp
+        self.__image[:, :, 2] = tmp
 
     @image_loaded
     def KKM(self):
 #        np.set_printoptions(linewidth=504, threshold='nan')
-        czworki = [3, 6, 7, 12, 14, 15, 24, 28, 30, 48, 56, 60, 96, 112, 120, 129, 131, 135, 192, 193, 195, 224, 225, 240]
+        czworki = [3, 6, 7, 12, 14, 15, 24, 28, 30, 48, 56, 60, 96,
+                   112, 120, 129, 131, 135, 192, 193, 195, 224, 225, 240]
         wyciecia = [3, 5, 7, 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31, 48, 52, 53, 54, 55, 56, 60, 61, 62, 63, 65, 67, 69, 71, 77, 79, 80, 81, 83, 84, 85, 86, 87, 88, 89, 91, 92, 93, 94, 95, 97, 99, 101, 103, 109, 111, 112, 113, 115, 116, 117, 118, 119, 120, 121, 123, 124, 125, 126, 127, 131, 133, 135, 141, 143, 149, 151, 157, 159, 181, 183, 189, 191, 192, 193, 195, 197, 199, 205, 207, 208, 209, 211, 212, 213, 214, 215, 216, 217, 219, 220, 221, 222, 223, 224, 225, 227, 229, 231, 237, 239, 240, 241, 243, 244, 245, 246, 247, 248, 249, 251, 252, 253, 254, 255]
         data = self.__image
         print data.shape
-        data = data[:,:,0]
+        data = data[:, :, 0]
         data = (data < 125) * 1
 #        data[2,2] = 1
 #        data = np.array([[0,0,0,0,0,0,0,0,0],
@@ -261,8 +264,8 @@ class ImageAnal:
                 print data
                         #krok I
             pion = np.zeros(data.shape)
-            pion[1:-1,1:-1] = (data[:-2,1:-1] == 0) | (data[2:,1:-1] == 0) |\
-                              (data[1:-1,:-2] == 0) | (data[1:-1,2:] == 0)
+            pion[1:-1, 1:-1] = (data[:-2, 1:-1] == 0) | (data[2:, 1:-1] == 0) |\
+                (data[1:-1, :-2] == 0) | (data[1:-1, 2:] == 0)
 #            pion = pion < 4
             pion = (data == 1) * pion
 #            data = (data * (-pion)) + (pion * 2)
@@ -273,8 +276,8 @@ class ImageAnal:
 
                         #krok II
             pion = np.zeros(data.shape)
-            pion[1:-1,1:-1] = (data[:-2, :-2] == 0) | (data[:-2, 2:] == 0) |\
-                              (data[2:, :-2] == 0) | (data[2:, 2:] == 0)
+            pion[1:-1, 1:-1] = (data[:-2, :-2] == 0) | (data[:-2, 2:] == 0) |\
+                (data[2:, :-2] == 0) | (data[2:, 2:] == 0)
 #            pion = pion < 4
             pion = (data == 1) * pion
 #            data = (data * (-pion)) + (pion * 3)
@@ -284,40 +287,40 @@ class ImageAnal:
                 print data
                         #krok III
             tmp = np.zeros(data.shape)
-            tmp[1:-1,1:-1] = 1 * (data[:-2, :-2]>0) +\
-                             2 * (data[1:-1, :-2]>0) +\
-                             4 * (data[2:, :-2]>0) +\
-                             128 * (data[:-2, 1:-1]>0) +\
-                             8 * (data[2:, 1:-1]>0) +\
-                             64 * (data[:-2, 2:]>0) +\
-                             32 * (data[1:-1, 2:]>0) +\
-                             16 * (data[2:, 2:]>0)
+            tmp[1:-1, 1:-1] = 1 * (data[:-2, :-2] > 0) +\
+                2 * (data[1:-1, :-2] > 0) +\
+                4 * (data[2:, :-2] > 0) +\
+                128 * (data[:-2, 1:-1] > 0) +\
+                8 * (data[2:, 1:-1] > 0) +\
+                64 * (data[:-2, 2:] > 0) +\
+                32 * (data[1:-1, 2:] > 0) +\
+                16 * (data[2:, 2:] > 0)
 
-            tmp = (data==2) * tmp
+            tmp = (data == 2) * tmp
             tmp2 = np.zeros(tmp.shape, dtype=np.bool)
             for i in czworki:
                 tmp2 |= (tmp == i)
-            data += (tmp2*2)
+            data += (tmp2 * 2)
             if verb:
                 print "Po kroku III"
                 print data
 
                             #krok IV
             tmp = np.zeros(data.shape)
-            tmp[1:-1,1:-1] = 1 * (data[:-2, :-2]>0) +\
-                             2 * (data[1:-1, :-2]>0) +\
-                             4 * (data[2:, :-2]>0) +\
-                             128 * (data[:-2, 1:-1]>0) +\
-                             8 * (data[2:, 1:-1]>0) +\
-                             64 * (data[:-2, 2:]>0) +\
-                             32 * (data[1:-1, 2:]>0) +\
-                             16 * (data[2:, 2:]>0)
+            tmp[1:-1, 1:-1] = 1 * (data[:-2, :-2] > 0) +\
+                2 * (data[1:-1, :-2] > 0) +\
+                4 * (data[2:, :-2] > 0) +\
+                128 * (data[:-2, 1:-1] > 0) +\
+                8 * (data[2:, 1:-1] > 0) +\
+                64 * (data[:-2, 2:] > 0) +\
+                32 * (data[1:-1, 2:] > 0) +\
+                16 * (data[2:, 2:] > 0)
 
             tmp = (data == 4) * tmp
             tmp2 = np.zeros(tmp.shape, dtype=np.bool)
             for i in wyciecia:
                 tmp2 |= (tmp == i)
-            tmp = (tmp>0) - tmp2
+            tmp = (tmp > 0) - tmp2
 
             data = data * (data != 4) + tmp * 1 + tmp2 * 0
             if verb:
@@ -326,20 +329,20 @@ class ImageAnal:
 
                             #krok V
             tmp = np.zeros(data.shape)
-            tmp[1:-1,1:-1] = 1 * (data[:-2, :-2]>0) +\
-                             2 * (data[1:-1, :-2]>0) +\
-                             4 * (data[2:, :-2]>0) +\
-                             128 * (data[:-2, 1:-1]>0) +\
-                             8 * (data[2:, 1:-1]>0) +\
-                             64 * (data[:-2, 2:]>0) +\
-                             32 * (data[1:-1, 2:]>0) +\
-                             16 * (data[2:, 2:]>0)
+            tmp[1:-1, 1:-1] = 1 * (data[:-2, :-2] > 0) +\
+                2 * (data[1:-1, :-2] > 0) +\
+                4 * (data[2:, :-2] > 0) +\
+                128 * (data[:-2, 1:-1] > 0) +\
+                8 * (data[2:, 1:-1] > 0) +\
+                64 * (data[:-2, 2:] > 0) +\
+                32 * (data[1:-1, 2:] > 0) +\
+                16 * (data[2:, 2:] > 0)
 
             tmp = (data == 2) * tmp
             tmp2 = np.zeros(tmp.shape, dtype=np.bool)
             for i in wyciecia:
                 tmp2 |= (tmp == i)
-            tmp = (tmp>0) - tmp2
+            tmp = (tmp > 0) - tmp2
 
             data = data * (data != 2) + tmp * 1 + tmp2 * 0
             if verb:
@@ -348,20 +351,20 @@ class ImageAnal:
 
                             #krok VI
             tmp = np.zeros(data.shape)
-            tmp[1:-1,1:-1] = 1 * (data[:-2, :-2]>0) +\
-                             2 * (data[1:-1, :-2]>0) +\
-                             4 * (data[2:, :-2]>0) +\
-                             128 * (data[:-2, 1:-1]>0) +\
-                             8 * (data[2:, 1:-1]>0) +\
-                             64 * (data[:-2, 2:]>0) +\
-                             32 * (data[1:-1, 2:]>0) +\
-                             16 * (data[2:, 2:]>0)
+            tmp[1:-1, 1:-1] = 1 * (data[:-2, :-2] > 0) +\
+                2 * (data[1:-1, :-2] > 0) +\
+                4 * (data[2:, :-2] > 0) +\
+                128 * (data[:-2, 1:-1] > 0) +\
+                8 * (data[2:, 1:-1] > 0) +\
+                64 * (data[:-2, 2:] > 0) +\
+                32 * (data[1:-1, 2:] > 0) +\
+                16 * (data[2:, 2:] > 0)
 
             tmp = (data == 3) * tmp
             tmp2 = np.zeros(tmp.shape, dtype=np.bool)
             for i in wyciecia:
                 tmp2 |= (tmp == i)
-            tmp = (tmp>0) - tmp2
+            tmp = (tmp > 0) - tmp2
 
             data = data * (data != 3) + tmp * 1 + tmp2 * 0
             if verb:
@@ -372,13 +375,11 @@ class ImageAnal:
         print data.shape
         self.__image = np.zeros((data.shape[0], data.shape[1], 3))
         print self.__image.shape
-        self.__image[:,:,0] = data
-        self.__image[:,:,1] = data
-        self.__image[:,:,2] = data
+        self.__image[:, :, 0] = data
+        self.__image[:, :, 1] = data
+        self.__image[:, :, 2] = data
         print self.__image.shape
 #        self.__image = data
-
-
 
     @image_loaded
     def save(self, path):
@@ -506,7 +507,8 @@ class ImageAnal:
         r = np.random.randint(100, size=s).reshape(s2)
         R = r < prop
         r2 = np.random.randint(2, size=s).reshape(s2)
-        data = data * (1-r).repeat(4).reshape(data.shape) + r2.repeat(4).reshape(data.shape)
+        data = data * (1 - r).repeat(
+            4).reshape(data.shape) + r2.repeat(4).reshape(data.shape)
         self.__image = data
 
     def __szum_rownomierny1(self, prop):
@@ -514,10 +516,10 @@ class ImageAnal:
         prop *= 100
         s = data.shape[0] * data.shape[1]
         s2 = (data.shape[0], data.shape[1])
-        r = np.random.randint(100, size = s2).reshape(s2)
+        r = np.random.randint(100, size=s2).reshape(s2)
         r = r < prop
         tmp = np.array(data, dtype=np.int64)
-        r2 = np.random.randint(20, size = s2).reshape(s2)-10
+        r2 = np.random.randint(20, size=s2).reshape(s2) - 10
         r2 = r2 + (r2 > 0) * 20 - (r2 < 0) * 20
         r2 = r2 * r
         r2 = r2.repeat(4).reshape(data.shape)
@@ -529,13 +531,13 @@ class ImageAnal:
         self.__image = tmp
 
     def __szum_rownomierny2(self, prop):
-        data = slef.__image
+        data = self.__image
         prop *= 100
         s = reduce(lambda x, y: x * y, data.shape)
-        r = np.random.randint(100, size = s).reshape(s2)
+        r = np.random.randint(100, size=s).reshape(s2)
         r = r < prop
         tmp = np.array(data, dtype=np.int64)
-        r2 = np.random.randint(20, size = s)-10
+        r2 = np.random.randint(20, size=s) - 10
         r2 = r2 * r
         r2 = r2 + (r2 > 0) * 20 - (r2 < 0) * 20
         r2 = r2.reshape(data.shape)
@@ -551,7 +553,7 @@ class ImageAnal:
             lines = []
             tmp = 0
             combo = False
-            for (i,j) in enumerate(hist):
+            for (i, j) in enumerate(hist):
                 if j > 0 and not combo:
                     combo = True
                     tmp = i
@@ -559,30 +561,31 @@ class ImageAnal:
                     combo = False
                     lines.append([tmp, i])
             if combo:
-                lines.append([tmp,i])
+                lines.append([tmp, i])
             return lines
 
     #    print type(self.__image)
      #   print self.__image.shape
-        data = (self.__image[:,:,0] < 127) * 1
+        data = (self.__image[:, :, 0] < 127) * 1
         misc.imsave('binary.png', data)
         hist = data.sum(axis=1)
         lines = ranges(hist)
    #     print lines
         num = 0
         for l in lines:
-            line = data[l[0]:l[1],:]
+            line = data[l[0]:l[1], :]
             hist = line.sum(axis=0)
             chars = ranges(hist)
             for c in chars:
-                path = directory + '/%05d.png'%num
+                path = directory + '/%05d.png' % num
   #              print path
                 c1 = data[l[0]:l[1], c[0]:c[1]]
                 hist = c1.sum(axis=1)
                 lines2 = ranges(hist)
  #               print lines2
 #                if lines2:
-                litera = misc.imresize(data[l[0]+lines2[0][0]:l[0]+lines2[-1][1], c[0]:c[1]], size=(100,100))
+                litera = misc.imresize(data[l[0] + lines2[0][0]:l[0] + lines2[
+                                       -1][1], c[0]:c[1]], size=(100, 100))
                 litera = [litera, litera, litera]
 #                misc.imsave(path, data[l[0]+lines2[0][0]:l[0]+lines2[-1][1], c[0]:c[1]])
                 misc.imsave(path, litera)
@@ -593,18 +596,19 @@ class ImageAnal:
 
     def segment2(self, directory):
         print "Segment2"
+
         def neighbour(data, p):
             p = list(p)
             if p[0] == 0:
                 p[0] = 1
             if p[1] == 0:
                 p[1] = 1
-            return set([tuple(i+p-(1,1)) for i in np.transpose(data[p[0] - 1:p[0] + 2, p[1] - 1:p[1] + 2].nonzero())])
+            return set([tuple(i + p - (1, 1)) for i in np.transpose(data[p[0] - 1:p[0] + 2, p[1] - 1:p[1] + 2].nonzero())])
 #        self.kkm2()
 #        print "po kkm"
 #        print self.__image.shape
         all_chars = []
-        pprint(self.__image[:,:,0])
+        pprint(self.__image[:, :, 0])
         data = (self.__image[:, :, 0] < 127) * 1
 
         buf = set()
@@ -631,27 +635,28 @@ class ImageAnal:
             checked = np.array(list(checked))
             minx = checked[:, 0].min()
             miny = checked[:, 1].min()
-            maxx = checked[:, 0].max()+1
-            maxy = checked[:, 1].max()+1
+            maxx = checked[:, 0].max() + 1
+            maxy = checked[:, 1].max() + 1
             tmp = np.zeros((1 + maxx - minx, 1 + maxy - miny))
             #path = directory + '/%05dx%05dx%05dx%05d.png'%(minx, maxy, maxx, miny)
             #path = directory + '/%05dx%05dx%05dx%05d.png'%(maxx, miny, minx, maxy)
             filename = gen_filename(maxx, miny, minx, maxy)
             path = directory + '/' + filename
-            all_chars.append(np.array(filename.split('.')[0].split('x'), dtype=int))
+            all_chars.append(
+                np.array(filename.split('.')[0].split('x'), dtype=int))
             for i in checked:
                 data[i[0], i[1]] = 0
                 tmp[i[0] - minx, i[1] - miny] = 1
             misc.imsave(path, tmp)
             num += 1
 
-
-		# sklejanie kropek z literkami i i j
+                # sklejanie kropek z literkami i i j
         files = glob(directory + "/*.png")
         print "szukam kandydatów na kropki"
         i = files[4]
         a = ".".join(i.split('/')[-1].split('.')[:-1]).split('x')
-        poz = np.array([".".join(i.split('/')[-1].split('.')[:-1]).split('x') for i in files], dtype=int)
+        poz = np.array([".".join(i.split(
+            '/')[-1].split('.')[:-1]).split('x') for i in files], dtype=int)
 #        poz = [(int(i[0]), int(i[1]), int(i[2]), int(i[3])) for i in poz]
 
         print poz
@@ -670,7 +675,7 @@ class ImageAnal:
             #pprint(kropki)
             print "Sprawdzam kropke:", k
             tmp = np.array(filter(lambda x: x[1] < k[1], poz))
-            tmp = filter(lambda x: x[1] == tmp[:,1].max(), tmp)[0]
+            tmp = filter(lambda x: x[1] == tmp[:, 1].max(), tmp)[0]
             print "literka na lewo: ", tmp
             if (tmp[0] > (k[2] - k[4])) and (tmp[0] < k[0] + k[4]):
                 if k in kropki_iter:
@@ -679,33 +684,35 @@ class ImageAnal:
                     print "kropka na końcu"
                     kropki.remove(k)
             else:
-               mid = (float(tmp[0]) + tmp[2])/2.0
-               top = float(tmp[2])
-               print "mid i top oraz k[0]:", mid, top, k[0]
-               print "mid - k[0], top - k[0]", mid - k[0], top - k[0]
-               if abs(mid - k[0]) < abs(top - k[0]):
-                   print "Kropka na końcu. drugi warunek"
-                   kropki.remove(k)
-               else:
-                   print "Kropka do doklejenia", k
-                   mid = float(k[1] + k[3]) / 2.0
-                   print filter(lambda x: x[1] <= mid and x[3] >= mid , all_chars)     
-                   pass
+                mid = (float(tmp[0]) + tmp[2]) / 2.0
+                top = float(tmp[2])
+                print "mid i top oraz k[0]:", mid, top, k[0]
+                print "mid - k[0], top - k[0]", mid - k[0], top - k[0]
+                if abs(mid - k[0]) < abs(top - k[0]):
+                    print "Kropka na końcu. drugi warunek"
+                    kropki.remove(k)
+                else:
+                    print "Kropka do doklejenia", k
+                    mid = float(k[1] + k[3]) / 2.0
+                    print filter(lambda x: x[1] <= mid and x[3] >= mid, all_chars)
+                    pass
 
             print ""
 
         print "Kropki nad literami: ", kropki
 
-	def resize2(self, size):
-		self.__image = misc.imresize(self.__image__, size)
-		return self.__image__
+        def resize2(self, size):
+            self.__image = misc.imresize(self.__image__, size)
+            return self.__image__
 
     def kkm2(self):
-        czworki = [3, 6, 7, 12, 14, 15, 24, 28, 30, 48, 56, 60, 96, 112, 120, 129, 131, 135, 192, 193, 195, 224, 225, 240]
+        czworki = [3, 6, 7, 12, 14, 15, 24, 28, 30, 48, 56, 60, 96,
+                   112, 120, 129, 131, 135, 192, 193, 195, 224, 225, 240]
         wyciecia = [3, 5, 7, 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31, 48, 52, 53, 54, 55, 56, 60, 61, 62, 63, 65, 67, 69, 71, 77, 79, 80, 81, 83, 84, 85, 86, 87, 88, 89, 91, 92, 93, 94, 95, 97, 99, 101, 103, 109, 111, 112, 113, 115, 116, 117, 118, 119, 120, 121, 123, 124, 125, 126, 127, 131, 133, 135, 141, 143, 149, 151, 157, 159, 181, 183, 189, 191, 192, 193, 195, 197, 199, 205, 207, 208, 209, 211, 212, 213, 214, 215, 216, 217, 219, 220, 221, 222, 223, 224, 225, 227, 229, 231, 237, 239, 240, 241, 243, 244, 245, 246, 247, 248, 249, 251, 252, 253, 254, 255]
         #sprawdzarka = [[128, 64, 32], [1, 0, 16], [2, 4, 8]]
+
         def sprawdzarka(obj, p):
-            tmp = 1* ((data[p[0]-1:p[0]+2,p[1]-1:p[1]+2]) > 0)
+            tmp = 1 * ((data[p[0] - 1:p[0] + 2, p[1] - 1:p[1] + 2]) > 0)
             macierz = np.array([[128, 64, 32], [1, 0, 16], [2, 4, 8]])
             #macierz = np.array([[128, 1, 2], [64,0,4], [32,16,8]])
             suma = (tmp * macierz).sum()
@@ -715,35 +722,35 @@ class ImageAnal:
            # pprint(tmp)
            # print suma
             return suma
-        data = self.__expand(self.__image, 1)[:,:,0]
+        data = self.__expand(self.__image, 1)[:, :, 0]
         data = 1 * (data < 127)
-        data[0,:] = 0
-        data[-1,:] = 0
-        data[:,0] = 0
-        data[:,-1] =0
+        data[0, :] = 0
+        data[-1, :] = 0
+        data[:, 0] = 0
+        data[:, -1] = 0
         old = np.zeros(data.shape)
         DEBUG = True
         while not (old == data).all():
             print "iteracja"
             old = data.copy()
             #krok 1
-            sasiedzi = 1* (data[1:-1,:-2] == 0)+ 1*(data[1:-1,2:] == 0)+\
-                       1* (data[:-2,1:-1] == 0) +1* (data[2:,1:-1] == 0)
-            
+            sasiedzi = 1 * (data[1:-1, :-2] == 0) + 1 * (data[1:-1, 2:] == 0) +\
+                1 * (data[:-2, 1:-1] == 0) + 1 * (data[2:, 1:-1] == 0)
+
             sasiedzi = (sasiedzi > 0)
 
             sasiedzi = (data[1:-1, 1:-1] == 1) * sasiedzi
-            data[1:-1,1:-1] = data[1:-1,1:-1]+ sasiedzi
+            data[1:-1, 1:-1] = data[1:-1, 1:-1] + sasiedzi
             if DEBUG:
                 print "Krok 1"
                 pprint(data)
 
             #krok 2
-            sasiedzi = 1*(data[:-2,:-2] == 0) + 1*(data[2:,2:] == 0)+\
-                       1*(data[:-2,2:] == 0)+ 1*(data[2:,:-2] == 0)
+            sasiedzi = 1 * (data[:-2, :-2] == 0) + 1 * (data[2:, 2:] == 0) +\
+                1 * (data[:-2, 2:] == 0) + 1 * (data[2:, :-2] == 0)
             sasiedzi = (sasiedzi > 0)
-            sasiedzi = (data[1:-1,1:-1] == 1) * sasiedzi
-            data[1:-1,1:-1] = data[1:-1,1:-1] + sasiedzi * 2.0
+            sasiedzi = (data[1:-1, 1:-1] == 1) * sasiedzi
+            data[1:-1, 1:-1] = data[1:-1, 1:-1] + sasiedzi * 2.0
             if DEBUG:
                 print "Krok 2"
                 pprint(data)
@@ -752,8 +759,8 @@ class ImageAnal:
         #    data2 = data.copy()
             tmp = np.transpose((data == 2).nonzero())
             for d in tmp:
-                if sprawdzarka(self,d) in czworki:
-                    data[d[0],d[1]] = 4
+                if sprawdzarka(self, d) in czworki:
+                    data[d[0], d[1]] = 4
             if DEBUG:
                 print "Krok 3"
                 pprint(data)
@@ -763,21 +770,21 @@ class ImageAnal:
             tmp = np.transpose((data == 4).nonzero())
             for c in tmp:
                 if sprawdzarka(self, c) not in wyciecia:
-                    data[c[0],c[1]] = 1
+                    data[c[0], c[1]] = 1
                 else:
-                    data[c[0],c[1]] = 0
+                    data[c[0], c[1]] = 0
             if DEBUG:
                 print "Krok 4"
                 pprint(data)
-            
+
             #krok 5
             #data2 = data.copy()
             tmp = np.transpose((data == 2).nonzero())
             for c in tmp:
                 if sprawdzarka(self, c) not in wyciecia:
-                    data[c[0],c[1]] = 1
+                    data[c[0], c[1]] = 1
                 else:
-                    data[c[0],c[1]] = 0
+                    data[c[0], c[1]] = 0
             if DEBUG:
                 print "Krok 5"
                 pprint(data)
@@ -787,9 +794,9 @@ class ImageAnal:
             tmp = np.transpose((data == 3).nonzero())
             for c in tmp:
                 if sprawdzarka(self, c) not in wyciecia:
-                    data[c[0],c[1]] = 1
+                    data[c[0], c[1]] = 1
                 else:
-                    data[c[0],c[1]] = 0
+                    data[c[0], c[1]] = 0
             if DEBUG:
                 print "Krok 6"
                 pprint(data)
