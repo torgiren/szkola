@@ -3,6 +3,8 @@
 import numpy as np
 from scipy import misc
 import itertools
+from pprint import pprint
+from glob import glob
 
 
 class NoImageError(Exception):
@@ -18,6 +20,10 @@ class NoSuchMethodError(Exception):
 class FilterSizeError(Exception):
     """Wyjątek sygnalizujący błędny format filtru"""
     pass
+
+
+def gen_filename(down, left, up, right):
+    return "%05dx%05dx%05dx%05d.png" % (down, left, up, right)
 
 
 class ImageAnal:
@@ -479,8 +485,10 @@ class ImageAnal:
 
     def __clear_alpha(self):
 #        print "clear alpha"
-        if self.__image.shape[2] == 4:
-            self.__image[:, :, 3] = 255
+        if len(self.__image.shape) > 2:
+            if self.__image.shape[2] == 4:
+                self.__image[:, :, 3] = 255
+        pass
 
     def __shrink_values(self, src):
         data = src.copy()
@@ -554,11 +562,13 @@ class ImageAnal:
                 lines.append([tmp,i])
             return lines
 
+    #    print type(self.__image)
+     #   print self.__image.shape
         data = (self.__image[:,:,0] < 127) * 1
         misc.imsave('binary.png', data)
         hist = data.sum(axis=1)
         lines = ranges(hist)
-        print lines
+   #     print lines
         num = 0
         for l in lines:
             line = data[l[0]:l[1],:]
@@ -566,13 +576,14 @@ class ImageAnal:
             chars = ranges(hist)
             for c in chars:
                 path = directory + '/%05d.png'%num
-                print path
+  #              print path
                 c1 = data[l[0]:l[1], c[0]:c[1]]
                 hist = c1.sum(axis=1)
                 lines2 = ranges(hist)
-                print lines2
+ #               print lines2
 #                if lines2:
                 litera = misc.imresize(data[l[0]+lines2[0][0]:l[0]+lines2[-1][1], c[0]:c[1]], size=(100,100))
+                litera = [litera, litera, litera]
 #                misc.imsave(path, data[l[0]+lines2[0][0]:l[0]+lines2[-1][1], c[0]:c[1]])
                 misc.imsave(path, litera)
  #               else:
@@ -581,6 +592,7 @@ class ImageAnal:
                 num += 1
 
     def segment2(self, directory):
+        print "Segment2"
         def neighbour(data, p):
             p = list(p)
             if p[0] == 0:
@@ -588,39 +600,213 @@ class ImageAnal:
             if p[1] == 0:
                 p[1] = 1
             return set([tuple(i+p-(1,1)) for i in np.transpose(data[p[0] - 1:p[0] + 2, p[1] - 1:p[1] + 2].nonzero())])
-        self.KKM()
+#        self.kkm2()
+#        print "po kkm"
+#        print self.__image.shape
+        all_chars = []
+        pprint(self.__image[:,:,0])
         data = (self.__image[:, :, 0] < 127) * 1
 
         buf = set()
         checked = set()
         num = 0
+        pprint(data)
+        licznik = 1
         while data.sum():
             checked = set()
             buf.add(tuple(np.transpose(data.nonzero())[0]))
             while buf:
-      #          print "buf",buf
+#                print "buf",buf
                 p = buf.pop()
-     #           print "point",p
+#                print "point",p
                 n = neighbour(data, p)
-    #            print "neighbour", n
+#                print "neighbour", n
                 checked.add(p)
-   #             print "checked", checked
+#                print "checked", checked
                 buf = buf.union(n - checked)
-  #              print "buf", buf
- #               print "**********"
+#                print "buf", buf
+#                print "**********"
+            print licznik
+            licznik += 1
             checked = np.array(list(checked))
             minx = checked[:, 0].min()
             miny = checked[:, 1].min()
-            maxx = checked[:, 0].max()
-            maxy = checked[:, 1].max()
+            maxx = checked[:, 0].max()+1
+            maxy = checked[:, 1].max()+1
             tmp = np.zeros((1 + maxx - minx, 1 + maxy - miny))
-           # path = directory+'/'+str(num)+".png"
-            path = directory + '/%05d.png'%num
+            #path = directory + '/%05dx%05dx%05dx%05d.png'%(minx, maxy, maxx, miny)
+            #path = directory + '/%05dx%05dx%05dx%05d.png'%(maxx, miny, minx, maxy)
+            filename = gen_filename(maxx, miny, minx, maxy)
+            path = directory + '/' + filename
+            all_chars.append(np.array(filename.split('.')[0].split('x'), dtype=int))
             for i in checked:
                 data[i[0], i[1]] = 0
                 tmp[i[0] - minx, i[1] - miny] = 1
             misc.imsave(path, tmp)
             num += 1
+
+
+		# sklejanie kropek z literkami i i j
+        files = glob(directory + "/*.png")
+        print "szukam kandydatów na kropki"
+        i = files[4]
+        a = ".".join(i.split('/')[-1].split('.')[:-1]).split('x')
+        poz = np.array([".".join(i.split('/')[-1].split('.')[:-1]).split('x') for i in files], dtype=int)
+#        poz = [(int(i[0]), int(i[1]), int(i[2]), int(i[3])) for i in poz]
+
+        print poz
+        poz = np.array([i.tolist() + [i[0] - i[2], i[3] - i[1]] for i in poz])
+#        print poz
+        poz.tofile("/tmp/poz.txt", sep="&")
+        kropki = [tuple(i) for i in poz if i[4] < (poz[:, 4].mean() - 2 * poz[:, 4].std()) and i[5] < (poz[:, 4].mean() - 2 * poz[:, 4].std())]
+#        print poz[:, 4].mean() - 2 * poz[:, 4].std()
+        print kropki
+        kropki = set(kropki)
+        kropki_iter = kropki.copy()
+        print "all chars"
+        pprint(all_chars)
+
+        for k in kropki_iter:
+            #pprint(kropki)
+            print "Sprawdzam kropke:", k
+            tmp = np.array(filter(lambda x: x[1] < k[1], poz))
+            tmp = filter(lambda x: x[1] == tmp[:,1].max(), tmp)[0]
+            print "literka na lewo: ", tmp
+            if (tmp[0] > (k[2] - k[4])) and (tmp[0] < k[0] + k[4]):
+                if k in kropki_iter:
+                    print "warunek mówi że na końcu, ale jest koło innej kropki więc to jest kropka!!!"
+                else:
+                    print "kropka na końcu"
+                    kropki.remove(k)
+            else:
+               mid = (float(tmp[0]) + tmp[2])/2.0
+               top = float(tmp[2])
+               print "mid i top oraz k[0]:", mid, top, k[0]
+               print "mid - k[0], top - k[0]", mid - k[0], top - k[0]
+               if abs(mid - k[0]) < abs(top - k[0]):
+                   print "Kropka na końcu. drugi warunek"
+                   kropki.remove(k)
+               else:
+                   print "Kropka do doklejenia", k
+                   mid = float(k[1] + k[3]) / 2.0
+                   print filter(lambda x: x[1] <= mid and x[3] >= mid , all_chars)     
+                   pass
+
+            print ""
+
+        print "Kropki nad literami: ", kropki
+
 	def resize2(self, size):
 		self.__image = misc.imresize(self.__image__, size)
 		return self.__image__
+
+    def kkm2(self):
+        czworki = [3, 6, 7, 12, 14, 15, 24, 28, 30, 48, 56, 60, 96, 112, 120, 129, 131, 135, 192, 193, 195, 224, 225, 240]
+        wyciecia = [3, 5, 7, 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31, 48, 52, 53, 54, 55, 56, 60, 61, 62, 63, 65, 67, 69, 71, 77, 79, 80, 81, 83, 84, 85, 86, 87, 88, 89, 91, 92, 93, 94, 95, 97, 99, 101, 103, 109, 111, 112, 113, 115, 116, 117, 118, 119, 120, 121, 123, 124, 125, 126, 127, 131, 133, 135, 141, 143, 149, 151, 157, 159, 181, 183, 189, 191, 192, 193, 195, 197, 199, 205, 207, 208, 209, 211, 212, 213, 214, 215, 216, 217, 219, 220, 221, 222, 223, 224, 225, 227, 229, 231, 237, 239, 240, 241, 243, 244, 245, 246, 247, 248, 249, 251, 252, 253, 254, 255]
+        #sprawdzarka = [[128, 64, 32], [1, 0, 16], [2, 4, 8]]
+        def sprawdzarka(obj, p):
+            tmp = 1* ((data[p[0]-1:p[0]+2,p[1]-1:p[1]+2]) > 0)
+            macierz = np.array([[128, 64, 32], [1, 0, 16], [2, 4, 8]])
+            #macierz = np.array([[128, 1, 2], [64,0,4], [32,16,8]])
+            suma = (tmp * macierz).sum()
+           # print "DEBUG"
+           # print p
+           # pprint(data[p[0]-1:p[0]+2,p[1]-1:p[1]+2])
+           # pprint(tmp)
+           # print suma
+            return suma
+        data = self.__expand(self.__image, 1)[:,:,0]
+        data = 1 * (data < 127)
+        data[0,:] = 0
+        data[-1,:] = 0
+        data[:,0] = 0
+        data[:,-1] =0
+        old = np.zeros(data.shape)
+        DEBUG = True
+        while not (old == data).all():
+            print "iteracja"
+            old = data.copy()
+            #krok 1
+            sasiedzi = 1* (data[1:-1,:-2] == 0)+ 1*(data[1:-1,2:] == 0)+\
+                       1* (data[:-2,1:-1] == 0) +1* (data[2:,1:-1] == 0)
+            
+            sasiedzi = (sasiedzi > 0)
+
+            sasiedzi = (data[1:-1, 1:-1] == 1) * sasiedzi
+            data[1:-1,1:-1] = data[1:-1,1:-1]+ sasiedzi
+            if DEBUG:
+                print "Krok 1"
+                pprint(data)
+
+            #krok 2
+            sasiedzi = 1*(data[:-2,:-2] == 0) + 1*(data[2:,2:] == 0)+\
+                       1*(data[:-2,2:] == 0)+ 1*(data[2:,:-2] == 0)
+            sasiedzi = (sasiedzi > 0)
+            sasiedzi = (data[1:-1,1:-1] == 1) * sasiedzi
+            data[1:-1,1:-1] = data[1:-1,1:-1] + sasiedzi * 2.0
+            if DEBUG:
+                print "Krok 2"
+                pprint(data)
+
+            #krok 3
+        #    data2 = data.copy()
+            tmp = np.transpose((data == 2).nonzero())
+            for d in tmp:
+                if sprawdzarka(self,d) in czworki:
+                    data[d[0],d[1]] = 4
+            if DEBUG:
+                print "Krok 3"
+                pprint(data)
+
+            #krok 4
+            #data2 = data.copy()
+            tmp = np.transpose((data == 4).nonzero())
+            for c in tmp:
+                if sprawdzarka(self, c) not in wyciecia:
+                    data[c[0],c[1]] = 1
+                else:
+                    data[c[0],c[1]] = 0
+            if DEBUG:
+                print "Krok 4"
+                pprint(data)
+            
+            #krok 5
+            #data2 = data.copy()
+            tmp = np.transpose((data == 2).nonzero())
+            for c in tmp:
+                if sprawdzarka(self, c) not in wyciecia:
+                    data[c[0],c[1]] = 1
+                else:
+                    data[c[0],c[1]] = 0
+            if DEBUG:
+                print "Krok 5"
+                pprint(data)
+
+            #krok 6
+            #data2 = data.copy()
+            tmp = np.transpose((data == 3).nonzero())
+            for c in tmp:
+                if sprawdzarka(self, c) not in wyciecia:
+                    data[c[0],c[1]] = 1
+                else:
+                    data[c[0],c[1]] = 0
+            if DEBUG:
+                print "Krok 6"
+                pprint(data)
+  #      print type(data)
+   #     print "Po kkm2"
+        data = data[1:-1, 1:-1] * 255
+        wynik = []
+        for i in data:
+            tmp = []
+            for j in i:
+                tmp.append([j, j, j])
+            wynik.append(tmp)
+        self.__image = np.array(wynik)
+        self.negative()
+        print "A"
+        pprint(data)
+        pprint(self.__image)
+        print "B"
+   # def info(self):
+   #     print "Rozmiar obrazu: ",self.__image.shape
