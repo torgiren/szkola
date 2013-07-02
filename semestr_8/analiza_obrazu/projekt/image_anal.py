@@ -33,6 +33,8 @@ def find_left(tab, point, factor=1):
                            (x[0] > (point[2] + sizey * factor) and x[2] < (point[2] + sizey * factor)), tmp))
     print type(tmp)
     print tmp.shape
+    if not len(tmp):
+        return np.array(None)
     indices = tmp[:,1].argsort()
     indices = indices[::-1]
     tmp = tmp[indices]
@@ -44,6 +46,8 @@ def find_down(tab, point, factor=1):
     tmp = np.array(filter(lambda x: x[2] > point[0], tab))
     tmp = np.array(filter(lambda x: ((x[1] - sizex * factor) < point[1] and (x[3] + sizex * factor) > point[1]) or
                                     ((x[1] - sizex * factor) < point[3] and (x[3] + sizex * factor) > point[3]), tmp))
+    if not len(tmp):
+        return np.array(None)
     indices = tmp[:,0].argsort()
     tmp = tmp[indices]
     return tmp
@@ -537,7 +541,6 @@ class ImageAnal:
     def __szum_rownomierny1(self, prop):
         data = self.__image
         prop *= 100
-#        s = data.shape[0] * data.shape[1]
         s2 = (data.shape[0], data.shape[1])
         r = np.random.randint(100, size=s2).reshape(s2)
         r = r < prop
@@ -632,7 +635,8 @@ class ImageAnal:
 #        print self.__image.shape
         all_chars = []
         pprint(self.__image[:, :, 0])
-        data = (self.__image[:, :, 0] < 127) * 1
+        data = (self.__image[:, :, 0] < 130) * 1
+        misc.imsave('binary.png', data)
 
         buf = set()
         checked = set()
@@ -686,7 +690,7 @@ class ImageAnal:
         poz = np.array([i.tolist() + [i[0] - i[2], i[3] - i[1]] for i in poz])
 #        print poz
         poz.tofile("/tmp/poz.txt", sep="&")
-        kropki = [tuple(i) for i in poz if i[4] < (poz[:, 4].mean() - 2 * poz[:, 4].std()) and i[5] < (poz[:, 4].mean() - 2 * poz[:, 4].std())]
+        kropki = [tuple(i) for i in poz if i[4] < (poz[:, 4].mean() - 0.5 * poz[:, 4].std()) and i[5] < (poz[:, 4].mean() - 0.5 * poz[:, 4].std())]
 #        print poz[:, 4].mean() - 2 * poz[:, 4].std()
         print kropki
         kropki = set(kropki)
@@ -698,7 +702,12 @@ class ImageAnal:
             found = False
             print "Sprawdzam kropke:", k
             lista = find_left(poz, k)
+            if not lista.shape:
+                found =  True
             while not found:
+                if not len(lista):
+                    found = True
+                    break
                 tmp = lista[0]
                 lista = lista[1:]
                 #pprint(kropki)
@@ -733,7 +742,10 @@ class ImageAnal:
         print "Kropki nad literami: ", kropki
         for i in kropki:
             print "Sklejam kropke", i
-            doklejka = find_down(poz, i)[0]
+            doklejka = find_down(poz, i)
+            if not doklejka.shape:
+                continue
+            doklejka = doklejka[0]
             print "doklejka: ", doklejka
             print doklejka[0]
             maxy = doklejka[0]
@@ -906,5 +918,5 @@ class ImageAnal:
         pprint(data)
         pprint(self.__image)
         print "B"
-   # def info(self):
-   #     print "Rozmiar obrazu: ",self.__image.shape
+    def shape(self):
+        return self.__image.shape
