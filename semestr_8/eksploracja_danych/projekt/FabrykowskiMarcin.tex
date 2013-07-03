@@ -14,6 +14,11 @@
 Celem projektu jest opracowanie klasyfikatora drzewiastego do klasyfikacji wina na podstawie jego parametrów.\\
 Jako zbiór do nauki, został wykorzystany zbiór\\
 http://archive.ics.uci.edu/ml/datasets/Wine+Quality
+\section{Opis etapu przygotowania danych}
+Dane źródłowe zamieszczone na stronie internetowej były zapisane w formacie CVS (załączony plik winequality-white.csv\_orig).\\
+Plik wejściowy musiał zostać przekonwertowany na format możliwy do wczytania przez bibliotekę Orange.\\
+Należało zastąpić separator ';' tabulatorem separującym, oraz usunąć cudzysłowia z z nagłówkowego wiersza.\\
+Efekt konwersji jest widoczny w pliku: winequality-white.csv
 \section{Klasyfikator}
 Klasyfikator jest operatorem potrafiącym, po wcześniejszym 'nauczeniu', przewidzieć klasyfikowaną wartość na podstawie badanych atrybutów. W naszym przypadku wartością klasyfikowaną jest jakość wina.\\
 Podczas tworzenia klasyfikatora, mamy możliwość określenia maksymalnej głębokości drzewa (max\_depth) oraz ilości iteracji przycinania drzewa (m\_prning).
@@ -34,4 +39,11 @@ Po wczytaniu danych, następuje wygenerowanie klasyfikatora dla wczytanych danyc
 Mając wygenerowanie drzewo klasyfikujące, zapisujemy je do pliku w formacie .dot.\\
 Wygenerowany plik .dot zostaje przetworzony przez moduł pygraphviz w celu wygenerowanie pliku graficznego PNG przedstawiającego otrzymamy klasyfikator.\\
 W ostatnim kroku obliczamy statystyki dla naszego klasyfikatora
+\section{Prezentacja wyników}
+Wynikiem działania programu jest klasyfikator drzewiasty przedstawiony na rys \ref{fig:klasyfikator}.
+\begin{figure}
+\includegraphics[width=15cm]{FabrykowskiMarcin.png}
+\caption{Reprezentacja graficzna klasyfikatora}
+\label{fig:klasyfikator}
+\end{figure}
 \end{document}
