@@ -24,6 +24,7 @@ def gen_baze():
         dane[l] = tmp
     return dane
 
+
 def porownaj(dane, p):
     wyniki = []
     test = misc.imresize(misc.imread(p), (50, 50))
@@ -48,8 +49,6 @@ if __name__ == "__main__":
     print "Zaczynam segmentacje"
     img.segment2('wynik')
 
-
-
     dane = gen_baze()
     pliki = glob.glob('wynik/*')
     pliki.sort()
@@ -66,7 +65,8 @@ if __name__ == "__main__":
 #        tekst.append(' ')
         i += 1
         pos = p.split('/')[1].split('x')[:4]
-        draw.text((int(pos[1]), int(pos[0])), text=znak, font=font, fill='black')
+        draw.text(
+            (int(pos[1]), int(pos[0])), text=znak, font=font, fill='black')
         print str(i) + "/" + str(len(pliki))
 
     wynik.save('rozpoznane.png')
