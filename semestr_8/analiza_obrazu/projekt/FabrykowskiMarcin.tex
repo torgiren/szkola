@@ -1,0 +1,46 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\author{Marcin TORGiren Fabrykowski}
+\title{Analiza i przetwarzanie obrazu\\Projekt}
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Opis problemu}
+Naszym zadaniem jest przeprowadzenie analizy obrazu pod kątem znalezienia i rozpoznania zawartych na nim tekstów.
+\section{Wymagania}
+Do poprawnego działania programu, potrzebne są następujące biblioteki:
+\begin{itemize}
+\item PIL
+\item scipy.misc
+\item shutil
+\item numpy
+\end{itemize}
+\section{Algorytm nauki}
+Proces nauki przeprowadzany jest według następującego algorytmu:
+\begin{enumerate}
+\item Wybranie czcionki
+\item Wygenerowanie obrazka zawierającego alfabet
+\item Segmentacja obrazu
+\item Posortowanie obrazu po współrzędnych X-owych
+\item Przypisanie kolejnym elementom kolejne litery alfabetu
+\item Przeskalowanie obrazów oraz przeniesienie do katalogu ze znanymi literami
+\item Całość powtórzyć dla wszystkich testowych czcionek
+\end{enumerate}
+\section{Segmentacja}
+Proces segmentacji przebiega według następującego algorytmu:
+\begin{enumerate}
+\item Znalezienie pierwszego czarnego piksela
+\item Dodanie do kolejki wszystkich jego czarnych sąsiadów
+\item Dodanie aktualnego piksela do listy pikseli tworzących literę oraz usunięcie go z obrazka
+\item Powtórzenie pkt 2-3 dla wszystkich pikseli w kolejce
+\item Po wyczyszczeniu kolejki, powtórzenie algorytmu od pkt. 1
+\end{enumerate}
+\section{Rozpoznanie}
+W celu rozpoznania litery, zastosowana została metoda "najmniejszej różnicy". Metoda ta polega na reprezentacji badanego obrazka jako macierzy dwuwymiarowej, a następnie przeprowadzeniu operacji odejmowania macierzowego z każdą macierzą reprezentującą litery poznane w procesie nauki.
+Dla każdej tak powstałej macierzy wynikowej, obliczane są wartości bezwzględne w ich elementów, a następnie sumowane.
+Tak otrzymana suma, jest "miarą niedopasowania" litery.
+Wybierana jest litera która ma najmniejszą wartość niedopasowania
+\end{document}
