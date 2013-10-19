@@ -11,6 +11,9 @@ class PS:
     def moveto(self, x, y):
         self.wynik.append("%f %f moveto" % (x, y))
 
+    def rmoveto(self, x, y):
+        self.wynik.append("%f %d rmoveto" % (x, y))
+
     def line(self, x,y ):
         self.wynik.append("%f %f lineto" % (x, y))
 
