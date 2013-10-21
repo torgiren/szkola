@@ -1,0 +1,24 @@
+Ściana wielowarswow					d/\lambda
+- Powierzchnia zew. przegrody		
+- tynk cementowo-wapienny			0.005/0.82 = 0.006
+- mur z ...
+- styropian, 6 cm, eps 40			0.06/0.04 = 1.5
+- mur z ceramiki 25 cm, pełna		0.25/0.77 = 0.32
+- tynk
+-
+
+budynek w 3 strefie klimatycznej, temp obliczeniowa
+\Theta_e = -20\degree
+temp wew, \Theta_i = 20
+
+\Theta_x = \Theta_e + U * (\Theta_i - \Theta_e) * R_e
+
+R_t = R_si + \Sum R + R_se
+
+Ruch poziomy
+R_si = 0.13
+R_se = 0.04
+
+U = 1 / R_t
+
+R_{e->x} = R_se + \Sum d/\lambda

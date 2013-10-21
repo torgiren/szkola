@@ -1,0 +1,20 @@
+Stropodach słabowentylowany
+- pow. zewnętrzna
+- papa asfaltowa, 7mm
+- konstrukcyjne przykrycie, płyty panwiowe, 10 cm
+- warstwa powietrzna, 40 cm (nieprzełazowe)
+- wełna mineralna, luźna, 6cm
+- szlichca cementowa 2cm
+- płyta żelbetowa, 14vm
+- sufit, tynk cementowo-wapienny 1cm
+
+1) Ruch ciepła do góry
+2) U = 1/R_t
+3) R_t = R_si + \Sum R + R_se
+R_si = 0.1
+R_se = 0.04
+
+Słabowentylowane warstwy powietrzna - opór cieplny = połowa oporu cieplnego warstwy niewentylowanej
+
+U = 0.62 W/(m K)
+
