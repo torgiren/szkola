@@ -4,6 +4,12 @@ class PS:
     def __init__(self):
         self.wynik = []
         self.wynik.append("")
+        self.wynik.append("%%BoundingBox: 0 0 500 500")
+        self.minx = 0
+        self.maxx =0
+        self.miny = 0
+        self.maxy =0
+        self.trnslate = []
 
     def translate(self, x, y):
         self.wynik.append("%f %f translate" %(x, y))

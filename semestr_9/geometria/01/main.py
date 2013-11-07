@@ -127,5 +127,5 @@ def wpisany():
 
 
 
-#podzial_odcinka()
+podzial_odcinka()
 wpisany()
