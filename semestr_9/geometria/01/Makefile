@@ -8,5 +8,8 @@ docs:
 	latex sprawozdanie.tex
 
 clean:
-	rm *.ps
-	rm *.dvi
+	rm -f *.ps
+	rm -f *.dvi
+	rm -f *.log
+	rm -f *.aux
+	rm -f *.pyc
