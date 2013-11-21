@@ -108,4 +108,5 @@ def zad2():
     with open("euler.ps", "w") as euler:
         euler.write(ps.gen())
 
+zad1()
 zad2()
