@@ -1,0 +1,193 @@
+H_v = \ro_a * c_a * V = 1200 V (W/K) gdy w m^3/s
+H_V = \ro_a * c_a * V = 0.33 V (W/K) gdy w m^3/h
+
+gaz E (gz50) - ilość powietrza do spalenia 1m^3 gazu 6 m^3
+wartość opałowa - 10kWh
+
+zad)
+Obliczyć wsp. przenoszenia ciepła przez przenikanie dla ściany zew. budynku o wymiarach ...  w której są zabudowane 
+
+
+
+OK2 - 130x126
+Drzwi balkonowe 
+Drzwi wejsciowe 110x200
+płyta balkonowa - 220
+
+
+Mostek związany z płytą balkonową ...
+mostek związany z .... g17
+
+U dla drzwi - 2.6
+U_w - 1.3
+Konstrukcja ściany:
+
+1.5cm tyn cementowo wapiennego - 0.82 (lambda)
+25cm cegła ceramiczna pełna - 0.77
+6cm styropiany ... - 
+12cm cegła ceramiczna pełna - 0.77
+1.5cm tynk cementowo wapienny 0.82
+
+
+H_tr = \Sum{b_{tr} * (\Sum{A * U} + \Sum{I * \Psi} }
+
+Pkt 1) Ściana zewnętrzna
+	b_{tr} = 1
+	1 * (A_w * U_w + A_d * U_d + A_{netto} * U_{sciany} + L_{ED} * \Psi{..} + L_{EW} * \Psi_{EW} + L_{EB} * \Psi{EB})
+	U_{sciany} = 1/ (RT)
+	RT = R_si + \Sum{R} + R_se
+	0.13 - R_si ?
+	0.04 - R_se ?
+	RT = 2.4 m^2K/W
+	U = 1/RT = 0.42 W/(m^2K)
+Pkt 2)
+	A_{brutto} = ??
+	A_D = 2.2m
+	A_W = 11.02m^2
+
+	A_{netto} = A_{brutto} - A_W - A_D
+	A_{netto} = 73.78 m^2
+
+	L_{ED} = 6.2m
+	L_{EB} = 4.4m
+	L_{EW} = 28.32m
+
+	H_{tr} = 1.0 * (  ... = 72.44 W/K
+
+
+zad)
+
+	Obliczyć wsp. przenoszenia ciepła dla budnyku dla budynku niepodpiwniczonego (podłoga na gruncie) - budynek w zabudowie szeregowej
+	Wymiary budynku: 200 x 10 x 12.4
+
+	Konstrukcja śćiany zew.:
+	- Tyn cementowo-wapienny 1.5cm 0.82
+	- Mur z cegły pełenj 51cm - 0.77 
+	- Styropian Eps40 - 12cm - 0.04
+
+	Podłoga na gruncie - wsp przenikania U = 1.0 W/(m^2K)
+	Stropodach - U = 0.7W(m^2K)
+	OP1 = 21 * 1.5
+	OP2 = 24 * 2.2
+	OP3 = 1.8 * 1.2
+	OP4(Drzwi) 1.2 * 2.2
+
+	Okna = U = 2.6
+	Drzwi U = 5.2
+
+
+	Współczynnik strat ciepła:
+	 Do liczenia będziemy uwzględniać 2 ściany podłużne, stropodach i podłogę na gruncie (zakładamy zę w sąsiednich budynkach temp wynosi 20 stopni)
+
+	Zakładamy:
+	Wymiary i konstrukcja ścian podłużnych budynku - taka sama
+
+	S_1 - szerokość 20m, wysokość 12.4
+	
+	dł ściany graniczącej - 10m
+
+
+	(?)H_tr(?) = b_tr * (\Sum (A_U ) + \Sum(L * \Psi))
+
+			= 2 * H_tr_s1 + H_tr_plogi + H_tr_stropodachu
+
+
+	??? = 0.26 W/(m^2k)
+	A_brutto = 248 m^2
+	pow_drzwi = ??
+	pow_netto = ??
+
+	H_tr_s1 = 1.0 * (pow_swiany_netto * U + pow_okien * 2.6 + 2.64 * 5.2)
+	długość motków na oknach 87 i 84
+
+	Obwód okna 1 = 7.2 * 8 = ??
+	L_EW = 99.6
+	mostek na drzwiach = 6.8
+
+	Okno osadzone w izolacji styropianowej \Psi_e = 0.0
+	Drzwi \Psi_ed = 0.0
+
+	Ściana s_2 taka sama jak s_1. H_tr tyle samo co dla s_1
+
+
+	Stropodach:
+	H_tr = b_tr * (\Sum(A * U) + \Sum(L * \Psi))
+
+
+	W przypadku izolacji ciągłej zewnętrznej (ocieplenie zewnętrzne) nie występują mostki liniowe i punktowe na kwarędziach budynku
+
+	H_tr dla dachu = 1 * 200 * U(0.7)
+
+
+	... dla podłob na gruncie 0.6
+
+	H_tr dla podłogi w budynku 200 * 0.6 = 120
+
+
+	H_tr dla całego budynku ... W/K
+
+	U_śr = \dfrac{\Sum(U*A)}{\Sum{A}} = \Sum{A}
+
+	U_sr = 0.67 W/(m^2K)
+
+
+
+
+	H_ve = \ro_a * c_a \Sum{b_{vek} * V_{vek,mn}}
+
+	... - Współczynnik korekcyjny dla ...
+	Dla powietrza zew. b_vek = 1
+
+	Dla budynku z wentylacją naturalną(grawitacyjną):
+	H_ve = 1200 * (b_ve1 * v_inf + b_ve2 * v_0)
+
+	Dla wentylacji grawitacyjnej nautralnej
+	b_ve1 = b_ve2 = 0,...
+
+	v_0 - powietrze higieniczne
+	v_inf = 0.05 * n_50 * V_went / 3600
+
+	n50 - krotność wymiany powietrza, krotnoś wentylacji
+	V_went - kubatura wentylowana (liczona po wymiarach wewnętrznych)
+
+	Dla budynków bez próby szczelności (nieznana krotność wentylacji) n50 przyjmujemy 4.0
+
+
+zad)
+	Wyznaczyć wpół przenoszenia ciepła przez wentylację dla mieszkania A_f = 70m^2 w którym zamieszkują 2 osoby.
+	Mieszkanie posiada kuchnię z oknem zew. wyposażoną w kuchekę indukcyjną oraz łązienkę i osobne WC.
+	Wysokość kondygnacji w świetle Hk 2.5m.
+	Budynek posiada wentylację grawitacyjna
+
+
+	Procedura liczenia:
+
+	B_ve = 1200 * \Sum{b_ve * V_ve}
+
+	Dla wentylacji grawitacyjnej ten wzór przyjmie postać:
+	1200 * (b_ve1 * V_inf + B_ve2 * V_0)
+
+	Pzy wentylacji naturalnej (grawitacyjnej) powietrze wentylacyjne jest powietrzem zewnętrznym.
+	Zatem, b_ve1 = b_ve2 = 1.0
+
+	Obliczenie ilości powietrza inf:
+	V_inf = 0.05 * n50 * V_went /3600
+	n50 = 4
+	V_inf = 0.2 * V_went / 3600
+
+	V_went = A_f * Hk
+
+	V_inf = 0.2 * 175 / 3600
+	V_inf = 0.01 m^3/s
+
+	Obliczenie ilości powietrza higienicznego:
+	Przy wentylacji grawitacyjnej nie jest znane ilości powietrza dopływającego do mieszkania
+	Ilości powitrza higienicznego obliczamy na podstawie ilość powietrza opuszczającego mieszkanie przez kratki wentylacyjne (kuchnia, łazienka, WC)
+	V_kuchnia = 30 m^3/h
+	V_lazienka = 50 m^3/h
+	V_wc	= 30 m^3/h
+
+	V_0 = 110 / 3600 = 0.3 m^3/s
+
+	H_ve = 1200 * (1 * 0.01 + 1 * 0.3) 
+	H_ve = 48 W/K
