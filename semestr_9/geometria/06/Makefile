@@ -1,7 +1,7 @@
 all: pics docs
 
 pics:
-	python main.py < test.dat
+	python main.py
 
 docs:
 	latex sprawozdanie.tex
