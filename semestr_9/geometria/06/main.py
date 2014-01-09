@@ -3,24 +3,16 @@
 from ps import PS
 import math
 import functions
+from pprint import pprint
 
-def cmp(x,y):
-    a = math.atan2(x[1],x[0])
-    if a < 0:
-        a+=2*math.pi
-    b = math.atan2(y[1], y[0])
-    if b < 0:
-        b+=2*math.pi
-    c = a -b
-    if c > 0:
-        return 1
-    elif c < 0:
-        return -1
-    else:
-        return 0
+def myatan2(x,y):
+    a = math.atan2(y,x)
+    if a<0:
+        a+= 2*math.pi
+    return a
 
-
-pkt = [(1, 1), (0.5, 2), (-5, 0), (-1, -1), (0, 4), (0, -5), (-1, 1)]
+pkt = [(1, 1), (0,1), (0.5, 2), (-5, 0), (-1, -1), (0, 4), (0, -5), (-1, 1)]
+pkt = [(6,4), (4,5), (3, 4), (0,6), (-2, 3), (-2 ,2), (-6, 1), (0, 0), (-3, -2), (3, -2)]
 print pkt
 
 
@@ -29,62 +21,75 @@ lowest = pkt2[0]
 for i in pkt2:
     if i[1] < lowest[1]:
         lowest = i
-pkt2.remove(lowest)
+#pkt2.remove(lowest)
+pkt3 = [(i, myatan2(i[0], i[1])) for i in pkt2]
+print pkt3
+print pkt3.sort(key=lambda x: x[1])
+pkt3 = pkt3[1:]
+pprint(pkt3)
 
 
 
-pkt2.sort(cmp=cmp)
-print pkt2
+stos = [pkt3[0], pkt3[1]]
+for i in pkt3[2:]:
+    print "Dodaje", i
+    stos.append(i)
+    print stos[-2], stos[-1]
+    #a = math.atan2(stos[-1][0][1] -stos[-2][0][1], stos[-1][0][0] - stos[-2][0][0])
+    #if a<0:
+    #    a+= math.pi * 2
+    #b = math.atan2(stos[-2][0][1] -stos[-3][0][1], stos[-2][0][0] - stos[-3][0][0])
+    #if b<0:
+    #    b+= math.pi * 2
+    a = 1
+    b = 2
+    while a<b:
+        start = stos[-3][0]
+        first = stos[-2][0]
+        sec = stos[-1][0]
+        first = (first[0] - start[0], first[1] - start[1])
+        sec =(sec[0] - start[0], sec[1] - start[1])
+        print start, first, sec
+        a = math.atan2(*first)
+        b = math.atan2(*sec)
+        if a<0:
+            a+= math.pi * 2
+        if b<0:
+            b+= math.pi * 2
+        print math.degrees(a), math.degrees(b)
+        #while not stos[-3][1] <= stos[-2][1] and not stos[-2][1] <= stos[-1][1]:
+        if a<b:
+            print "Usuwam", stos[-2]
+            del(stos[-2])
+        print ""
+    print "****"
+pprint(stos)
 
 
-a = pkt2[0]
-b = pkt2[1]
-pro = functions.prosta(a,b)
-print pro[0] * pkt2[2][0] + pro[1], pkt2[2][1]
 
-print pro
-
-exit(0)
+factor = 15
 
 
-
-
-
-
-def pole(a, b, c):
-    return (b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1])
-n = int(raw_input("POdaj liczbe wierzcholkow: "))
-w = []
-for i in range(n):
-    tmp = raw_input("Podaj w%d w formacie x,y np: 6,8: ")
-    tmp = tmp.split(',')
-    print tmp
-    w.append((float(tmp[0].strip()), float(tmp[1].strip())))
-
-suma = 0
-for i in range(n - 1):
-    suma += pole(w[0], w[i], w[i + 1])
-suma /= 2.0
-print suma
 p = PS()
 p.setfont()
 p.translate(200, 200)
-p.newpath()
-p.moveto(*w[0])
-for i in w:
-    print i
-    p.line(*i)
-p.line(*w[0])
-p.stroke()
-p.moveto(0,-50)
-p.text("Pole = %f" % suma)
 
-for i in w[1:-1]:
+for i in pkt:
     p.newpath()
-    p.moveto(*w[0])
-    p.dash()
-    p.line(*i)
+    p.arc(factor * i[0], factor * i[1], 2, 0, 360)
     p.stroke()
 
-with open("trig.ps", "w") as pole:
-    pole.write(p.gen())
+p.newpath()
+print stos[0][0][0]
+p.moveto(factor * stos[0][0][0], factor * stos[0][0][1])
+for i in stos[1:]:
+    i = i[0]
+    p.line(factor * i[0], factor * i[1])
+    p.stroke()
+    p.newpath()
+    p.moveto(factor * i[0], factor * i[1] )
+p.line(factor * stos[0][0][0], factor * stos[0][0][1])
+p.stroke()
+
+with open("otoczka.ps", "w") as otoczka:
+    otoczka.write(p.gen())
