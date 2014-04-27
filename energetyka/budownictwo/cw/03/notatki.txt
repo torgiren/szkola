@@ -1,0 +1,7 @@
+Wsp przenikania ciepła przegród z mostatkami
+
+U_k = U + \Sum{\dfrac{\Psi_i * L_i}{A}} + \Sum{\dfrac{X_j}{A}}
+
+Pow. świany netto = Pow. ściany brutto - otworzy (okna, drzwi, itp)
+
+
