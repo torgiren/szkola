@@ -1,0 +1,44 @@
+Lz = wymiar zewnętrsny
+
+Hk - coś tam kondygnacji
+D - grubość stropu
+hk - wysokość w świetle
+Hk - hk + D
+Af - powierzchnia w świetle
+Af * hk - Kubatura
+
+Aw - powierzchnia okna (dziury w ścianie)
+Ag - powierzchnia szyby
+Af - powierzchnia futryny
+Ag + Af = Aw
+C - przeszklenie okna
+C = Ag / ( Ag + Af)
+Powierzchnię ramy wyznaczamy jako Aw - Ag
+
+PM - powierzchnia mieszkalna
+PU - Powierzchnia użytkowa
+
+Pokój 1:
+Powierzchnia mieszkalna
+Af = 586 * 373
+wysokość kondygnacji - 2.7
+D = 20cm
+V = 54.64
+
+\Phi = \lambda /d * A (\Theta1 - \Theta0) - Prawo Fouriera
+\Thetax - temperatura ściany
+R = d / \lambda m^2K/W
+
+\Phi = h_{cv} - A_s * (\Theta_s - \Theta_{\inf}) - Równanie Newtona
+h_cv = 1 / R_cv 
+
+\Phi_r = A * \epsilon_z * C_0 * [ (T_1/100)^4 - (T_2/100)^4] - Prawo Prevosta
+
+Przejmowanie ciepła:
+R_s = 1 / (h_r + h_{cv})
+
+wewnętrzna:
+R_{si} = 1 / (h_{ri} + h_{cvi})
+
+zewnętrzna
+R_{se} = 1 / (h_{re} + h_{cve})

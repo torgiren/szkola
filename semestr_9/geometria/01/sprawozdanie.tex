@@ -1,0 +1,49 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\author{Marcin Fabrykowski}
+\title{Geometria komputerowa\\Laboratorium 01}
+\begin{document}
+\maketitle
+\newpage
+Złoty podział jest podziałem szeroko wykorzystywany w wielu dziedzinach życia, od malarstwa, przed format książek, po laboratoria z geometrii komputerowej\\
+Powstrzymam się tutaj od wklejania dużej ilości teorii z Wikipedii.\\
+
+
+\section{Podział odcinka}
+Jednym ze sposobów na wyznaczenie złotego podziału, jest podział odcinka.\\
+\begin{figure}
+\includegraphics{odcinek}
+\caption{Podział odcinka}
+\label{fig:odcinek}
+\end{figure}
+Sposób postępowania:
+\begin{enumerate}
+\item Tworzymy kwadrat o boku $a = |AC|$
+\item Wyznaczamy pkt $B$ będący połową odcinka $AC$
+\item Kreślimy odcinek $BE$
+\item Odkładamy odcinek $BE$ od punku $B$ na prostej przechodzącej przez punkty $A$ i $C$
+\item Stosunek długości $|AC|$ do $|CD|$ jest równy złotej liczbie $\frac{\sqrt{5} + 1}{2}$
+\end{enumerate}
+Reprezentacja graficzna została przedstawiona na rys. \ref{fig:odcinek}.
+
+\section{Konstrukcja Odoma}
+Drugim sposobem na wyznaczenie złotego podziału jest konstrukcja Odoma.
+Sposób postępowania:
+\begin{enumerate}
+\item Rysujemy trójkąt równoboczny
+\item Opisujemy na nim okrąg
+\item Wyznaczały punkty środkowe odcinków $AC$ oraz $BC$
+\item Wyznaczamy punkt $F$ będący przecięciem prostej przechodzącej przed punkty $D$ oraz $E$ oraz opisanego okręgu
+\item Stosunek $DE$ do $EF$ jest złotym podziałem
+\end{enumerate}
+Reprezentacja graficzna została przedstawiona na rys. \ref{fig:wpisany}.
+
+\begin{figure}
+\includegraphics{wpisany}
+\caption{Konstrukcja Odoma}
+\label{fig:wpisany}
+\end{figure}
+\end{document}
