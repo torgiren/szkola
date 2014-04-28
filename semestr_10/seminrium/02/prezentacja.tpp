@@ -109,3 +109,8 @@ Frontend: HTML + Javascript
 | |
 | + Filtrowanie wyników
 |/
+
+--newpage
+--withborder
+
+--center Dziękuję za uwagę
