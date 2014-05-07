@@ -34,7 +34,7 @@ Opis pracy był już przedstawainy na poprzedniej prezentacji
 
 + Aplikacja
 |
-+ GUI
++ Baza danych
 
 --newpage Technologie/ Aplikacja
 --heading Technologie/ Aplikacja
@@ -93,14 +93,14 @@ Frontend: HTML + Javascript
 --withborder
 
 + Zrobione:
-||
+|\
 | + Wstępny edytor do formularzy
 | |
 | + Wyświetlanie formularzy
 |/
 ---
 + Do zrobienia:
-|| 
+|\ 
 | + Edycja formularzy
 | |
 | + Wypełnianie formularzy
