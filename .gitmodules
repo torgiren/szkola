@@ -1,0 +1,3 @@
+[submodule "semestr_10/zespolowe/dist-mon"]
+	path = semestr_10/zespolowe/dist-mon
+	url = git@github.com:torgiren/dist-mon.git
