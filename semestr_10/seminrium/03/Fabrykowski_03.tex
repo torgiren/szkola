@@ -1,0 +1,64 @@
+\documentclass[12pt]{beamer}
+\usetheme{AGH}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\author{Marcin Fabrykowski\\pod kierownictwem dr inż. Piotra Gronka}
+\title{System zautomatyzowanego zarządzania farmą serwerów aplikacji WWW}
+\date{\today}
+\begin{document}
+\titleframe[pl]
+\begin{frame}
+		\frametitle{Spis treści}
+		\begin{itemize}
+			\item Opis tematu
+			\item Używane technologie
+			\item Plan pracy
+		\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Opis tematu}
+"System zautomatyzowanego zarządzania konfiguracją farmą serwerów aplikacji WWW"
+\begin{block}{Cele:}
+		\begin{itemize}[<+->]
+		\item stworzenie klastra
+		\item zautomatyzowanie zarządzania
+		\item wykonanie testów HP i HA
+		\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Używane technologie}
+\begin{block}{Używam:}
+	\begin{itemize}[<+->]
+	\item Ansible
+	\item Python (uWSGI)
+	\item PHP-fpm
+	\item Nginx
+	\item HAproxy
+	\item LVS
+	\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Plan pracy}
+\begin{itemize}[<+->]
+\item przygotować środowisko testowe
+\item opracować strukturę plików
+\item konfiguracja php-fpm
+\item konfiguracja nginx 
+\item konfiguracja haproxy
+\item konfiguracja lvs
+\item przystosowanie aplikacji do CentOS
+\item konfiguracja python
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+		Dziękuję za uwagę
+\end{center}
+\end{frame}
+
+\end{document}
